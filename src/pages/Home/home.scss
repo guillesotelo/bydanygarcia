@@ -1,5 +1,28 @@
 .home {
     &__container {
         margin-top: 5vw;
+        display: flex;
+        flex-direction: column
     }
+
+    &__header {
+        align-self: center;
+
+        &-title {
+            font-size: 1.2vw;
+            font-weight: normal;
+            padding-bottom: 1.5vw;
+            border-bottom: 1px solid gray;
+        }
+    }
+
+    &__postlist {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2vw;
+        margin-top: 2vw;
+    }
+
+    
 }
