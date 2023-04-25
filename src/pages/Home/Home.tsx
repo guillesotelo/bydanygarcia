@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import Header from '../../components/Header/Header'
 type Props = {}
 
 export default function Home({ }: Props) {
@@ -42,7 +41,5 @@ export default function Home({ }: Props) {
     }
 
     return <div className="home__container">
-        <Header />
-        <h4>REST OF THE PAGE</h4>
     </div>
 }
