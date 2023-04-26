@@ -1,0 +1,44 @@
+.footer {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 6vw;
+        background-color: #ece7e6;
+    }
+
+    &__nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2vw;
+        margin: 0 2vw;
+
+        &-link {
+            cursor: pointer;
+            font-weight: normal;
+            transition: .3s;
+
+            &:hover {
+                opacity: .5;
+                transition: .3s;
+            }
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 2vw;
+    }
+
+    &__copyright {
+        font-weight: normal;
+
+    }
+}

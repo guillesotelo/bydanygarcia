@@ -43,7 +43,11 @@
             font-size: 1vw;
             margin: 0 2vw;
             font-weight: normal;
-            // padding-right: .5vw;
+            cursor: pointer;
+            transition: .5s;
+            &:hover {
+                opacity: .5;
+            }
         }
     }
 
@@ -78,17 +82,17 @@
     }
 
     &__social {
-        margin-left: 2vw;
+        margin-left: 3vw;
         &-svg {
             height: 1vw;
-            margin: 1vw 1.2vw;
+            margin: 1vw;
             cursor: pointer;
             transition: 0.3s;
 
             &:hover {
                 opacity: 0.5;
                 transition: 0.3s;
-            }
+                filter: invert(51%) sepia(3%) saturate(2931%) hue-rotate(314deg) brightness(103%) contrast(99%);            }
         }
     }
 

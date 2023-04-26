@@ -1,0 +1,24 @@
+.about {
+    &__container {
+        margin: 7vw 4vw;
+        min-height: 60vh;
+        position: relative;
+    }
+    &__text {
+        width: 70%;
+    }
+    &__image {
+        height: 100%;   
+        width: 100%;   
+        object-fit: cover;
+        &-div {
+            height: 25vw;
+            width: 25vw;
+            border-radius: 50%;
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+    }
+}
