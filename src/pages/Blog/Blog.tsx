@@ -13,7 +13,7 @@ export default function Blog({ }: Props) {
 
     const getPosts = async () => {
         const posts = await getAllPosts()
-        if (posts) setAllPosts(posts)
+        if (posts) setAllPosts(posts.length ? posts : [])
     }
 
     return (
@@ -22,7 +22,7 @@ export default function Blog({ }: Props) {
                 <h4 className="home__header-title">LATEST POSTS</h4>
             </div>
             <div className="blog__list">
-                {allPosts.map(post => <PostCard post={post} />)}
+                {allPosts.map((post, i) => <PostCard key={i} post={post} />)}
             </div>
         </div>
     )
