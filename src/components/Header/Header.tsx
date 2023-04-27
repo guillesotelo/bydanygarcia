@@ -6,6 +6,7 @@ import Pinterest from '../../assets/icons/pinterest.svg'
 import Youtube from '../../assets/icons/youtube.svg'
 import Search from '../../assets/icons/search-icon.svg'
 import { useHistory } from 'react-router-dom'
+import Button from '../Button/Button'
 
 type Props = {}
 
@@ -23,7 +24,7 @@ export default function Header({ }: Props) {
             <div className="header__items">
                 <div className="header__item">
                     <h4 className="header__item-text" onClick={() => history.push('/blog')}>BLOG</h4>
-                    <img className="header__item-svg" src={ChevronDown} />
+                    {/* <img className="header__item-svg" src={ChevronDown} /> */}
                 </div>
                 <div className="header__item">
                     <h4 className="header__item-text">JOURNAL</h4>
@@ -46,6 +47,10 @@ export default function Header({ }: Props) {
                     <img className="header__social-svg" src={Pinterest} />
                     <img className="header__social-svg" src={Youtube} />
                 </div>
+                <Button
+                    label='CREATE'
+                    handleClick={() => history.push('/editor')}
+                />
                 <div className="header__search">
                     <img className="header__search-svg" src={Search} />
                     <input type="text" className="header__search-input" placeholder='Search' />

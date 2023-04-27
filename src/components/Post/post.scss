@@ -1,5 +1,14 @@
 .post {
     &__container {
         margin: 5vw 2vw;
+        // position: relative;
     }
+&__image {
+    width: 100%;
+    opacity: .15;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 }

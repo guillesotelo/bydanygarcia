@@ -58,6 +58,7 @@ export default function PostEditor({ }: Props) {
         <div className='editor__container'>
             <h1 className="page__title">Edit New Post</h1>
             <div className="editor__data-input">
+                <div className="editor__input-col">
                 <InputField
                     name='title'
                     updateData={updateData}
@@ -73,16 +74,29 @@ export default function PostEditor({ }: Props) {
                     updateData={updateData}
                     placeholder='Tags (e.g experience, study, worship)'
                 />
+                </div>
+                <div className="editor__input-col">
                 <InputField
-                    name='description'
+                    name='imageUrl'
                     updateData={updateData}
-                    placeholder='Description (optional)'
+                    placeholder='Image URL (https://image.png)'
                 />
                 <InputField
+                    name='overlap'
+                    updateData={updateData}
+                    placeholder='Overlap (title over image)'
+                />
+                 <InputField
+                    name='description'
+                    updateData={updateData}
+                    placeholder='Description (short text)'
+                />
+                {/* <InputField
                     name='type'
                     updateData={updateData}
                     placeholder='Type (optional)'
-                />
+                /> */}
+                </div>
             </div>
             <Editor
                 editorState={editorState}
