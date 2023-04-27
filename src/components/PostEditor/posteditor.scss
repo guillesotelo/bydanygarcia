@@ -1,0 +1,39 @@
+.editor {
+    &__container {
+        margin: 5vw 2vw 0 2vw;
+        padding-bottom: 10vw;
+    }
+    &__data-input {
+        display: flex;
+        flex-direction: column;
+        gap: .5vw;
+        width: 30vw;
+        margin: 1vw 0;
+    }
+    &__btns {
+        display: flex;
+        flex-direction: row;
+        margin-top: 1vw;
+        gap: 1vw;
+    }
+
+    &__wrapper {
+        border: 1px solid #e9e9e9;
+        border-radius: .5vw;
+        // padding: 1vw;
+        width: 60%;
+        box-shadow: 5px 5px 15px lightgray;
+    }
+
+    &__editor {
+        min-height: 20vw;
+        padding: .5vw 1vw;
+        cursor: text;
+    }
+
+    &__toolbar {
+        background-color: #ece7e6 !important;
+        border-color: #ece7e6 !important;
+        border-radius: .5vw !important;
+    }
+}

@@ -55,6 +55,7 @@ export default function Home({ }: Props) {
                     overlap='Title over image'
                     description=''
                     img={image}
+                    post={{}}
                 />
             )}
         </div>

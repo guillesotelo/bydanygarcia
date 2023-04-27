@@ -22,7 +22,7 @@ export default function Header({ }: Props) {
             </div>
             <div className="header__items">
                 <div className="header__item">
-                    <h4 className="header__item-text">BLOG</h4>
+                    <h4 className="header__item-text" onClick={() => history.push('/blog')}>BLOG</h4>
                     <img className="header__item-svg" src={ChevronDown} />
                 </div>
                 <div className="header__item">

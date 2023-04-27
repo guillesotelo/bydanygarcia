@@ -1,0 +1,21 @@
+.inputfield {
+    &__default {
+        border: 1px solid lightgray;
+        border-radius: .5vw;
+        font-size: 1vw;
+        padding: .4vw;
+        font-weight: normal;
+
+        &:focus {
+            border: 1px solid #D3AFAF;
+            outline: none;
+        }
+        &:active {
+            border: 1px solid #D3AFAF;
+            outline: none;
+        }
+        &::placeholder {
+            color: #b5b5b5;
+        }
+    }
+}

@@ -3,15 +3,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import './index.css';
 import App from './App';
-import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ToastContainer autoClose={2000} />
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Toaster />
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
