@@ -13,11 +13,11 @@ const getConfig = () => {
 
 const loginUser = async (user: { [key: string | number]: any }) => {
     try {
-        const res = await axios.post(`${API_URL}/api/user`, user)
+        const res = await axios.post(`${API_URL}/api/user/login`, user)
         const finalUser = res.data
         localStorage.setItem('user', JSON.stringify({
             ...finalUser,
-            app: 'easy-notes',
+            app: 'bydanygarcia',
             login: new Date()
         }))
         if (finalUser.defaultLedger !== null) localStorage.setItem('ledger', finalUser.defaultLedger)

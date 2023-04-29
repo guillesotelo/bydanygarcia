@@ -12,7 +12,7 @@ type Props = {
 
 export default function PostCard({ subtitle, title, description, overlap, img, post }: Props) {
     const history = useHistory()
-    const handleClick = () => history.push(`/post?id=${post._id}`)
+    const handleClick = () => post._id ? history.push(`/post?id=${post._id}`) : ''
 
     return (
         <div className='postcard__container' onClick={handleClick}>

@@ -10,6 +10,7 @@ import Contact from './pages/Contact/Contact';
 import PostEditor from './components/PostEditor/PostEditor';
 import PostViewer from './pages/PostViewer/PostViewer';
 import Blog from './pages/Blog/Blog';
+import Login from './pages/Login/Login';
 
 const App: React.FC = () => {
   return (
@@ -77,8 +78,20 @@ const App: React.FC = () => {
         </div>
       </Route>
 
+      <Route path="/login">
+        <div className='page__wrapper'>
+          <Header />
+          <Login />
+          <Footer />
+        </div>
+      </Route>
+
       <Route>
-        <Home />
+        <div className='page__wrapper'>
+          <Header />
+          <Home />
+          <Footer />
+        </div>
       </Route>
     </Switch>
   );
