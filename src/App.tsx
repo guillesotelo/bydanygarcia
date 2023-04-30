@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import './scss/app.scss'
@@ -11,13 +11,16 @@ import PostEditor from './components/PostEditor/PostEditor';
 import PostViewer from './pages/PostViewer/PostViewer';
 import Blog from './pages/Blog/Blog';
 import Login from './pages/Login/Login';
+import Search from './pages/Search/Search';
 
 const App: React.FC = () => {
+  const [search, setSearch] = useState<string[]>([])
+
   return (
     <Switch>
       <Route exact path="/">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <Home />
           <Footer />
         </div>
@@ -25,7 +28,7 @@ const App: React.FC = () => {
 
       <Route path="/privacyPolicy">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <PrivacyPolicy />
           <Footer />
         </div>
@@ -33,7 +36,7 @@ const App: React.FC = () => {
 
       <Route path="/about">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <About />
           <Footer />
         </div>
@@ -41,7 +44,7 @@ const App: React.FC = () => {
 
       <Route path="/contact">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <Contact />
           <Footer />
         </div>
@@ -49,7 +52,7 @@ const App: React.FC = () => {
 
       <Route path="/editor">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <PostEditor />
           <Footer />
         </div>
@@ -57,14 +60,14 @@ const App: React.FC = () => {
 
       <Route path="/post">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <PostViewer />
           <Footer />
         </div>
       </Route>
       <Route path="/post:id">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <PostViewer />
           <Footer />
         </div>
@@ -72,7 +75,7 @@ const App: React.FC = () => {
 
       <Route path="/blog">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <Blog />
           <Footer />
         </div>
@@ -80,15 +83,23 @@ const App: React.FC = () => {
 
       <Route path="/login">
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <Login />
+          <Footer />
+        </div>
+      </Route>
+
+      <Route path="/search">
+        <div className='page__wrapper'>
+          <Header search={search} setSearch={setSearch} />
+          <Search search={search}/>
           <Footer />
         </div>
       </Route>
 
       <Route>
         <div className='page__wrapper'>
-          <Header />
+          <Header search={search} setSearch={setSearch} />
           <Home />
           <Footer />
         </div>

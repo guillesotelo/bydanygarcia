@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import Menu from '../../assets/icons/menu-icon.svg'
 import ChevronDown from '../../assets/icons/chevron-down.svg'
 import Instagram from '../../assets/icons/instagram.svg'
@@ -9,13 +9,17 @@ import { useHistory } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
-import { deletePost } from '../../services'
+import { deletePost, getAllPosts } from '../../services'
 import { toast } from 'react-hot-toast'
 
-type Props = {}
+type Props = {
+    search: string[]
+    setSearch: (value: string[]) => void
+}
 
-export default function Header({ }: Props) {
+export default function Header({ search, setSearch }: Props) {
     const [postId, setPostId] = useState('')
+    const [prompt, setPrompt] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const history = useHistory()
@@ -23,9 +27,7 @@ export default function Header({ }: Props) {
     useEffect(() => {
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
         if (user && user.token && user.username) setIsAdmin(true)
-    }, [])
 
-    useEffect(() => {
         const id = new URLSearchParams(document.location.search).get('id')
         if (id) setPostId(id)
         else setPostId('')
@@ -39,6 +41,18 @@ export default function Header({ }: Props) {
         }
     }, [deleteModal])
 
+    const handleSearch = (e: any) => {
+        const { value } = e.target
+        setPrompt(value)
+    }
+
+    const triggerSearch = () => {
+        if (prompt) {
+            setSearch(prompt.split(' '))
+            history.push('/search')
+        }
+    }
+
     const handleDeletePost = async () => {
         await toast.promise(
             deletePost({ _id: postId }),
@@ -51,6 +65,17 @@ export default function Header({ }: Props) {
         setDeleteModal(false)
         setTimeout(() => history.push('/blog'), 1500)
     }
+
+    const logOut = () => {
+        localStorage.clear()
+        toast.success('See you later!')
+        setTimeout(() => {
+            setIsAdmin(false)
+            setPostId('')
+            history.push('/')
+        }, 1500)
+    }
+
     return (
         <div className='header__container'>
             {deleteModal ?
@@ -72,12 +97,12 @@ export default function Header({ }: Props) {
             <div className='header__menu'>
                 <img className="header__menu-svg" src={Menu} />
             </div>
-            <div className="header__logo">
-                <h4 className="header__logo-text" onClick={() => history.push('/')}>by DANY GARCIA</h4>
+            <div className="header__logo" onClick={() => history.push('/')}>
+                <h4 className="header__logo-text">by DANY GARCIA</h4>
             </div>
             <div className="header__items">
-                <div className="header__item">
-                    <h4 className="header__item-text" onClick={() => history.push('/blog')}>BLOG</h4>
+                <div className="header__item" onClick={() => history.push('/blog')}>
+                    <h4 className="header__item-text">BLOG</h4>
                     {/* <img className="header__item-svg" src={ChevronDown} /> */}
                 </div>
                 <div className="header__item">
@@ -92,8 +117,8 @@ export default function Header({ }: Props) {
                     <h4 className="header__item-text">DISCOVER</h4>
                     <img className="header__item-svg" src={ChevronDown} />
                 </div>
-                <div className="header__item">
-                    <h4 className="header__item-text" onClick={() => history.push('/about')}>ABOUT</h4>
+                <div className="header__item" onClick={() => history.push('/about')}>
+                    <h4 className="header__item-text">ABOUT</h4>
                     {/* <img className="header__item-svg" src={ChevronDown} /> */}
                 </div>
                 <div className="header__social">
@@ -102,11 +127,12 @@ export default function Header({ }: Props) {
                     <img className="header__social-svg" onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
                 </div>
                 <div className="header__admin-btns">
-                    <Button
-                        label='CREATE'
-                        handleClick={() => history.push('/editor')}
-                        bgColor='#ece7e6'
-                    />
+                    {isAdmin ?
+                        <Button
+                            label='CREATE'
+                            handleClick={() => history.push('/editor')}
+                            bgColor='#ece7e6'
+                        /> : ''}
                     {postId && isAdmin ?
                         <Button
                             svg={EditIcon}
@@ -121,10 +147,18 @@ export default function Header({ }: Props) {
                             bgColor='#ece7e6'
                         />
                         : ''}
+                    <div className="header__item">
+                        <h4 className="header__item-text" onClick={() => {
+                            if (isAdmin) logOut()
+                            else history.push('/login')
+                        }}>{isAdmin ? 'LOGOUT' : 'LOGIN'}</h4>
+                    </div>
                 </div>
                 <div className="header__search">
-                    <img className="header__search-svg" src={Search} />
-                    <input type="text" className="header__search-input" placeholder='Search' />
+                    <img className="header__search-svg" src={Search} onClick={triggerSearch} />
+                    <input type="text" className="header__search-input" placeholder='Search' onChange={handleSearch} onKeyDown={e => {
+                        if (e.key === 'Enter') triggerSearch()
+                    }} />
                 </div>
             </div>
         </div>

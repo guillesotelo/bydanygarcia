@@ -154,7 +154,7 @@ export default function PostEditor({ }: Props) {
             <div className="editor__btns">
                 <Button
                     label='Discard'
-                    handleClick={() => history.go(0)}
+                    handleClick={() => isUpdate ? history.goBack() : history.go(0)}
                     bgColor='lightgray'
                     disabled={!isEdited && !isUpdate}
                 />
@@ -165,5 +165,5 @@ export default function PostEditor({ }: Props) {
                 />
             </div>
         </div>
-        : ''
+        : <div></div>
 }
