@@ -1,11 +1,12 @@
 .postcard {
     &__container {
-        display: flex;
+        display: none;
         flex-direction: column;
         height: 30vw;
         width: 20vw;
         cursor: pointer;
         transition: .5s;
+        animation: fade-in-card 1s ease-in;
 
         &:hover {
             filter: brightness(110%) saturate(120%);

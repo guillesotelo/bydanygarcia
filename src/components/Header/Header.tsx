@@ -111,7 +111,7 @@ export default function Header({ search, setSearch }: Props) {
                 </div>
                 <div className="header__item">
                     <h4 className="header__item-text">BESPOKEN</h4>
-                    <img className="header__item-svg" src={ChevronDown} />
+                    {/* <img className="header__item-svg" src={ChevronDown} /> */}
                 </div>
                 <div className="header__item">
                     <h4 className="header__item-text">DISCOVER</h4>

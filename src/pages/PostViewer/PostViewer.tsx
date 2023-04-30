@@ -9,6 +9,7 @@ export default function PostViewer({ }: Props) {
     const [post, setPost] = useState({})
     const [rawData, setRawData] = useState('')
     const [postId, setPostId] = useState('')
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const id = new URLSearchParams(document.location.search).get('id')
@@ -20,6 +21,7 @@ export default function PostViewer({ }: Props) {
     }, [postId])
 
     const getPost = async (id: string) => {
+        setLoading(true)
         const _post = await getPostById(id)
         if (_post) {
             setPost(_post)
@@ -28,13 +30,17 @@ export default function PostViewer({ }: Props) {
                 setRawData(htmlContent || '')
             }
         }
+        setLoading(false)
     }
     return (
         <div className='postviewer__container'>
-            <Post
-                headers={post}
-                content={rawData}
-            />
+            {loading ? <span className="loader"></span>
+                :
+                <Post
+                    headers={post}
+                    content={rawData}
+                />
+            }
         </div>
     )
 }

@@ -1,0 +1,88 @@
+@keyframes move-y-down {
+    0% {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes move-y-up {
+    0% {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in-card {
+    0% {
+        opacity: 0;
+        transform: translateY(7%);
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    border: 6px solid gray;
+    box-sizing: border-box;
+    animation: fill 2s linear infinite alternate;
+    color: #D3AFAF;
+    border-radius: 0 0 6px 6px;
+
+    &::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 6px solid gray;
+        width: 18px;
+        height: 25px;
+        border-radius: 0 6px 6px 0;
+    }
+}
+
+@keyframes fill {
+    0% {
+        box-shadow: 0 0 inset;
+    }
+
+    100% {
+        box-shadow: 0 -48px inset;
+    }
+}

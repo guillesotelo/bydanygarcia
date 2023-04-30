@@ -10,6 +10,7 @@
         width: 100%;
         background-color: #fff;
         z-index: 1;
+        animation: move-y-down .7s ease-in;
     }
 
     &__menu {
