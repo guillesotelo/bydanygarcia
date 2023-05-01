@@ -16,8 +16,11 @@ export default function Blog({ }: Props) {
     useEffect(() => {
         if (allPosts.length && !showUp) {
             const cards = Array.from(document.getElementsByClassName('postcard__container') as HTMLCollectionOf<HTMLElement>)
-            if (cards && cards.length) cards.forEach(card => {
-                setTimeout(() => card.style.display = 'flex', 300)
+            if (cards && cards.length) cards.forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.display = 'flex'
+                    card.style.transition = '.5s'
+                }, i * 120)
             })
             setShowUp(true)
         }

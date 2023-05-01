@@ -9,6 +9,10 @@ type Props = {
 export default function Blog({ search }: Props) {
     const [allPosts, setAllPosts] = useState<{ [key: string | number]: any }[]>([])
     const [filteredPosts, setFilteredPosts] = useState<{ [key: string | number]: any }[]>([])
+    const [showUp, setShowUp] = useState(false)
+
+    console.log("search", search)
+    console.log("filteredPosts", filteredPosts)
 
     useEffect(() => {
         getPosts()
@@ -25,7 +29,21 @@ export default function Blog({ search }: Props) {
 
     useEffect(() => {
         render()
+        setTimeout(() => applyAnimation(), 50)
     }, [allPosts])
+
+    const applyAnimation = () => {
+        if (filteredPosts.length && !showUp) {
+            const cards = Array.from(document.getElementsByClassName('postcard__container') as HTMLCollectionOf<HTMLElement>)
+            if (cards && cards.length) cards.forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.display = 'flex'
+                    card.style.transition = '.5s'
+                }, i * 120)
+            })
+            setShowUp(true)
+        }
+    }
 
     const filterPosts = () => {
         if (search) {
@@ -40,12 +58,20 @@ export default function Blog({ search }: Props) {
         }
     }
 
-    const render = () => filteredPosts.map((post, i) => <PostCard key={i} post={post} />)
+    const render = () => {
+        setTimeout(() => applyAnimation(), 50)
+        return filteredPosts.length ?
+            filteredPosts.map((post, i) => <PostCard key={i} post={post} />)
+            : search.length ?
+                <h4 className='search__no-results'>No results found for <strong>{search.join(', ')}</strong></h4>
+                :
+                <h4 className='search__no-results'>Find anything on the site</h4>
+    }
 
     return (
         <div className='blog__container'>
             <div className="home__header">
-                <h4 className="home__header-title">{search ? `RESULTS FOR: ${search.join(', ')}` : 'LATEST POSTS'}</h4>
+                <h4 className="home__header-title">{search.length ? 'SEARCH RESULTS' : 'SEARCH'}</h4>
             </div>
             <div className="blog__list">
                 {render()}

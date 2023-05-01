@@ -30,8 +30,6 @@ export default function PostEditor({ }: Props) {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const history = useHistory()
 
-    console.log('data', data)
-
     useEffect(() => {
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
         if (!user || !user.token || !user.username) return history.push('/')
@@ -54,8 +52,8 @@ export default function PostEditor({ }: Props) {
                 const htmlContent = draftToHtml(rawContent)
                 setRawData(htmlContent || '')
                 setEditorState(EditorState.createWithContent(convertFromRaw(rawContent)))
+                setIsUpdate(true)
             }
-            setIsUpdate(true)
         }
     }
 
@@ -75,15 +73,15 @@ export default function PostEditor({ }: Props) {
         if (isUpdate) {
             const updated = await updatePost({ ...data, rawData })
             if (updated) {
-                toast.success('Post updated successfully')
-                setTimeout(() => history.push(`/post?id=${postId}`), 1500)
+                toast.success('Post updated successfully. Redirecting...')
+                setTimeout(() => history.push(`/post?id=${updated._id}`), 1500)
             } else toast.error('Error updating post, try again later')
             getPost(postId)
         } else {
-            const saved = await updatePost({ ...data, rawData })
+            const saved = await createPost({ ...data, rawData })
             if (saved) {
-                toast.success('Post saved successfully')
-                setTimeout(() => history.push(`/post?id=${postId}`), 1500)
+                toast.success('Post saved successfully. Redirecting...')
+                setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
             } else toast.error('Error saving post, try again later')
         }
         setIsEdited(false)
