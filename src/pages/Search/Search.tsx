@@ -70,8 +70,8 @@ export default function Blog({ search }: Props) {
 
     return (
         <div className='blog__container'>
-            <div className="home__header">
-                <h4 className="home__header-title">{search.length ? 'SEARCH RESULTS' : 'SEARCH'}</h4>
+            <div className="page__header">
+                <h4 className="page__header-title">{search.length ? 'SEARCH RESULTS' : 'SEARCH'}</h4>
             </div>
             <div className="blog__list">
                 {render()}

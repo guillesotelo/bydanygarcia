@@ -28,7 +28,21 @@ const loginUser = async (user: { [key: string | number]: any }) => {
 const registerUser = async (data: { [key: string | number]: any }) => {
     try {
         const newUser = await axios.post(`${API_URL}/api/user/create`, data)
-        return newUser
+        return newUser.data
+    } catch (err) { console.log(err) }
+}
+
+const subscribe = async (data: { [key: string | number]: any }) => {
+    try {
+        const newEmail = await axios.post(`${API_URL}/api/app/subscribe`, data)
+        return newEmail.data
+    } catch (err) { console.log(err) }
+}
+
+const cancelSubscription = async (data: { [key: string | number]: any }) => {
+    try {
+        const canceled = await axios.post(`${API_URL}/api/app/cancelSubscription`, data)
+        return canceled.data
     } catch (err) { console.log(err) }
 }
 
@@ -47,5 +61,7 @@ const updateUser = async (data: { [key: string | number]: any }) => {
 export {
     loginUser,
     registerUser,
-    updateUser
+    updateUser,
+    subscribe,
+    cancelSubscription
 }

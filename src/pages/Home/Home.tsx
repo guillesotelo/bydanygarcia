@@ -23,8 +23,8 @@ export default function Home({ }: Props) {
     }, [testImages])
 
     return <div className="home__container">
-        <div className="home__header">
-            <h4 className="home__header-title">LATEST POSTS</h4>
+        <div className="page__header">
+            <h4 className="page__header-title">LATEST POSTS</h4>
         </div>
         {loading ? <span className="loader"></span>
             :

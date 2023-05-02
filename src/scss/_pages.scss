@@ -6,3 +6,17 @@
 @import '../pages/Blog/blog.scss';
 @import '../pages/Login/login.scss';
 @import '../pages/Search/search.scss';
+
+.page {
+    &__header {
+        align-self: center;
+
+        &-title {
+            font-size: 1.2vw;
+            font-weight: normal;
+            padding-bottom: 1.5vw;
+            border-bottom: 1px solid gray;
+            animation: move-y-up .7s ease-in;
+        }
+    }
+}

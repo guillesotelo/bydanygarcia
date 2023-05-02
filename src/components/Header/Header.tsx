@@ -11,6 +11,7 @@ import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
 import { deletePost, getAllPosts } from '../../services'
 import { toast } from 'react-hot-toast'
+import { APP_VERSION } from '../../constants/app'
 
 type Props = {
     search: string[]
@@ -22,7 +23,15 @@ export default function Header({ search, setSearch }: Props) {
     const [prompt, setPrompt] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
+    const [menuToggle, setMenuToggle] = useState(false)
     const history = useHistory()
+
+    useEffect(() => {
+        const menu = document.querySelector('.header__menu')
+        window.addEventListener('mouseup', e => {
+            if (e.target != menu) setMenuToggle(false)
+        })
+    }, [])
 
     useEffect(() => {
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
@@ -95,7 +104,45 @@ export default function Header({ search, setSearch }: Props) {
                 </div>
                 : ''}
             <div className='header__menu'>
-                <img className="header__menu-svg" src={Menu} />
+                <img className="header__menu-svg" onClick={() => setMenuToggle(!menuToggle)} src={Menu} />
+                <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
+                    <div className="header__menu-item" style={{ marginTop: '2vw' }}>
+                        <h4 className="header__menu-item-text" onClick={() => {
+                            history.push('/subscribe')
+                            setMenuToggle(false)
+                        }}>SUBSCRIBE</h4>
+                    </div>
+                    <div className="header__menu-item">
+                        <h4 className="header__menu-item-text" onClick={() => {
+                            history.push('/login')
+                            setMenuToggle(false)
+                        }}>LOGIN</h4>
+                    </div>
+                    <div className="header__menu-item">
+                        <h4 className="header__menu-item-text" onClick={() => {
+                            history.push('/about')
+                            setMenuToggle(false)
+                        }}>WHO AM I</h4>
+                    </div>
+                    <div className="header__menu-item">
+                        <h4 className="header__menu-item-text" onClick={() => {
+                            history.push('/contact')
+                            setMenuToggle(false)
+                        }}>CONTACT</h4>
+                    </div>
+                    <div className="header__menu-item" style={{
+                        // position: 'relative'
+                    }}>
+                        <h4 className="header__menu-item-text" style={{
+                            position: 'fixed',
+                            bottom: '5%',
+                            marginBottom: '4vw',
+                            color: 'gray',
+                            fontSize: '.7vw'
+                        }}
+                            onClick={() => window.open('https://github.com/guillesotelo/bydanygarcia', '_blank', 'noreferrer')}>{APP_VERSION}</h4>
+                    </div>
+                </div>
             </div>
             <div className="header__logo" onClick={() => history.push('/')}>
                 <h4 className="header__logo-text">by DANY GARCIA</h4>

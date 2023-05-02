@@ -12,6 +12,7 @@ import PostViewer from './pages/PostViewer/PostViewer';
 import Blog from './pages/Blog/Blog';
 import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
+import Subscribe from './pages/Subscribe/Subscribe';
 
 const App: React.FC = () => {
   const [search, setSearch] = useState<string[]>([])
@@ -92,7 +93,15 @@ const App: React.FC = () => {
       <Route path="/search">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <Search search={search}/>
+          <Search search={search} />
+          <Footer />
+        </div>
+      </Route>
+
+      <Route path="/subscribe">
+        <div className='page__wrapper'>
+          <Header search={search} setSearch={setSearch} />
+          <Subscribe />
           <Footer />
         </div>
       </Route>
