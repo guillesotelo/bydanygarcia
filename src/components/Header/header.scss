@@ -66,6 +66,7 @@
             text-align: center;
             display: flex;
             flex-direction: column;
+            position: relative;
             // margin: 2vw 0;
 
             &-text {
@@ -134,13 +135,13 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        height: 4vw;
         padding: 0 1.5vw;
         cursor: pointer;
         transition: 0.3s;
 
         &:hover {
-            opacity: 0.5;
-            transition: 0.3s;
+            background-color: #ece7e6;
         }
 
         &-text {
@@ -150,6 +151,53 @@
 
         &-svg {
             height: 1.5vw;
+        }
+
+        &-dropdown {
+            transform: translateY(-100%);
+            display: flex;
+            position: absolute;
+            margin: 4vw -1.5vw;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ece7e6;
+            // transition: .4s;
+            opacity: 0;
+            padding: 1.5vw;
+            gap: 1vw;
+            min-width: 10vw;
+
+            &-text {
+                margin: .3vw 0;
+                font-size: .7vw;
+                font-weight: normal;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    transform: scaleX(0);
+                    height: 1px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #000;
+                    transform-origin: bottom right;
+                    transition: transform 0.4s ease-out;
+                }
+
+                &:hover::after {
+                    transform: scaleX(1);
+                    transform-origin: bottom left;
+                }
+            }
+        }
+
+        &:hover .header__item-dropdown {
+            transform: translateY(0%);
+            top: 0;
+            transition: .4s;
+            opacity: 1;
         }
     }
 

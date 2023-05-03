@@ -150,19 +150,69 @@ export default function Header({ search, setSearch }: Props) {
             <div className="header__items">
                 <div className="header__item" onClick={() => history.push('/blog')}>
                     <h4 className="header__item-text">BLOG</h4>
-                    {/* <img className="header__item-svg" src={ChevronDown} /> */}
                 </div>
                 <div className="header__item">
                     <h4 className="header__item-text">JOURNAL</h4>
                     <img className="header__item-svg" src={ChevronDown} />
+                    <div className="header__item-dropdown">
+                    <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                WHAT I'VE LEARNED
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                HYGGE
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                LIFE IN THE NORTH
+                            </h4>
+                        </div>
+                    </div>
                 </div>
                 <div className="header__item">
                     <h4 className="header__item-text">BESPOKEN</h4>
-                    {/* <img className="header__item-svg" src={ChevronDown} /> */}
+                    <img className="header__item-svg" src={ChevronDown} />
+                    <div className="header__item-dropdown">
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                SHOP
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                THE BRANCH
+                            </h4>
+                        </div>
+                    </div>
                 </div>
                 <div className="header__item">
                     <h4 className="header__item-text">DISCOVER</h4>
                     <img className="header__item-svg" src={ChevronDown} />
+                    <div className="header__item-dropdown">
+                    <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                BABY & YOU
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                TRAVEL & CONTEMPLATION
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                MINDFULNESS
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row">
+                            <h4 className="header__item-dropdown-text">
+                                VIDEOS
+                            </h4>
+                        </div>
+                    </div>
                 </div>
                 <div className="header__item" onClick={() => history.push('/about')}>
                     <h4 className="header__item-text">ABOUT</h4>
