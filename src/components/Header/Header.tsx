@@ -103,31 +103,31 @@ export default function Header({ search, setSearch }: Props) {
                     </div>
                 </div>
                 : ''}
-            <div className='header__menu'>
-                <img className="header__menu-svg" onClick={() => setMenuToggle(!menuToggle)} src={Menu} />
+            <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)}>
+                <img className="header__menu-svg" src={Menu} />
                 <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
                     <div className="header__menu-item" style={{ marginTop: '2vw' }}>
                         <h4 className="header__menu-item-text" onClick={() => {
+                            setTimeout(() => setMenuToggle(false), 50)
                             history.push('/subscribe')
-                            setMenuToggle(false)
                         }}>SUBSCRIBE</h4>
                     </div>
                     <div className="header__menu-item">
                         <h4 className="header__menu-item-text" onClick={() => {
+                            setTimeout(() => setMenuToggle(false), 50)
                             history.push('/login')
-                            setMenuToggle(false)
                         }}>LOGIN</h4>
                     </div>
                     <div className="header__menu-item">
                         <h4 className="header__menu-item-text" onClick={() => {
+                            setTimeout(() => setMenuToggle(false), 50)
                             history.push('/about')
-                            setMenuToggle(false)
                         }}>WHO AM I</h4>
                     </div>
                     <div className="header__menu-item">
                         <h4 className="header__menu-item-text" onClick={() => {
+                            setTimeout(() => setMenuToggle(false), 50)
                             history.push('/contact')
-                            setMenuToggle(false)
                         }}>CONTACT</h4>
                     </div>
                     <div className="header__menu-item" style={{
@@ -135,7 +135,7 @@ export default function Header({ search, setSearch }: Props) {
                     }}>
                         <h4 className="header__menu-item-text" style={{
                             position: 'fixed',
-                            bottom: '5%',
+                            bottom: '15%',
                             marginBottom: '4vw',
                             color: 'gray',
                             fontSize: '.7vw'
@@ -155,7 +155,7 @@ export default function Header({ search, setSearch }: Props) {
                     <h4 className="header__item-text">JOURNAL</h4>
                     <img className="header__item-svg" src={ChevronDown} />
                     <div className="header__item-dropdown">
-                    <div className="header__item-dropdown-row">
+                        <div className="header__item-dropdown-row">
                             <h4 className="header__item-dropdown-text">
                                 WHAT I'VE LEARNED
                             </h4>
@@ -192,7 +192,7 @@ export default function Header({ search, setSearch }: Props) {
                     <h4 className="header__item-text">DISCOVER</h4>
                     <img className="header__item-svg" src={ChevronDown} />
                     <div className="header__item-dropdown">
-                    <div className="header__item-dropdown-row">
+                        <div className="header__item-dropdown-row">
                             <h4 className="header__item-dropdown-text">
                                 BABY & YOU
                             </h4>

@@ -28,8 +28,30 @@ export default function Subscribe({ }: Props) {
     }
 
     return (
-        <div className='login__container'>
-            <div className="login__box">
+        <div className='subscribe__container'>
+            <div className="subscribe__row-container">
+                <div className="subscribe__info">
+                    <h2>Subscribe</h2>
+                    <h3>Subscribe to by DANY GARCIA and stay up-to-date with the latest content, news, and special offers from BESPOKEN.</h3>
+                    <h4>As a subscriber, you'll receive:</h4>
+                    <ul>
+                        <li>Regular updates on the latest blog posts and articles</li>
+                        <li>Exclusive access to subscriber-only content</li>
+                        <li>First dibs on our special offers and promotions from BESPOKEN</li>
+                        <li>The option to unsubscribe at any time</li>
+                    </ul>
+                    <br />
+                    <h4>All this for free!</h4>
+                    <br /> <br /> <br /> <br />
+                    <p>To subscribe, simply enter your email address in the form and click "Subscribe". We'll send you a confirmation email to verify your email address and confirm your subscription.
+                        <br />By subscribing, you agree to receive emails and newsletters from by DANY GARCIA. We will never share or sell your email address to third-party organizations. You can unsubscribe at any time by clicking the "unsubscribe" link at the bottom of our emails.
+
+                        <br /> <br />Thank you for subscribing to by DANY GARCIA! I look forward to sharing my latest content and news with you.
+                    </p>
+
+                </div>
+            </div>
+            <div className="subscribe__box">
                 <InputField
                     name='fullname'
                     updateData={updateData}
@@ -48,6 +70,6 @@ export default function Subscribe({ }: Props) {
                     style={{ alignSelf: 'center' }}
                 />
             </div>
-        </div>
+        </div >
     )
 }

@@ -11,26 +11,24 @@ export default function Blog({ search }: Props) {
     const [filteredPosts, setFilteredPosts] = useState<{ [key: string | number]: any }[]>([])
     const [showUp, setShowUp] = useState(false)
 
-    console.log("search", search)
-    console.log("filteredPosts", filteredPosts)
-
     useEffect(() => {
         getPosts()
     }, [])
 
-    const getPosts = async () => {
-        const posts = await getAllPosts()
-        if (posts) setAllPosts(posts.length ? posts : [])
-    }
-
     useEffect(() => {
         if (search) filterPosts()
+        setShowUp(false)
     }, [search, allPosts])
 
     useEffect(() => {
         render()
         setTimeout(() => applyAnimation(), 50)
-    }, [allPosts])
+    }, [allPosts, filteredPosts])
+
+    const getPosts = async () => {
+        const posts = await getAllPosts()
+        if (posts) setAllPosts(posts.length ? posts : [])
+    }
 
     const applyAnimation = () => {
         if (filteredPosts.length && !showUp) {
@@ -46,16 +44,14 @@ export default function Blog({ search }: Props) {
     }
 
     const filterPosts = () => {
-        if (search) {
-            const posts = allPosts.filter(post => {
-                let matches = false
-                search.forEach((word: string) => {
-                    if (JSON.stringify(post).toLocaleLowerCase().includes(word.toLocaleLowerCase())) matches = true
-                })
-                if (matches) return post
+        const posts = allPosts.filter(post => {
+            let matches = false
+            search.forEach((word: string) => {
+                if (JSON.stringify(post).toLocaleLowerCase().includes(word.toLocaleLowerCase())) matches = true
             })
-            setFilteredPosts(posts)
-        }
+            if (matches) return post
+        })
+        setFilteredPosts(posts)
     }
 
     const render = () => {
