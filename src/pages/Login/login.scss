@@ -3,6 +3,7 @@
         padding: 5vw 2vw 9vw 2vw;
         min-height: 60vh;
     }
+
     &__box {
         position: fixed;
         top: 50%;
@@ -15,8 +16,25 @@
         padding: 1vw;
         box-shadow: 3px 3px 15px lightgray;
         border-radius: .5vw;
+
         &button {
             justify-self: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .login {
+        &__container {
+            min-height: 80vh;
+        }
+
+        &__box {
+            width: 80%;
+            gap: 6vw;
+            padding: 5vw;
+            transform: translate(-50%, -50%);
+            border-radius: 1.5vw;
         }
     }
 }

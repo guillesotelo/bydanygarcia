@@ -4,3 +4,13 @@
         transition: .3s;
     }
 }
+
+@media only screen and (max-width: 640px) {
+    .postviewer {
+        &__container {
+            padding: 20vw 2vw 60vw 2vw;
+            transition: .3s;
+        }
+    }
+    
+}

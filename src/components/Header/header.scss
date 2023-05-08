@@ -276,3 +276,68 @@
         }
     }
 }
+
+
+// --- Mobile--- 
+@media only screen and (max-width: 640px) {
+    .header {
+        &__container {
+            height: 20vw;
+            text-align: center;
+        }
+
+        &__menu {
+            height: 20vw;
+
+            &-svg {
+                height: 7vw;
+                margin: 3vw 5vw;
+            }
+
+            &-sidebar {
+                &--hidden {
+                    margin-top: 20vw;
+                }
+
+                &--toggled {
+                    margin-top: 20vw;
+                    width: 70vw;
+                }
+            }
+
+            &-item {
+
+                &-text {
+                    font-size: 4vw;
+                    margin: 4.5vw 0;
+                }
+            }
+        }
+
+        &__logo {
+            height: 8vw;
+            border: none;
+            width: 65%;
+            text-align: center;
+
+            &-text {
+                font-size: 4.5vw;
+            }
+        }
+
+        &__search {
+            margin: 0 5vw;
+
+            &-svg {
+                height: 6vw;
+                // margin: 2vw 4vw;
+            }
+
+            &-input {
+                font-size: 4.5vw;
+                padding: 1.5vw;
+            }
+        }
+
+    }
+}

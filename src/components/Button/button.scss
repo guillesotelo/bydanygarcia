@@ -16,9 +16,38 @@
             // box-shadow: 2px 2px 10px gray;
             transition: .3s;
         }
-        
+
     }
+
     &__svg {
         height: 1.5vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .button {
+        &__default {
+            // margin: .5vw;
+            font-size: 6vw;
+            background-color: #D3AFAF;
+            width: fit-content;
+            padding: 3vw;
+            border-radius: .5vw;
+            cursor: pointer;
+            font-weight: normal;
+            transition: .3s;
+            border: none;
+
+            &:hover {
+                filter: brightness(110%);
+                // box-shadow: 2px 2px 10px gray;
+                transition: .3s;
+            }
+
+        }
+
+        &__svg {
+            height: 1.5vw;
+        }
     }
 }

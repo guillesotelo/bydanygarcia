@@ -10,12 +10,74 @@
             border: 1px solid #D3AFAF;
             outline: none;
         }
+
         &:active {
             border: 1px solid #D3AFAF;
             outline: none;
         }
+
         &::placeholder {
             color: #b5b5b5;
+        }
+    }
+}
+
+.textarea {
+    &__default {
+        border: 1px solid lightgray;
+        border-radius: .5vw;
+        font-size: 1vw;
+        padding: .4vw;
+        font-weight: normal;
+        resize: none;
+        font-family: 'Montserrat', sans-serif;
+        &::placeholder {
+            color: #b5b5b5;
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .inputfield {
+        &__default {
+            border: 1px solid lightgray;
+            border-radius: 1vw;
+            font-size: 6vw;
+            padding: 1.5vw;
+            font-weight: normal;
+
+            &:focus {
+                border: 1px solid #D3AFAF;
+                outline: none;
+            }
+
+            &:active {
+                border: 1px solid #D3AFAF;
+                outline: none;
+            }
+
+            &::placeholder {
+                color: #b5b5b5;
+                font-size: 6vw;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .textarea {
+        &__default {
+            border: 1px solid lightgray;
+            border-radius: 1vw;
+            font-size: 6vw;
+            padding: 2vw;
+            font-family: inherit;
+            font-weight: normal;
+            resize: none;
+        }
+        &::placeholder {
+            color: #b5b5b5;
+            font-size: 6vw;
         }
     }
 }

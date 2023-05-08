@@ -10,6 +10,7 @@
         height: 6vw;
         background-color: #ece7e6;
         z-index: 2;
+        animation: move-y-up .7s ease-in;
     }
 
     &__nav {
@@ -41,5 +42,43 @@
     &__copyright {
         font-weight: normal;
 
+    }
+}
+
+// --- Mobile--- 
+@media only screen and (max-width: 640px) {
+    .footer {
+        &__container {
+            height: 20vw;
+        }
+
+        &__nav {
+            // justify-content: space-between;
+            width: 70%;
+            margin: 0 4vw;
+
+            &-link {
+                font-size: 3.5vw;
+                margin: 0 2vw;
+
+                &:hover {
+                    opacity: .5;
+                    transition: .3s;
+                }
+            }
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 0 4vw;
+        }
+
+        &__copyright {
+            font-weight: normal;
+            font-size: 3.5vw;
+            margin: 0 1vw;
+        }
     }
 }

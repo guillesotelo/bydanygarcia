@@ -24,12 +24,25 @@ export default function Header({ search, setSearch }: Props) {
     const [isAdmin, setIsAdmin] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
+    const [searchClicked, setSearchClicked] = useState(false)
+    const isMobile = window.screen.width <= 768
     const history = useHistory()
 
     useEffect(() => {
         const menu = document.querySelector('.header__menu')
+        const svg = document.querySelector('.header__menu-svg')
+        const container = document.querySelector('.header__container')
+        const list = document.querySelector('.home__postlist')
+        const home = document.querySelector('.home__container')
         window.addEventListener('mouseup', e => {
-            if (e.target != menu) setMenuToggle(false)
+            const clicked = e.target
+            if (clicked != menu) setMenuToggle(false)
+            if (clicked == svg
+                || clicked == container
+                || clicked == home
+                || clicked == list) {
+                setSearchClicked(false)
+            }
         })
     }, [])
 
@@ -56,7 +69,9 @@ export default function Header({ search, setSearch }: Props) {
     }
 
     const triggerSearch = () => {
+        setSearchClicked(true)
         if (prompt) {
+            setSearchClicked(false)
             setSearch(prompt.split(' '))
             history.push('/search')
         }
@@ -103,160 +118,190 @@ export default function Header({ search, setSearch }: Props) {
                     </div>
                 </div>
                 : ''}
-            <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)}>
-                <img className="header__menu-svg" src={Menu} />
-                <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
-                    <div className="header__menu-item" style={{ marginTop: '2vw' }}>
-                        <h4 className="header__menu-item-text" onClick={() => {
-                            setTimeout(() => setMenuToggle(false), 50)
-                            history.push('/subscribe')
-                        }}>SUBSCRIBE</h4>
-                    </div>
-                    <div className="header__menu-item">
-                        <h4 className="header__menu-item-text" onClick={() => {
-                            setTimeout(() => setMenuToggle(false), 50)
-                            history.push('/login')
-                        }}>LOGIN</h4>
-                    </div>
-                    <div className="header__menu-item">
-                        <h4 className="header__menu-item-text" onClick={() => {
-                            setTimeout(() => setMenuToggle(false), 50)
-                            history.push('/about')
-                        }}>WHO AM I</h4>
-                    </div>
-                    <div className="header__menu-item">
-                        <h4 className="header__menu-item-text" onClick={() => {
-                            setTimeout(() => setMenuToggle(false), 50)
-                            history.push('/contact')
-                        }}>CONTACT</h4>
-                    </div>
-                    <div className="header__menu-item" style={{
-                        // position: 'relative'
-                    }}>
-                        <h4 className="header__menu-item-text" style={{
-                            position: 'fixed',
-                            bottom: '15%',
-                            marginBottom: '4vw',
-                            color: 'gray',
-                            fontSize: '.7vw'
-                        }}
-                            onClick={() => window.open('https://github.com/guillesotelo/bydanygarcia', '_blank', 'noreferrer')}>{APP_VERSION}</h4>
-                    </div>
-                </div>
-            </div>
-            <div className="header__logo" onClick={() => history.push('/')}>
-                <h4 className="header__logo-text">by DANY GARCIA</h4>
-            </div>
-            <div className="header__items">
-                <div className="header__item" onClick={() => history.push('/blog')}>
-                    <h4 className="header__item-text">BLOG</h4>
-                </div>
-                <div className="header__item">
-                    <h4 className="header__item-text">JOURNAL</h4>
-                    <img className="header__item-svg" src={ChevronDown} />
-                    <div className="header__item-dropdown">
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                WHAT I'VE LEARNED
-                            </h4>
+            {isMobile ?
+                <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)}>
+                    <img className="header__menu-svg" src={Menu} />
+                    <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
+                        <div className="header__menu-item" style={{ marginTop: isMobile ? '6vw' : '2vw' }}>
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/blog')
+                            }}>BLOG</h4>
                         </div>
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                HYGGE
-                            </h4>
+                        <div className="header__menu-item">
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/bespoken')
+                            }}>BESPOKEN</h4>
                         </div>
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                LIFE IN THE NORTH
-                            </h4>
+                        <div className="header__menu-item">
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/baby-and-you')
+                            }}>BABY & YOU</h4>
+                        </div>
+                        <div className="header__menu-item">
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/subscribe')
+                            }}>SUBSCRIBE</h4>
+                        </div>
+                        <div className="header__menu-item">
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/login')
+                            }}>LOGIN</h4>
+                        </div>
+                        <div className="header__menu-item">
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/about')
+                            }}>WHO AM I</h4>
+                        </div>
+                        <div className="header__menu-item">
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                history.push('/contact')
+                            }}>CONTACT</h4>
+                        </div>
+                        <div className="header__menu-item" style={{
+                            // position: 'relative'
+                        }}>
+                            <h4 className="header__menu-item-text" style={{
+                                position: 'fixed',
+                                bottom: '15%',
+                                marginBottom: '4vw',
+                                color: 'gray',
+                                fontSize: isMobile ? '3vw' : '.7vw'
+                            }}
+                                onClick={() => window.open('https://github.com/guillesotelo/bydanygarcia', '_blank', 'noreferrer')}>{APP_VERSION}</h4>
                         </div>
                     </div>
                 </div>
-                <div className="header__item">
-                    <h4 className="header__item-text">BESPOKEN</h4>
-                    <img className="header__item-svg" src={ChevronDown} />
-                    <div className="header__item-dropdown">
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                SHOP
-                            </h4>
-                        </div>
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                THE BRANCH
-                            </h4>
-                        </div>
+                : ''}
+            {!isMobile || !searchClicked ?
+                <div className="header__logo" onClick={() => {
+                    setSearch([])
+                    setPrompt('')
+                    history.push('/')
+                }}>
+                    <h4 className="header__logo-text">by DANY GARCIA</h4>
+                </div>
+                : ''}
+            {!isMobile ?
+                <div className="header__items">
+                    <div className="header__item" onClick={() => history.push('/blog')}>
+                        <h4 className="header__item-text">BLOG</h4>
                     </div>
-                </div>
-                <div className="header__item">
-                    <h4 className="header__item-text">DISCOVER</h4>
-                    <img className="header__item-svg" src={ChevronDown} />
-                    <div className="header__item-dropdown">
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                BABY & YOU
-                            </h4>
-                        </div>
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                TRAVEL & CONTEMPLATION
-                            </h4>
-                        </div>
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                MINDFULNESS
-                            </h4>
-                        </div>
-                        <div className="header__item-dropdown-row">
-                            <h4 className="header__item-dropdown-text">
-                                VIDEOS
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-                <div className="header__item" onClick={() => history.push('/about')}>
-                    <h4 className="header__item-text">ABOUT</h4>
-                    {/* <img className="header__item-svg" src={ChevronDown} /> */}
-                </div>
-                <div className="header__social">
-                    <img className="header__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
-                    <img className="header__social-svg" onClick={() => window.open('https://www.pinterest.se/bespoken_ar/', '_blank', 'noreferrer')} src={Pinterest} />
-                    <img className="header__social-svg" onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
-                </div>
-                <div className="header__admin-btns">
-                    {isAdmin ?
-                        <Button
-                            label='CREATE'
-                            handleClick={() => history.push('/editor')}
-                            bgColor='#ece7e6'
-                        /> : ''}
-                    {postId && isAdmin ?
-                        <Button
-                            svg={EditIcon}
-                            handleClick={() => history.push(`/editor?id=${postId}`)}
-                            bgColor='#ece7e6'
-                        />
-                        : ''}
-                    {postId && isAdmin ?
-                        <Button
-                            svg={DeleteIcon}
-                            handleClick={() => setDeleteModal(true)}
-                            bgColor='#ece7e6'
-                        />
-                        : ''}
                     <div className="header__item">
-                        <h4 className="header__item-text" onClick={() => {
-                            if (isAdmin) logOut()
-                            else history.push('/login')
-                        }}>{isAdmin ? 'LOGOUT' : 'LOGIN'}</h4>
+                        <h4 className="header__item-text">JOURNAL</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown">
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    WHAT I'VE LEARNED
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    HYGGE
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    LIFE IN THE NORTH
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="header__item">
+                        <h4 className="header__item-text">BESPOKEN</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown">
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    SHOP
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    THE BRANCH
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="header__item">
+                        <h4 className="header__item-text">DISCOVER</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown">
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    BABY & YOU
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    TRAVEL & CONTEMPLATION
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    MINDFULNESS
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    VIDEOS
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="header__item" onClick={() => history.push('/about')}>
+                        <h4 className="header__item-text">ABOUT</h4>
+                        {/* <img className="header__item-svg" src={ChevronDown} /> */}
+                    </div>
+                    <div className="header__social">
+                        <img className="header__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
+                        <img className="header__social-svg" onClick={() => window.open('https://www.pinterest.se/bespoken_ar/', '_blank', 'noreferrer')} src={Pinterest} />
+                        <img className="header__social-svg" onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
+                    </div>
+                    <div className="header__admin-btns">
+                        {isAdmin ?
+                            <Button
+                                label='CREATE'
+                                handleClick={() => history.push('/editor')}
+                                bgColor='#ece7e6'
+                            /> : ''}
+                        {postId && isAdmin ?
+                            <Button
+                                svg={EditIcon}
+                                handleClick={() => history.push(`/editor?id=${postId}`)}
+                                bgColor='#ece7e6'
+                            />
+                            : ''}
+                        {postId && isAdmin ?
+                            <Button
+                                svg={DeleteIcon}
+                                handleClick={() => setDeleteModal(true)}
+                                bgColor='#ece7e6'
+                            />
+                            : ''}
+                        <div className="header__item">
+                            <h4 className="header__item-text" onClick={() => {
+                                if (isAdmin) logOut()
+                                else history.push('/login')
+                            }}>{isAdmin ? 'LOGOUT' : 'LOGIN'}</h4>
+                        </div>
                     </div>
                 </div>
-                <div className="header__search">
-                    <img className="header__search-svg" src={Search} onClick={triggerSearch} />
+                : ''}
+            <div className="header__search">
+                <img className="header__search-svg" src={Search} onClick={triggerSearch} />
+                {searchClicked || !isMobile ?
                     <input type="text" className="header__search-input" placeholder='Search' onChange={handleSearch} onKeyDown={e => {
                         if (e.key === 'Enter') triggerSearch()
                     }} />
-                </div>
+                    : ''}
             </div>
         </div>
     )
