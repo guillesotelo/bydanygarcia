@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
 import { getPostById } from '../../services/post'
 import draftToHtml from 'draftjs-to-html';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {}
