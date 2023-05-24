@@ -22,6 +22,10 @@ export default function PostViewer({ }: Props) {
         if (postId) getPost(postId)
     }, [postId])
 
+    useEffect(() => {
+        renderHelmet()
+    }, [post])
+
     const getPost = async (id: string) => {
         setLoading(true)
         const _post = await getPostById(id)
@@ -34,14 +38,19 @@ export default function PostViewer({ }: Props) {
         }
         setLoading(false)
     }
+
+    const renderHelmet = () => {
+        return <Helmet>
+            <meta property="og:title" content={post.title} />
+            <meta property="og:description" content={post.subtitle} />
+            <meta property="og:image" content={post.imageUrl} />
+            <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
+        </Helmet>
+    }
+
     return (
         <div className='postviewer__container'>
-            <Helmet>
-                <meta property="og:title" content={post.title} />
-                <meta property="og:description" content={post.subtitle} />
-                <meta property="og:image" content={post.imageUrl} />
-                <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
-            </Helmet>
+            {renderHelmet()}
             {loading ? <span className="loader"></span>
                 :
                 <Post
