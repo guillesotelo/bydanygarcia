@@ -8,11 +8,15 @@ type Props = {
     overlap?: string,
     img?: string,
     post: { [key: string | number]: any }
+    setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
-export default function PostCard({ subtitle, title, description, overlap, img, post }: Props) {
+export default function PostCard({ subtitle, title, description, overlap, img, post, setPost }: Props) {
     const history = useHistory()
-    const handleClick = () => post._id ? history.push(`/post?id=${post._id}`) : ''
+    const handleClick = () => {
+        setPost(post)
+        if (post._id) history.push(`/post?id=${post._id}`)
+    }
 
     return (
         <div className='postcard__container' onClick={handleClick}>

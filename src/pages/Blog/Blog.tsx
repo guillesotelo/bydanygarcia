@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
 
-type Props = {}
+type Props = {
+    setPost: React.Dispatch<React.SetStateAction<any>>
+}
 
-export default function Blog({ }: Props) {
+export default function Blog({ setPost }: Props) {
     const [allPosts, setAllPosts] = useState([])
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -41,7 +43,7 @@ export default function Blog({ }: Props) {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.map((post, i) => <PostCard key={i} post={post} />)}
+                    {allPosts.map((post, i) => <PostCard setPost={setPost} key={i} post={post} />)}
                 </div>
             }
         </div>

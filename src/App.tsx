@@ -16,13 +16,14 @@ import Subscribe from './pages/Subscribe/Subscribe';
 
 const App: React.FC = () => {
   const [search, setSearch] = useState<string[]>([])
+  const [post, setPost] = useState<{ [key: number | string]: any }>({})
 
   return (
     <Switch>
       <Route exact path="/">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <Home />
+          <Home setPost={setPost} />
           <Footer />
         </div>
       </Route>
@@ -62,14 +63,14 @@ const App: React.FC = () => {
       <Route path="/post">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <PostViewer />
+          <PostViewer post={post} setPost={setPost} />
           <Footer />
         </div>
       </Route>
       <Route path="/post:id">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <PostViewer />
+          <PostViewer post={post} setPost={setPost} />
           <Footer />
         </div>
       </Route>
@@ -77,7 +78,7 @@ const App: React.FC = () => {
       <Route path="/blog">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <Blog />
+          <Blog setPost={setPost} />
           <Footer />
         </div>
       </Route>
@@ -109,7 +110,7 @@ const App: React.FC = () => {
       <Route>
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <Home />
+          <Home setPost={setPost} />
           <Footer />
         </div>
       </Route>

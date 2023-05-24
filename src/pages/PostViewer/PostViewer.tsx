@@ -5,10 +5,12 @@ import draftToHtml from 'draftjs-to-html';
 import { Helmet } from 'react-helmet-async';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
-type Props = {}
+type Props = {
+    post: { [key: number | string]: any }
+    setPost: React.Dispatch<React.SetStateAction<any>>
+}
 
-export default function PostViewer({ }: Props) {
-    const [post, setPost] = useState({ title: '', subtitle: '', imageUrl: '' })
+export default function PostViewer({ post, setPost }: Props) {
     const [rawData, setRawData] = useState('')
     const [postId, setPostId] = useState('')
     const [loading, setLoading] = useState(false)
@@ -19,8 +21,16 @@ export default function PostViewer({ }: Props) {
     }, [])
 
     useEffect(() => {
-        if (postId) getPost(postId)
-    }, [postId])
+        renderHelmet()
+        if (post.rawData) {
+            const htmlContent = draftToHtml(JSON.parse(post.rawData || {}))
+            setRawData(htmlContent || '')
+        }
+    }, [post])
+
+    useEffect(() => {
+        if (postId && (!post || !post.title)) getPost(postId)
+    }, [post, postId])
 
     useEffect(() => {
         renderHelmet()
