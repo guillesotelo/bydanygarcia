@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
 import { getPostById } from '../../services/post'
 import draftToHtml from 'draftjs-to-html';
+import { Helmet } from 'react-helmet';
+const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {}
 
 export default function PostViewer({ }: Props) {
-    const [post, setPost] = useState({})
+    const [post, setPost] = useState({ title: '', subtitle: '', imageUrl: '' })
     const [rawData, setRawData] = useState('')
     const [postId, setPostId] = useState('')
     const [loading, setLoading] = useState(false)
@@ -34,6 +36,12 @@ export default function PostViewer({ }: Props) {
     }
     return (
         <div className='postviewer__container'>
+            <Helmet>
+                <meta property="og:title" content={post.title} />
+                <meta property="og:description" content={post.subtitle} />
+                <meta property="og:image" content={post.imageUrl} />
+                <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
+            </Helmet>
             {loading ? <span className="loader"></span>
                 :
                 <Post

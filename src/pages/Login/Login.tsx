@@ -20,7 +20,7 @@ export default function Login({ }: Props) {
         const loading = toast.loading('Logging in...')
         const logged = await loginUser(data)
         if (logged) {
-            toast.success('Welcome, Dany!')
+            toast.success(`Welcome, ${logged.username ? logged.username.split(' ')[0] : 'Dany'}!`)
             setTimeout(() => history.push('/'), 1500)
         } else toast.error('Error logging in, try again later')
 
