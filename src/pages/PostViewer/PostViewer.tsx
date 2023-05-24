@@ -24,7 +24,7 @@ export default function PostViewer({ }: Props) {
 
     useEffect(() => {
         renderHelmet()
-    }, [post])
+    }, [post, postId])
 
     const getPost = async (id: string) => {
         setLoading(true)
