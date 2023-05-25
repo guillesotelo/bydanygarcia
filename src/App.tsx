@@ -94,7 +94,7 @@ const App: React.FC = () => {
       <Route path="/search">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
-          <Search search={search} />
+          <Search search={search} setPost={setPost} />
           <Footer />
         </div>
       </Route>

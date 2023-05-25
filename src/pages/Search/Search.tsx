@@ -4,9 +4,10 @@ import PostCard from '../../components/PostCard/PostCard'
 
 type Props = {
     search: string[]
+    setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
-export default function Blog({ search }: Props) {
+export default function Blog({ search, setPost }: Props) {
     const [allPosts, setAllPosts] = useState<{ [key: string | number]: any }[]>([])
     const [filteredPosts, setFilteredPosts] = useState<{ [key: string | number]: any }[]>([])
     const [showUp, setShowUp] = useState(false)
@@ -57,7 +58,7 @@ export default function Blog({ search }: Props) {
     const render = () => {
         setTimeout(() => applyAnimation(), 50)
         return filteredPosts.length ?
-            filteredPosts.map((post, i) => <PostCard key={i} post={post} />)
+            filteredPosts.map((post, i) => <PostCard setPost={setPost} key={i} post={post} />)
             : search.length ?
                 <h4 className='search__no-results'>No results found for <strong>{search.join(', ')}</strong></h4>
                 :
