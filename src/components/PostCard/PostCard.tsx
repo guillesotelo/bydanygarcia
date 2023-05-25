@@ -13,8 +13,12 @@ type Props = {
 
 export default function PostCard({ subtitle, title, description, overlap, img, post, setPost }: Props) {
     const history = useHistory()
+
     const handleClick = () => {
-        setPost(post)
+        setPost({
+            ...post,
+            sideImages: post.sideImgs ? JSON.parse(post.sideImgs) : []
+        })
         if (post._id) history.push(`/post?id=${post._id}`)
     }
 

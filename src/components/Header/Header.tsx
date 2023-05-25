@@ -5,7 +5,7 @@ import Instagram from '../../assets/icons/instagram.svg'
 import Pinterest from '../../assets/icons/pinterest.svg'
 import Youtube from '../../assets/icons/youtube.svg'
 import Search from '../../assets/icons/search-icon.svg'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
@@ -27,6 +27,7 @@ export default function Header({ search, setSearch }: Props) {
     const [searchClicked, setSearchClicked] = useState(false)
     const isMobile = window.screen.width <= 768
     const history = useHistory()
+    const location = useLocation()
 
     useEffect(() => {
         const menu = document.querySelector('.header__menu')
@@ -53,13 +54,18 @@ export default function Header({ search, setSearch }: Props) {
         const id = new URLSearchParams(document.location.search).get('id')
         if (id) setPostId(id)
         else setPostId('')
-    }, [window.location.pathname])
+    }, [location])
 
     useEffect(() => {
         const postViewr = document.querySelector<HTMLElement>('.postviewer__container')
+        const postEditor = document.querySelector<HTMLElement>('.editor__container')
         if (postViewr) {
             if (deleteModal) postViewr.style.filter = 'blur(10px)'
             else postViewr.style.filter = ''
+        }
+        if (postEditor) {
+            if (deleteModal) postEditor.style.filter = 'blur(10px)'
+            else postEditor.style.filter = ''
         }
     }, [deleteModal])
 
@@ -269,7 +275,7 @@ export default function Header({ search, setSearch }: Props) {
                         {isAdmin ?
                             <Button
                                 label='CREATE'
-                                handleClick={() => history.push('/editor')}
+                                handleClick={() => history.push('/editor?new=true')}
                                 bgColor='#ece7e6'
                             /> : ''}
                         {postId && isAdmin ?

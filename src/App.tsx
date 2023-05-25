@@ -60,6 +60,14 @@ const App: React.FC = () => {
         </div>
       </Route>
 
+      <Route path="/editor:new">
+        <div className='page__wrapper'>
+          <Header search={search} setSearch={setSearch} />
+          <PostEditor />
+          <Footer />
+        </div>
+      </Route>
+
       <Route path="/post">
         <div className='page__wrapper'>
           <Header search={search} setSearch={setSearch} />
