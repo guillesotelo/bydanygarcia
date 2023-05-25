@@ -31,6 +31,7 @@ export default function PostEditor({ }: Props) {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const history = useHistory()
     const location = useLocation()
+    const isMobile = window.screen.width <= 768
 
     useEffect(() => {
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
@@ -178,19 +179,21 @@ export default function PostEditor({ }: Props) {
                     editorClassName="editor__editor"
                     onFocus={() => { }}
                 />
-                <div className="editor__btns">
-                    <Button
-                        label='Discard'
-                        handleClick={() => isUpdate ? history.goBack() : history.go(0)}
-                        bgColor='lightgray'
-                        disabled={!isEdited && !isUpdate}
-                    />
-                    <Button
-                        label={isUpdate ? 'Update' : 'Save'}
-                        handleClick={handleSave}
-                        disabled={!isEdited && !isUpdate}
-                    />
-                </div>
+                {!isMobile ?
+                    <div className="editor__btns">
+                        <Button
+                            label='Discard'
+                            handleClick={() => isUpdate ? history.goBack() : history.go(0)}
+                            bgColor='lightgray'
+                            disabled={!isEdited && !isUpdate}
+                        />
+                        <Button
+                            label={isUpdate ? 'Update' : 'Save'}
+                            handleClick={handleSave}
+                            disabled={!isEdited && !isUpdate}
+                        />
+                    </div>
+                    : ''}
             </div>
             <div className="editor__right-col">
                 <h1 className="editor__side-images-title">Side Images</h1>
@@ -209,12 +212,27 @@ export default function PostEditor({ }: Props) {
                         placeholder='Add new image (https://example.com/image.png)'
                     />
                     <Button
-                        label='Add'
+                        label='Add image'
                         handleClick={addSideImage}
                         disabled={!isEdited && !isUpdate}
                     />
                 </div>
             </div>
+            {isMobile ?
+                <div className="editor__btns">
+                    <Button
+                        label='Discard changes'
+                        handleClick={() => isUpdate ? history.goBack() : history.go(0)}
+                        bgColor='lightgray'
+                        disabled={!isEdited && !isUpdate}
+                    />
+                    <Button
+                        label={isUpdate ? 'Update post' : 'Save post'}
+                        handleClick={handleSave}
+                        disabled={!isEdited && !isUpdate}
+                    />
+                </div>
+                : ''}
         </div>
         : <div></div>
 }

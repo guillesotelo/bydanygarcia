@@ -339,5 +339,27 @@
             }
         }
 
+        &__delete-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(255, 255, 255);
+            padding: 4vw;
+            border-radius: 1.5vw;
+            box-shadow: 3px 3px 15px gray;
+            z-index: 2;
+            width: 60vw;
+
+            &-btns {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 8vw;
+            }
+        }
+
+
     }
 }

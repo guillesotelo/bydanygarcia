@@ -41,6 +41,7 @@ export default function Header({ search, setSearch }: Props) {
             if (clicked == svg
                 || clicked == container
                 || clicked == home
+                || clicked == menu
                 || clicked == list) {
                 setSearchClicked(false)
             }
@@ -155,20 +156,21 @@ export default function Header({ search, setSearch }: Props) {
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/login')
-                            }}>LOGIN</h4>
-                        </div>
-                        <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/about')
                             }}>WHO AM I</h4>
                         </div>
-                        <div className="header__menu-item">
+                        <div className="header__menu-item" style={{ paddingBottom: '8vw' }}>
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/contact')
                             }}>CONTACT</h4>
+                        </div>
+                        <div className="header__menu-item" style={{ paddingTop: '8vw' }}>
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                setTimeout(() => setMenuToggle(false), 50)
+                                if (isAdmin) return logOut()
+                                history.push('/login')
+                            }}>{isAdmin ? 'LOGOUT' : 'LOGIN'}</h4>
                         </div>
                         <div className="header__menu-item" style={{
                             // position: 'relative'
@@ -185,13 +187,36 @@ export default function Header({ search, setSearch }: Props) {
                     </div>
                 </div>
                 : ''}
-            {!isMobile || !searchClicked ?
+            {(!isMobile && !searchClicked) || !isAdmin ?
                 <div className="header__logo" onClick={() => {
                     setSearch([])
                     setPrompt('')
                     history.push('/')
                 }}>
                     <h4 className="header__logo-text">by DANY GARCIA</h4>
+                </div>
+                : ''}
+            {isMobile && isAdmin ?
+                <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
+                    <Button
+                        label='CREATE'
+                        handleClick={() => history.push('/editor?new=true')}
+                        bgColor='#ece7e6'
+                    />
+                    {postId ?
+                        <Button
+                            svg={EditIcon}
+                            handleClick={() => history.push(`/editor?id=${postId}`)}
+                            bgColor='#ece7e6'
+                        />
+                        : ''}
+                    {postId ?
+                        <Button
+                            svg={DeleteIcon}
+                            handleClick={() => setDeleteModal(true)}
+                            bgColor='#ece7e6'
+                        />
+                        : ''}
                 </div>
                 : ''}
             {!isMobile ?
