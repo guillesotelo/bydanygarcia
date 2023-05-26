@@ -16,13 +16,15 @@ import Subscribe from './pages/Subscribe/Subscribe';
 import { AppProvider } from './AppContext';
 
 const App: React.FC = () => {
+  const preferedLang = localStorage.getItem('preferedLang')
+  const localLang = preferedLang ? preferedLang : navigator.language.startsWith('es') ? 'es' : 'en'
+  const isMobile = window.screen.width <= 768
   const [search, setSearch] = useState<string[]>([])
   const [post, setPost] = useState<{ [key: number | string]: any }>({})
-  const lang = navigator.language.startsWith('es') ? 'es' : 'en'
-  const isMobile = window.screen.width <= 768
+  const [lang, setLang] = useState<string>(localLang)
 
   return (
-    <AppProvider lang={lang} isMobile={isMobile}>
+    <AppProvider lang={lang} setLang={setLang} isMobile={isMobile}>
       <Switch>
         <Route exact path="/">
           <div className='page__wrapper'>

@@ -1,8 +1,10 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PostCard from '../../components/PostCard/PostCard'
 import { testImages } from '../../constants/dev'
 import { getAllPosts } from '../../services'
+import { AppContext } from '../../AppContext'
+import { TEXT } from '../../constants/lang'
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<any>>
 }
@@ -12,6 +14,7 @@ export default function Home({ setPost }: Props) {
     const [allPosts, setAllPosts] = useState([])
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         getPosts()
@@ -52,7 +55,7 @@ export default function Home({ setPost }: Props) {
 
     return <div className="home__container">
         <div className="page__header">
-            <h4 className="page__header-title">LATEST POSTS</h4>
+            <h4 className="page__header-title">{TEXT[lang]['latest_posts']}</h4>
         </div>
         {loading ? <span className="loader"></span>
             :

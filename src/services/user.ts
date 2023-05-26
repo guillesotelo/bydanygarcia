@@ -20,7 +20,6 @@ const loginUser = async (user: { [key: string | number]: any }) => {
             app: 'bydanygarcia',
             login: new Date()
         }))
-        if (finalUser.defaultLedger !== null) localStorage.setItem('ledger', finalUser.defaultLedger)
         return finalUser
     } catch (error) { console.log(error) }
 }

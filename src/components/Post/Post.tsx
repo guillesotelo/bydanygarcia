@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import ShareIcon from '../../assets/icons/share.svg'
 import { AppContext } from '../../AppContext'
+import { TEXT } from '../../constants/lang'
 
 type Props = {
     content?: string
@@ -19,7 +20,7 @@ export default function Post({ headers, content }: Props) {
     const copyLink = () => {
         const currentUrl = window.location.href;
         navigator.clipboard.writeText(currentUrl)
-        toast.success('Link copied to clipboard')
+        toast.success(TEXT[lang]['link_copied'])
     }
 
     return (

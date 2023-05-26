@@ -11,6 +11,7 @@ import { toast } from 'react-hot-toast';
 import { getPostById } from '../../services/post';
 import draftToHtml from 'draftjs-to-html';
 import { AppContext } from '../../AppContext';
+import { TEXT } from '../../constants/lang';
 
 type Props = {}
 const voidData = {
@@ -86,22 +87,22 @@ export default function PostEditor({ }: Props) {
     };
 
     const handleSave = async () => {
-        const loading = toast.loading(isUpdate ? 'Updating...' : 'Saving...')
+        const loading = toast.loading(isUpdate ? TEXT[lang]['updating'] : TEXT[lang]['saving'])
         const rawData = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
         const sideImgs = JSON.stringify(sideImages)
         if (isUpdate) {
             const updated = await updatePost({ ...data, sideImgs, rawData })
             if (updated) {
-                toast.success('Post updated successfully. Redirecting...')
+                toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
-            } else toast.error('Error updating post, try again later')
+            } else toast.error(TEXT[lang]['error_saving'])
             getPost(postId)
         } else {
             const saved = await createPost({ ...data, sideImgs, rawData })
             if (saved) {
-                toast.success('Post saved successfully. Redirecting...')
+                toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
-            } else toast.error('Error saving post, try again later')
+            } else toast.error(TEXT[lang]['error_saving'])
         }
         setIsEdited(false)
         setEditorState(EditorState.createEmpty())
@@ -112,7 +113,7 @@ export default function PostEditor({ }: Props) {
     const addSideImage = () => {
         if (data.sideImage) {
             setSideImages(sideImages.concat(data.sideImage))
-        } else toast.error('Paste a valid image url')
+        } else toast.error(TEXT[lang]['invalid_image_url'])
         setData({ ...data, sideImage: '' })
     }
 

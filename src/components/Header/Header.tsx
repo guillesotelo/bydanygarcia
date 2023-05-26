@@ -13,6 +13,7 @@ import { deletePost, getAllPosts } from '../../services'
 import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
+import { TEXT } from '../../constants/lang'
 
 type Props = {
     search: string[]
@@ -20,13 +21,13 @@ type Props = {
 }
 
 export default function Header({ search, setSearch }: Props) {
+    const { lang, setLang, isMobile } = useContext(AppContext)
     const [postId, setPostId] = useState('')
     const [prompt, setPrompt] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
     const [searchClicked, setSearchClicked] = useState(false)
-    const { lang, isMobile } = useContext(AppContext)
     const history = useHistory()
     const location = useLocation()
 
@@ -89,7 +90,7 @@ export default function Header({ search, setSearch }: Props) {
         await toast.promise(
             deletePost({ _id: postId }),
             {
-                loading: 'Deleting post...',
+                loading: TEXT[lang]['deleting_post'],
                 success: <b>Post deleted successfully. Redirecting...</b>,
                 error: <b>Error deleting post</b>,
             }
@@ -100,12 +101,17 @@ export default function Header({ search, setSearch }: Props) {
 
     const logOut = () => {
         localStorage.clear()
-        toast.success('See you later!')
+        toast.success(TEXT[lang]['see_you_later'])
         setTimeout(() => {
             setIsAdmin(false)
             setPostId('')
             history.push('/')
         }, 1500)
+    }
+
+    const changeLanguage = (language: string) => {
+        setLang(language)
+        localStorage.setItem('preferedLang', language)
     }
 
     return (
@@ -134,37 +140,37 @@ export default function Header({ search, setSearch }: Props) {
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/blog')
-                            }}>BLOG</h4>
+                            }}>{TEXT[lang]['blog']}</h4>
                         </div>
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/bespoken')
-                            }}>BESPOKEN</h4>
+                            }}>{TEXT[lang]['bespoken']}</h4>
                         </div>
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/baby-and-you')
-                            }}>BABY & YOU</h4>
+                            }}>{TEXT[lang]['baby_and_you']}</h4>
                         </div>
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/subscribe')
-                            }}>SUBSCRIBE</h4>
+                            }}>{TEXT[lang]['subscribe']}</h4>
                         </div>
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/about')
-                            }}>WHO AM I</h4>
+                            }}>{TEXT[lang]['who_am_i']}</h4>
                         </div>
                         <div className="header__menu-item" style={{ paddingBottom: '8vw' }}>
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/contact')
-                            }}>CONTACT</h4>
+                            }}>{TEXT[lang]['contact']}</h4>
                         </div>
                         <div className="header__menu-item" style={{ paddingTop: '8vw' }}>
                             <h4 className="header__menu-item-text" onClick={() => {
@@ -223,74 +229,90 @@ export default function Header({ search, setSearch }: Props) {
             {!isMobile ?
                 <div className="header__items">
                     <div className="header__item" onClick={() => history.push('/blog')}>
-                        <h4 className="header__item-text">BLOG</h4>
+                        <h4 className="header__item-text">{TEXT[lang]['blog']}</h4>
                     </div>
                     <div className="header__item">
-                        <h4 className="header__item-text">JOURNAL</h4>
+                        <h4 className="header__item-text">{TEXT[lang]['journal']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown">
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    WHAT I'VE LEARNED
+                                    {TEXT[lang]['what_ive_learned']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    HYGGE
+                                    {TEXT[lang]['hygge']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    LIFE IN THE NORTH
+                                    {TEXT[lang]['life_in_north']}
                                 </h4>
                             </div>
                         </div>
                     </div>
                     <div className="header__item">
-                        <h4 className="header__item-text">BESPOKEN</h4>
+                        <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown">
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    SHOP
+                                    {TEXT[lang]['shop']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    THE BRANCH
+                                    {TEXT[lang]['the_branch']}
                                 </h4>
                             </div>
                         </div>
                     </div>
                     <div className="header__item">
-                        <h4 className="header__item-text">DISCOVER</h4>
+                        <h4 className="header__item-text">{TEXT[lang]['discover']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown">
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    BABY & YOU
+                                    {TEXT[lang]['baby_and_you']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    TRAVEL & CONTEMPLATION
+                                    {TEXT[lang]['travel_and_contemplation']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    MINDFULNESS
+                                    {TEXT[lang]['mindfulness']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    VIDEOS
+                                    {TEXT[lang]['videos']}
                                 </h4>
                             </div>
                         </div>
                     </div>
                     <div className="header__item" onClick={() => history.push('/about')}>
-                        <h4 className="header__item-text">ABOUT</h4>
+                        <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
                         {/* <img className="header__item-svg" src={ChevronDown} /> */}
+                    </div>
+                    <div className="header__item">
+                        <h4 className="header__item-text">{lang.toUpperCase()}</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown">
+                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
+                                <h4 className="header__item-dropdown-text">
+                                    ENGLISH
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
+                                <h4 className="header__item-dropdown-text">
+                                    ESPAÑOL
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div className="header__social">
                         <img className="header__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
@@ -330,7 +352,7 @@ export default function Header({ search, setSearch }: Props) {
             <div className="header__search">
                 <img className="header__search-svg" src={Search} onClick={triggerSearch} />
                 {searchClicked || !isMobile ?
-                    <input type="text" className="header__search-input" placeholder='Search' onChange={handleSearch} onKeyDown={e => {
+                    <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
                         if (e.key === 'Enter') triggerSearch()
                     }} />
                     : ''}
