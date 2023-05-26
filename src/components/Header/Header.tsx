@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react'
+import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
 import Menu from '../../assets/icons/menu-icon.svg'
 import ChevronDown from '../../assets/icons/chevron-down.svg'
 import Instagram from '../../assets/icons/instagram.svg'
@@ -12,6 +12,7 @@ import EditIcon from '../../assets/icons/edit.svg'
 import { deletePost, getAllPosts } from '../../services'
 import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
+import { AppContext } from '../../AppContext'
 
 type Props = {
     search: string[]
@@ -25,7 +26,7 @@ export default function Header({ search, setSearch }: Props) {
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
     const [searchClicked, setSearchClicked] = useState(false)
-    const isMobile = window.screen.width <= 768
+    const { lang, isMobile } = useContext(AppContext)
     const history = useHistory()
     const location = useLocation()
 

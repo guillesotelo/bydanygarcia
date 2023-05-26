@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../AppContext'
 
 type Props = {}
 
 export default function About({ }: Props) {
-  const isMobile = window.screen.width <= 768
+  const { lang, isMobile } = useContext(AppContext)
 
   return (
     <div className="about__container">

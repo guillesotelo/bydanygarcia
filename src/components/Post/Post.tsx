@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import ShareIcon from '../../assets/icons/share.svg'
+import { AppContext } from '../../AppContext'
 
 type Props = {
     content?: string
@@ -9,7 +10,7 @@ type Props = {
 
 export default function Post({ headers, content }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
-    const isMobile = window.screen.width <= 768
+    const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         if (headers.sideImages) setSideImages(headers.sideImages)

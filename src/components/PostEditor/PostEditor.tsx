@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 import { useHistory, useLocation } from 'react-router-dom';
 import InputField from '../InputField/InputField';
 import Button from '../Button/Button';
@@ -9,6 +10,7 @@ import { createPost, updatePost } from '../../services';
 import { toast } from 'react-hot-toast';
 import { getPostById } from '../../services/post';
 import draftToHtml from 'draftjs-to-html';
+import { AppContext } from '../../AppContext';
 
 type Props = {}
 const voidData = {
@@ -31,7 +33,7 @@ export default function PostEditor({ }: Props) {
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const history = useHistory()
     const location = useLocation()
-    const isMobile = window.screen.width <= 768
+    const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
@@ -110,7 +112,7 @@ export default function PostEditor({ }: Props) {
     const addSideImage = () => {
         if (data.sideImage) {
             setSideImages(sideImages.concat(data.sideImage))
-        }
+        } else toast.error('Paste a valid image url')
         setData({ ...data, sideImage: '' })
     }
 
@@ -171,14 +173,16 @@ export default function PostEditor({ }: Props) {
                 /> */}
                     </div>
                 </div>
-                <Editor
-                    editorState={editorState}
-                    onEditorStateChange={handleEditorChange}
-                    toolbarClassName="editor__toolbar"
-                    wrapperClassName="editor__wrapper"
-                    editorClassName="editor__editor"
-                    onFocus={() => { }}
-                />
+                <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}>
+                    <Editor
+                        editorState={editorState}
+                        onEditorStateChange={handleEditorChange}
+                        toolbarClassName="editor__toolbar"
+                        wrapperClassName="editor__wrapper"
+                        editorClassName="editor__editor"
+                        onFocus={() => { }}
+                    />
+                </GrammarlyEditorPlugin>
                 {!isMobile ?
                     <div className="editor__btns">
                         <Button
@@ -212,27 +216,29 @@ export default function PostEditor({ }: Props) {
                         placeholder='Add new image (https://example.com/image.png)'
                     />
                     <Button
-                        label='Add image'
+                        label='Add'
                         handleClick={addSideImage}
                         disabled={!isEdited && !isUpdate}
                     />
                 </div>
             </div>
-            {isMobile ?
-                <div className="editor__btns">
-                    <Button
-                        label='Discard changes'
-                        handleClick={() => isUpdate ? history.goBack() : history.go(0)}
-                        bgColor='lightgray'
-                        disabled={!isEdited && !isUpdate}
-                    />
-                    <Button
-                        label={isUpdate ? 'Update post' : 'Save post'}
-                        handleClick={handleSave}
-                        disabled={!isEdited && !isUpdate}
-                    />
-                </div>
-                : ''}
-        </div>
+            {
+                isMobile ?
+                    <div className="editor__btns">
+                        <Button
+                            label='Discard changes'
+                            handleClick={() => isUpdate ? history.goBack() : history.go(0)}
+                            bgColor='lightgray'
+                            disabled={!isEdited && !isUpdate}
+                        />
+                        <Button
+                            label={isUpdate ? 'Update post' : 'Save post'}
+                            handleClick={handleSave}
+                            disabled={!isEdited && !isUpdate}
+                        />
+                    </div>
+                    : ''
+            }
+        </div >
         : <div></div>
 }

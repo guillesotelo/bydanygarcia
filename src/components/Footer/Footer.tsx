@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import { AppContext } from '../../AppContext';
 
 type Props = {}
 
 export default function Footer({ }: Props) {
-    const isMobile = window.screen.width <= 768
+    const { lang, isMobile } = useContext(AppContext)
     const history = useHistory()
 
     return (
