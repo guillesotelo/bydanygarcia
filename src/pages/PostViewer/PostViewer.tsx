@@ -58,6 +58,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const renderHelmet = () => {
         return <Helmet>
             <meta property="og:title" content={post.title} />
+            <meta property="og:type" content='website' />
             <meta property="og:description" content={post.subtitle} />
             <meta property="og:image" content={post.imageUrl} />
             <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
