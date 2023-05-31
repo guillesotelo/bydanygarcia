@@ -14,6 +14,7 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
+import byDanyLogo from '../../assets/logos/bydanygarcia1.png'
 
 type Props = {
     search: string[]
@@ -28,6 +29,7 @@ export default function Header({ search, setSearch }: Props) {
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
     const [searchClicked, setSearchClicked] = useState(false)
+    const [bigHeader, setBigHeader] = useState(false)
     const history = useHistory()
     const location = useLocation()
 
@@ -48,6 +50,7 @@ export default function Header({ search, setSearch }: Props) {
                 setSearchClicked(false)
             }
         })
+        activateHeaderHeight()
     }, [])
 
     useEffect(() => {
@@ -71,6 +74,14 @@ export default function Header({ search, setSearch }: Props) {
             else postEditor.style.filter = ''
         }
     }, [deleteModal])
+
+    const activateHeaderHeight = () => {
+        window.addEventListener('scroll', function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+            if (scrollTop > 200) setBigHeader(false)
+            else setBigHeader(true)
+        })
+    }
 
     const handleSearch = (e: any) => {
         const { value } = e.target
@@ -115,7 +126,7 @@ export default function Header({ search, setSearch }: Props) {
     }
 
     return (
-        <div className='header__container'>
+        <div className='header__container' style={{ height: bigHeader ? '10vw' : '4vw' }}>
             {deleteModal ?
                 <div className='header__delete-modal'>
                     <h4 className="header__delete-modal-text">Are you sure you want to delete this post?</h4>
@@ -172,13 +183,14 @@ export default function Header({ search, setSearch }: Props) {
                                 history.push('/contact')
                             }}>{TEXT[lang]['contact']}</h4>
                         </div>
-                        <div className="header__menu-item" style={{ paddingTop: '8vw' }}>
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                if (isAdmin) return logOut()
-                                history.push('/login')
-                            }}>{isAdmin ? 'LOGOUT' : 'LOGIN'}</h4>
-                        </div>
+                        {isAdmin ?
+                            <div className="header__menu-item" style={{ paddingTop: '8vw' }}>
+                                <h4 className="header__menu-item-text" onClick={() => {
+                                    setTimeout(() => setMenuToggle(false), 50)
+                                    logOut()
+                                }}>LOGOUT</h4>
+                            </div>
+                            : ''}
                         <div className="header__menu-item" style={{
                             // position: 'relative'
                         }}>
@@ -192,15 +204,6 @@ export default function Header({ search, setSearch }: Props) {
                                 onClick={() => window.open('https://github.com/guillesotelo/bydanygarcia', '_blank', 'noreferrer')}>{APP_VERSION}</h4>
                         </div>
                     </div>
-                </div>
-                : ''}
-            {(!isMobile && !searchClicked) || !isAdmin ?
-                <div className="header__logo" onClick={() => {
-                    setSearch([])
-                    setPrompt('')
-                    history.push('/')
-                }}>
-                    <h4 className="header__logo-text">by DANY GARCIA</h4>
                 </div>
                 : ''}
             {isMobile && isAdmin ?
@@ -227,14 +230,14 @@ export default function Header({ search, setSearch }: Props) {
                 </div>
                 : ''}
             {!isMobile ?
-                <div className="header__items">
+                <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
                     <div className="header__item" onClick={() => history.push('/blog')}>
                         <h4 className="header__item-text">{TEXT[lang]['blog']}</h4>
                     </div>
                     <div className="header__item">
                         <h4 className="header__item-text">{TEXT[lang]['journal']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown">
+                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['what_ive_learned']}
@@ -255,7 +258,7 @@ export default function Header({ search, setSearch }: Props) {
                     <div className="header__item">
                         <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown">
+                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['shop']}
@@ -271,7 +274,7 @@ export default function Header({ search, setSearch }: Props) {
                     <div className="header__item">
                         <h4 className="header__item-text">{TEXT[lang]['discover']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown">
+                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['baby_and_you']}
@@ -298,22 +301,24 @@ export default function Header({ search, setSearch }: Props) {
                         <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
                         {/* <img className="header__item-svg" src={ChevronDown} /> */}
                     </div>
-                    <div className="header__item">
-                        <h4 className="header__item-text">{lang.toUpperCase()}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown">
-                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
-                                <h4 className="header__item-dropdown-text">
-                                    ENGLISH
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
-                                <h4 className="header__item-dropdown-text">
-                                    ESPAÑOL
-                                </h4>
-                            </div>
+                    {(!isMobile && !searchClicked) || !isAdmin ?
+                        <div className="header__logo"
+                            onClick={() => {
+                                setSearch([])
+                                setPrompt('')
+                                history.push('/')
+                            }}>
+                            {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                            <img
+                                className="header__logo-image"
+                                style={{
+                                    height: bigHeader ? '25vw' : '15vw'
+                                }} 
+                                src={byDanyLogo}
+                                alt='by Dany Garcia'
+                                loading='lazy' />
                         </div>
-                    </div>
+                        : ''}
                     <div className="header__social">
                         <img className="header__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
                         <img className="header__social-svg" onClick={() => window.open('https://www.pinterest.se/bespoken_ar/', '_blank', 'noreferrer')} src={Pinterest} />
@@ -340,16 +345,31 @@ export default function Header({ search, setSearch }: Props) {
                                 bgColor='#ece7e6'
                             />
                             : ''}
-                        <div className="header__item">
-                            <h4 className="header__item-text" onClick={() => {
-                                if (isAdmin) logOut()
-                                else history.push('/login')
-                            }}>{isAdmin ? 'LOGOUT' : 'LOGIN'}</h4>
-                        </div>
+                        {isAdmin ?
+                            <div className="header__item">
+                                <h4 className="header__item-text" onClick={logOut}>LOGOUT</h4>
+                            </div>
+                            : ''}
                     </div>
                 </div>
                 : ''}
             <div className="header__search">
+                <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
+                    <h4 className="header__item-text">{lang.toUpperCase()}</h4>
+                    <img className="header__item-svg" src={ChevronDown} />
+                    <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                        <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
+                            <h4 className="header__item-dropdown-text">
+                                ENGLISH
+                            </h4>
+                        </div>
+                        <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
+                            <h4 className="header__item-dropdown-text">
+                                ESPAÑOL
+                            </h4>
+                        </div>
+                    </div>
+                </div>
                 <img className="header__search-svg" src={Search} onClick={triggerSearch} />
                 {searchClicked || !isMobile ?
                     <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
