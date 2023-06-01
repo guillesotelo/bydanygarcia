@@ -6,12 +6,18 @@ import { TEXT } from '../../constants/lang'
 
 type Props = {
     content?: string
+    spaContent?: string
     headers: { [key: number | string]: any }
 }
 
-export default function Post({ headers, content }: Props) {
+export default function Post({ headers, content, spaContent }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
+    const [spanish, setSpanish] = useState(false)
     const { lang, isMobile } = useContext(AppContext)
+
+    useEffect(() => {
+        setSpanish(lang === 'es')
+    }, [])
 
     useEffect(() => {
         if (headers.sideImages) setSideImages(headers.sideImages)
@@ -32,8 +38,8 @@ export default function Post({ headers, content }: Props) {
             }}>
                 <div className="post__headers">
                     <img className="post__share-icon" onClick={copyLink} src={ShareIcon} />
-                    <h1 className="post__title">{headers.title || ''}</h1>
-                    <h3 className="post__subtitle">{headers.subtitle || ''}</h3>
+                    <h1 className="post__title">{spanish && headers.spaTitle ? headers.spaTitle : headers.title || ''}</h1>
+                    <h3 className="post__subtitle">{spanish && headers.spaSubtitle ? headers.spaSubtitle : headers.subtitle || ''}</h3>
                 </div>
                 <img
                     src={headers.imageUrl || ''}
@@ -41,12 +47,12 @@ export default function Post({ headers, content }: Props) {
                     loading='lazy'
                     className="post__image"
                     style={{
-                        
+
                     }}
                 />
                 <div
                     className="post__content"
-                    dangerouslySetInnerHTML={{ __html: content || '' }}
+                    dangerouslySetInnerHTML={{ __html: spanish && spaContent ? spaContent : content || '' }}
 
                 />
             </div>

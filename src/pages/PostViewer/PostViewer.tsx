@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
 import { getPostById } from '../../services/post'
 import draftToHtml from 'draftjs-to-html';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
+import { AppContext } from '../../AppContext';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -13,10 +14,17 @@ type Props = {
 
 export default function PostViewer({ post, setPost }: Props) {
     const [rawData, setRawData] = useState('')
+    const [spaRawData, setSpaRawData] = useState('')
     const [postId, setPostId] = useState('')
     const [loading, setLoading] = useState(false)
+    const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
     const location = useLocation()
+    const { lang, isMobile } = useContext(AppContext)
+
+    useEffect(() => {
+        setSpanish(lang === 'es')
+    }, [])
 
     useEffect(() => {
         const id = new URLSearchParams(document.location.search).get('id')
@@ -32,6 +40,10 @@ export default function PostViewer({ post, setPost }: Props) {
         if (post.rawData) {
             const htmlContent = draftToHtml(JSON.parse(post.rawData || {}))
             setRawData(htmlContent || '')
+        }
+        if (post.spaRawData) {
+            const htmlContent = draftToHtml(JSON.parse(post.spaRawData || {}))
+            setSpaRawData(htmlContent || '')
         }
 
         if (post.sideImages) setSideImages(post.sideImages)
@@ -57,9 +69,9 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const renderHelmet = () => {
         return <Helmet>
-            <meta property="og:title" content={post.title} />
+            <meta property="og:title" content={spanish && post.spaTitle ? post.spaTitle : post.title} />
             <meta property="og:type" content='website' />
-            <meta property="og:description" content={post.subtitle} />
+            <meta property="og:description" content={spanish && post.spaSubtitle ? post.spaSubtitle : post.subtitle} />
             <meta property="og:image" content={post.imageUrl} />
             <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
         </Helmet>
@@ -73,6 +85,7 @@ export default function PostViewer({ post, setPost }: Props) {
                 <Post
                     headers={{ ...post, sideImages }}
                     content={rawData}
+                    spaContent={spaRawData}
                 />
             }
         </div>
