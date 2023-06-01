@@ -21,7 +21,11 @@ const voidData = {
     description: '',
     imageUrl: '',
     overlap: '',
-    sideImage: ''
+    sideImage: '',
+    spaTitle: '',
+    spaSubtitle: '',
+    spaDescription: '',
+    spaOverlap: '',
 }
 
 export default function PostEditor({ }: Props) {
@@ -29,9 +33,11 @@ export default function PostEditor({ }: Props) {
     const [isAdmin, setIsAdmin] = useState(false)
     const [isEdited, setIsEdited] = useState(false)
     const [isUpdate, setIsUpdate] = useState(false)
+    const [spaSelected, setSpaSelected] = useState(false)
     const [postId, setPostId] = useState('')
     const [sideImages, setSideImages] = useState<string[]>([])
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+    const [spaEditorState, setSpaEditorState] = useState(() => EditorState.createEmpty())
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile } = useContext(AppContext)
@@ -83,12 +89,14 @@ export default function PostEditor({ }: Props) {
     }
 
     const handleEditorChange = (state: EditorState) => {
-        setEditorState(state);
-    };
+        if (spaSelected) setSpaEditorState(state)
+        setEditorState(state)
+    }
 
     const handleSave = async () => {
         const loading = toast.loading(isUpdate ? TEXT[lang]['updating'] : TEXT[lang]['saving'])
-        const rawData = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
+        const rawData = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+        const spaRawData = JSON.stringify(convertToRaw(spaEditorState.getCurrentContent()))
         const sideImgs = JSON.stringify(sideImages)
         if (isUpdate) {
             const updated = await updatePost({ ...data, sideImgs, rawData })
@@ -98,7 +106,7 @@ export default function PostEditor({ }: Props) {
             } else toast.error(TEXT[lang]['error_saving'])
             getPost(postId)
         } else {
-            const saved = await createPost({ ...data, sideImgs, rawData })
+            const saved = await createPost({ ...data, sideImgs, rawData, spaRawData })
             if (saved) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
@@ -126,18 +134,22 @@ export default function PostEditor({ }: Props) {
     return isAdmin ?
         <div className='editor__container'>
             <div className="editor__left-col">
+                <div className="editor__tab-container">
+                    <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>
+                    <h4 className={`editor__tab-item ${spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(true)}>Español</h4>
+                </div>
                 <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
                 <div className="editor__data-input">
                     <div className="editor__input-col">
                         <InputField
                             name='title'
-                            value={data.title}
+                            value={spaSelected ? data.spaTitle : data.title}
                             updateData={updateData}
                             placeholder='Title'
                         />
                         <InputField
                             name='subtitle'
-                            value={data.subtitle}
+                            value={spaSelected ? data.spaSubtitle : data.subtitle}
                             updateData={updateData}
                             placeholder='Sub-title'
                         />
@@ -157,13 +169,13 @@ export default function PostEditor({ }: Props) {
                         />
                         <InputField
                             name='overlap'
-                            value={data.overlap}
+                            value={spaSelected ? data.spaOverlap : data.overlap}
                             updateData={updateData}
                             placeholder='Overlap (title over image)'
                         />
                         <InputField
                             name='description'
-                            value={data.description}
+                            value={spaSelected ? data.spaDescription : data.description}
                             updateData={updateData}
                             placeholder='Description (short text)'
                         />
@@ -176,7 +188,7 @@ export default function PostEditor({ }: Props) {
                 </div>
                 <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}>
                     <Editor
-                        editorState={editorState}
+                        editorState={spaSelected ? spaEditorState : editorState}
                         onEditorStateChange={handleEditorChange}
                         toolbarClassName="editor__toolbar"
                         wrapperClassName="editor__wrapper"

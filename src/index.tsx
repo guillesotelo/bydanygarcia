@@ -10,7 +10,7 @@ const isMobile = window.screen.width <= 768
 
 const toastOptions = {
   style: {
-    marginTop: isMobile ? '20vw' : '4vw',
+    marginTop: isMobile ? '20vw' : '10vw',
   }
 }
 
