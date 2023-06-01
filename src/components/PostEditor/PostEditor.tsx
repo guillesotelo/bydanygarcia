@@ -56,6 +56,7 @@ export default function PostEditor({ }: Props) {
         if (isNew) {
             setData(voidData)
             setEditorState(EditorState.createEmpty())
+            setSpaEditorState(EditorState.createEmpty())
             setIsEdited(false)
             setPostId('')
         }
@@ -73,6 +74,11 @@ export default function PostEditor({ }: Props) {
             if (_post.rawData) {
                 const rawContent = JSON.parse(_post.rawData || {})
                 setEditorState(EditorState.createWithContent(convertFromRaw(rawContent)))
+                setIsUpdate(true)
+            }
+            if (_post.spaRawData) {
+                const rawContent = JSON.parse(_post.spaRawData || {})
+                setSpaEditorState(EditorState.createWithContent(convertFromRaw(rawContent)))
                 setIsUpdate(true)
             }
             if (_post.sideImgs) {
@@ -99,7 +105,7 @@ export default function PostEditor({ }: Props) {
         const spaRawData = JSON.stringify(convertToRaw(spaEditorState.getCurrentContent()))
         const sideImgs = JSON.stringify(sideImages)
         if (isUpdate) {
-            const updated = await updatePost({ ...data, sideImgs, rawData })
+            const updated = await updatePost({ ...data, sideImgs, rawData, spaRawData })
             if (updated) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
@@ -142,13 +148,13 @@ export default function PostEditor({ }: Props) {
                 <div className="editor__data-input">
                     <div className="editor__input-col">
                         <InputField
-                            name='title'
+                            name={spaSelected ? 'spaTitle' : 'title'}
                             value={spaSelected ? data.spaTitle : data.title}
                             updateData={updateData}
                             placeholder='Title'
                         />
                         <InputField
-                            name='subtitle'
+                            name={spaSelected ? 'spaSubtitle' : 'subtitle'}
                             value={spaSelected ? data.spaSubtitle : data.subtitle}
                             updateData={updateData}
                             placeholder='Sub-title'
@@ -168,13 +174,13 @@ export default function PostEditor({ }: Props) {
                             placeholder='Image URL (https://example.com/image.png)'
                         />
                         <InputField
-                            name='overlap'
+                            name={spaSelected ? 'spaOverlap' : 'overlap'}
                             value={spaSelected ? data.spaOverlap : data.overlap}
                             updateData={updateData}
                             placeholder='Overlap (title over image)'
                         />
                         <InputField
-                            name='description'
+                            name={spaSelected ? 'spaDescription' : 'description'}
                             value={spaSelected ? data.spaDescription : data.description}
                             updateData={updateData}
                             placeholder='Description (short text)'

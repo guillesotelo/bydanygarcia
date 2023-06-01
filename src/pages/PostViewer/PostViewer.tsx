@@ -59,6 +59,10 @@ export default function PostViewer({ post, setPost }: Props) {
                 const htmlContent = draftToHtml(JSON.parse(_post.rawData || {}))
                 setRawData(htmlContent || '')
             }
+            if (_post.spaRawData) {
+                const htmlContent = draftToHtml(JSON.parse(_post.spaRawData || {}))
+                setSpaRawData(htmlContent || '')
+            }
             if (_post.sideImgs) {
                 const sideImgs = JSON.parse(_post.sideImgs)
                 setSideImages(sideImgs)
