@@ -8,16 +8,16 @@
         position: fixed;
         top: 0;
         width: 100%;
-        background-color: #fff;
+        background-color: #FFF9F5;
         z-index: 2;
         animation: move-y-down .7s ease-in;
         transition: .5s;
-        
+
     }
 
     &__menu {
         height: 4vw;
-        background-color: #ece7e6;
+        background-color: #FFF9F5;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -34,7 +34,7 @@
         &-sidebar {
             &--hidden {
                 margin-top: 4vw;
-                background-color: #ece7e6;
+                background-color: #FFF9F5;
                 height: 100vh;
                 width: 20vw;
                 position: absolute;
@@ -43,13 +43,13 @@
                 transition: .5s;
                 transform: translateX(-100%);
                 opacity: 0.2;
-                box-shadow: 7px 11px 16px -3px #9999995e;
+                box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
                 cursor: auto;
             }
 
             &--toggled {
                 margin-top: 4vw;
-                background-color: #ece7e6;
+                background-color: #FFF9F5;
                 height: 100vh;
                 width: 20vw;
                 position: absolute;
@@ -58,7 +58,7 @@
                 transition: .5s;
                 transform: translateX(0%);
                 opacity: 1;
-                box-shadow: 7px 11px 16px -3px #9999995e;
+                box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
                 cursor: auto;
             }
         }
@@ -107,17 +107,18 @@
     }
 
     &__logo {
-        height: 2.5vw;
+        height: 100%;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
         // border-right: 1px solid #cccccc;
+        cursor: pointer;
 
         &-text {
             font-size: 1vw;
             margin: 0 2vw;
             font-weight: normal;
-            cursor: pointer;
             transition: .5s;
 
             &:hover {
@@ -126,8 +127,12 @@
         }
 
         &-image {
-            height: 25vw;
+            height: 6vw;
             transition: .5s;
+
+            &:hover {
+                opacity: .5;
+            }
         }
     }
 
@@ -136,8 +141,8 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        height: 4vw;
-        width: 75%;
+        height: 100%;
+        width: 65%;
     }
 
     &__item {
@@ -149,13 +154,23 @@
         cursor: pointer;
         transition: 0.3s;
 
-        &:hover {
-            background-color: #ece7e6;
+        &:hover>.header__item-text {
+            // background-color: #ece7e6;
+            color: #8C776B;
+        }
+
+        &:hover>.header__item-dropdown {
+            transform: translateY(0%);
+            top: 0;
+            transition: .4s;
+            opacity: 1;
+            pointer-events: initial;
         }
 
         &-text {
             font-size: 0.7vw;
             font-weight: normal;
+            transition: .3s;
         }
 
         &-svg {
@@ -163,18 +178,19 @@
         }
 
         &-dropdown {
-            transform: translateY(-100%);
+            transform: translateY(-50%);
             display: flex;
             position: absolute;
             margin: 4vw -1.5vw;
             flex-direction: column;
             align-items: center;
-            background-color: #ece7e6;
+            background-color: #FFF9F5;
             opacity: 0;
             padding: 1.5vw;
             gap: 1vw;
             min-width: 10vw;
             box-shadow: 7px 11px 16px -3px #9999995e;
+            pointer-events: none;
 
             &-text {
                 margin: .3vw 0;
@@ -202,12 +218,6 @@
             }
         }
 
-        &:hover .header__item-dropdown {
-            transform: translateY(0%);
-            top: 0;
-            transition: .4s;
-            opacity: 1;
-        }
     }
 
     &__social {
@@ -242,7 +252,7 @@
         background-color: rgb(255, 255, 255);
         padding: 1vw;
         border-radius: .5vw;
-        box-shadow: 3px 3px 15px gray;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
         z-index: 2;
 
         &-btns {
@@ -278,6 +288,7 @@
             border: none;
             border-bottom: 1px solid lightgray;
             padding: .3vw;
+            background-color: #FFF9F5;
 
             &:focus {
                 outline: none;
@@ -353,7 +364,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgb(255, 255, 255);
+            background-color: #FFF9F5;
             padding: 4vw;
             border-radius: 1.5vw;
             box-shadow: 3px 3px 15px gray;

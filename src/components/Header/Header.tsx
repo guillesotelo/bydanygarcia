@@ -1,9 +1,6 @@
 import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
 import Menu from '../../assets/icons/menu-icon.svg'
 import ChevronDown from '../../assets/icons/chevron-down.svg'
-import Instagram from '../../assets/icons/instagram.svg'
-import Pinterest from '../../assets/icons/pinterest.svg'
-import Youtube from '../../assets/icons/youtube.svg'
 import Search from '../../assets/icons/search-icon.svg'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
@@ -14,7 +11,7 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/bydanygarcia1.png'
+import byDanyLogo from '../../assets/logos/logo_cropped.png'
 
 type Props = {
     search: string[]
@@ -29,7 +26,7 @@ export default function Header({ search, setSearch }: Props) {
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
     const [searchClicked, setSearchClicked] = useState(false)
-    const [bigHeader, setBigHeader] = useState(false)
+    const [bigHeader, setBigHeader] = useState(true)
     const history = useHistory()
     const location = useLocation()
 
@@ -312,18 +309,14 @@ export default function Header({ search, setSearch }: Props) {
                             <img
                                 className="header__logo-image"
                                 style={{
-                                    height: bigHeader ? '25vw' : '15vw'
-                                }} 
+                                    height: bigHeader ? '6vw' : '3vw',
+                                    margin: bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
+                                }}
                                 src={byDanyLogo}
                                 alt='by Dany Garcia'
                                 loading='lazy' />
                         </div>
                         : ''}
-                    <div className="header__social">
-                        <img className="header__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
-                        <img className="header__social-svg" onClick={() => window.open('https://www.pinterest.se/bespoken_ar/', '_blank', 'noreferrer')} src={Pinterest} />
-                        <img className="header__social-svg" onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
-                    </div>
                     <div className="header__admin-btns">
                         {isAdmin ?
                             <Button
@@ -357,7 +350,7 @@ export default function Header({ search, setSearch }: Props) {
                 <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
                     <h4 className="header__item-text">{lang.toUpperCase()}</h4>
                     <img className="header__item-svg" src={ChevronDown} />
-                    <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                    <div className="header__item-dropdown">
                         <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
                             <h4 className="header__item-dropdown-text">
                                 ENGLISH

@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AppContext } from '../../AppContext';
 import { TEXT } from '../../constants/lang';
+import Instagram from '../../assets/icons/instagram.svg'
+import Pinterest from '../../assets/icons/pinterest.svg'
+import Youtube from '../../assets/icons/youtube.svg'
 
 type Props = {}
 
@@ -16,8 +19,13 @@ export default function Footer({ }: Props) {
                 <h4 className="footer__nav-link" onClick={() => history.push('/privacyPolicy')}>{isMobile ? TEXT[lang]['privacy'] : TEXT[lang]['privacy_policy']}</h4>
                 <h4 className="footer__nav-link" onClick={() => history.push('/contact')}>{isMobile ? TEXT[lang]['contact'] : TEXT[lang]['contact_me']}</h4>
             </div>
+            <div className="header__social">
+                <img className="header__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
+                <img className="header__social-svg" onClick={() => window.open('https://www.pinterest.se/bespoken_ar/', '_blank', 'noreferrer')} src={Pinterest} />
+                <img className="header__social-svg" onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
+            </div>
             <div className="footer__info">
-                <h4 className="footer__copyright">{isMobile ? '© 2023' : 'Copyright © 2023'}</h4>
+                <h4 className="footer__copyright">{isMobile ? '© 2023' : 'by Dany García © 2023'}</h4>
             </div>
         </div>
     )

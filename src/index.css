@@ -10,7 +10,7 @@ body {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  padding-top: 6vw;
+  padding: 7vw 0;
 }
 
 code {
