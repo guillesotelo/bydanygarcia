@@ -18,6 +18,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         gap: 2vw;
 
         &-link {
@@ -39,6 +40,23 @@
         margin: 0 2vw;
     }
 
+    &__social {
+        margin: 0 2vw;
+
+        &-svg {
+            height: 1vw;
+            margin: .7vw;
+            cursor: pointer;
+            transition: 0.3s;
+
+            &:hover {
+                opacity: 0.5;
+                transition: 0.3s;
+                filter: invert(51%) sepia(3%) saturate(2931%) hue-rotate(314deg) brightness(103%) contrast(99%);
+            }
+        }
+    }
+
     &__copyright {
         font-weight: normal;
     }
@@ -48,7 +66,7 @@
 @media only screen and (max-width: 640px) {
     .footer {
         &__container {
-            height: 20vw;
+            height: 40vw;
         }
 
         &__nav {
@@ -72,6 +90,15 @@
             flex-direction: row;
             align-items: center;
             margin: 0 4vw;
+        }
+
+        &__social {
+            margin: 3vw;
+    
+            &-svg {
+                height: 5vw;
+                margin: 3vw;
+            }
         }
 
         &__copyright {

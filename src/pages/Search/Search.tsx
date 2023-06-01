@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
+import { TEXT } from '../../constants/lang'
+import { AppContext } from '../../AppContext'
 
 type Props = {
     search: string[]
@@ -11,6 +13,7 @@ export default function Blog({ search, setPost }: Props) {
     const [allPosts, setAllPosts] = useState<{ [key: string | number]: any }[]>([])
     const [filteredPosts, setFilteredPosts] = useState<{ [key: string | number]: any }[]>([])
     const [showUp, setShowUp] = useState(false)
+    const { lang, setLang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         getPosts()
@@ -60,15 +63,15 @@ export default function Blog({ search, setPost }: Props) {
         return filteredPosts.length ?
             filteredPosts.map((post, i) => <PostCard setPost={setPost} key={i} post={post} />)
             : search.length ?
-                <h4 className='search__no-results'>No results found for <strong>{search.join(', ')}</strong></h4>
+                <h4 className='search__no-results'>{TEXT[lang]['no_results_for']} <strong>{search.join(', ')}</strong></h4>
                 :
-                <h4 className='search__no-results'>Find anything on the site</h4>
+                <h4 className='search__no-results'>{TEXT[lang]['results_placeholder']}</h4>
     }
 
     return (
         <div className='blog__container'>
             <div className="page__header">
-                <h4 className="page__header-title">{search.length ? 'SEARCH RESULTS' : 'SEARCH'}</h4>
+                <h4 className="page__header-title">{search.length ? TEXT[lang]['search_title'] : TEXT[lang]['search_title2']}</h4>
             </div>
             <div className="blog__list">
                 {render()}

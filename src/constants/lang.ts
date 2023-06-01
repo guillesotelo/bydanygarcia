@@ -33,6 +33,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'privacy_policy': 'Política de Privacidad',
         'contact_me': 'Contáctame',
         'about2': 'Sobre mí',
+        'contact2': 'Contacto',
 
         //TOASTS
         'see_you_later': 'Hasta pronto!',
@@ -107,13 +108,19 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
     
         <h2 className="policy__subtitle">Contáctanos</h2>
         <p className="policy__text">Para obtener más información sobre nuestras prácticas de privacidad, si tienes preguntas o si deseas presentar una queja, contáctanos por correo electrónico a <a href="mailto:info@bydanygarcia.com">info@bydanygarcia.com</a>.</p>`,
-    
+
         //ABOUT
         'about_me': `Sobre mí`,
         'about_me_body': `<p className="about__text">¡Hola, soy Daniela Garcia y bienvenidos a mi blog! Soy una escritora apasionada que ama compartir sus ideas y experiencias con el mundo. Comencé este blog como una forma de conectar con personas afines y crear un espacio donde todos podamos aprender y crecer juntos.</p>
         <p className="about__text">Tengo un título en Turismo y Hospitalidad con un enfoque profundo en Servicio y Gestión de Eventos, y llevo más de 5 años escribiendo. Siempre estoy buscando nuevas ideas e inspiración para mis escritos, y me encanta explorar diferentes temas y perspectivas. En este blog encontrarás una mezcla de historias personales, consejos de estilo de vida y artículos que te harán reflexionar sobre una variedad de temas.</p>
         <p className="about__text">Cuando no estoy escribiendo, disfruto pasar tiempo con mi familia, leer libros y viajar a nuevos lugares. También soy una gran fan de la meditación a través de la pintura, y creo en el poder de la fe y la atención plena para transformar nuestras vidas.</p>
         <p className="about__text">¡Gracias por visitar mi blog y espero que disfrutes leyendo mis publicaciones tanto como yo disfruto escribirlas!</p>`,
+
+        // SEARCH
+        'no_results_for': `No hay resultados para`,
+        'results_placeholder': `Busca lo que quieras dentro del sitio`,
+        'search_title': `RESULTADOS DE LA BÚSQUEDA`,
+        'search_title2': `BÚSQUEDA`,
     },
     'en': {
         //HEADER
@@ -149,6 +156,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'privacy_policy': 'Privacy Policy',
         'contact_me': 'Contact me',
         'about2': 'About',
+        'contact2': 'Contact',
 
         //TOASTS
         'see_you_later': 'See you later!',
@@ -215,12 +223,18 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         <h2 className="policy__subtitle">Contact us</h2>
         <p className="policy__text">For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at <a href="mailto:info@bydanygarcia.com">info@bydanygarcia.com</a>.</p>`,
-    
+
         //ABOUT
         'about_me': `About me`,
         'about_me_body': ` <p className="about__text">Hi, I'm Daniela Garcia, and welcome to my blog! I'm a passionate writer who loves to share her ideas and experiences with the world. I started this blog as a way to connect with other like-minded people and to create a space where we can all learn and grow together.</p>
         <p className="about__text">I have a degree in Tourism & Hospitality with deep focus in Service and Event Management, and have been writing for over 5 years. I'm constantly seeking out new ideas and inspiration for my writing, and I love to explore different topics and perspectives. On this blog, you'll find a mix of personal stories, lifestyle tips, and thought-provoking articles on a variety of subjects.</p>
         <p className="about__text">When I'm not writing, I enjoy spending time with my family, reading books, and traveling to new places. I'm also a big fan of painting meditation, and I believe in the power of faith and mindfulness to transform our lives.</p>
         <p className="about__text">Thank you for visiting my blog, and I hope you enjoy reading my posts as much as I enjoy writing them!</p>`,
+
+        // SEARCH
+        'no_results_for': `No Results for`,
+        'results_placeholder': `Search for anything on the site`,
+        'search_title': `SEARCH RESULTS`,
+        'search_title2': `SEARCH`,
     }
 }

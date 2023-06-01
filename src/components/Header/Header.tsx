@@ -180,6 +180,12 @@ export default function Header({ search, setSearch }: Props) {
                                 history.push('/contact')
                             }}>{TEXT[lang]['contact']}</h4>
                         </div>
+                        <div className="header__menu-item header__language" style={{ justifySelf: 'flex-end' }}>
+                            <h4 className="header__menu-item-text" onClick={() => {
+                                changeLanguage(lang === 'en' ? 'es' : 'en')
+                                setTimeout(() => setMenuToggle(false), 50)
+                            }}>{lang === 'es' ? '[ES]' : '[EN]'}</h4>
+                        </div>
                         {isAdmin ?
                             <div className="header__menu-item" style={{ paddingTop: '8vw' }}>
                                 <h4 className="header__menu-item-text" onClick={() => {
@@ -347,22 +353,24 @@ export default function Header({ search, setSearch }: Props) {
                 </div>
                 : ''}
             <div className="header__search">
-                <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
-                    <h4 className="header__item-text">{lang.toUpperCase()}</h4>
-                    <img className="header__item-svg" src={ChevronDown} />
-                    <div className="header__item-dropdown">
-                        <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
-                            <h4 className="header__item-dropdown-text">
-                                ENGLISH
-                            </h4>
-                        </div>
-                        <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
-                            <h4 className="header__item-dropdown-text">
-                                ESPAÑOL
-                            </h4>
+                {!isMobile ?
+                    <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
+                        <h4 className="header__item-text">{lang.toUpperCase()}</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown">
+                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
+                                <h4 className="header__item-dropdown-text">
+                                    ENGLISH
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
+                                <h4 className="header__item-dropdown-text">
+                                    ESPAÑOL
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    : ''}
                 <img className="header__search-svg" src={Search} onClick={triggerSearch} />
                 {searchClicked || !isMobile ?
                     <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
