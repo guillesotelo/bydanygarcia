@@ -90,7 +90,7 @@ export default function PostEditor({ }: Props) {
 
     const handleEditorChange = (state: EditorState) => {
         if (spaSelected) setSpaEditorState(state)
-        setEditorState(state)
+        else setEditorState(state)
     }
 
     const handleSave = async () => {
