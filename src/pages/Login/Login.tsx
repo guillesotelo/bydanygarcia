@@ -32,6 +32,7 @@ export default function Login({ }: Props) {
 
     return (
         <div className="login__container">
+            <h4 className="page__header-title">LOGIN</h4>
             <div className="login__box">
                 <InputField
                     name='email'
@@ -49,7 +50,7 @@ export default function Login({ }: Props) {
                     label={TEXT[lang]['login']}
                     handleClick={onLogin}
                     disabled={!data.email || !data.password}
-                    style={{ alignSelf: 'center' }}
+                    style={{ width: '100%' }}
                 />
             </div>
         </div>

@@ -56,7 +56,7 @@ export default function Contact({ }: Props) {
                         label={TEXT[lang]['sent']}
                         handleClick={() => setMessageSent(true)}
                         disabled={!data.email || !data.name || !data.message}
-                        style={{ alignSelf: 'center' }}
+                        style={{ width: '100%' }}
                     />
                 </div>
             </div>

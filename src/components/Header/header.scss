@@ -221,6 +221,9 @@
     }
 
     &__admin-btns {
+        position: absolute;
+        right: 0;
+        margin-right: 21vw;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -328,6 +331,11 @@
             &-text {
                 font-size: 4.5vw;
             }
+
+            &-image {
+                height: 13vw;
+                margin-bottom: 1.5vw;
+            }
         }
 
         &__search {
@@ -365,8 +373,8 @@
             }
         }
 
-        &__language {
-            
+        &__admin-btns {
+            position: relative;
         }
 
 

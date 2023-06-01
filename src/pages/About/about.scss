@@ -33,13 +33,15 @@
         &__container {
             margin: 0 4vw;
             min-height: 80vh;
-            padding: 22vw 0 60vw 0;
+            padding: 16vw 0 60vw 0;
             display: flex;
             flex-direction: column;
         }
 
         &__text {
             width: 100%;
+            font-size: 5vw;
+            text-align: center;
         }
 
         &__image {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Switch, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import './scss/app.scss'
 import Header from './components/Header/Header';
@@ -22,6 +22,11 @@ const App: React.FC = () => {
   const [search, setSearch] = useState<string[]>([])
   const [post, setPost] = useState<{ [key: number | string]: any }>({})
   const [lang, setLang] = useState<string>(localLang)
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [location])
 
   return (
     <AppProvider lang={lang} setLang={setLang} isMobile={isMobile}>

@@ -7,6 +7,7 @@
     &__row-container {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
     }
 
     &__info {
@@ -26,15 +27,13 @@
         box-shadow: 3px 3px 15px lightgray;
         border-radius: .5vw;
         padding: 1vw;
+        margin-top: 2vw;
         gap: 1vw;
-        background-color: #ece7e6;
-        position: absolute;
-        top: 12%;
-        right: 10%;
+        background-color: #FFF9F5;
     }
 
     &__input {
-        border: 1px solid #e4e4e4;
+        border: 1px solid #FFF9F5;
         outline: none !important;
         padding: .3vw;
         font-size: 1vw;
@@ -42,7 +41,7 @@
         border-radius: .3vw;
 
         &-textarea {
-            border: 1px solid #e4e4e4;
+            border: 1px solid #FFF9F5;
             outline: none !important;
             padding: .3vw;
             font-size: 1vw;
@@ -55,7 +54,7 @@
     &__btn {
         margin: .5vw;
         font-size: 1vw;
-        background-color: #D3AFAF;
+        background-color: #8C776B;
         width: fit-content;
         padding: .5vw;
         border-radius: .5vw;
@@ -74,10 +73,11 @@
 @media only screen and (max-width: 640px) {
     .contact {
         &__container {
-            padding: 22vw 4vw 50vw 4vw;
-            width: 93%;
+            padding: 16vw 4vw 60vw 4vw;
             display: flex;
             flex-direction: column;
+            text-align: justify;
+            width: 90%;
         }
 
 
@@ -96,7 +96,7 @@
             display: flex;
             flex-direction: column;
             right: unset;
-            width: 80%;
+            width: 90%;
             gap: 5vw;
             padding: 5vw;
             margin-top: 10vw;
@@ -104,11 +104,10 @@
             background-color: #fff;
             border-radius: 1.5vw;
             top: unset;
-            right: -4%;
         }
 
         &__input {
-            border: 1px solid #e4e4e4;
+            border: 1px solid #FFF9F5;
             outline: none !important;
             padding: .3vw;
             font-size: 1vw;
@@ -116,7 +115,7 @@
             border-radius: .3vw;
 
             &-textarea {
-                border: 1px solid #e4e4e4;
+                border: 1px solid #FFF9F5;
                 outline: none !important;
                 padding: .3vw;
                 font-size: 1vw;
@@ -130,7 +129,7 @@
         &__btn {
             margin: .5vw;
             font-size: 1vw;
-            background-color: #D3AFAF;
+            background-color: #8C776B;
             width: fit-content;
             padding: .5vw;
             border-radius: .5vw;

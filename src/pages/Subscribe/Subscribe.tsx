@@ -51,7 +51,7 @@ export default function Subscribe({ }: Props) {
                     label='Subscribe'
                     handleClick={onSubscribe}
                     disabled={!data.email || !data.fullname}
-                    style={{ alignSelf: 'center' }}
+                    style={{ width: '100%' }}
                 />
             </div>
         </div >

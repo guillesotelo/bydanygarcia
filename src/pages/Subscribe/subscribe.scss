@@ -45,11 +45,12 @@
         }
 
         &__container {
-            padding: 20vw 4vw 60vw 4vw;
+            padding: 16vw 4vw 60vw 4vw;
             min-height: 60vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: justify;
         }
 
         &__box {
@@ -58,7 +59,7 @@
             display: flex;
             flex-direction: column;
             right: unset;
-            width: 80%;
+            width: 90%;
             gap: 5vw;
             padding: 5vw;
             margin-top: 6vw;

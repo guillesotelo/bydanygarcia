@@ -36,6 +36,7 @@ export default function Header({ search, setSearch }: Props) {
         const container = document.querySelector('.header__container')
         const list = document.querySelector('.home__postlist')
         const home = document.querySelector('.home__container')
+        const blog = document.querySelector('.blog__container')
         window.addEventListener('mouseup', e => {
             const clicked = e.target
             if (clicked != menu) setMenuToggle(false)
@@ -43,6 +44,7 @@ export default function Header({ search, setSearch }: Props) {
                 || clicked == container
                 || clicked == home
                 || clicked == menu
+                || clicked == blog
                 || clicked == list) {
                 setSearchClicked(false)
             }
@@ -180,14 +182,14 @@ export default function Header({ search, setSearch }: Props) {
                                 history.push('/contact')
                             }}>{TEXT[lang]['contact']}</h4>
                         </div>
-                        <div className="header__menu-item header__language" style={{ justifySelf: 'flex-end' }}>
+                        <div className="header__menu-item header__language">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 changeLanguage(lang === 'en' ? 'es' : 'en')
                                 setTimeout(() => setMenuToggle(false), 50)
                             }}>{lang === 'es' ? '[ES]' : '[EN]'}</h4>
                         </div>
                         {isAdmin ?
-                            <div className="header__menu-item" style={{ paddingTop: '8vw' }}>
+                            <div className="header__menu-item" >
                                 <h4 className="header__menu-item-text" onClick={() => {
                                     setTimeout(() => setMenuToggle(false), 50)
                                     logOut()
@@ -199,7 +201,7 @@ export default function Header({ search, setSearch }: Props) {
                         }}>
                             <h4 className="header__menu-item-text" style={{
                                 position: 'fixed',
-                                bottom: '15%',
+                                bottom: '20%',
                                 marginBottom: '4vw',
                                 color: 'gray',
                                 fontSize: isMobile ? '3vw' : '.7vw'
@@ -209,7 +211,7 @@ export default function Header({ search, setSearch }: Props) {
                     </div>
                 </div>
                 : ''}
-            {isMobile && isAdmin ?
+            {isMobile && isAdmin && !searchClicked ?
                 <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
                     <Button
                         label='CREATE'
@@ -241,9 +243,9 @@ export default function Header({ search, setSearch }: Props) {
                         <h4 className="header__item-text">{TEXT[lang]['journal']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                            <div className="header__item-dropdown-row">
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/subscribe')}>
                                 <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['what_ive_learned']}
+                                    {TEXT[lang]['subscribe']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
@@ -304,7 +306,7 @@ export default function Header({ search, setSearch }: Props) {
                         <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
                         {/* <img className="header__item-svg" src={ChevronDown} /> */}
                     </div>
-                    {(!isMobile && !searchClicked) || !isAdmin ?
+                    {!searchClicked || !isAdmin ?
                         <div className="header__logo"
                             onClick={() => {
                                 setSearch([])
@@ -350,6 +352,21 @@ export default function Header({ search, setSearch }: Props) {
                             </div>
                             : ''}
                     </div>
+                </div>
+                : ''}
+            {isMobile && !searchClicked && !isAdmin ?
+                <div className="header__logo"
+                    onClick={() => {
+                        setSearch([])
+                        setPrompt('')
+                        history.push('/')
+                    }}>
+                    {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                    <img
+                        className="header__logo-image"
+                        src={byDanyLogo}
+                        alt='by Dany Garcia'
+                        loading='lazy' />
                 </div>
                 : ''}
             <div className="header__search">
