@@ -7,7 +7,7 @@ import Footer from './components/Footer/Footer';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
-import PostEditor from './components/PostEditor/PostEditor';
+import PostEditor from './pages/PostEditor/PostEditor';
 import PostViewer from './pages/PostViewer/PostViewer';
 import Blog from './pages/Blog/Blog';
 import Login from './pages/Login/Login';

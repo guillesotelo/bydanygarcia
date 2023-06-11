@@ -7,16 +7,17 @@ import { TEXT } from '../../constants/lang'
 type Props = {
     content?: string
     spaContent?: string
+    linkLang?: string
     headers: { [key: number | string]: any }
 }
 
-export default function Post({ headers, content, spaContent }: Props) {
+export default function Post({ headers, content, spaContent, linkLang }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
     const [spanish, setSpanish] = useState(false)
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish(lang === 'es')
+        setSpanish(lang === 'es' || linkLang == 'es')
     }, [])
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function Post({ headers, content, spaContent }: Props) {
 
     const copyLink = () => {
         const currentUrl = window.location.href;
-        navigator.clipboard.writeText(currentUrl)
+        navigator.clipboard.writeText(`${currentUrl}&lang=${lang}`)
         toast.success(TEXT[lang]['link_copied'])
     }
 

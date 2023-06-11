@@ -1,7 +1,15 @@
 export const TEXT: { [key: string]: { [key: string]: string } } = {
     'es': {
         //HEADER
-        'blog': 'BLOG',
+        'blog': `BITÁCORA ABIERTA`,
+        'mindful_topics': `MINDFUL TOPICS`,
+        'life_in_arg': `VIDA IN ARGENTINA`,
+        'life_in_sw': `VIDA IN SWEDEN`,
+        'motherhood': `MATERNIDAD`,
+        'mentoring': `MENTORÍA`,
+        'photo_diary': `DIARIO DE FOTOS`,
+        'hospitality_travel': `VIAJES Y HOSPITALIDAD`,
+
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
         'subscribe': 'SUBSCRIBETE',
@@ -124,7 +132,15 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
     },
     'en': {
         //HEADER
-        'blog': 'BLOG',
+        'blog': `OPEN JOURNAL`,
+        'mindful_topics': `MINDFUL TOPICS`,
+        'life_in_arg': `LIFE IN ARGENTINA`,
+        'life_in_sw': `LIFE IN SWEDEN`,
+        'motherhood': `MOTHERHOOD`,
+        'mentoring': `MENTORING`,
+        'photo_diary': `PHOTO DIARY`,
+        'hospitality_travel': `HOSPITALITY & TRAVEL`,
+        
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',
         'subscribe': 'SUBSCRIBE',

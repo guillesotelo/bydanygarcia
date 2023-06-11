@@ -236,16 +236,13 @@ export default function Header({ search, setSearch }: Props) {
                 : ''}
             {!isMobile ?
                 <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
-                    <div className="header__item" onClick={() => history.push('/blog')}>
-                        <h4 className="header__item-text">{TEXT[lang]['blog']}</h4>
-                    </div>
                     <div className="header__item">
-                        <h4 className="header__item-text">{TEXT[lang]['journal']}</h4>
+                        <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['blog']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                             <div className="header__item-dropdown-row" onClick={() => history.push('/subscribe')}>
                                 <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['subscribe']}
+                                    {TEXT[lang]['mindful_topics']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row">
@@ -255,56 +252,34 @@ export default function Header({ search, setSearch }: Props) {
                             </div>
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['life_in_north']}
+                                    {TEXT[lang]['life_in_arg']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['life_in_sw']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['motherhood']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['mentoring']}
                                 </h4>
                             </div>
                         </div>
                     </div>
                     <div className="header__item">
                         <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['shop']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['the_branch']}
-                                </h4>
-                            </div>
-                        </div>
                     </div>
                     <div className="header__item">
-                        <h4 className="header__item-text">{TEXT[lang]['discover']}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['baby_and_you']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['travel_and_contemplation']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['mindfulness']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['videos']}
-                                </h4>
-                            </div>
-                        </div>
+                        <h4 className="header__item-text">{TEXT[lang]['hospitality_travel']}</h4>
                     </div>
                     <div className="header__item" onClick={() => history.push('/about')}>
                         <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
-                        {/* <img className="header__item-svg" src={ChevronDown} /> */}
                     </div>
                     {!searchClicked || !isAdmin ?
                         <div className="header__logo"

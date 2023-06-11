@@ -19,6 +19,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
+    const [linkLang, setLinkLang] = useState('')
     const location = useLocation()
     const { lang, isMobile } = useContext(AppContext)
 
@@ -29,9 +30,11 @@ export default function PostViewer({ post, setPost }: Props) {
     useEffect(() => {
         const id = new URLSearchParams(document.location.search).get('id')
         const updated = new URLSearchParams(document.location.search).get('updated')
+        const language = new URLSearchParams(document.location.search).get('lang')
 
         if (updated && id) getPost(id)
         if (id) setPostId(id)
+        if (language) setLinkLang(language)
     }, [location])
 
     useEffect(() => {
@@ -90,6 +93,7 @@ export default function PostViewer({ post, setPost }: Props) {
                     headers={{ ...post, sideImages }}
                     content={rawData}
                     spaContent={spaRawData}
+                    linkLang={linkLang}
                 />
             }
         </div>
