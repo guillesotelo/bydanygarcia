@@ -161,8 +161,8 @@ export default function Header({ search, setSearch }: Props) {
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/baby-and-you')
-                            }}>{TEXT[lang]['baby_and_you']}</h4>
+                                history.push('/hospitality_travel')
+                            }}>{TEXT[lang]['hospitality_travel']}</h4>
                         </div>
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
@@ -171,21 +171,15 @@ export default function Header({ search, setSearch }: Props) {
                             }}>{TEXT[lang]['subscribe']}</h4>
                         </div>
                         <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" onClick={() => {
+                            <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/about')
-                            }}>{TEXT[lang]['who_am_i']}</h4>
-                        </div>
-                        <div className="header__menu-item" style={{ paddingBottom: '8vw' }}>
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/contact')
-                            }}>{TEXT[lang]['contact']}</h4>
+                            }}>{TEXT[lang]['about']}</h4>
                         </div>
                         <div className="header__menu-item header__language">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 changeLanguage(lang === 'en' ? 'es' : 'en')
-                                setTimeout(() => setMenuToggle(false), 50)
+                                setTimeout(() => setMenuToggle(false), 1000)
                             }}>{lang === 'es' ? '[ES]' : '[EN]'}</h4>
                         </div>
                         {isAdmin ?
@@ -240,7 +234,7 @@ export default function Header({ search, setSearch }: Props) {
                         <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['blog']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/subscribe')}>
+                            <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['mindful_topics']}
                                 </h4>
@@ -268,6 +262,11 @@ export default function Header({ search, setSearch }: Props) {
                             <div className="header__item-dropdown-row">
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['mentoring']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row">
+                                <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
+                                    {TEXT[lang]['subscribe']}
                                 </h4>
                             </div>
                         </div>

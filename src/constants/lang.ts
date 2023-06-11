@@ -12,7 +12,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
-        'subscribe': 'SUBSCRIBETE',
+        'subscribe': 'SUBSCRÍBETE',
         'who_am_i': 'QUIEN SOY',
         'hygge': 'HYGGE',
         'contact': 'CONTACTO',
