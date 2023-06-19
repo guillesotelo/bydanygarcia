@@ -16,8 +16,6 @@ export default function Home({ setPost }: Props) {
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
 
-    console.log(allPosts)
-
     useEffect(() => {
         getPosts()
     }, [])

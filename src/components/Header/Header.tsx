@@ -31,7 +31,6 @@ export default function Header({ search, setSearch }: Props) {
     const location = useLocation()
 
     useEffect(() => {
-        const menu = document.querySelector('.header__menu')
         const svg = document.querySelector('.header__menu-svg')
         const container = document.querySelector('.header__container')
         const list = document.querySelector('.home__postlist')
@@ -39,11 +38,10 @@ export default function Header({ search, setSearch }: Props) {
         const blog = document.querySelector('.blog__container')
         window.addEventListener('mouseup', e => {
             const clicked = e.target
-            if (clicked != menu) setMenuToggle(false)
-            if (clicked == svg
-                || clicked == container
+            console.log('clicked', clicked)
+            if (clicked !== svg) setMenuToggle(false)
+            if (clicked == container
                 || clicked == home
-                || clicked == menu
                 || clicked == blog
                 || clicked == list) {
                 setSearchClicked(false)
@@ -142,8 +140,139 @@ export default function Header({ search, setSearch }: Props) {
                     </div>
                 </div>
                 : ''}
+            {!isMobile ?
+                <>
+                    <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
+                        <div className="header__item">
+                            <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['blog']}</h4>
+                            <img className="header__item-svg" src={ChevronDown} />
+                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['mindful_topics']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['hygge']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['life_in_arg']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['life_in_sw']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['motherhood']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['mentoring']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
+                                        {TEXT[lang]['subscribe']}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="header__item">
+                            <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
+                        </div>
+                        <div className="header__item">
+                            <h4 className="header__item-text">{TEXT[lang]['hospitality_travel']}</h4>
+                        </div>
+                        <div className="header__item" onClick={() => history.push('/about')}>
+                            <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
+                        </div>
+                    </div>
+
+                    {!searchClicked || !isAdmin ?
+                        <div className="header__logo"
+                            onClick={() => {
+                                setSearch([])
+                                setPrompt('')
+                                history.push('/')
+                            }}>
+                            {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                            <img
+                                className="header__logo-image"
+                                style={{
+                                    height: bigHeader ? '6vw' : '3vw',
+                                    margin: bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
+                                }}
+                                src={byDanyLogo}
+                                alt='by Dany Garcia'
+                                loading='lazy' />
+                        </div>
+                        : ''}
+
+                    <div className='header__admin-search'>
+                        <div className="header__admin-btns">
+                            {isAdmin ?
+                                <Button
+                                    label='CREATE'
+                                    handleClick={() => history.push('/editor?new=true')}
+                                    bgColor='#ece7e6'
+                                /> : ''}
+                            {postId && isAdmin ?
+                                <Button
+                                    svg={EditIcon}
+                                    handleClick={() => history.push(`/editor?id=${postId}`)}
+                                    bgColor='#ece7e6'
+                                />
+                                : ''}
+                            {postId && isAdmin ?
+                                <Button
+                                    svg={DeleteIcon}
+                                    handleClick={() => setDeleteModal(true)}
+                                    bgColor='#ece7e6'
+                                />
+                                : ''}
+                            {isAdmin ?
+                                <div className="header__item">
+                                    <h4 className="header__item-text" onClick={logOut}>LOGOUT</h4>
+                                </div>
+                                : ''}
+                        </div>
+
+                        <div className="header__search" >
+                            <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
+                                <h4 className="header__item-text">{lang.toUpperCase()}</h4>
+                                <img className="header__item-svg" src={ChevronDown} />
+                                <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                                    <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
+                                        <h4 className="header__item-dropdown-text">
+                                            ENGLISH
+                                        </h4>
+                                    </div>
+                                    <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
+                                        <h4 className="header__item-dropdown-text">
+                                            ESPAÑOL
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <img className="header__search-svg" src={Search} onClick={triggerSearch} />
+                            {searchClicked || !isMobile ?
+                                <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
+                                    if (e.key === 'Enter') triggerSearch()
+                                }} />
+                                : ''}
+                        </div>
+                    </div>
+                </>
+                : ''}
             {isMobile ?
-                <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)}>
+                <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)} >
                     <img className="header__menu-svg" src={Menu} />
                     <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
                         <div className="header__menu-item" style={{ marginTop: isMobile ? '6vw' : '2vw' }}>
@@ -228,106 +357,6 @@ export default function Header({ search, setSearch }: Props) {
                         : ''}
                 </div>
                 : ''}
-            {!isMobile ?
-                <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
-                    <div className="header__item">
-                        <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['blog']}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['mindful_topics']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['hygge']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['life_in_arg']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['life_in_sw']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['motherhood']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['mentoring']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row">
-                                <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
-                                    {TEXT[lang]['subscribe']}
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="header__item">
-                        <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
-                    </div>
-                    <div className="header__item">
-                        <h4 className="header__item-text">{TEXT[lang]['hospitality_travel']}</h4>
-                    </div>
-                    <div className="header__item" onClick={() => history.push('/about')}>
-                        <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
-                    </div>
-                    {!searchClicked || !isAdmin ?
-                        <div className="header__logo"
-                            onClick={() => {
-                                setSearch([])
-                                setPrompt('')
-                                history.push('/')
-                            }}>
-                            {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
-                            <img
-                                className="header__logo-image"
-                                style={{
-                                    height: bigHeader ? '6vw' : '3vw',
-                                    margin: bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
-                                }}
-                                src={byDanyLogo}
-                                alt='by Dany Garcia'
-                                loading='lazy' />
-                        </div>
-                        : ''}
-                    <div className="header__admin-btns">
-                        {isAdmin ?
-                            <Button
-                                label='CREATE'
-                                handleClick={() => history.push('/editor?new=true')}
-                                bgColor='#ece7e6'
-                            /> : ''}
-                        {postId && isAdmin ?
-                            <Button
-                                svg={EditIcon}
-                                handleClick={() => history.push(`/editor?id=${postId}`)}
-                                bgColor='#ece7e6'
-                            />
-                            : ''}
-                        {postId && isAdmin ?
-                            <Button
-                                svg={DeleteIcon}
-                                handleClick={() => setDeleteModal(true)}
-                                bgColor='#ece7e6'
-                            />
-                            : ''}
-                        {isAdmin ?
-                            <div className="header__item">
-                                <h4 className="header__item-text" onClick={logOut}>LOGOUT</h4>
-                            </div>
-                            : ''}
-                    </div>
-                </div>
-                : ''}
             {isMobile && !searchClicked && !isAdmin ?
                 <div className="header__logo"
                     onClick={() => {
@@ -343,32 +372,16 @@ export default function Header({ search, setSearch }: Props) {
                         loading='lazy' />
                 </div>
                 : ''}
-            <div className="header__search">
-                {!isMobile ?
-                    <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
-                        <h4 className="header__item-text">{lang.toUpperCase()}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown">
-                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
-                                <h4 className="header__item-dropdown-text">
-                                    ENGLISH
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
-                                <h4 className="header__item-dropdown-text">
-                                    ESPAÑOL
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    : ''}
-                <img className="header__search-svg" src={Search} onClick={triggerSearch} />
-                {searchClicked || !isMobile ?
-                    <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
-                        if (e.key === 'Enter') triggerSearch()
-                    }} />
-                    : ''}
-            </div>
+            {isMobile ?
+                <div className="header__search" >
+                    <img className="header__search-svg" src={Search} onClick={triggerSearch} />
+                    {searchClicked || !isMobile ?
+                        <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
+                            if (e.key === 'Enter') triggerSearch()
+                        }} />
+                        : ''}
+                </div>
+                : ''}
         </div>
     )
 }

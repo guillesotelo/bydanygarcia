@@ -74,11 +74,20 @@ export default function PostViewer({ post, setPost }: Props) {
         setLoading(false)
     }
 
+    const getOgDescription = () => {
+        if (spanish && post.spaSubtitle) return post.spaSubtitle
+        if (post.subtitle) return post.subtitle
+
+        const div = document.createElement('div')
+        div.innerHTML = spanish ? spaRawData : rawData
+        return div.textContent?.substring(0, 40) + '...'
+    }
+
     const renderHelmet = () => {
         return <Helmet>
             <meta property="og:title" content={spanish && post.spaTitle ? post.spaTitle : post.title} />
             <meta property="og:type" content='website' />
-            <meta property="og:description" content={spanish && post.spaSubtitle ? post.spaSubtitle : post.subtitle} />
+            <meta property="og:description" content={getOgDescription()} />
             <meta property="og:image" content={post.imageUrl} />
             <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
         </Helmet>
