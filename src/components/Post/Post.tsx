@@ -53,7 +53,7 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
                 />
                 <div
                     className="post__content"
-                    dangerouslySetInnerHTML={{ __html: spanish && spaContent ? spaContent : content || '' }}
+                    dangerouslySetInnerHTML={{ __html: spanish && spaContent && spaContent.length > 10 ? spaContent : content || '' }}
 
                 />
             </div>

@@ -38,7 +38,6 @@ export default function Header({ search, setSearch }: Props) {
         const blog = document.querySelector('.blog__container')
         window.addEventListener('mouseup', e => {
             const clicked = e.target
-            console.log('clicked', clicked)
             if (clicked !== svg) setMenuToggle(false)
             if (clicked == container
                 || clicked == home
