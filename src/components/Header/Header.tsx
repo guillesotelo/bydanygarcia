@@ -148,16 +148,6 @@ export default function Header({ search, setSearch }: Props) {
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                                 <div className="header__item-dropdown-row">
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['mindful_topics']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['hygge']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['life_in_arg']}
                                     </h4>
                                 </div>
@@ -171,23 +161,15 @@ export default function Header({ search, setSearch }: Props) {
                                         {TEXT[lang]['motherhood']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['mentoring']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row">
+                                {/* <div className="header__item-dropdown-row">
                                     <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
                                         {TEXT[lang]['subscribe']}
                                     </h4>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="header__item">
                             <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
-                        </div>
-                        <div className="header__item">
-                            <h4 className="header__item-text">{TEXT[lang]['hospitality_travel']}</h4>
                         </div>
                         <div className="header__item" onClick={() => history.push('/about')}>
                             <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
@@ -286,18 +268,12 @@ export default function Header({ search, setSearch }: Props) {
                                 history.push('/bespoken')
                             }}>{TEXT[lang]['bespoken']}</h4>
                         </div>
-                        <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/hospitality_travel')
-                            }}>{TEXT[lang]['hospitality_travel']}</h4>
-                        </div>
-                        <div className="header__menu-item">
+                        {/* <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/subscribe')
                             }}>{TEXT[lang]['subscribe']}</h4>
-                        </div>
+                        </div> */}
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
