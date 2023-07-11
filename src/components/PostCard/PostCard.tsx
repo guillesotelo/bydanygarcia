@@ -20,7 +20,8 @@ export default function PostCard({ post, setPost }: Props) {
     const handleClick = () => {
         setPost({
             ...post,
-            sideImages: post.sideImgs ? JSON.parse(post.sideImgs) : []
+            sideImages: post.sideImgs ? JSON.parse(post.sideImgs) : [],
+            sideStyles: post.sideStyles ? JSON.parse(post.sideStyles) : []
         })
         if (post._id) history.push(`/post?id=${post._id}`)
     }

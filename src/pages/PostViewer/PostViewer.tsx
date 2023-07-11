@@ -5,6 +5,7 @@ import draftToHtml from 'draftjs-to-html';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
+import { dataObj } from '../../types';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -19,6 +20,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
+    const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
     const [linkLang, setLinkLang] = useState('')
     const location = useLocation()
     const { lang, isMobile } = useContext(AppContext)
@@ -50,6 +52,7 @@ export default function PostViewer({ post, setPost }: Props) {
         }
 
         if (post.sideImages) setSideImages(post.sideImages)
+        if (post.sideStyles) setSideImgStyles(post.sideStyles)
     }, [post, postId])
 
 
@@ -69,6 +72,10 @@ export default function PostViewer({ post, setPost }: Props) {
             if (_post.sideImgs) {
                 const sideImgs = JSON.parse(_post.sideImgs)
                 setSideImages(sideImgs)
+            }
+            if (_post.sideStyles) {
+                const sideStyles = JSON.parse(_post.sideStyles)
+                setSideImgStyles(sideStyles)
             }
         }
         setLoading(false)
@@ -99,7 +106,7 @@ export default function PostViewer({ post, setPost }: Props) {
             {loading ? <span className="loader"></span>
                 :
                 <Post
-                    headers={{ ...post, sideImages }}
+                    headers={{ ...post, sideImages, sideImgStyles }}
                     content={rawData}
                     spaContent={spaRawData}
                     linkLang={linkLang}

@@ -12,6 +12,8 @@ import { getPostById } from '../../services/post';
 import draftToHtml from 'draftjs-to-html';
 import { AppContext } from '../../AppContext';
 import { TEXT } from '../../constants/lang';
+import Slider from '../../components/Slider/Slider';
+import { dataObj } from '../../types';
 
 type Props = {}
 const voidData = {
@@ -36,6 +38,7 @@ export default function PostEditor({ }: Props) {
     const [spaSelected, setSpaSelected] = useState(false)
     const [postId, setPostId] = useState('')
     const [sideImages, setSideImages] = useState<string[]>([])
+    const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
     const [spaEditorState, setSpaEditorState] = useState(() => EditorState.createEmpty())
     const history = useHistory()
@@ -85,6 +88,10 @@ export default function PostEditor({ }: Props) {
                 const sideImgs = JSON.parse(_post.sideImgs)
                 setSideImages(sideImgs)
             }
+            if (_post.sideStyles) {
+                const sideStyles = JSON.parse(_post.sideStyles)
+                setSideImgStyles(sideStyles)
+            }
         }
     }
 
@@ -104,15 +111,16 @@ export default function PostEditor({ }: Props) {
         const rawData = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
         const spaRawData = JSON.stringify(convertToRaw(spaEditorState.getCurrentContent()))
         const sideImgs = JSON.stringify(sideImages)
+        const sideStyles = JSON.stringify(sideImgStyles)
         if (isUpdate) {
-            const updated = await updatePost({ ...data, sideImgs, rawData, spaRawData })
+            const updated = await updatePost({ ...data, sideImgs, sideStyles, rawData, spaRawData })
             if (updated) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
             } else toast.error(TEXT[lang]['error_saving'])
             getPost(postId)
         } else {
-            const saved = await createPost({ ...data, sideImgs, rawData, spaRawData })
+            const saved = await createPost({ ...data, sideImgs, sideStyles, rawData, spaRawData })
             if (saved) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
@@ -135,6 +143,16 @@ export default function PostEditor({ }: Props) {
         const _sideImages = [...sideImages]
         _sideImages.splice(index, 1)
         setSideImages(_sideImages)
+    }
+
+    const updateImgStyles = (prop: string, newValue: string | number, index: number) => {
+        const imgStyles = [...sideImgStyles]
+        imgStyles[index] = { ...imgStyles[index], [prop]: newValue }
+        setSideImgStyles(imgStyles)
+    }
+
+    const getImageProp = (prop: string, index: number) => {
+        return sideImgStyles[index] && sideImgStyles[index][prop] ? sideImgStyles[index][prop] : 0
     }
 
     return isAdmin ?
@@ -221,10 +239,27 @@ export default function PostEditor({ }: Props) {
             <div className="editor__right-col">
                 <h1 className="editor__side-images-title">Side Images</h1>
                 <div className="editor__side-images-list">
-                    {sideImages.map((image, i) => <div key={i} className="editor__side-images-item-wrapper">
-                        <img className='editor__side-images-item' src={image} alt='Post Image' loading='lazy' />
-                        <h4 className="editor__side-images-item-remove" onClick={() => removeSideImage(i)}>X</h4>
-                    </div>
+                    {sideImages.map((image, i) =>
+                        <div key={i} className="editor__side-images-item-wrapper">
+                            <Slider
+                                name=''
+                                type=''
+                                label='Image Size'
+                                sign='px'
+                                value={getImageProp('width', i) || 500}
+                                setValue={value => updateImgStyles('width', value, i)}
+                                min={1}
+                                max={1000}
+                            />
+                            <img
+                                className='editor__side-images-item'
+                                src={image}
+                                alt='Post Image'
+                                loading='lazy'
+                                style={sideImgStyles[i] || {}}
+                            />
+                            <h4 className="editor__side-images-item-remove" onClick={() => removeSideImage(i)}>X</h4>
+                        </div>
                     )}
                 </div>
                 <div className="editor__side-images-input">

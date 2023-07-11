@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast'
 import ShareIcon from '../../assets/icons/share.svg'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
+import { dataObj } from '../../types'
 
 type Props = {
     content?: string
@@ -13,6 +14,7 @@ type Props = {
 
 export default function Post({ headers, content, spaContent, linkLang }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
+    const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
     const [spanish, setSpanish] = useState(false)
     const { lang, isMobile } = useContext(AppContext)
 
@@ -22,6 +24,7 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
 
     useEffect(() => {
         if (headers.sideImages) setSideImages(headers.sideImages)
+        if (headers.sideImgStyles) setSideImgStyles(headers.sideImgStyles)
     }, [content])
 
     const copyLink = () => {
@@ -59,7 +62,14 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
             </div>
             <div className="post__side-images">
                 {sideImages.map((image, i) =>
-                    <img key={i} className='post__side-image' src={image} alt='Post Image' loading='lazy' />
+                    <img
+                        key={i}
+                        className='post__side-image'
+                        src={image}
+                        alt='Post Image'
+                        loading='lazy'
+                        style={sideImgStyles[i] || {}}
+                    />
                 )}
             </div>
         </div>
