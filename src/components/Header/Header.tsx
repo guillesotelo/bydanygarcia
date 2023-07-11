@@ -169,7 +169,30 @@ export default function Header({ search, setSearch }: Props) {
                             </div>
                         </div>
                         <div className="header__item">
-                            <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
+                            <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['bespoken']}</h4>
+                            <img className="header__item-svg" src={ChevronDown} />
+                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['elaborated_gifts']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['bouquets']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['handcrafted_adornments']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['our_diy_wedding']}
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
                         <div className="header__item" onClick={() => history.push('/about')}>
                             <h4 className="header__item-text">{TEXT[lang]['about']}</h4>

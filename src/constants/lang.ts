@@ -9,6 +9,10 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'mentoring': `MENTORÍA`,
         'photo_diary': `DIARIO DE FOTOS`,
         'hospitality_travel': `VIAJES Y HOSPITALIDAD`,
+        'elaborated_gifts': `REGALOS ELABORADOS`,
+        'bouquets': `BOUQUETS`,
+        'handcrafted_adornments': `ADORNOS HECHOS A MANO`,
+        'our_diy_wedding': `NUESTRA BODA DIY`,
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
@@ -140,6 +144,10 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'mentoring': `MENTORING`,
         'photo_diary': `PHOTO DIARY`,
         'hospitality_travel': `HOSPITALITY & TRAVEL`,
+        'elaborated_gifts': `ELABORATED GIFTS`,
+        'bouquets': `BOUQUETS`,
+        'handcrafted_adornments': `HANDCRAFTED ADORNMENTS`,
+        'our_diy_wedding': `OUR DIY WEDDING`,
         
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',
