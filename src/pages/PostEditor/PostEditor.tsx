@@ -240,7 +240,7 @@ export default function PostEditor({ }: Props) {
                 <h1 className="editor__side-images-title">Side Images</h1>
                 <div className="editor__side-images-list">
                     {sideImages.map((image, i) =>
-                        <div key={i} className="editor__side-images-item-wrapper">
+                        <>
                             <Slider
                                 name=''
                                 type=''
@@ -251,15 +251,17 @@ export default function PostEditor({ }: Props) {
                                 min={1}
                                 max={1000}
                             />
-                            <img
-                                className='editor__side-images-item'
-                                src={image}
-                                alt='Post Image'
-                                loading='lazy'
-                                style={sideImgStyles[i] || {}}
-                            />
-                            <h4 className="editor__side-images-item-remove" onClick={() => removeSideImage(i)}>X</h4>
-                        </div>
+                            <div key={i} className="editor__side-images-item-wrapper" style={{ maxWidth: getImageProp('width', i) || '100%' }}>
+                                <img
+                                    className='editor__side-images-item'
+                                    src={image}
+                                    alt='Post Image'
+                                    loading='lazy'
+                                    style={sideImgStyles[i] || {}}
+                                />
+                                <h4 className="editor__side-images-item-remove" onClick={() => removeSideImage(i)}>X</h4>
+                            </div>
+                        </>
                     )}
                 </div>
                 <div className="editor__side-images-input">
