@@ -7,7 +7,7 @@ type Props = {
 }
 
 export default function Blog({ setPost }: Props) {
-    const [allPosts, setAllPosts] = useState([])
+    const [allPosts, setAllPosts] = useState<any[]>([])
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -32,7 +32,7 @@ export default function Blog({ setPost }: Props) {
         setLoading(true)
         const posts = await getAllPosts()
         setLoading(false)
-        if (posts) setAllPosts(posts.length ? posts : [])
+        if (posts && Array.isArray(posts)) setAllPosts(posts)
     }
 
     return (

@@ -11,7 +11,7 @@ type Props = {
 
 export default function Home({ setPost }: Props) {
     const [showUp, setShowUp] = useState(false)
-    const [allPosts, setAllPosts] = useState([])
+    const [allPosts, setAllPosts] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
@@ -50,7 +50,7 @@ export default function Home({ setPost }: Props) {
         setLoading(true)
         const posts = await getAllPosts()
         setLoading(false)
-        if (posts) setAllPosts(posts.length ? posts : [])
+        if (posts && Array.isArray(posts)) setAllPosts(posts)
     }
 
     return <div className="home__container">
