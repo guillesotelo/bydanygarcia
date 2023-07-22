@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat+Alternates:wght@300&display=swap');
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: 'Lora', serif;
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

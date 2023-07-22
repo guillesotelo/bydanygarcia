@@ -64,14 +64,15 @@
         }
 
         &-title {
-            font-size: 1vw;
-            font-weight: normal;
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-size: 1.2vw;
             margin: 0;
         }
 
         &-description {
             font-size: .8vw;
             font-weight: normal;
+            font-style: italic;
             margin: 0;
             text-overflow: ellipsis;
         }
