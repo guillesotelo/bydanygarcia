@@ -31,6 +31,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'videos': 'VIDEOS',
         'about': 'SOBRE MI',
         'search': 'Buscar',
+        'story_of_brand': `HISTORIA DE LA MARCA`,
+        'products': `PRODUCTOS`,
 
         //LOGIN
         'login': 'INICIAR SESIÓN',
@@ -123,10 +125,22 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //ABOUT
         'about_me': `Sobre mí`,
-        'about_me_body': `<p className="about__text">¡Hola, soy Daniela Garcia y bienvenidos a mi blog! Soy una escritora apasionada que ama compartir sus ideas y experiencias con el mundo. Comencé este blog como una forma de conectar con personas afines y crear un espacio donde todos podamos aprender y crecer juntos.</p>
-        <p className="about__text">Tengo un título en Turismo y Hospitalidad con un enfoque profundo en Servicio y Gestión de Eventos, y llevo más de 5 años escribiendo. Siempre estoy buscando nuevas ideas e inspiración para mis escritos, y me encanta explorar diferentes temas y perspectivas. En este blog encontrarás una mezcla de historias personales, consejos de estilo de vida y artículos que te harán reflexionar sobre una variedad de temas.</p>
-        <p className="about__text">Cuando no estoy escribiendo, disfruto pasar tiempo con mi familia, leer libros y viajar a nuevos lugares. También soy una gran fan de la meditación a través de la pintura, y creo en el poder de la fe y la atención plena para transformar nuestras vidas.</p>
-        <p className="about__text">¡Gracias por visitar mi blog y espero que disfrutes leyendo mis publicaciones tanto como yo disfruto escribirlas!</p>`,
+        'about_greeting': `Hola :)`,
+        'about_me_body': ` 
+        <p className="about__text">Soy Dany García y este es mi lugar personal ‘en línea’ para escribir, contar historias y publicar algunas cosas de mi trabajo. 🖤</p>
+        <p className="about__text">Nací en Colombia, me crié unos años en los EE. UU., tengo acumulada una década de vida en Argentina, con algunos viajes en el medio, y este ultimo año me encuentro viviendo en el norte de Europa. Soy mamá del pequeño Benja, esposa de Guille y dueña de nuestra Jack Russell, Indie-India-Indiana.</p>
+        <p className="about__text">He aventurado mucho por el mundo y pasado por varias etapas de la vida de un adulto joven. Siempre he sido una persona a la que le gusta celebrar la vida y los momentos, bailar y juntarse con familia y amigos. Mi carrera, Gestión Hotelera, fue elegida con una verdadera vocación y terminé trabajando para hoteles y empresas privadas dentro de los servicios para huéspedes y empleados. Miro hacia atrás y tiendo a sonreír, recordando las experiencias y aprendizajes...y esa sensación reconfortante de haber estado conectada con tantas personas. Después de eso, comencé mi negocio soñado (con una nueva habilidad creatividad que descubrí un verano para las artesanías y flores) en Buenos Aires llamado Bespoken. Ahora dos años más tarde me encuentro en suelo sueco en rol de mama de tiempo completo. Hablamos de GRANDES cambios! Abrazar los cambios y escribir sobre ellos es parte de mi expresión, creo que mi propósito. Y mientras escribo y comparto, yo también crezco.</p>
+        <p className="about__text">El cambio siempre es una constante, es parte de la vida y nunca somos los mismos, pero al mismo tiempo, llevamos dentro de nosotros todo lo que alguna vez seremos. Como una pequeña semilla de roble que tiene el potencial de convertirse en un gran roble, está en nosotros todo el tiempo. Mi objetivo es alcanzar mi plena aceptación y la de los demás, ser sincero y amable conmigo mismo y vivir la libertad que ya nos ha sido dada con poder, amor y dominio propio.</p>
+        <p className="about__text">Tendemos a hacer lo que hacen los demás y es fácil caer en la comparación o dudar de nosotros mismos y de nuestro trabajo, pero como escribió Marshall Rosenberg, esto bloquea la compasión hacia ti mismo y los demás. Compasión es poder observar sin juicio. <p>
+        <p className="about__text">Me tomó algunos años poner en marcha este proyecto de sitio web hasta que finalmente entendí que:<p>
+        <p className="about__text">1) Las cosas se pueden hacer a su propio ritmo, no hay necesidad de apresurarse. Ir un día a la vez y acompañado de pequeños pasos. <p>
+        <p className="about__text">2) Lo que hay en la vida es para disfrutar, no valorar. Esta es la clave para el éxito. <p>
+        <p className="about__text">3) Puedes inspirarte en los demás, pero al final la clave es ser tu mismo, apreciar tu toque único. Todo lo que alguna vez serás se encuentra dentro de ti, como se encuentra en todos los que te rodean.<p>
+        <p className="about__text">4) El perdón diario es clave para seguir adelante y llegar a terrenos más altos y poderosos.<p>
+        <p className="about__text">Quiero agradecer a Dios por tener un camino más alto y nunca estar lejos, gracias mami por tu tiempo y tus enseñanzas, gracias Guille por tu amor constante y apoyo. Sin ustedes esto no habría sido posible. <p>
+        <p className="about__text">Espero que disfrutes de la lectura y, mientras lo haces, puedas inspirarte, ser consciente y creativo con tu propia vida y tus talentos. Nunca es demasiado tarde para empezar y mirar dentro de Ti.<p>
+        <p className="about__text">Con amor,<p>
+        <p className="about__text">Dani<p>`,
 
         // SEARCH
         'no_results_for': `No hay resultados para`,
@@ -148,7 +162,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'bouquets': `BOUQUETS`,
         'handcrafted_adornments': `HANDCRAFTED ADORNMENTS`,
         'our_diy_wedding': `OUR DIY WEDDING`,
-        
+
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',
         'subscribe': 'SUBSCRIBE',
@@ -166,6 +180,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'videos': 'VIDEOS',
         'about': 'ABOUT',
         'search': 'Search',
+        'story_of_brand': `STORY OF THE BRAND`,
+        'products': `PRODUCTS`,
 
         //LOGIN
         'login': 'LOGIN',
@@ -250,10 +266,22 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //ABOUT
         'about_me': `About me`,
-        'about_me_body': ` <p className="about__text">Hi, I'm Daniela Garcia, and welcome to my blog! I'm a passionate writer who loves to share her ideas and experiences with the world. I started this blog as a way to connect with other like-minded people and to create a space where we can all learn and grow together.</p>
-        <p className="about__text">I have a degree in Tourism & Hospitality with deep focus in Service and Event Management, and have been writing for over 5 years. I'm constantly seeking out new ideas and inspiration for my writing, and I love to explore different topics and perspectives. On this blog, you'll find a mix of personal stories, lifestyle tips, and thought-provoking articles on a variety of subjects.</p>
-        <p className="about__text">When I'm not writing, I enjoy spending time with my family, reading books, and traveling to new places. I'm also a big fan of painting meditation, and I believe in the power of faith and mindfulness to transform our lives.</p>
-        <p className="about__text">Thank you for visiting my blog, and I hope you enjoy reading my posts as much as I enjoy writing them!</p>`,
+        'about_greeting': `Hi :)`,
+        'about_me_body': ` 
+        <p className="about__text">I’m Dany García and this is my personal ‘online’ space for writing, storytelling and posting of some of my work. 🖤 </p>
+        <p className="about__text">I was born in Colombia, raised a few years in the US, with a decade of life in Argentina, a few trips in the middle, and now living way up north in Scandinavia...I am now momma of little Benji, wife to Guille and owner of our little Jack Russell, Indie-India-Indiana.</p>
+        <p className="about__text">I have adventured around the world quite a lot and have come through many stages of a young adult’s life.  I've always been a person who likes to celebrate life and moments, to dance and get together with friends and family. My career, Hospitality Management, was chosen out of true vocation and I did end up working for hotels and private companies within guest and employee services. I look back and tend to smile, remembering all the learning experiences...and that heartwarming feeling of having been connected to so many people. After that, I started my -out of a dream and with a new known creativity skill for crafts and flowers- business in Buenos Aires called Bespoken. Forward two years later and I am standing in Swedish ground with my main job as a full-time mom. Talk about BIG changes. Embracing changes and new learnings, sharing bits of my life as I go through and then writing about them is part of my expression, and it's encoded in my purpose. And as I write and share content, I grow too.</p>
+        <p className="about__text">Change is always a constant, it is part of life and we are never the same, but at the same time, we hold in ourselves everything we will ever be. Like a little oak seed holding the potential of becoming a big oak tree, it’s in us all the time. My goal is to reach everyday my full acceptance and of others, to be fearless, to be true and gentle to myself and live in the freedom and greatness that we have already been given to us with power, love and self control. </p>
+        <p className="about__text">We tend to do what other people are doing and it is easy to fall into comparison or doubt about our own selves and our work, but as Marshall Rosenberg said, this blocks you from compassion towards yourself and others. Compassion is to observe without judgement.<p>
+        <p className="about__text">It took me some years to get this website project moving until I finally understood that: <p>
+        <p className="about__text">1) Things can be done at your own pace, there is no need to rush. Go one day at a time, with little steps accompanying. <p>
+        <p className="about__text">2) Everything in life is to be enjoyed, not valued. A key to success. <p>
+        <p className="about__text">3) You can get inspired from others, but at the end the key is to be you, appreciate your unique touch. Everything you will ever be lies within you, as it lies in everyone around you. <p>
+        <p className="about__text">4) Daily forgiveness is key to keep going and reaching higher and more powerful grounds.  <p>
+        <p className="about__text">I want to thank God for laying a higher path and never leaving, thank you mom for all your time and teachings, thank you Guille for your constant love and support. Without you this would have not been possible.  <p>
+        <p className="about__text">I hope you enjoy reading and while you are at it, can get Inspired, Aware and Creative with your own life and talents. It is never too late to start and look inside of You.  <p>
+        <p className="about__text">With love, <p>
+        <p className="about__text">Dany<p>`,
 
         // SEARCH
         'no_results_for': `No Results for`,

@@ -9,7 +9,7 @@ export default function About({ }: Props) {
 
   return (
     <div className="about__container">
-      <h1 className="about__title">{TEXT[lang]['about_me']}</h1>
+      <h1 className="about__title">{TEXT[lang]['about_greeting']}</h1>
       {isMobile ?
         <div className="about__image-div">
           <img src="https://i.postimg.cc/x8gxHVTx/dany.png" alt="" className="about__image" />

@@ -174,17 +174,12 @@ export default function Header({ search, setSearch }: Props) {
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                                 <div className="header__item-dropdown-row">
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['elaborated_gifts']}
+                                        {TEXT[lang]['sory_of_brand']}
                                     </h4>
                                 </div>
                                 <div className="header__item-dropdown-row">
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['bouquets']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['handcrafted_adornments']}
+                                        {TEXT[lang]['products']}
                                     </h4>
                                 </div>
                                 <div className="header__item-dropdown-row">
@@ -195,7 +190,7 @@ export default function Header({ search, setSearch }: Props) {
                             </div>
                         </div>
                         <div className="header__item" onClick={() => history.push('/about')}>
-                            <h4 className="header__item-text">{TEXT[lang]['about']}</h4>
+                            <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
                         </div>
                     </div>
 
@@ -301,7 +296,7 @@ export default function Header({ search, setSearch }: Props) {
                             <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/about')
-                            }}>{TEXT[lang]['about']}</h4>
+                            }}>{TEXT[lang]['about_greeting']}</h4>
                         </div>
                         <div className="header__menu-item header__language">
                             <h4 className="header__menu-item-text" onClick={() => {
