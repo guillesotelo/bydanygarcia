@@ -23,6 +23,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'journal': 'DIARIO',
         'what_ive_learned': 'LO QUE HE APRENDIDO',
         'life_in_north': 'VIDA EN EL NORTE',
+        'life_abroad': 'VIDA EN EL EXTRANJERO',
         'discover': 'DESCUBRE',
         'shop': 'TIENDA',
         'the_branch': 'LA MARCA',
@@ -125,7 +126,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //ABOUT
         'about_me': `Sobre mí`,
-        'about_greeting': `Hola :)`,
+        'about_greeting': `HOLA :)`,
+        'about_greeting2': `Hola,`,
         'about_me_body': ` 
         <p className="about__text">Soy Dany García y este es mi lugar personal ‘en línea’ para escribir, contar historias y publicar algunas cosas de mi trabajo. 🖤</p>
         <p className="about__text">Nací en Colombia, me crié unos años en los EE. UU., tengo acumulada una década de vida en Argentina, con algunos viajes en el medio, y este ultimo año me encuentro viviendo en el norte de Europa. Soy mamá del pequeño Benja, esposa de Guille y dueña de nuestra Jack Russell, Indie-India-Indiana.</p>
@@ -140,7 +142,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p className="about__text">Quiero agradecer a Dios por tener un camino más alto y nunca estar lejos, gracias mami por tu tiempo y tus enseñanzas, gracias Guille por tu amor constante y apoyo. Sin ustedes esto no habría sido posible. <p>
         <p className="about__text">Espero que disfrutes de la lectura y, mientras lo haces, puedas inspirarte, ser consciente y creativo con tu propia vida y tus talentos. Nunca es demasiado tarde para empezar y mirar dentro de Ti.<p>
         <p className="about__text">Con amor,<p>
-        <p className="about__text">Dani<p>`,
+        <p className="about__text">Dany<p>`,
 
         // SEARCH
         'no_results_for': `No hay resultados para`,
@@ -173,6 +175,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'journal': 'JOURNAL',
         'what_ive_learned': `WHAT I'VE LEARNED`,
         'life_in_north': 'LIFE IN THE NORTH',
+        'life_abroad': 'LIFE ABROAD',
         'shop': 'SHOP',
         'the_branch': 'THE BRANCH',
         'travel_and_contemplation': 'TRAVEL & CONTEMPLATION',
@@ -266,7 +269,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //ABOUT
         'about_me': `About me`,
-        'about_greeting': `Hi :)`,
+        'about_greeting': `HI :)`,
+        'about_greeting2': `Hi,`,
         'about_me_body': ` 
         <p className="about__text">I’m Dany García and this is my personal ‘online’ space for writing, storytelling and posting of some of my work. 🖤 </p>
         <p className="about__text">I was born in Colombia, raised a few years in the US, with a decade of life in Argentina, a few trips in the middle, and now living way up north in Scandinavia...I am now momma of little Benji, wife to Guille and owner of our little Jack Russell, Indie-India-Indiana.</p>

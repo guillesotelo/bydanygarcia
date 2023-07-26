@@ -148,12 +148,7 @@ export default function Header({ search, setSearch }: Props) {
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                                 <div className="header__item-dropdown-row">
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['life_in_arg']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['life_in_sw']}
+                                        {TEXT[lang]['life_abroad']}
                                     </h4>
                                 </div>
                                 <div className="header__item-dropdown-row">
@@ -174,7 +169,7 @@ export default function Header({ search, setSearch }: Props) {
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                                 <div className="header__item-dropdown-row">
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['sory_of_brand']}
+                                        {TEXT[lang]['story_of_brand']}
                                     </h4>
                                 </div>
                                 <div className="header__item-dropdown-row">
