@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
+import { dataObj } from '../../types'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<any>>
@@ -12,7 +13,8 @@ export default function Blog({ setPost }: Props) {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        getPosts()
+        const category = new URLSearchParams(document.location.search).get('category')
+        getPosts(category || null)
     }, [])
 
     useEffect(() => {
@@ -28,11 +30,18 @@ export default function Blog({ setPost }: Props) {
         }
     }, [allPosts])
 
-    const getPosts = async () => {
+    const getPosts = async (cat = '') => {
         setLoading(true)
-        const posts = await getAllPosts()
+        const localPosts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
+        const posts = localPosts.length ? localPosts : await getAllPosts()
         setLoading(false)
-        if (posts && Array.isArray(posts)) setAllPosts(posts)
+        if (posts && Array.isArray(posts)) {
+            if(cat) {
+                const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat))
+                setAllPosts(filtered)
+            } else setAllPosts(posts)
+            localStorage.setItem('posts', JSON.stringify(posts))
+        }
     }
 
     return (

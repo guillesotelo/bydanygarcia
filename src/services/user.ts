@@ -24,6 +24,13 @@ const loginUser = async (user: { [key: string | number]: any }) => {
     } catch (error) { console.log(error) }
 }
 
+const verifyToken = async ()=> {
+    try {
+        const verify = await axios.post(`${API_URL}/api/user/verify`, {}, getConfig())
+        return verify.data
+    } catch (err) { console.log(err) }
+}
+
 const registerUser = async (data: { [key: string | number]: any }) => {
     try {
         const newUser = await axios.post(`${API_URL}/api/user/create`, data)
@@ -59,6 +66,7 @@ const updateUser = async (data: { [key: string | number]: any }) => {
 
 export {
     loginUser,
+    verifyToken,
     registerUser,
     updateUser,
     subscribe,

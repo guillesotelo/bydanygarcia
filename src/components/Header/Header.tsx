@@ -6,7 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
-import { deletePost, getAllPosts } from '../../services'
+import { deletePost, getAllPosts, verifyToken } from '../../services'
 import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
@@ -22,13 +22,13 @@ export default function Header({ search, setSearch }: Props) {
     const { lang, setLang, isMobile } = useContext(AppContext)
     const [postId, setPostId] = useState('')
     const [prompt, setPrompt] = useState('')
-    const [isAdmin, setIsAdmin] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
     const [searchClicked, setSearchClicked] = useState(false)
     const [bigHeader, setBigHeader] = useState(true)
     const history = useHistory()
     const location = useLocation()
+    const { setIsLoggedIn, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         const svg = document.querySelector('.header__menu-svg')
@@ -47,12 +47,10 @@ export default function Header({ search, setSearch }: Props) {
             }
         })
         activateHeaderHeight()
+        verifyUser()
     }, [])
 
     useEffect(() => {
-        const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-        if (user && user.token && user.username) setIsAdmin(true)
-
         const id = new URLSearchParams(document.location.search).get('id')
         if (id) setPostId(id)
         else setPostId('')
@@ -70,6 +68,15 @@ export default function Header({ search, setSearch }: Props) {
             else postEditor.style.filter = ''
         }
     }, [deleteModal])
+
+    const verifyUser = async () => {
+        try {
+            const isLodded = await verifyToken()
+            if (isLodded) setIsLoggedIn(isLodded)
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     const activateHeaderHeight = () => {
         window.addEventListener('scroll', function () {
@@ -110,7 +117,7 @@ export default function Header({ search, setSearch }: Props) {
         localStorage.clear()
         toast.success(TEXT[lang]['see_you_later'])
         setTimeout(() => {
-            setIsAdmin(false)
+            setIsLoggedIn(false)
             setPostId('')
             history.push('/')
         }, 1500)
@@ -189,7 +196,7 @@ export default function Header({ search, setSearch }: Props) {
                         </div>
                     </div>
 
-                    {!searchClicked || !isAdmin ?
+                    {!searchClicked || !isLoggedIn ?
                         <div className="header__logo"
                             onClick={() => {
                                 setSearch([])
@@ -211,27 +218,27 @@ export default function Header({ search, setSearch }: Props) {
 
                     <div className='header__admin-search'>
                         <div className="header__admin-btns">
-                            {isAdmin ?
+                            {isLoggedIn ?
                                 <Button
                                     label='CREATE'
                                     handleClick={() => history.push('/editor?new=true')}
                                     bgColor='#ece7e6'
                                 /> : ''}
-                            {postId && isAdmin ?
+                            {postId && isLoggedIn ?
                                 <Button
                                     svg={EditIcon}
                                     handleClick={() => history.push(`/editor?id=${postId}`)}
                                     bgColor='#ece7e6'
                                 />
                                 : ''}
-                            {postId && isAdmin ?
+                            {postId && isLoggedIn ?
                                 <Button
                                     svg={DeleteIcon}
                                     handleClick={() => setDeleteModal(true)}
                                     bgColor='#ece7e6'
                                 />
                                 : ''}
-                            {isAdmin ?
+                            {isLoggedIn ?
                                 <div className="header__item">
                                     <h4 className="header__item-text" onClick={logOut}>LOGOUT</h4>
                                 </div>
@@ -299,7 +306,7 @@ export default function Header({ search, setSearch }: Props) {
                                 setTimeout(() => setMenuToggle(false), 1000)
                             }}>{lang === 'es' ? '[ES]' : '[EN]'}</h4>
                         </div>
-                        {isAdmin ?
+                        {isLoggedIn ?
                             <div className="header__menu-item" >
                                 <h4 className="header__menu-item-text" onClick={() => {
                                     setTimeout(() => setMenuToggle(false), 50)
@@ -322,7 +329,7 @@ export default function Header({ search, setSearch }: Props) {
                     </div>
                 </div>
                 : ''}
-            {isMobile && isAdmin && !searchClicked ?
+            {isMobile && isLoggedIn && !searchClicked ?
                 <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
                     <Button
                         label='CREATE'
@@ -345,7 +352,7 @@ export default function Header({ search, setSearch }: Props) {
                         : ''}
                 </div>
                 : ''}
-            {isMobile && !searchClicked && !isAdmin ?
+            {isMobile && !searchClicked && !isLoggedIn ?
                 <div className="header__logo"
                     onClick={() => {
                         setSearch([])

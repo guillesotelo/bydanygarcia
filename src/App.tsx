@@ -22,6 +22,7 @@ const App: React.FC = () => {
   const [search, setSearch] = useState<string[]>([])
   const [post, setPost] = useState<{ [key: number | string]: any }>({})
   const [lang, setLang] = useState<string>(localLang)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -29,12 +30,20 @@ const App: React.FC = () => {
   }, [location])
 
   return (
-    <AppProvider lang={lang} setLang={setLang} isMobile={isMobile}>
+    <AppProvider
+      lang={lang}
+      setLang={setLang}
+      search={search}
+      setSearch={setSearch}
+      isMobile={isMobile}
+      isLoggedIn={isLoggedIn}
+      setIsLoggedIn={setIsLoggedIn}
+    >
       <Switch>
         <Route exact path="/">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
-            <Home setPost={setPost} />
+            <Home />
             <Footer />
           </div>
         </Route>
@@ -129,7 +138,7 @@ const App: React.FC = () => {
         <Route>
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
-            <Home setPost={setPost} />
+            <Home />
             <Footer />
           </div>
         </Route>

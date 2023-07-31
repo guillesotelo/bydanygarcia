@@ -42,6 +42,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //POSTS
         'latest_posts': 'ÚLTIMAS PUBLICACIONES',
+        'categories': 'CATEGORÍAS',
 
         //FOOTER
         'privacy': 'Política',
@@ -193,6 +194,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //POSTS
         'latest_posts': 'LATEST POSTS',
+        'categories': 'CATEGORIES',
 
         //FOOTER
         'privacy': 'Policy',
@@ -269,7 +271,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         //ABOUT
         'about_me': `About me`,
-        'about_greeting': `HI :)`,
+        'about_greeting': `HELLO :)`,
         'about_greeting2': `Hi,`,
         'about_me_body': ` 
         <p className="about__text">I’m Dany García and this is my personal ‘online’ space for writing, storytelling and posting of some of my work. 🖤 </p>

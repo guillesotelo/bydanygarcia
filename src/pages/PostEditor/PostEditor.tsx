@@ -32,7 +32,6 @@ const voidData = {
 
 export default function PostEditor({ }: Props) {
     const [data, setData] = useState(voidData)
-    const [isAdmin, setIsAdmin] = useState(false)
     const [isEdited, setIsEdited] = useState(false)
     const [isUpdate, setIsUpdate] = useState(false)
     const [spaSelected, setSpaSelected] = useState(false)
@@ -43,14 +42,7 @@ export default function PostEditor({ }: Props) {
     const [spaEditorState, setSpaEditorState] = useState(() => EditorState.createEmpty())
     const history = useHistory()
     const location = useLocation()
-    const { lang, isMobile } = useContext(AppContext)
-
-    useEffect(() => {
-        const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-        if (!user || !user.token || !user.username) return history.push('/')
-        setIsAdmin(true)
-
-    }, [])
+    const { lang, isMobile, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         const isNew = new URLSearchParams(document.location.search).get('new')
@@ -129,6 +121,7 @@ export default function PostEditor({ }: Props) {
         setIsEdited(false)
         setEditorState(EditorState.createEmpty())
         setData(voidData)
+        localStorage.removeItem('posts')
         return toast.remove(loading)
     };
 
@@ -155,7 +148,7 @@ export default function PostEditor({ }: Props) {
         return sideImgStyles[index] && sideImgStyles[index][prop] ? sideImgStyles[index][prop] : 0
     }
 
-    return isAdmin ?
+    return isLoggedIn ?
         <div className='editor__container'>
             <div className="editor__left-col">
                 <div className="editor__tab-container">
