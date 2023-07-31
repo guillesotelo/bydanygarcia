@@ -217,7 +217,7 @@ export default function PostEditor({ }: Props) {
                         onEditorChange={handleEditorChange}
                         apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
                         init={{
-                            height: 500,
+                            height: 1000,
                             menubar: true,
                             plugins: 'link image lists',
                             toolbar:

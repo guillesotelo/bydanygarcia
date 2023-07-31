@@ -35,10 +35,11 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
 
     return (
         <div className='post__container' style={{
-            flexDirection: !isMobile && sideImages.length ? 'row' : 'column'
+            flexDirection: !isMobile && sideImages.length ? 'row' : 'column',
+            alignItems: !isMobile && sideImages.length ? 'flex-start' : 'center',
         }}>
             <div className="post__body" style={{
-                width: !isMobile && sideImages.length ? '60%' : '100%'
+                width: !isMobile && sideImages.length ? '50%' : ''
             }}>
                 <div className="post__headers">
                     <img className="post__share-icon" onClick={copyLink} src={ShareIcon} />
