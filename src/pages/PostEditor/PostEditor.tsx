@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { Editor } from '@tinymce/tinymce-react';
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 import { useHistory, useLocation } from 'react-router-dom';
 import InputField from '../../components/InputField/InputField';
@@ -9,7 +7,6 @@ import Button from '../../components/Button/Button';
 import { createPost, updatePost } from '../../services';
 import { toast } from 'react-hot-toast';
 import { getPostById } from '../../services/post';
-import draftToHtml from 'draftjs-to-html';
 import { AppContext } from '../../AppContext';
 import { TEXT } from '../../constants/lang';
 import Slider from '../../components/Slider/Slider';
@@ -38,8 +35,8 @@ export default function PostEditor({ }: Props) {
     const [postId, setPostId] = useState('')
     const [sideImages, setSideImages] = useState<string[]>([])
     const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
-    const [spaEditorState, setSpaEditorState] = useState(() => EditorState.createEmpty())
+    const [html, setHtml] = useState('')
+    const [spaHtml, setspaHtml] = useState('')
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
@@ -50,8 +47,8 @@ export default function PostEditor({ }: Props) {
 
         if (isNew) {
             setData(voidData)
-            setEditorState(EditorState.createEmpty())
-            setSpaEditorState(EditorState.createEmpty())
+            setHtml('')
+            setspaHtml('')
             setIsEdited(false)
             setPostId('')
         }
@@ -62,18 +59,21 @@ export default function PostEditor({ }: Props) {
         if (postId) getPost(postId)
     }, [postId])
 
+    useEffect(() => {
+        const statusBar = document.querySelector('.tox-statusbar')
+        if (statusBar) statusBar.remove()
+    }, [data, html, spaHtml])
+
     const getPost = async (id: string) => {
         const _post = await getPostById(id)
         if (_post) {
             setData(_post)
-            if (_post.rawData) {
-                const rawContent = JSON.parse(_post.rawData || {})
-                setEditorState(EditorState.createWithContent(convertFromRaw(rawContent)))
+            if (_post.html) {
+                setHtml(_post.html)
                 setIsUpdate(true)
             }
-            if (_post.spaRawData) {
-                const rawContent = JSON.parse(_post.spaRawData || {})
-                setSpaEditorState(EditorState.createWithContent(convertFromRaw(rawContent)))
+            if (_post.spaHtml) {
+                setspaHtml(_post.spaHtml)
                 setIsUpdate(true)
             }
             if (_post.sideImgs) {
@@ -93,33 +93,32 @@ export default function PostEditor({ }: Props) {
         setData({ ...data, [key]: value })
     }
 
-    const handleEditorChange = (state: EditorState) => {
-        if (spaSelected) setSpaEditorState(state)
-        else setEditorState(state)
+    const handleEditorChange = (state: string) => {
+        if (spaSelected) setspaHtml(state)
+        else setHtml(state)
     }
 
     const handleSave = async () => {
         const loading = toast.loading(isUpdate ? TEXT[lang]['updating'] : TEXT[lang]['saving'])
-        const rawData = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-        const spaRawData = JSON.stringify(convertToRaw(spaEditorState.getCurrentContent()))
         const sideImgs = JSON.stringify(sideImages)
         const sideStyles = JSON.stringify(sideImgStyles)
+
         if (isUpdate) {
-            const updated = await updatePost({ ...data, sideImgs, sideStyles, rawData, spaRawData })
+            const updated = await updatePost({ ...data, sideImgs, sideStyles, html, spaHtml })
             if (updated) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
             } else toast.error(TEXT[lang]['error_saving'])
             getPost(postId)
         } else {
-            const saved = await createPost({ ...data, sideImgs, sideStyles, rawData, spaRawData })
+            const saved = await createPost({ ...data, sideImgs, sideStyles, html, spaHtml })
             if (saved) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
             } else toast.error(TEXT[lang]['error_saving'])
         }
         setIsEdited(false)
-        setEditorState(EditorState.createEmpty())
+        setHtml('')
         setData(voidData)
         localStorage.removeItem('posts')
         return toast.remove(loading)
@@ -150,6 +149,15 @@ export default function PostEditor({ }: Props) {
 
     return isLoggedIn ?
         <div className='editor__container'>
+            <img
+                src={data.imageUrl || ''}
+                alt='Background Image'
+                loading='lazy'
+                className="post__image"
+                style={{
+
+                }}
+            />
             <div className="editor__left-col">
                 <div className="editor__tab-container">
                     <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>
@@ -205,12 +213,16 @@ export default function PostEditor({ }: Props) {
                 </div>
                 <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}>
                     <Editor
-                        editorState={spaSelected ? spaEditorState : editorState}
-                        onEditorStateChange={handleEditorChange}
-                        toolbarClassName="editor__toolbar"
-                        wrapperClassName="editor__wrapper"
-                        editorClassName="editor__editor"
-                        onFocus={() => { }}
+                        value={spaSelected ? spaHtml : html}
+                        onEditorChange={handleEditorChange}
+                        apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+                        init={{
+                            height: 500,
+                            menubar: true,
+                            plugins: 'link image lists',
+                            toolbar:
+                                'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                        }}
                     />
                 </GrammarlyEditorPlugin>
                 {!isMobile ?

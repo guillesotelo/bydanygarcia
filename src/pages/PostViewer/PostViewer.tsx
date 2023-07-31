@@ -14,8 +14,8 @@ type Props = {
 }
 
 export default function PostViewer({ post, setPost }: Props) {
-    const [rawData, setRawData] = useState('')
-    const [spaRawData, setSpaRawData] = useState('')
+    const [html, setHtml] = useState('')
+    const [spaHtml, setspaHtml] = useState('')
     const [postId, setPostId] = useState('')
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
@@ -42,14 +42,9 @@ export default function PostViewer({ post, setPost }: Props) {
     useEffect(() => {
         renderHelmet()
         if (postId && (!post || !post.title)) getPost(postId)
-        if (post.rawData) {
-            const htmlContent = draftToHtml(JSON.parse(post.rawData || {}))
-            setRawData(htmlContent || '')
-        }
-        if (post.spaRawData) {
-            const htmlContent = draftToHtml(JSON.parse(post.spaRawData || {}))
-            setSpaRawData(htmlContent || '')
-        }
+        if (post.html) setHtml(post.html)
+
+        if (post.spaHtml) setspaHtml(post.spaHtml)
 
         if (post.sideImages) setSideImages(post.sideImages)
         if (post.sideStyles) setSideImgStyles(post.sideStyles)
@@ -61,14 +56,9 @@ export default function PostViewer({ post, setPost }: Props) {
         const _post = await getPostById(id)
         if (_post) {
             setPost(_post)
-            if (_post.rawData) {
-                const htmlContent = draftToHtml(JSON.parse(_post.rawData || {}))
-                setRawData(htmlContent || '')
-            }
-            if (_post.spaRawData) {
-                const htmlContent = draftToHtml(JSON.parse(_post.spaRawData || {}))
-                setSpaRawData(htmlContent || '')
-            }
+            if (_post.html) setHtml(_post.html)
+            if (_post.spaHtml) setspaHtml(_post.spaHtml)
+            
             if (_post.sideImgs) {
                 const sideImgs = JSON.parse(_post.sideImgs)
                 setSideImages(sideImgs)
@@ -86,7 +76,7 @@ export default function PostViewer({ post, setPost }: Props) {
         if (post.subtitle) return post.subtitle
 
         const div = document.createElement('div')
-        div.innerHTML = spanish ? spaRawData : rawData
+        div.innerHTML = spanish ? spaHtml : html
         return div.textContent?.substring(0, 40) + '...'
     }
 
@@ -107,8 +97,8 @@ export default function PostViewer({ post, setPost }: Props) {
                 :
                 <Post
                     headers={{ ...post, sideImages, sideImgStyles }}
-                    content={rawData}
-                    spaContent={spaRawData}
+                    content={html}
+                    spaContent={spaHtml}
                     linkLang={linkLang}
                 />
             }

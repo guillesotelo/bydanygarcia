@@ -10,6 +10,7 @@ type Props = {}
 export default function Contact({ }: Props) {
     const [data, setData] = useState({ email: '', name: '', message: '' })
     const [messageSent, setMessageSent] = useState(false)
+    const [loading, setLoading] = useState(false)
     const { lang, setLang, isMobile } = useContext(AppContext)
 
     const updateData = (key: string, e: { [key: string | number]: any }) => {
@@ -19,10 +20,13 @@ export default function Contact({ }: Props) {
 
     const sendEmail = async () => {
         try {
+            setLoading(true)
             const sent = await sendContactEmail(data)
             if(sent) setMessageSent(true)
+            setLoading(false)
         } catch (err) {
             console.error(err)
+            setLoading(false)
         }
     }
 
@@ -65,7 +69,7 @@ export default function Contact({ }: Props) {
                     <Button
                         label={TEXT[lang]['sent']}
                         handleClick={sendEmail}
-                        disabled={!data.email || !data.name || !data.message}
+                        disabled={!data.email || !data.name || !data.message || loading}
                         style={{ width: '100%' }}
                     />
                 </div>
