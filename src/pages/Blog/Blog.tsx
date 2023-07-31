@@ -11,10 +11,12 @@ export default function Blog({ setPost }: Props) {
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [category, setCategory] = useState('')
 
     useEffect(() => {
-        const category = new URLSearchParams(document.location.search).get('category')
-        getPosts(category || '')
+        const cat = new URLSearchParams(document.location.search).get('category')
+        setCategory(cat || '')
+        getPosts(cat || '')
     }, [])
 
     useEffect(() => {
@@ -47,7 +49,7 @@ export default function Blog({ setPost }: Props) {
     return (
         <div className='blog__container'>
             <div className="page__header">
-                <h4 className="page__header-title">BLOG</h4>
+                <h4 className="page__header-title">{category ? category.toUpperCase() : 'BLOG'}</h4>
             </div>
             {loading ? <span className="loader"></span>
                 :
