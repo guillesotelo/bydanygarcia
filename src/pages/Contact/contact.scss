@@ -1,13 +1,13 @@
 .contact {
     &__container {
         padding: 5vw 4vw 15vw 4vw;
-        width: 80%;
     }
 
     &__row-container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        width: 100%;
     }
 
     &__info {
@@ -23,13 +23,14 @@
     &__box {
         display: flex;
         flex-direction: column;
-        width: 40%;
+        width: 40vw;
         box-shadow: 3px 3px 15px lightgray;
         border-radius: .5vw;
         padding: 1vw;
         margin-top: 2vw;
         gap: 1vw;
         background-color: #FFF9F5;
+        height: fit-content;
     }
 
     &__input {
@@ -73,17 +74,17 @@
 @media only screen and (max-width: 640px) {
     .contact {
         &__container {
-            padding: 16vw 4vw 60vw 4vw;
+            padding: 16vw 6vw 60vw 6vw;
             display: flex;
             flex-direction: column;
             text-align: justify;
-            width: 90%;
         }
 
 
         &__row-container {
             display: flex;
             flex-direction: column;
+            // width: 80vw;
         }
 
         &__info {
@@ -111,7 +112,6 @@
             outline: none !important;
             padding: .3vw;
             font-size: 1vw;
-            margin: .2vw .5vw;
             border-radius: .3vw;
 
             &-textarea {
@@ -119,7 +119,6 @@
                 outline: none !important;
                 padding: .3vw;
                 font-size: 1vw;
-                margin: .5vw;
                 border-radius: .3vw;
                 font-family: 'Montserrat', sans-serif;
                 resize: none;

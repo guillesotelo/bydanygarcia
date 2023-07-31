@@ -12,6 +12,10 @@ import {
     deletePost
 } from './post'
 
+import {
+    sendContactEmail,
+} from './app'
+
 export {
     loginUser,
     verifyToken,
@@ -20,5 +24,6 @@ export {
     getAllPosts,
     createPost,
     updatePost,
-    deletePost
+    deletePost,
+    sendContactEmail,
 }

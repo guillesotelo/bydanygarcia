@@ -3,6 +3,7 @@ import InputField from '../../components/InputField/InputField'
 import Button from '../../components/Button/Button'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
+import { sendContactEmail } from '../../services'
 
 type Props = {}
 
@@ -14,6 +15,15 @@ export default function Contact({ }: Props) {
     const updateData = (key: string, e: { [key: string | number]: any }) => {
         const value = e.target.value
         setData({ ...data, [key]: value })
+    }
+
+    const sendEmail = async () => {
+        try {
+            const sent = await sendContactEmail(data)
+            if(sent) setMessageSent(true)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return messageSent ?
@@ -54,7 +64,7 @@ export default function Contact({ }: Props) {
                     />
                     <Button
                         label={TEXT[lang]['sent']}
-                        handleClick={() => setMessageSent(true)}
+                        handleClick={sendEmail}
                         disabled={!data.email || !data.name || !data.message}
                         style={{ width: '100%' }}
                     />

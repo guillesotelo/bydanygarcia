@@ -82,8 +82,9 @@
 @media only screen and (max-width: 640px) {
     .postcard {
         &__container {
-            height: 65vw;
-            width: 42vw;
+            height: 60vh;
+            width: 70vw;
+            margin-bottom: 1rem;
             animation: fade-in-card 1.5s ease-in;
             box-shadow: 3px 3px 15px #c3c3c3;
 
