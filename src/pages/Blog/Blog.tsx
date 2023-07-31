@@ -14,7 +14,7 @@ export default function Blog({ setPost }: Props) {
 
     useEffect(() => {
         const category = new URLSearchParams(document.location.search).get('category')
-        getPosts(category || null)
+        getPosts(category || '')
     }, [])
 
     useEffect(() => {
