@@ -34,16 +34,24 @@ export default function Blog({ setPost }: Props) {
 
     const getPosts = async (cat = '') => {
         setLoading(true)
-        const localPosts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
+        const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
+        const localPosts = duedate && !hasCaducated(duedate) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
         const posts = localPosts.length ? localPosts : await getAllPosts()
         setLoading(false)
         if (posts && Array.isArray(posts)) {
-            if(cat) {
+            if (cat) {
                 const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat))
                 setAllPosts(filtered)
             } else setAllPosts(posts)
             localStorage.setItem('posts', JSON.stringify(posts))
         }
+    }
+
+    const hasCaducated = (dateToCheck: any) => {
+        const currentDate = new Date()
+        const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
+        const parsedDate = new Date(dateToCheck)
+        return parsedDate < twoHoursAgo
     }
 
     return (

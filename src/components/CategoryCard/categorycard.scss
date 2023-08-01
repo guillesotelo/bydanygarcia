@@ -2,8 +2,8 @@
     &__container {
         display: none;
         flex-direction: column;
-        height: 35vh;
-        width: 18vw;
+        height: 42vh;
+        width: 22vw;
         transition: .5s;
         animation: fade-in-card 1s ease-in;
         cursor: pointer;
@@ -45,12 +45,12 @@
     }
 
     &__title {
-        font-size: 1rem;
+        font-size: 1.2rem;
         margin: .5rem 0;
     }
 
     &__subtitle {
-        font-size: .6rem;
+        font-size: 1rem;
         font-weight: normal;
         margin: 0;
     }

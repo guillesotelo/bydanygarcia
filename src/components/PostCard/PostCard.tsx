@@ -26,18 +26,22 @@ export default function PostCard({ post, setPost }: Props) {
         if (post._id) history.push(`/post?id=${post._id}`)
     }
 
+    const getPreview = () => {
+        return post.imageUrl || JSON.parse(post.sideImgs || '[]')[0] || postImagePlaceholder
+    }
+
     return (
         <div className='postcard__container' onClick={handleClick}>
             <div className="postcard__image-div" >
                 <h4 className="postcard__image-overlap">{spanish && post.spaOverlap ? post.spaOverlap : post.overlap || ''}</h4>
                 <img
-                    src={post.imageUrl || postImagePlaceholder}
+                    src={getPreview()}
                     alt="Post Image"
                     className="postcard__image"
                     style={{
-                        objectFit: !post.imageUrl ? 'contain' : 'cover',
-                        minWidth: !post.imageUrl ? '50%' : '100%',
-                        height: !post.imageUrl ? '50%' : '100%',
+                        objectFit: !post.imageUrl && !JSON.parse(post.sideImgs || '[]')[0] ? 'contain' : 'cover',
+                        minWidth: !post.imageUrl && !JSON.parse(post.sideImgs || '[]')[0] ? '50%' : '100%',
+                        height: !post.imageUrl && !JSON.parse(post.sideImgs || '[]')[0] ? '50%' : '100%',
                     }}
                 />
             </div>

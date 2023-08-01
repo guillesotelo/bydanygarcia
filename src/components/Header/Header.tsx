@@ -93,7 +93,7 @@ export default function Header({ search, setSearch }: Props) {
 
     const triggerSearch = () => {
         setSearchClicked(true)
-        if (prompt) {
+        if (prompt.trim()) {
             setSearchClicked(false)
             setSearch(prompt.split(' '))
             history.push('/search')

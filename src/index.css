@@ -19,3 +19,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+p img {
+  border-radius: .5vw;
+  box-shadow: 5px 5px 15px rgb(179, 179, 179);
+}

@@ -170,7 +170,7 @@
         }
 
         &-text {
-            font-size: 0.7vw;
+            font-size: 1rem;
             font-weight: normal;
             transition: .3s;
             cursor: pointer;
@@ -198,7 +198,7 @@
 
             &-text {
                 margin: .3vw 0;
-                font-size: .7vw;
+                font-size: 1rem;
                 font-weight: normal;
                 position: relative;
                 cursor: pointer;
@@ -239,6 +239,7 @@
         flex-direction: row;
         align-items: center;
         gap: 1vw;
+        transform: scale(.85);
     }
 
     &__delete-modal {
@@ -281,7 +282,7 @@
         }
 
         &-input {
-            font-size: .8vw;
+            font-size: 1rem;
             border: none;
             border-bottom: 1px solid lightgray;
             padding: .3vw;
