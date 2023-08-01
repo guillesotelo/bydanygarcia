@@ -29,3 +29,7 @@ p img {
 p img:hover {
   filter: grayscale(100%);
 }
+
+.no-pointer {
+  cursor: default !important;
+}

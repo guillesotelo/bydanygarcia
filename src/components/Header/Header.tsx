@@ -150,7 +150,7 @@ export default function Header({ search, setSearch }: Props) {
                 <>
                     <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
                         <div className="header__item">
-                            <h4 className="header__item-text">{TEXT[lang]['blog']}</h4>
+                            <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
                                 <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=the_journey_within')}>

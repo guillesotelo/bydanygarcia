@@ -77,20 +77,23 @@ export default function Home() {
                 <CategoryCard
                     images={journeyWithin}
                     title='The Journey Within'
-                    subtitle={journeyWithin.length + ' posts'}
+                    count={journeyWithin.length + ' posts'}
                     category='the_journey_within'
+                    subtitle='Finding Inspiration and Personal Growth'
                 />
                 <CategoryCard
                     images={embracingMotherhood}
                     title='Embracing Motherhood'
-                    subtitle={embracingMotherhood.length + ' posts'}
+                    count={embracingMotherhood.length + ' posts'}
                     category='embracing_motherhood'
+                    subtitle='A Rollercoaster of Love and Learning'
                 />
                 <CategoryCard
                     images={roamingSoul}
                     title='RoamingSoul'
-                    subtitle={roamingSoul.length + ' posts'}
+                    count={roamingSoul.length + ' posts'}
                     category='roaming_soul'
+                    subtitle='Journeying Through Life and Travel'
                 />
             </div>
         }

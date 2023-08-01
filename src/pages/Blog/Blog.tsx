@@ -41,7 +41,7 @@ export default function Blog({ setPost }: Props) {
         setLoading(false)
         if (posts && Array.isArray(posts)) {
             if (cat) {
-                const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat))
+                const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat.replace(/_/g,'')))
                 setAllPosts(filtered)
             } else setAllPosts(posts)
             localStorage.setItem('posts', JSON.stringify(posts))
