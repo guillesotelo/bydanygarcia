@@ -88,21 +88,21 @@ export default function Home() {
                     title='The Journey Within'
                     count={journeyWithin.length + ' posts'}
                     category='the_journey_within'
-                    subtitle='Finding Inspiration and Personal Growth'
+                    // subtitle='Finding Inspiration and Personal Growth'
                 />
                 <CategoryCard
                     images={embracingMotherhood}
                     title='Embracing Motherhood'
                     count={embracingMotherhood.length + ' posts'}
                     category='embracing_motherhood'
-                    subtitle='A Rollercoaster of Love and Learning'
+                    // subtitle='A Rollercoaster of Love and Learning'
                 />
                 <CategoryCard
                     images={roamingSoul}
-                    title='RoamingSoul'
+                    title='Roaming Soul'
                     count={roamingSoul.length + ' posts'}
                     category='roaming_soul'
-                    subtitle='Journeying Through Life and Travel'
+                    // subtitle='Journeying Through Life and Travel'
                 />
             </div>
         }

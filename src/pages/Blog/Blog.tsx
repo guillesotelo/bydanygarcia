@@ -41,7 +41,7 @@ export default function Blog({ setPost }: Props) {
         setLoading(false)
         if (posts && Array.isArray(posts)) {
             if (cat) {
-                const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat.replace(/_/g,'')))
+                const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat.replace(/_/g, '')))
                 setAllPosts(filtered)
             } else setAllPosts(posts)
             localStorage.setItem('posts', JSON.stringify(posts))
@@ -56,10 +56,17 @@ export default function Blog({ setPost }: Props) {
         return parsedDate < twoHoursAgo
     }
 
+    const catMap: dataObj = {
+        'the_journey_within': 'Finding Inspiration and Personal Growth',
+        'embracing_motherhood': 'A Rollercoaster of Love and Learning',
+        'roaming_soul': 'Journeying Through Life and Travel',
+    }
+
     return (
         <div className='blog__container'>
             <div className="page__header">
-                <h4 className="page__header-title">{category ? category.replace(/_/g,' ').toUpperCase() : 'BLOG'}</h4>
+                <h4 className="page__header-title">{category ? category.replace(/_/g, ' ').toUpperCase() : 'OPEN JOURNAL'}</h4>
+                {category ? <h4 className="page__header-subtitle">{catMap[category]}</h4> : ''}
             </div>
             {loading ? <span className="loader"></span>
                 :

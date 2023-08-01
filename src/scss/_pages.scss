@@ -12,13 +12,24 @@
 .page {
     &__header {
         align-self: center;
+        text-align: center;
 
         &-title {
             font-size: 1.2vw;
             font-weight: normal;
-            padding-bottom: 1.5vw;
+            padding-bottom: 1rem;
             border-bottom: 1px solid gray;
+            width: fit-content;
+            margin: 0 auto;
             animation: move-y-up .7s ease-in;
+        }
+
+        &-subtitle {
+            font-size: 1vw;
+            padding-bottom: 1.5vw;
+            width: fit-content;
+            margin: 1rem auto 0 auto;
+            animation: move-y-down .7s ease-in;
         }
     }
 }

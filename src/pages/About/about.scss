@@ -22,6 +22,7 @@
     &__text {
         width: 45vw;
         font-size: 1vw;
+        text-align: justify;
     }
 
     &__image {
@@ -59,7 +60,7 @@
         &__text {
             width: 100%;
             font-size: 5vw;
-            text-align: center;
+            text-align: justify;
         }
 
         &__image {
