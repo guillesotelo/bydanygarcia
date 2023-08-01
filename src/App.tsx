@@ -26,12 +26,11 @@ const App: React.FC = () => {
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()
-  const history = useHistory()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     ReactGA.pageview(location.pathname)
-  }, [location])
+  }, [location, document.location.search])
 
   return (
     <AppProvider
