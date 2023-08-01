@@ -6,6 +6,10 @@ import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 import { Toaster } from 'react-hot-toast';
 import { HelmetProvider } from 'react-helmet-async';
+import ReactGA from 'react-ga';
+const TRACKING_ID = "G-M92VPE29C8";
+ReactGA.initialize(TRACKING_ID);
+
 const isMobile = window.screen.width <= 768
 
 const toastOptions = {

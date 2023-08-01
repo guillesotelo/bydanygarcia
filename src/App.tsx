@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import './scss/app.scss'
 import Header from './components/Header/Header';
@@ -14,6 +14,7 @@ import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
 import Subscribe from './pages/Subscribe/Subscribe';
 import { AppProvider } from './AppContext';
+import RouteTracker from './components/RouteTracker/RouteTracker';
 
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
@@ -24,6 +25,7 @@ const App: React.FC = () => {
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()
+  const history = useHistory()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -39,6 +41,7 @@ const App: React.FC = () => {
       isLoggedIn={isLoggedIn}
       setIsLoggedIn={setIsLoggedIn}
     >
+      <RouteTracker />
       <Switch>
         <Route exact path="/">
           <div className='page__wrapper'>
