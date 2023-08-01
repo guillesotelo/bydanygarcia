@@ -36,7 +36,7 @@ export default function Blog({ setPost }: Props) {
     const getPosts = async (cat = '') => {
         setLoading(true)
         const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
-        const localPosts = duedate && !hasCaducated(duedate) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
+        const localPosts = duedate && !hasCaducated(JSON.parse(duedate)) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
         const posts = localPosts.length ? localPosts : await getAllPosts()
         setLoading(false)
         if (posts && Array.isArray(posts)) {
@@ -45,6 +45,7 @@ export default function Blog({ setPost }: Props) {
                 setAllPosts(filtered)
             } else setAllPosts(posts)
             localStorage.setItem('posts', JSON.stringify(posts))
+            localStorage.setItem('duedate', JSON.stringify(new Date()))
         }
     }
 

@@ -40,13 +40,22 @@ export default function Home() {
 
     const getPosts = async () => {
         setLoading(true)
-        const localPosts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
-        const posts = localPosts.length ? localPosts : await getAllPosts()
+        const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
+        const localPosts = duedate && !hasCaducated(JSON.parse(duedate)) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
+         const posts = localPosts.length ? localPosts : await getAllPosts()
         setLoading(false)
         if (posts && Array.isArray(posts)) {
             setAllPosts(posts)
             localStorage.setItem('posts', JSON.stringify(posts))
+            localStorage.setItem('duedate', JSON.stringify(new Date()))
         }
+    }
+
+    const hasCaducated = (dateToCheck: any) => {
+        const currentDate = new Date()
+        const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
+        const parsedDate = new Date(dateToCheck)
+        return parsedDate < twoHoursAgo
     }
 
     const getCategoryImages = () => {
