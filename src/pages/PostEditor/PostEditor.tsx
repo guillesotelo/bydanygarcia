@@ -217,11 +217,12 @@ export default function PostEditor({ }: Props) {
                         onEditorChange={handleEditorChange}
                         apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
                         init={{
-                            height: 1000,
+                            height: 700,
                             menubar: true,
-                            plugins: 'link image lists',
+                            plugins: 'link image lists wordcount emoticons',
+                            statusbar: false,
                             toolbar:
-                                'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                                'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons wordcount',
                         }}
                     />
                 </GrammarlyEditorPlugin>

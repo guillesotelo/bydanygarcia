@@ -11,9 +11,9 @@ import CategoryCard from '../../components/CategoryCard/CategoryCard'
 export default function Home() {
     const [showUp, setShowUp] = useState(false)
     const [allPosts, setAllPosts] = useState<any[]>([])
-    const [inspirationImages, setInspirationImages] = useState<string[]>([])
-    const [motherhoodImages, setMotherhoodImages] = useState<string[]>([])
-    const [lifeAbroadImages, setLifeAbroadImages] = useState<string[]>([])
+    const [journeyWithin, setJourneyWithin] = useState<string[]>([])
+    const [embracingMotherhood, setEmbracingMotherhood] = useState<string[]>([])
+    const [roamingSoul, setRoamingSoul] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
     const { lang, isMobile } = useContext(AppContext)
 
@@ -58,13 +58,13 @@ export default function Home() {
             const sideImages = JSON.parse(post.sideImgs || '[]') || []
             const postImage = imageUrl ? imageUrl : sideImages.length ? sideImages[0] : ''
             const tags = post.tags.toLowerCase()
-            if (tags.includes('inspiration')) inspiration.push(postImage)
+            if (tags.includes('inspiration') || tags.includes('journey')) inspiration.push(postImage)
             if (tags.includes('motherhood')) motherhood.push(postImage)
-            if (tags.includes('lifeabroad')) lifeabroad.push(postImage)
+            if (tags.includes('lifeabroad') || tags.includes('roaming')) lifeabroad.push(postImage)
         })
-        setInspirationImages(inspiration)
-        setMotherhoodImages(motherhood)
-        setLifeAbroadImages(lifeabroad)
+        setJourneyWithin(inspiration)
+        setEmbracingMotherhood(motherhood)
+        setRoamingSoul(lifeabroad)
     }
 
     return <div className="home__container">
@@ -75,22 +75,22 @@ export default function Home() {
             :
             <div className="home__postlist">
                 <CategoryCard
-                    images={inspirationImages}
-                    title='Inspiration'
-                    subtitle={inspirationImages.length + ' posts'}
-                    category='inspiration'
+                    images={journeyWithin}
+                    title='The Journey Within'
+                    subtitle={journeyWithin.length + ' posts'}
+                    category='the_journey_within'
                 />
                 <CategoryCard
-                    images={motherhoodImages}
-                    title='Motherhood'
-                    subtitle={motherhoodImages.length + ' posts'}
-                    category='motherhood'
+                    images={embracingMotherhood}
+                    title='Embracing Motherhood'
+                    subtitle={embracingMotherhood.length + ' posts'}
+                    category='embracing_motherhood'
                 />
                 <CategoryCard
-                    images={lifeAbroadImages}
-                    title='Life Abroad'
-                    subtitle={lifeAbroadImages.length + ' posts'}
-                    category='lifeabroad'
+                    images={roamingSoul}
+                    title='RoamingSoul'
+                    subtitle={roamingSoul.length + ' posts'}
+                    category='roaming_soul'
                 />
             </div>
         }

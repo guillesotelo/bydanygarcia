@@ -150,17 +150,27 @@ export default function Header({ search, setSearch }: Props) {
                 <>
                     <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
                         <div className="header__item">
-                            <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['blog']}</h4>
+                            <h4 className="header__item-text">{TEXT[lang]['blog']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                                <div className="header__item-dropdown-row">
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=the_journey_within')}>
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['inspiration']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=embracing_motherhood')}>
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['motherhood']}
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=roaming_soul')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['life_abroad']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row">
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog')}>
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['motherhood']}
+                                        {TEXT[lang]['see_all']}
                                     </h4>
                                 </div>
                                 {/* <div className="header__item-dropdown-row">

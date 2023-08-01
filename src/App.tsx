@@ -15,6 +15,7 @@ import Search from './pages/Search/Search';
 import Subscribe from './pages/Subscribe/Subscribe';
 import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
+import ReactGA from 'react-ga';
 
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
@@ -29,6 +30,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
+    ReactGA.pageview(location.pathname)
   }, [location])
 
   return (

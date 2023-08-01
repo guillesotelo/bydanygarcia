@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
 import { dataObj } from '../../types'
+import { useLocation } from 'react-router-dom'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<any>>
@@ -17,7 +18,7 @@ export default function Blog({ setPost }: Props) {
         const cat = new URLSearchParams(document.location.search).get('category')
         setCategory(cat || '')
         getPosts(cat || '')
-    }, [])
+    }, [document.location.search])
 
     useEffect(() => {
         if (allPosts.length && !showUp) {
@@ -57,7 +58,7 @@ export default function Blog({ setPost }: Props) {
     return (
         <div className='blog__container'>
             <div className="page__header">
-                <h4 className="page__header-title">{category ? category.toUpperCase() : 'BLOG'}</h4>
+                <h4 className="page__header-title">{category ? category.replace(/_/g,' ').toUpperCase() : 'BLOG'}</h4>
             </div>
             {loading ? <span className="loader"></span>
                 :
