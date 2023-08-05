@@ -62,6 +62,7 @@ export default function PostEditor({ }: Props) {
     useEffect(() => {
         const statusBar = document.querySelector('.tox-statusbar')
         if (statusBar) statusBar.remove()
+        localStorage.setItem('autosave', html)
     }, [data, html, spaHtml])
 
     const getPost = async (id: string) => {
@@ -108,19 +109,27 @@ export default function PostEditor({ }: Props) {
             if (updated) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
-            } else toast.error(TEXT[lang]['error_saving'])
+            }
+            else {
+                toast.error(TEXT[lang]['error_saving'])
+                return toast.remove(loading)
+            }
             getPost(postId)
         } else {
             const saved = await createPost({ ...data, sideImgs, sideStyles, html, spaHtml })
             if (saved) {
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
-            } else toast.error(TEXT[lang]['error_saving'])
+            } else {
+                toast.error(TEXT[lang]['error_saving'])
+                return toast.remove(loading)
+            }
         }
-        setIsEdited(false)
         setHtml('')
         setData(voidData)
+        localStorage.removeItem('autosave')
         localStorage.removeItem('posts')
+        setIsEdited(false)
         return toast.remove(loading)
     };
 
@@ -149,15 +158,6 @@ export default function PostEditor({ }: Props) {
 
     return isLoggedIn ?
         <div className='editor__container'>
-            <img
-                src={data.imageUrl || ''}
-                alt='Background Image'
-                loading='lazy'
-                className="post__image"
-                style={{
-
-                }}
-            />
             <div className="editor__left-col">
                 <div className="editor__tab-container">
                     <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>

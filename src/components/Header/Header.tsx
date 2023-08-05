@@ -101,16 +101,23 @@ export default function Header({ search, setSearch }: Props) {
     }
 
     const handleDeletePost = async () => {
-        await toast.promise(
-            deletePost({ _id: postId }),
-            {
-                loading: TEXT[lang]['deleting_post'],
-                success: <b>Post deleted successfully. Redirecting...</b>,
-                error: <b>Error deleting post</b>,
-            }
-        )
-        setDeleteModal(false)
-        setTimeout(() => history.push('/blog'), 1500)
+        try {
+            await toast.promise(
+                deletePost({ _id: postId }),
+                {
+                    loading: TEXT[lang]['deleting_post'],
+                    success: <b>Post deleted successfully. Redirecting...</b>,
+                    error: <b>Error deleting post</b>,
+                }
+            )
+            setDeleteModal(false)
+            localStorage.removeItem('posts')
+            setTimeout(() => history.push('/blog'), 1500)
+        } catch (err) {
+            console.error(err)
+            setDeleteModal(false)
+            toast.error('An error occurred while trying to delete the post')
+        }
     }
 
     const logOut = () => {

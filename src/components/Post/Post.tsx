@@ -46,15 +46,6 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
                     <h1 className="post__title">{spanish && headers.spaTitle ? headers.spaTitle : headers.title || ''}</h1>
                     <h3 className="post__subtitle">{spanish && headers.spaSubtitle ? headers.spaSubtitle : headers.subtitle || ''}</h3>
                 </div>
-                <img
-                    src={headers.imageUrl || ''}
-                    alt='Background Image'
-                    loading='lazy'
-                    className="post__image"
-                    style={{
-
-                    }}
-                />
                 <div
                     className="post__content"
                     dangerouslySetInnerHTML={{ __html: spanish && spaContent && spaContent.length > 10 ? spaContent : content || '' }}

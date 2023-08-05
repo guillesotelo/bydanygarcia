@@ -1,17 +1,42 @@
 .postviewer {
     &__container {
-        padding: 5vw 10vw 15vw 10vw;
+        padding: 5vw 5vw 15vw 5vw;
         transition: .3s;
         min-height: 100vh;
+        background-color: #d9c6ba;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__routes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        animation: fade-in 1s ease-in;
+        max-height: fit-content;
+        height: 2rem;
+
+        &-link {
+            font-size: .9rem;
+            font-weight: normal;
+            cursor: pointer;
+            transition: .3s;
+            margin: 0;
+
+            &:hover {
+                opacity: .5;
+            }
+        }
     }
 }
 
 @media only screen and (max-width: 640px) {
     .postviewer {
         &__container {
-            padding: 20vw 4vw 60vw 4vw;
+            padding: 10vw 4vw 20vw 4vw;
             transition: .3s;
+            background-color: white;
         }
     }
-    
+
 }

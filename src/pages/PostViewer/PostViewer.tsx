@@ -3,7 +3,7 @@ import Post from '../../components/Post/Post'
 import { getPostById } from '../../services/post'
 import draftToHtml from 'draftjs-to-html';
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 import { dataObj } from '../../types';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
@@ -22,7 +22,9 @@ export default function PostViewer({ post, setPost }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
     const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
     const [linkLang, setLinkLang] = useState('')
+    const [category, setCategory] = useState('')
     const location = useLocation()
+    const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
@@ -48,8 +50,15 @@ export default function PostViewer({ post, setPost }: Props) {
 
         if (post.sideImages) setSideImages(post.sideImages)
         if (post.sideStyles) setSideImgStyles(post.sideStyles)
+
+        if (post.tags) getCategory(post)
     }, [post, postId])
 
+    const getCategory = (post: dataObj) => {
+        console.log(post)
+        const tags = post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ')
+        if (tags.length) setCategory(tags[0])
+    }
 
     const getPost = async (id: string) => {
         setLoading(true)
@@ -58,7 +67,7 @@ export default function PostViewer({ post, setPost }: Props) {
             setPost(_post)
             if (_post.html) setHtml(_post.html)
             if (_post.spaHtml) setspaHtml(_post.spaHtml)
-            
+
             if (_post.sideImgs) {
                 const sideImgs = JSON.parse(_post.sideImgs)
                 setSideImages(sideImgs)
@@ -92,6 +101,11 @@ export default function PostViewer({ post, setPost }: Props) {
 
     return (
         <div className='postviewer__container'>
+            <div className="postviewer__routes">
+                <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>OPEN JOURNAL</h4>
+                <h4> &nbsp;-&nbsp; </h4>
+                <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4>
+            </div>
             {renderHelmet()}
             {loading ? <span className="loader"></span>
                 :

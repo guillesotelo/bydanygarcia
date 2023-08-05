@@ -24,6 +24,8 @@ p img {
   border-radius: .5vw;
   box-shadow: 5px 5px 15px rgb(179, 179, 179);
   transition: .4s;
+  max-width: 90%;
+  height: auto;
 }
 
 p img:hover {
