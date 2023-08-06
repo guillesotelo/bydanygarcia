@@ -107,6 +107,8 @@ export default function PostEditor({ }: Props) {
         if (isUpdate) {
             const updated = await updatePost({ ...data, sideImgs, sideStyles, html, spaHtml })
             if (updated) {
+                localStorage.removeItem('autosave')
+                localStorage.removeItem('posts')
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
             }
@@ -118,6 +120,8 @@ export default function PostEditor({ }: Props) {
         } else {
             const saved = await createPost({ ...data, sideImgs, sideStyles, html, spaHtml })
             if (saved) {
+                localStorage.removeItem('autosave')
+                localStorage.removeItem('posts')
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
             } else {
