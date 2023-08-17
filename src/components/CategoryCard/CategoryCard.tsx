@@ -18,7 +18,7 @@ export default function CategoryCard({ images, title, subtitle, category, count 
     return (
         <div className="category-card__container" onClick={() => history.push(`/blog?category=${category}`)}>
             <div className="category-card__images">
-                <img src={images ? images[0] : postImagePlaceholder} style={{ width: images && !images[1] ? '100%' : '50%' }} className='category-card__image-large' loading='lazy' />
+                <img src={images && images[0] ? images[0] : postImagePlaceholder} style={{ width: images && !images[1] ? '100%' : '50%' }} className='category-card__image-large' loading='lazy' />
                 <div className="category-card__images-col">
                     {images?.map((image: any, i: number) =>
                         i > 0 && i < 3 ?

@@ -42,7 +42,7 @@ export default function Home() {
         setLoading(true)
         const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
         const localPosts = duedate && !hasCaducated(JSON.parse(duedate)) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
-         const posts = localPosts.length ? localPosts : await getAllPosts()
+        const posts = localPosts.length ? localPosts : await getAllPosts()
         setLoading(false)
         if (posts && Array.isArray(posts)) {
             setAllPosts(posts)
@@ -67,9 +67,11 @@ export default function Home() {
             const sideImages = JSON.parse(post.sideImgs || '[]') || []
             const postImage = imageUrl ? imageUrl : sideImages.length ? sideImages[0] : ''
             const tags = post.tags.toLowerCase()
-            if (tags.includes('inspiration') || tags.includes('journey')) inspiration.push(postImage)
-            if (tags.includes('motherhood')) motherhood.push(postImage)
-            if (tags.includes('lifeabroad') || tags.includes('roaming')) lifeabroad.push(postImage)
+            if (postImage) {
+                if (tags.includes('inspiration') || tags.includes('journey')) inspiration.push(postImage)
+                if (tags.includes('motherhood')) motherhood.push(postImage)
+                if (tags.includes('lifeabroad') || tags.includes('roaming')) lifeabroad.push(postImage)
+            }
         })
         setJourneyWithin(inspiration)
         setEmbracingMotherhood(motherhood)
@@ -88,21 +90,21 @@ export default function Home() {
                     title='The Journey Within'
                     count={journeyWithin.length + ' posts'}
                     category='the_journey_within'
-                    // subtitle='Finding Inspiration and Personal Growth'
+                // subtitle='Finding Inspiration and Personal Growth'
                 />
                 <CategoryCard
                     images={embracingMotherhood}
                     title='Embracing Motherhood'
                     count={embracingMotherhood.length + ' posts'}
                     category='embracing_motherhood'
-                    // subtitle='A Rollercoaster of Love and Learning'
+                // subtitle='A Rollercoaster of Love and Learning'
                 />
                 <CategoryCard
                     images={roamingSoul}
                     title='Roaming Soul'
                     count={roamingSoul.length + ' posts'}
                     category='roaming_soul'
-                    // subtitle='Journeying Through Life and Travel'
+                // subtitle='Journeying Through Life and Travel'
                 />
             </div>
         }
