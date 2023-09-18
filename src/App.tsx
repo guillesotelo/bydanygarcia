@@ -13,6 +13,8 @@ import Blog from './pages/Blog/Blog';
 import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
 import Subscribe from './pages/Subscribe/Subscribe';
+import Bespoken from './pages/Bespoken/Bespoken';
+import BespokenLogo from './assets/logos/bespoken_logo.png'
 import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
 import ReactGA from 'react-ga';
@@ -135,6 +137,30 @@ const App: React.FC = () => {
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
             <Subscribe />
+            <Footer />
+          </div>
+        </Route>
+
+        <Route path="/bespoken/story">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} logo={BespokenLogo}/>
+            <Bespoken page='STORY'/>
+            <Footer />
+          </div>
+        </Route>
+
+        <Route path="/bespoken/products">
+          <div className='page__wrapper'>
+          <Header search={search} setSearch={setSearch} logo={BespokenLogo}/>
+            <Bespoken page='PRODUCTS'/>
+            <Footer />
+          </div>
+        </Route>
+
+        <Route path="/bespoken/diy-wedding">
+          <div className='page__wrapper'>
+          <Header search={search} setSearch={setSearch} logo={BespokenLogo}/>
+            <Bespoken page='DIY WEDDING'/>
             <Footer />
           </div>
         </Route>

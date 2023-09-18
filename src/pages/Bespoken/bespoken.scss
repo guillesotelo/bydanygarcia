@@ -1,0 +1,57 @@
+.bespoken {
+    &__container {
+        padding: 5vw 2vw 30vw 2vw;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__logo {
+        height: 5rem;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    &__col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+    }
+
+    &__text {
+        font-family: 'Bentham', serif;
+        font-size: 1.3rem;
+        text-align: justify;
+    }
+
+    &__story-img {
+        border-radius: 1rem;
+        box-shadow: 5px 5px 20px rgb(162, 162, 162);
+        transition: .4s;
+        width: 30vw;
+        object-fit: cover;
+
+        &:hover {
+            filter: grayscale(100%);
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .bespoken {
+        &__container {
+            padding: 16vw 0 60vw 0;
+            min-height: 80vh;
+        }
+
+    }
+}

@@ -16,9 +16,10 @@ import byDanyLogo from '../../assets/logos/logo_cropped.png'
 type Props = {
     search: string[]
     setSearch: (value: string[]) => void
+    logo?: string
 }
 
-export default function Header({ search, setSearch }: Props) {
+export default function Header({ search, setSearch, logo }: Props) {
     const { lang, setLang, isMobile } = useContext(AppContext)
     const [postId, setPostId] = useState('')
     const [prompt, setPrompt] = useState('')
@@ -188,20 +189,20 @@ export default function Header({ search, setSearch }: Props) {
                             </div>
                         </div>
                         <div className="header__item">
-                            <h4 className="header__item-text" onClick={() => history.push('/blog')}>{TEXT[lang]['bespoken']}</h4>
+                            <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                                <div className="header__item-dropdown-row">
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['story_of_brand']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row">
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/products')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['products']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row">
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/diy-wedding')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['our_diy_wedding']}
                                     </h4>
@@ -224,10 +225,11 @@ export default function Header({ search, setSearch }: Props) {
                             <img
                                 className="header__logo-image"
                                 style={{
-                                    height: bigHeader ? '6vw' : '3vw',
-                                    margin: bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
+                                    height: bigHeader ? '6vw' : logo ? '1.8vw' : '3vw',
+                                    maxHeight: logo ? '2.5vw' : '',
+                                    margin: logo ? 0 : bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
                                 }}
-                                src={byDanyLogo}
+                                src={logo || byDanyLogo}
                                 alt='by Dany Garcia'
                                 loading='lazy' />
                         </div>
@@ -302,7 +304,7 @@ export default function Header({ search, setSearch }: Props) {
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/bespoken')
+                                history.push('/bespoken/story')
                             }}>{TEXT[lang]['bespoken']}</h4>
                         </div>
                         {/* <div className="header__menu-item">
@@ -379,7 +381,11 @@ export default function Header({ search, setSearch }: Props) {
                     {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                     <img
                         className="header__logo-image"
-                        src={byDanyLogo}
+                        style={{ 
+                            maxHeight: logo ? '9vw' : '',
+                            margin: logo ? 0 : ''
+                        }}
+                        src={logo || byDanyLogo}
                         alt='by Dany Garcia'
                         loading='lazy' />
                 </div>

@@ -86,3 +86,13 @@
         box-shadow: 0 -48px inset;
     }
 }
+
+@keyframes carousel {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
