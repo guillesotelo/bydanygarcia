@@ -17,7 +17,7 @@ import Bespoken from './pages/Bespoken/Bespoken';
 import BespokenLogo from './assets/logos/bespoken_logo.png'
 import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
@@ -31,8 +31,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    ReactGA.pageview(location.pathname)
-  }, [location, document.location.search])
+
+    ReactGA.send({
+      hitType: 'pageview',
+      page: window.location.pathname
+    })
+  }, [location, window.location.pathname])
 
   return (
     <AppProvider
@@ -143,24 +147,24 @@ const App: React.FC = () => {
 
         <Route path="/bespoken/story">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo}/>
-            <Bespoken page='STORY'/>
+            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Bespoken page='STORY' />
             <Footer />
           </div>
         </Route>
 
         <Route path="/bespoken/products">
           <div className='page__wrapper'>
-          <Header search={search} setSearch={setSearch} logo={BespokenLogo}/>
-            <Bespoken page='PRODUCTS'/>
+            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Bespoken page='PRODUCTS' />
             <Footer />
           </div>
         </Route>
 
         <Route path="/bespoken/diy-wedding">
           <div className='page__wrapper'>
-          <Header search={search} setSearch={setSearch} logo={BespokenLogo}/>
-            <Bespoken page='DIY WEDDING'/>
+            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Bespoken page='DIY WEDDING' />
             <Footer />
           </div>
         </Route>

@@ -11,8 +11,13 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
     const [currentIndex, setCurrentIndex] = useState<number>(0)
 
     const nextSlide = () => {
-        if (currentIndex < allCards.length - 1) setCurrentIndex(currentIndex + 1)
-        else setCurrentIndex(0)
+        if (currentIndex < allCards.length - 1) {
+            setCurrentIndex(currentIndex + 1)
+            setAllCards((previous => previous.concat(previous[currentIndex])))
+        }
+        else {
+            setCurrentIndex(0)
+        }
     }
 
     useEffect(() => {
@@ -24,7 +29,7 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
         <div className="carousel__container">
             <h1 className="carousel__title"></h1>
             <div className="carousel__list-wrapper">
-                <div className="carousel__list" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                <div className="carousel__list" style={{ transform: `translateX(-${currentIndex + 1 * 1000})` }}>
                     {allCards.map((card, i) =>
                         <div className="carousel__card-container">
                             <div className="carousel__card-img-container">
