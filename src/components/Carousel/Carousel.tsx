@@ -9,11 +9,14 @@ type Props = {
 export default function Carousel({ title, caption, cards = [] }: Props) {
     const [allCards, setAllCards] = useState<any[]>(cards)
     const [currentIndex, setCurrentIndex] = useState<number>(0)
+    const [miliseconds, setMiliseconds] = useState<number>(0)
 
     const nextSlide = () => {
         if (currentIndex < allCards.length - 1) {
             setCurrentIndex(currentIndex + 1)
             setAllCards((previous => previous.concat(previous[currentIndex])))
+            setMiliseconds((n) => n + 1)
+            console.log(miliseconds)
         }
         else {
             setCurrentIndex(0)
@@ -21,7 +24,7 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
     }
 
     useEffect(() => {
-        const interval = setInterval(nextSlide, 1000)
+        const interval = setInterval(nextSlide, 100)
         return () => clearInterval(interval)
     }, [currentIndex])
 
@@ -29,9 +32,9 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
         <div className="carousel__container">
             <h1 className="carousel__title"></h1>
             <div className="carousel__list-wrapper">
-                <div className="carousel__list" style={{ transform: `translateX(-${currentIndex + 1 * 1000})` }}>
+                <div className="carousel__list" style={{ transform: `translateX(-${(miliseconds / currentIndex) * 100}px)` }}>
                     {allCards.map((card, i) =>
-                        <div className="carousel__card-container">
+                        <div key={i} className="carousel__card-container">
                             <div className="carousel__card-img-container">
                                 <img src={card.image} alt='Card Image' className="carousel__card-img" />
                             </div>
