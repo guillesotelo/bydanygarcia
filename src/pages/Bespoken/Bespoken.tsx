@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import StoryImage from '../../assets/images/bespoken-story.png'
 import BespokenOneYear from '../../assets/images/bespoken-one-year.png'
 import Carousel from '../../components/Carousel/Carousel'
@@ -8,6 +8,8 @@ import Carousel3 from '../../assets/images/carousel3.png'
 import Carousel4 from '../../assets/images/carousel4.png'
 import { AppContext } from '../../AppContext'
 import { useHistory } from 'react-router-dom'
+import PinterestSave from '../../assets/icons/pinterest-color.svg'
+import { scrapeUrl } from '../../services'
 
 type Props = {
     page?: string
@@ -16,6 +18,10 @@ type Props = {
 export default function Bespoken({ page }: Props) {
     const { lang, isMobile } = useContext(AppContext)
     const history = useHistory()
+    const [pinteresImages, setPinterestImages] = useState<any>([])
+    const [loading, setLoading] = useState(false)
+    const [showPin, setShowPin] = useState(-1)
+
     const carouselImages = [
         {
             image: Carousel1
@@ -30,6 +36,27 @@ export default function Bespoken({ page }: Props) {
             image: Carousel4
         },
     ]
+
+    useEffect(() => {
+        getPinterestImages()
+    }, [])
+
+    const getPinterestImages = async () => {
+        try {
+            setLoading(true)
+            const images = await scrapeUrl({
+                url: 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/'
+            })
+
+            if (images && Array.isArray(images)) setPinterestImages(images.filter(img => img))
+            setLoading(false)
+        } catch (err) {
+            console.error(err)
+            setLoading(false)
+        }
+    }
+
+    const getPinterestUrl = (url: string) => `https://www.pinterest.se/pin/create/button/?url=${encodeURIComponent(url)}`
 
     const renderStory = () => {
         return (
@@ -130,6 +157,53 @@ export default function Bespoken({ page }: Props) {
                         <p><i>Bespoken One Year's anniversary - Buenos Aires 2022</i></p>
                     </div>
                 </div>
+
+                <div className="bespoken__row" style={{ marginTop: '10rem' }}>
+                    <div className="bespoken__col" style={{ width: '80vw' }}>
+                        <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
+                            Values
+                        </h2>
+                        <p className="bespoken__text" >
+                            <strong>I DREAM</strong> of a business where I can express my work in my best way and people can find confidence, detail, excellence and purpose in what they are doing and receiving.
+                            <br />
+                            <br />
+                            <strong>LIFE VALUES</strong> are implied in the product itself and the human relationship that is built behind it. A caring, living and sustainable environment.
+                            <br />
+                            <br />
+                            <strong>CONFI TUNES</strong> may accompany your workplace, coffee, creativity moments and conversations.
+                            <br />
+                            <br />
+                            <strong>BREATH IN DEEPLY & EXHALE SLOWLY</strong> as you move on in your day, because you understand the value of your mind and body as your only vehicle in life. That is your precious production machine.
+                            <br />
+                            <br />
+                            <strong>TRUTHFUL & HONEST</strong> work habits will make it a transparent & good workplace to be.
+                            <br />
+                            <br />
+                            <strong>APPRECIATIVE AND KING LANGUAGE</strong> become pillars of conversations and communication with everyone.
+                            <br />
+                            <br />
+                            <strong>SERVING ONE ANOTHER</strong> with respect, care and love create the product itself.
+                            <br />
+                            <br />
+                            <strong>BE GRACEFUL & COMPASSIONATE</strong> means to give a second chance from your heart. All humans can make mistakes.
+                            <br />
+                            <br />
+                            <strong>YOU CAN FIND A QUIET ROOM</strong> in a garden, a couch or a terrace, where you can converse or think if you need it.
+                            <br />
+                            <br />
+                            <strong>GROWTH GOES IS HAND WITH EVERYTHING THAT YOU DO</strong> Care for your family, your friends, your job & for you.
+                            <br />
+                            <br />
+                            <strong>PURSUIT YOUR PERSONAL TALENTS</strong> your uniqueness, abilities & capacities. Accompany them with a higher thinking of gratitude.
+                            <br />
+                            <br />
+                            <strong>THIS IS A PLACE FOR ABUNDANCE & GIVING</strong> for sharing and growing.
+                            <br />
+                            <br />
+                            That this part of your lifetime might be truly gratifying, edifying and nurturing to your soul!
+                        </p>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -139,7 +213,45 @@ export default function Bespoken({ page }: Props) {
             <div className="bespoken__container">
                 <div className="page__header">
                     <h1 className="page__header-title">{page}</h1>
-                    {/* <h1 className="page__header-subtitle">{page == 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
+                    {loading ?
+                        <div>
+                            <span className="loader"></span>
+                            <p>Connecting with Pinterest...</p>
+                        </div>
+                        :
+                        <div>
+                            <div className="bespoken__product-list">
+                                {pinteresImages.map((imageUrl: string, i: number) => (
+                                    <div key={i} className="bespoken__product-image-wrapper" onMouseEnter={() => setShowPin(i)} onMouseLeave={() => setShowPin(-1)}>
+                                        <img src={imageUrl} alt={`Image ${i}`} className='bespoken__product-image' />
+                                        <a href={getPinterestUrl(imageUrl)} target='_blank'>
+                                            <img
+                                                src={PinterestSave}
+                                                alt='Save to Pinterest'
+                                                className={`bespoken__product-image-pin${showPin === i ? '--show' : ''}`}
+                                            />
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>}
+                </div>
+            </div>
+        )
+    }
+
+    const renderDiyWedding = () => {
+        return (
+            <div className="bespoken__container">
+                <div className="page__header">
+                    <h1 className="page__header-title">{page}</h1>
+                    <div className="bespoken__row" style={{ marginTop: '10rem' }}>
+                        <div className="bespoken__col" style={{ width: '80vw' }}>
+                            <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
+                                Coming soon...
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -169,5 +281,6 @@ export default function Bespoken({ page }: Props) {
 
     return page === 'HOME' ? renderHome() :
         page === 'STORY' ? renderStory() :
-            page === 'PRODUCTS' ? renderProducts() : null
+            page === 'PRODUCTS' ? renderProducts() :
+                page === 'DIY WEDDING' ? renderDiyWedding() : null
 }

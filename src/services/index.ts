@@ -14,6 +14,7 @@ import {
 
 import {
     sendContactEmail,
+    scrapeUrl
 } from './app'
 
 export {
@@ -26,4 +27,5 @@ export {
     updatePost,
     deletePost,
     sendContactEmail,
+    scrapeUrl
 }

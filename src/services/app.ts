@@ -19,6 +19,14 @@ const sendContactEmail = async (data: dataObj) => {
     } catch (err) { console.log(err) }
 }
 
+const scrapeUrl = async (data: dataObj) => {
+    try {
+        const scrape = await axios.post(`${API_URL}/api/app/scrape-url`, data, getConfig())
+        return scrape.data
+    } catch (err) { console.log(err) }
+}
+
 export {
     sendContactEmail,
+    scrapeUrl
 }
