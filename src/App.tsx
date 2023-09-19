@@ -145,6 +145,14 @@ const App: React.FC = () => {
           </div>
         </Route>
 
+        <Route path="/bespoken/home">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Bespoken page='HOME' />
+            <Footer />
+          </div>
+        </Route>
+
         <Route path="/bespoken/story">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} logo={BespokenLogo} />

@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const FadeInSection: React.FC = ({ children }) => {
+interface Props {
+  children: any
+}
+export default function FadeInSection({ children }: Props) {
   const [isVisible, setVisible] = useState(false);
   const domRef = useRef<HTMLDivElement>(null);
 
@@ -27,5 +30,3 @@ const FadeInSection: React.FC = ({ children }) => {
     </div>
   );
 };
-
-export default FadeInSection;

@@ -13,7 +13,7 @@
     &__list {
         &-wrapper {
             overflow-x: hidden;
-            width: 80vw;
+            width: 100%;
         }
 
         width: fit-content;
@@ -28,7 +28,7 @@
     &__card {
         &-container {
             height: 100%;
-            width: 20vw;
+            width: 25vw;
         }
 
         &-img {
@@ -60,5 +60,16 @@
 
     &__caption {
         margin: 1rem;
+    }
+}
+
+
+@media only screen and (max-width: 640px) {
+    .carousel {
+        &__card {
+            &-container {
+                width: 45vw;
+            }
+        }
     }
 }

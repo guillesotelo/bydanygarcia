@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import StoryImage from '../../assets/images/bespoken-story.png'
 import BespokenOneYear from '../../assets/images/bespoken-one-year.png'
 import Carousel from '../../components/Carousel/Carousel'
@@ -6,12 +6,16 @@ import Carousel1 from '../../assets/images/carousel1.png'
 import Carousel2 from '../../assets/images/carousel2.png'
 import Carousel3 from '../../assets/images/carousel3.png'
 import Carousel4 from '../../assets/images/carousel4.png'
+import { AppContext } from '../../AppContext'
+import { useHistory } from 'react-router-dom'
 
 type Props = {
     page?: string
 }
 
 export default function Bespoken({ page }: Props) {
+    const { lang, isMobile } = useContext(AppContext)
+    const history = useHistory()
     const carouselImages = [
         {
             image: Carousel1
@@ -76,7 +80,7 @@ export default function Bespoken({ page }: Props) {
                         </p>
                     </div>
                 </div>
-                <div className="bespoken__row" style={{ marginTop: '6rem' }}>
+                <div className="bespoken__row" style={{ marginTop: '6rem', width: '100vw' }}>
                     <Carousel cards={carouselImages} />
                 </div>
 
@@ -141,6 +145,29 @@ export default function Bespoken({ page }: Props) {
         )
     }
 
-    return page === 'STORY' ? renderStory() :
-        page === 'PRODUCTS' ? renderProducts() : null
+    const renderHome = () => {
+        return (
+            <div className="bespoken__container">
+                <div className="page__header">
+                    <h1 className="page__header-title">{page}</h1>
+                    <div className="bespoken__section-card" onClick={() => history.push('/bespoken/story')}>
+                        <h2 className="bespoken__section-title">Story</h2>
+                        <h3 className="bespoken__section-description">A bit of the brand's history</h3>
+                    </div>
+                    <div className="bespoken__section-card" onClick={() => history.push('/bespoken/products')}>
+                        <h2 className="bespoken__section-title">Products</h2>
+                        <h3 className="bespoken__section-description">See what's being made at the workshop</h3>
+                    </div>
+                    <div className="bespoken__section-card" onClick={() => history.push('/bespoken/diy-wedding')}>
+                        <h2 className="bespoken__section-title">DIY Wedding</h2>
+                        <h3 className="bespoken__section-description">Our way of celebrating commitment</h3>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    return page === 'HOME' ? renderHome() :
+        page === 'STORY' ? renderStory() :
+            page === 'PRODUCTS' ? renderProducts() : null
 }

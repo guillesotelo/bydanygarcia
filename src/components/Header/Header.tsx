@@ -304,7 +304,7 @@ export default function Header({ search, setSearch, logo }: Props) {
                         <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/bespoken/story')
+                                history.push('/bespoken/home')
                             }}>{TEXT[lang]['bespoken']}</h4>
                         </div>
                         {/* <div className="header__menu-item">
