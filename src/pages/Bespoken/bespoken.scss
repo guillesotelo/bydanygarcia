@@ -142,5 +142,15 @@
             margin-top: 2rem;
             width: 86vw;
         }
+
+        &__product {
+            &-image {
+                height: 45vh;
+
+                &-wrapper {
+                    height: 45vh;
+                }
+            }
+        }
     }
 }
