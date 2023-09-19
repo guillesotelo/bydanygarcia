@@ -10,13 +10,13 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
     const [allCards, setAllCards] = useState<any[]>(cards)
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [miliseconds, setMiliseconds] = useState<number>(0)
+    const [intervalId, setIntervalId] = useState<NodeJS.Timer>()
 
     const nextSlide = () => {
         if (currentIndex < allCards.length - 1) {
             setCurrentIndex(currentIndex + 1)
             setAllCards((previous => previous.concat(previous[currentIndex])))
             setMiliseconds((n) => n + 1)
-            console.log(miliseconds)
         }
         else {
             setCurrentIndex(0)
@@ -24,15 +24,33 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
     }
 
     useEffect(() => {
-        const interval = setInterval(nextSlide, 100)
-        return () => clearInterval(interval)
+            const interval = runAnimation()
+            return () => clearInterval(interval)
     }, [currentIndex])
+
+    const stopAnimation = () => {
+        clearInterval(intervalId)
+    }
+
+    const runAnimation = () => {
+        const interval = setInterval(nextSlide, 100)
+        setIntervalId(interval)
+        return interval
+    }
+
+    const restartAnimation = () => {
+        nextSlide()
+    }
 
     return (
         <div className="carousel__container">
             <h1 className="carousel__title"></h1>
             <div className="carousel__list-wrapper">
-                <div className="carousel__list" style={{ transform: `translateX(-${(miliseconds / currentIndex) * 100}px)` }}>
+                <div
+                    className="carousel__list"
+                    style={{ transform: `translateX(-${(currentIndex * 5) - miliseconds}px)` }}
+                    onMouseEnter={stopAnimation}
+                    onMouseLeave={restartAnimation}>
                     {allCards.map((card, i) =>
                         <div key={i} className="carousel__card-container">
                             <div className="carousel__card-img-container">

@@ -13,7 +13,7 @@
     &__list {
         &-wrapper {
             overflow-x: hidden;
-            width: 60vw;
+            width: 100vw;
         }
 
         width: fit-content;
@@ -22,7 +22,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        transition: transform 8s ease-in-out;
+        transition: 300ms;
     }
 
     &__card {
@@ -35,6 +35,11 @@
             height: 100%;
             width: 100%;
             object-fit: cover;
+            transition: .4s;
+
+            &:hover {
+                filter: grayscale(100%);
+            }
 
             &-container {
                 height: 100%;
