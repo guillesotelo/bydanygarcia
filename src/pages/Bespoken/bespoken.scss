@@ -1,6 +1,6 @@
 .bespoken {
     &__container {
-        padding: 5vw 2vw 30vw 2vw;
+        padding: 5vw 4vw 30vw 4vw;
         min-height: 60vh;
         display: flex;
         flex-direction: column;
@@ -16,7 +16,7 @@
         flex-direction: row;
         width: 100%;
         align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
         margin-top: 2rem;
     }
 
@@ -31,6 +31,7 @@
         font-family: 'Bentham', serif;
         font-size: 1.3rem;
         text-align: justify;
+        max-width: 60vw;
     }
 
     &__story-img {
@@ -43,6 +44,11 @@
         &:hover {
             filter: grayscale(100%);
         }
+    }
+
+    &__subtitle {
+        text-align: left;
+        align-self: flex-start;
     }
 }
 

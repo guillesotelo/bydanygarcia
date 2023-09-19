@@ -10,7 +10,7 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
     const [allCards, setAllCards] = useState<any[]>(cards)
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [miliseconds, setMiliseconds] = useState<number>(0)
-    const [intervalId, setIntervalId] = useState<NodeJS.Timer>()
+    const [intervalId, setIntervalId] = useState<any>()
 
     const nextSlide = () => {
         if (currentIndex < allCards.length - 1) {
@@ -29,7 +29,7 @@ export default function Carousel({ title, caption, cards = [] }: Props) {
     }, [currentIndex])
 
     const stopAnimation = () => {
-        clearInterval(intervalId)
+        if(intervalId) clearInterval(intervalId)
     }
 
     const runAnimation = () => {
