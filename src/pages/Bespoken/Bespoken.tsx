@@ -163,7 +163,7 @@ export default function Bespoken({ page }: Props) {
                         <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
                             Values
                         </h2>
-                        <p className="bespoken__text" >
+                        <p className="bespoken__text" style={{ textAlign: isMobile ? 'left' : 'justify' }}>
                             <strong>I DREAM</strong> of a business where I can express my work in my best way and people can find confidence, detail, excellence and purpose in what they are doing and receiving.
                             <br />
                             <br />
