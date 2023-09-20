@@ -15,6 +15,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'bouquets': `BOUQUETS`,
         'handcrafted_adornments': `ADORNOS HECHOS A MANO`,
         'our_diy_wedding': `NUESTRA BODA DIY`,
+        'values': `VALORES`,
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
@@ -171,6 +172,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'bouquets': `BOUQUETS`,
         'handcrafted_adornments': `HANDCRAFTED ADORNMENTS`,
         'our_diy_wedding': `OUR DIY WEDDING`,
+        'values': `VALUES`,
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',

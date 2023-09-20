@@ -55,14 +55,27 @@
         &-card {
             background-color: #d1ecec;
             width: 86%;
+            height: 12vh;
             border-radius: 1rem;
-            padding: .2rem;
-            margin: 2rem auto 0 auto;
+            padding: .4rem;
+            margin: 1.5rem auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.085);
+        }
+
+        &-title {
+            font-size: 1rem;
+            margin: 0;
         }
 
         &-description {
             font-size: .8rem;
             font-weight: normal;
+            margin: 0;
         }
     }
 

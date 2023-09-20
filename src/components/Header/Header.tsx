@@ -207,6 +207,11 @@ export default function Header({ search, setSearch, logo }: Props) {
                                         {TEXT[lang]['our_diy_wedding']}
                                     </h4>
                                 </div>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['values']}
+                                    </h4>
+                                </div>
                             </div>
                         </div>
                         <div className="header__item" onClick={() => history.push('/about')}>
