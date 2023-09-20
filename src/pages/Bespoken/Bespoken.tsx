@@ -222,7 +222,13 @@ export default function Bespoken({ page }: Props) {
                         <div>
                             <div className="bespoken__product-list">
                                 {pinteresImages.map((imageUrl: string, i: number) => (
-                                    <div key={i} className="bespoken__product-image-wrapper" onMouseEnter={() => setShowPin(i)} onMouseLeave={() => setShowPin(-1)}>
+                                    <div
+                                        key={i}
+                                        className="bespoken__product-image-wrapper"
+                                        onMouseEnter={() => setShowPin(i)}
+                                        onMouseLeave={() => setShowPin(-1)}
+                                        style={{ animationDelay: `${i * 200}ms` }}
+                                    >
                                         <img src={imageUrl} alt={`Image ${i}`} className='bespoken__product-image' />
                                         <a href={getPinterestUrl(imageUrl)} target='_blank'>
                                             <img
