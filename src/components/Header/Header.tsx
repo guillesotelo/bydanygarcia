@@ -224,7 +224,8 @@ export default function Header({ search, setSearch, logo }: Props) {
                             onClick={() => {
                                 setSearch([])
                                 setPrompt('')
-                                history.push('/')
+                                if (logo) history.push('/bespoken/story')
+                                else history.push('/')
                             }}>
                             {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                             <img
@@ -381,12 +382,13 @@ export default function Header({ search, setSearch, logo }: Props) {
                     onClick={() => {
                         setSearch([])
                         setPrompt('')
-                        history.push('/')
+                        if (logo) history.push('/bespoken/home')
+                        else history.push('/')
                     }}>
                     {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                     <img
                         className="header__logo-image"
-                        style={{ 
+                        style={{
                             maxHeight: logo ? '9vw' : '',
                             margin: logo ? 0 : ''
                         }}

@@ -10,6 +10,7 @@ import { AppContext } from '../../AppContext'
 import { useHistory } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { scrapeUrl } from '../../services'
+import { TEXT } from '../../constants/lang'
 
 type Props = {
     page?: string
@@ -62,7 +63,7 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title">{page}</h1>
+                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     {/* <h1 className="page__header-subtitle">{page == 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
                 </div>
                 <div className="bespoken__row">
@@ -165,7 +166,7 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title">{page}</h1>
+                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     {loading ?
                         <div>
                             <span className="loader"></span>
@@ -203,7 +204,7 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title">{page}</h1>
+                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     <div className="bespoken__row" style={{ marginTop: '10rem' }}>
                         <div className="bespoken__col" style={{ width: '80vw' }}>
                             <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
@@ -220,7 +221,7 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title">{page}</h1>
+                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                 </div>
                 <div className="bespoken__row">
                     <div className="bespoken__col" style={{ width: '80vw' }}>
@@ -273,22 +274,22 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title">{page}</h1>
+                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/story')}>
-                    <h2 className="bespoken__section-title">Story</h2>
+                    <h2 className="bespoken__section-title">{TEXT[lang]['story']}</h2>
                     <h3 className="bespoken__section-description">A bit of the brand's history</h3>
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/products')}>
-                    <h2 className="bespoken__section-title">Products</h2>
+                    <h2 className="bespoken__section-title">{TEXT[lang]['products']}</h2>
                     <h3 className="bespoken__section-description">See what's being made at the workshop</h3>
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/diy-wedding')}>
-                    <h2 className="bespoken__section-title">DIY Wedding</h2>
+                    <h2 className="bespoken__section-title">{TEXT[lang]['our_diy_wedding']}</h2>
                     <h3 className="bespoken__section-description">Our way of celebrating commitment</h3>
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/values')}>
-                    <h2 className="bespoken__section-title">Values</h2>
+                    <h2 className="bespoken__section-title">{TEXT[lang]['values']}</h2>
                     <h3 className="bespoken__section-description">The heartbeat upon the making</h3>
                 </div>
             </div>

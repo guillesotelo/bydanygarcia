@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
 import { dataObj } from '../../types'
 import { useLocation } from 'react-router-dom'
+import { AppContext } from '../../AppContext'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<any>>
@@ -13,6 +14,7 @@ export default function Blog({ setPost }: Props) {
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
     const [category, setCategory] = useState('')
+    const { isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         const cat = new URLSearchParams(document.location.search).get('category')
@@ -37,13 +39,17 @@ export default function Blog({ setPost }: Props) {
         setLoading(true)
         const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
         const localPosts = duedate && !hasCaducated(JSON.parse(duedate)) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
-        const posts = localPosts.length ? localPosts : await getAllPosts()
+        const posts = localPosts.length ? localPosts : await getAllPosts(isLoggedIn)
         setLoading(false)
         if (posts && Array.isArray(posts)) {
             if (cat) {
+                setShowUp(false)
                 const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat.replace(/_/g, '')))
                 setAllPosts(filtered)
-            } else setAllPosts(posts)
+            } else {
+                setShowUp(false)
+                setAllPosts(posts)
+            }
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))
         }
@@ -71,7 +77,7 @@ export default function Blog({ setPost }: Props) {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.map((post, i) => <PostCard setPost={setPost} key={i} post={post} />)}
+                    {allPosts.map((post, i) => <PostCard setPost={setPost} post={post} />)}
                 </div>
             }
         </div>

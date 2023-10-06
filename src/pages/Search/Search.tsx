@@ -13,7 +13,7 @@ export default function Blog({ search, setPost }: Props) {
     const [allPosts, setAllPosts] = useState<{ [key: string | number]: any }[]>([])
     const [filteredPosts, setFilteredPosts] = useState<{ [key: string | number]: any }[]>([])
     const [showUp, setShowUp] = useState(false)
-    const { lang, setLang, isMobile } = useContext(AppContext)
+    const { lang, setLang, isMobile, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         getPosts()
@@ -30,7 +30,7 @@ export default function Blog({ search, setPost }: Props) {
     }, [allPosts, filteredPosts])
 
     const getPosts = async () => {
-        const posts = await getAllPosts()
+        const posts = await getAllPosts(isLoggedIn)
         if (posts) setAllPosts(posts.length ? posts : [])
     }
 

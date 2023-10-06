@@ -11,6 +11,7 @@ import { AppContext } from '../../AppContext';
 import { TEXT } from '../../constants/lang';
 import Slider from '../../components/Slider/Slider';
 import { dataObj } from '../../types';
+import Switch from '../../components/Switch/Switch';
 
 type Props = {}
 const voidData = {
@@ -32,6 +33,7 @@ export default function PostEditor({ }: Props) {
     const [isEdited, setIsEdited] = useState(false)
     const [isUpdate, setIsUpdate] = useState(false)
     const [spaSelected, setSpaSelected] = useState(false)
+    const [published, setPublished] = useState(false)
     const [postId, setPostId] = useState('')
     const [sideImages, setSideImages] = useState<string[]>([])
     const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
@@ -85,6 +87,7 @@ export default function PostEditor({ }: Props) {
                 const sideStyles = JSON.parse(_post.sideStyles)
                 setSideImgStyles(sideStyles)
             }
+            setPublished(_post.published || false)
         }
     }
 
@@ -105,7 +108,14 @@ export default function PostEditor({ }: Props) {
         const sideStyles = JSON.stringify(sideImgStyles)
 
         if (isUpdate) {
-            const updated = await updatePost({ ...data, sideImgs, sideStyles, html, spaHtml })
+            const updated = await updatePost({
+                ...data,
+                sideImgs,
+                sideStyles,
+                html,
+                spaHtml,
+                published
+            })
             if (updated) {
                 localStorage.removeItem('autosave')
                 localStorage.removeItem('posts')
@@ -118,7 +128,14 @@ export default function PostEditor({ }: Props) {
             }
             getPost(postId)
         } else {
-            const saved = await createPost({ ...data, sideImgs, sideStyles, html, spaHtml })
+            const saved = await createPost({
+                ...data,
+                sideImgs,
+                sideStyles,
+                html,
+                spaHtml,
+                published
+            })
             if (saved) {
                 localStorage.removeItem('autosave')
                 localStorage.removeItem('posts')
@@ -163,9 +180,18 @@ export default function PostEditor({ }: Props) {
     return isLoggedIn ?
         <div className='editor__container'>
             <div className="editor__left-col">
-                <div className="editor__tab-container">
-                    <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>
-                    <h4 className={`editor__tab-item ${spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(true)}>Español</h4>
+                <div className="editor__tab-row">
+                    <div className="editor__tab-container">
+                        <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>
+                        <h4 className={`editor__tab-item ${spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(true)}>Español</h4>
+                    </div>
+                    <Switch
+                        label='Published'
+                        on='Yes'
+                        off='No'
+                        value={published}
+                        setValue={setPublished}
+                    />
                 </div>
                 <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
                 <div className="editor__data-input">

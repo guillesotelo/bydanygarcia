@@ -15,7 +15,7 @@ export default function Home() {
     const [embracingMotherhood, setEmbracingMotherhood] = useState<string[]>([])
     const [roamingSoul, setRoamingSoul] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
-    const { lang, isMobile } = useContext(AppContext)
+    const { lang, isMobile, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         getPosts()
@@ -42,7 +42,7 @@ export default function Home() {
         setLoading(true)
         const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
         const localPosts = duedate && !hasCaducated(JSON.parse(duedate)) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
-        const posts = localPosts.length ? localPosts : await getAllPosts()
+        const posts = localPosts.length ? localPosts : await getAllPosts(isLoggedIn)
         setLoading(false)
         if (posts && Array.isArray(posts)) {
             setAllPosts(posts)

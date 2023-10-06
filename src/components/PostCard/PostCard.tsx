@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import postImagePlaceholder from '../../assets/logos/isologo.png'
 import { AppContext } from '../../AppContext'
+import Lock from '../../assets/icons/lock.svg'
 
 type Props = {
     post: { [key: string | number]: any }
@@ -31,8 +32,9 @@ export default function PostCard({ post, setPost }: Props) {
     }
 
     return (
-        <div className='postcard__container' onClick={handleClick}>
+        <div className='postcard__container' onClick={handleClick} style={{ opacity: !post.published ? '.5' : '1' }}>
             <div className="postcard__image-div" >
+                {!post.published ? <img src={Lock} alt="Not Published" className="postcard__image-lock" /> : ''}
                 <h4 className="postcard__image-overlap">{spanish && post.spaOverlap ? post.spaOverlap : post.overlap || ''}</h4>
                 <img
                     src={getPreview()}

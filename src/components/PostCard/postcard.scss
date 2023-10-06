@@ -14,6 +14,7 @@
             filter: brightness(110%) saturate(120%);
             box-shadow: 5px 5px 20px #b3b3b3;
             transition: .5s;
+            opacity: 1 !important;
         }
 
         &:hover .postcard__image-overlap {
@@ -34,6 +35,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        &-lock {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 2rem;
+            opacity: 1 !important;
         }
 
         &-overlap {

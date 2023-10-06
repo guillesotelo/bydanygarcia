@@ -32,6 +32,12 @@
             // border-right: none;
             border-bottom-left-radius: 1vw;
         }
+
+        &-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
         
         &-item {
             padding: 1vw;

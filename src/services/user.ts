@@ -15,6 +15,7 @@ const loginUser = async (user: { [key: string | number]: any }) => {
     try {
         const res = await axios.post(`${API_URL}/api/user/login`, user)
         const finalUser = res.data
+        localStorage.clear()
         localStorage.setItem('user', JSON.stringify({
             ...finalUser,
             app: 'bydanygarcia',
@@ -24,7 +25,7 @@ const loginUser = async (user: { [key: string | number]: any }) => {
     } catch (error) { console.log(error) }
 }
 
-const verifyToken = async ()=> {
+const verifyToken = async () => {
     try {
         const verify = await axios.post(`${API_URL}/api/user/verify`, {}, getConfig())
         return verify.data

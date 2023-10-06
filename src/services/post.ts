@@ -11,10 +11,11 @@ const getConfig = () => {
     return { headers: { authorization: `Bearer ${token}` } }
 }
 
-const getAllPosts = async () => {
+const getAllPosts = async (isAdmin?: boolean) => {
     try {
         const posts = await axios.get(`${API_URL}/api/post/getAll`, { headers: getHeaders() })
-        return posts.data
+        const filtered = posts.data ? isAdmin ? posts.data : posts.data.filter((post: any) => post.published) : []
+        return filtered
     } catch (err) { console.log(err) }
 }
 

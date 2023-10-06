@@ -36,6 +36,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'about': 'SOBRE MI',
         'search': 'Buscar',
         'story_of_brand': `HISTORIA DE LA MARCA`,
+        'story': `STORY`,
         'products': `PRODUCTOS`,
 
         //LOGIN
@@ -193,6 +194,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'about': 'ABOUT',
         'search': 'Search',
         'story_of_brand': `STORY OF THE BRAND`,
+        'story': `STORY`,
         'products': `PRODUCTS`,
 
         //LOGIN
