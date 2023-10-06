@@ -50,6 +50,8 @@ export default function Bespoken({ page }: Props) {
             })
 
             if (images && Array.isArray(images)) setPinterestImages(images.filter(img => img))
+
+            console.log('images', images)
             setLoading(false)
         } catch (err) {
             console.error(err)
