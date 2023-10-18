@@ -38,7 +38,8 @@ export default function PostEditor({ }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
     const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
     const [html, setHtml] = useState('')
-    const [spaHtml, setspaHtml] = useState('')
+    const [spaHtml, setSpaHtml] = useState('')
+    const [hasAutosave, setHasAutosave] = useState(false)
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
@@ -50,22 +51,39 @@ export default function PostEditor({ }: Props) {
         if (isNew) {
             setData(voidData)
             setHtml('')
-            setspaHtml('')
+            setSpaHtml('')
             setIsEdited(false)
             setPostId('')
         }
         else if (id) setPostId(id)
+
+        const autosave = localStorage.getItem('autosave')
+        const autosaveId = localStorage.getItem('autosaveId')
+        const autosaveSpa = localStorage.getItem('autosaveSpa')
+
+        if (autosaveId === id && (autosave || autosaveSpa)) setHasAutosave(true)
     }, [location])
 
     useEffect(() => {
-        if (postId) getPost(postId)
+        if (postId && !html && !spaHtml) getPost(postId)
     }, [postId])
 
     useEffect(() => {
         const statusBar = document.querySelector('.tox-statusbar')
         if (statusBar) statusBar.remove()
-        localStorage.setItem('autosave', html)
+        if (isEdited) {
+            localStorage.setItem('autosave', html)
+            localStorage.setItem('autosaveSpa', spaHtml)
+            localStorage.setItem('autosaveId', postId)
+        }
     }, [data, html, spaHtml])
+
+    const loadAutoSave = () => {
+        const autosave = localStorage.getItem('autosave')
+        const autosaveSpa = localStorage.getItem('autosaveSpa')
+        setHtml(autosave || '')
+        setSpaHtml(autosaveSpa || '')
+    }
 
     const getPost = async (id: string) => {
         const _post = await getPostById(id)
@@ -76,7 +94,7 @@ export default function PostEditor({ }: Props) {
                 setIsUpdate(true)
             }
             if (_post.spaHtml) {
-                setspaHtml(_post.spaHtml)
+                setSpaHtml(_post.spaHtml)
                 setIsUpdate(true)
             }
             if (_post.sideImgs) {
@@ -98,8 +116,9 @@ export default function PostEditor({ }: Props) {
     }
 
     const handleEditorChange = (state: string) => {
-        if (spaSelected) setspaHtml(state)
+        if (spaSelected) setSpaHtml(state)
         else setHtml(state)
+        setIsEdited(true)
     }
 
     const handleSave = async () => {
@@ -116,8 +135,7 @@ export default function PostEditor({ }: Props) {
                 spaHtml,
                 published
             })
-            if (updated) {
-                localStorage.removeItem('autosave')
+            if (updated && updated._id) {
                 localStorage.removeItem('posts')
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
@@ -136,8 +154,7 @@ export default function PostEditor({ }: Props) {
                 spaHtml,
                 published
             })
-            if (saved) {
-                localStorage.removeItem('autosave')
+            if (saved && saved._id) {
                 localStorage.removeItem('posts')
                 toast.success(TEXT[lang]['saving_ok'])
                 setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
@@ -148,7 +165,6 @@ export default function PostEditor({ }: Props) {
         }
         setHtml('')
         setData(voidData)
-        localStorage.removeItem('autosave')
         localStorage.removeItem('posts')
         setIsEdited(false)
         return toast.remove(loading)
@@ -194,6 +210,11 @@ export default function PostEditor({ }: Props) {
                     />
                 </div>
                 <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
+                {hasAutosave ?
+                    <Button
+                        label='Load autosave'
+                        handleClick={loadAutoSave}
+                    /> : ''}
                 <div className="editor__data-input">
                     <div className="editor__input-col">
                         <InputField

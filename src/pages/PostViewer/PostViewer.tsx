@@ -43,7 +43,7 @@ export default function PostViewer({ post, setPost }: Props) {
 
     useEffect(() => {
         renderHelmet()
-        if (postId && (!post || !post.title)) getPost(postId)
+        if (postId && (!post || !post._id)) getPost(postId)
         if (post.html) setHtml(post.html)
 
         if (post.spaHtml) setspaHtml(post.spaHtml)
@@ -55,7 +55,6 @@ export default function PostViewer({ post, setPost }: Props) {
     }, [post, postId])
 
     const getCategory = (post: dataObj) => {
-        console.log(post)
         const tags = post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ')
         if (tags.length) setCategory(tags[0])
     }

@@ -35,7 +35,6 @@ const createPost = async (data: { [key: string | number]: any }) => {
 
 const updatePost = async (data: { [key: string | number]: any }) => {
     try {
-        console.log(data)
         const post = await axios.post(`${API_URL}/api/post/update`, data, getConfig())
         return post.data
     } catch (err) { console.log(err) }
