@@ -4,11 +4,11 @@ const API_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_
 
 const getHeaders = () => {
     const { token }: { [key: string | number]: any } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-    return { authorization: `Bearer ${token}` }
+    return { authorization: `Bearer ${token}`, mode: 'cors' }
 }
 const getConfig = () => {
     const { token }: { [key: string | number]: any } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-    return { headers: { authorization: `Bearer ${token}` } }
+    return { headers: { authorization: `Bearer ${token}`, mode: 'cors' } }
 }
 
 const loginUser = async (user: { [key: string | number]: any }) => {
