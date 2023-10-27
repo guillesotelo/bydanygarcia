@@ -48,7 +48,7 @@ export default function Header({ search, setSearch, logo }: Props) {
             }
         })
         activateHeaderHeight()
-        verifyUser()
+        if(localStorage.getItem('user')) verifyUser()
     }, [])
 
     useEffect(() => {
