@@ -211,7 +211,7 @@ export default function Bespoken({ page }: Props) {
                         <div className="bespoken__row" >
                             <div className="bespoken__col">
                                 <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" />
-                                <p><i>Bespoken One Year's anniversary - Buenos Aires 2022</i></p>
+                                <p><i>Bespoken's One Year anniversary - Buenos Aires 2022</i></p>
                             </div>
                         </div>
                     </div>
