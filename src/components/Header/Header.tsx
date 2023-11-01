@@ -40,10 +40,10 @@ export default function Header({ search, setSearch, logo }: Props) {
         window.addEventListener('mouseup', e => {
             const clicked = e.target
             if (clicked !== svg) setMenuToggle(false)
-            if (clicked == container
-                || clicked == home
-                || clicked == blog
-                || clicked == list) {
+            if (clicked === container
+                || clicked === home
+                || clicked === blog
+                || clicked === list) {
                 setSearchClicked(false)
             }
         })
@@ -207,11 +207,11 @@ export default function Header({ search, setSearch, logo }: Props) {
                                         {TEXT[lang]['our_diy_wedding']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
+                                {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['values']}
                                     </h4>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="header__item" onClick={() => history.push('/about')}>

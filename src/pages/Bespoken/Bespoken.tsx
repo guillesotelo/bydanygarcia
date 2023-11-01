@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
+import B from '../../assets/logos/bespoken_iso.png'
 
 type Props = {
     page?: string
@@ -19,7 +20,12 @@ type Props = {
 export default function Bespoken({ page }: Props) {
     const { lang, isMobile } = useContext(AppContext)
     const history = useHistory()
-    const [pinteresImages, setPinterestImages] = useState<any>([])
+    const [arrangements, setArrangements] = useState<any>([])
+    const [adornments, setAdornments] = useState<any>([])
+    const [gifts, setGifts] = useState<any>([])
+    const [wedding, setWedding] = useState<any>([])
+    const [images, setImages] = useState<any>([])
+    const [products, setProducts] = useState('')
     const [loading, setLoading] = useState(false)
     const [showPin, setShowPin] = useState(-1)
 
@@ -42,14 +48,41 @@ export default function Bespoken({ page }: Props) {
         getPinterestImages()
     }, [])
 
+    useEffect(() => {
+        const getName = (products: string, name: string) => {
+            return products.toLowerCase().includes(name)
+        }
+
+        const imgs = getName(products, 'arrangements') ? arrangements :
+            getName(products, 'adornments') ? adornments :
+                getName(products, 'gifts') ? gifts :
+                    getName(products, 'wedding') ? wedding : []
+
+        setImages(imgs)
+    }, [products])
+
     const getPinterestImages = async () => {
         try {
             setLoading(true)
-            const images = await scrapeUrl({
+            const _arrangements = await scrapeUrl({
+                url: 'https://www.pinterest.se/bespoken_ar/flower-arrangements/'
+            })
+            if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
+
+            const _adornments = await scrapeUrl({
+                url: 'https://www.pinterest.se/bespoken_ar/flower-adornments/'
+            })
+            if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
+
+            const _gifts = await scrapeUrl({
                 url: 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/'
             })
+            if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
 
-            if (images && Array.isArray(images)) setPinterestImages(images.filter(img => img))
+            const _wedding = await scrapeUrl({
+                url: 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/'
+            })
+            if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
 
             setLoading(false)
         } catch (err) {
@@ -65,7 +98,7 @@ export default function Bespoken({ page }: Props) {
             <div className="bespoken__container">
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
-                    {/* <h1 className="page__header-subtitle">{page == 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
+                    {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
                 </div>
                 <div className="bespoken__row">
                     <div className="bespoken__col">
@@ -114,49 +147,56 @@ export default function Bespoken({ page }: Props) {
                 </div>
 
                 <div className="bespoken__row" style={{ marginTop: '6rem' }}>
-                    <div className="bespoken__col">
-                        <h2 className="bespoken__subtitle">
+                    <div className="bespoken__col" style={{ width: '100%' }}>
+                        <h2 className="bespoken__subtitle" style={{ textAlign: 'center', width: '100%' }}>
                             Client's Experience
                         </h2>
-                        <h3 className="bespoken__subtitle" >
-                            Gift boxes/Regalos y Experiencias
-                        </h3>
-                        <p className="bespoken__text" >
-                            “Dany querida, gracias por el amor puesto en todo. Descubro detalles amorosos”
-                            <br /><br />
-                            “Gracias a vos, se siente cuando las cosas son hechas con amor!”.
-                            <br /><br />
-                            “Hola! Re lindo, le encanto! Dijo: !Qué presentación!  Espectacular y el sello le da un toque muy especial. Quedo muy contenta y yo quede re bien! Mil gracias, Dios te bendiga”.
-                            <br /><br />
-                            “Estoy taaan orgullosa de ser tu amiga, cada experiencia es increible y única! Pero siempre tienes más y me sorprendes. El mundo es tuyo amiga!”
-                            <br /><br />
-                            “El toque delicado y personal que le das a las cajas es tremendamente hermoso”.
-                            <br /><br />
-                            “Le encanto, Daniela! Gracias. El cafe sale muy rico! Todo increíble, mis dieces”.
-                            <br /><br />
-                            “She absolutely LOVED IT”!
-                            <br /><br />
-                            “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
-                            <br /><br />
-                        </p>
-
-                        <h3 className="bespoken__subtitle">
-                            Adornments & Bouquets/ Tocados y Ramos
-                        </h3>
-                        <p className="bespoken__text" >
-                            “Delicado, hermoso, único! Gracias por tu buen gusto y por tu dedicación. Amamos y valoramos tu espectacular trabajo”.
-                            <br /><br />
-                            “Una belleza! Hermosas flores, hermosa presentación”!
-                            <br /><br />
-                            “Tu trabajo resalta la belleza de mis nenas”.
-                            <br /><br />
-                            “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
-                            <br /><br />
-                        </p>
-                    </div>
-                    <div className="bespoken__col">
-                        <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" />
-                        <p><i>Bespoken One Year's anniversary - Buenos Aires 2022</i></p>
+                        <div className="bespoken__row" style={{ alignItems: isMobile ? '' : 'flex-start' }}>
+                            <div className="bespoken__col">
+                                <h3 className="bespoken__subtitle" >
+                                    Gift boxes/Regalos y Experiencias
+                                </h3>
+                                <p className="bespoken__text" >
+                                    “Dany querida, gracias por el amor puesto en todo. Descubro detalles amorosos”
+                                    <br /><br />
+                                    “Gracias a vos, se siente cuando las cosas son hechas con amor!”.
+                                    <br /><br />
+                                    “Hola! Re lindo, le encanto! Dijo: !Qué presentación!  Espectacular y el sello le da un toque muy especial. Quedo muy contenta y yo quede re bien! Mil gracias, Dios te bendiga”.
+                                    <br /><br />
+                                    “Estoy taaan orgullosa de ser tu amiga, cada experiencia es increible y única! Pero siempre tienes más y me sorprendes. El mundo es tuyo amiga!”
+                                    <br /><br />
+                                    “El toque delicado y personal que le das a las cajas es tremendamente hermoso”.
+                                    <br /><br />
+                                    “Le encanto, Daniela! Gracias. El cafe sale muy rico! Todo increíble, mis dieces”.
+                                    <br /><br />
+                                    “She absolutely LOVED IT”!
+                                    <br /><br />
+                                    “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
+                                    <br /><br />
+                                </p>
+                            </div>
+                            <div className="bespoken__col">
+                                <h3 className="bespoken__subtitle">
+                                    Adornments & Bouquets/ Tocados y Ramos
+                                </h3>
+                                <p className="bespoken__text" >
+                                    “Delicado, hermoso, único! Gracias por tu buen gusto y por tu dedicación. Amamos y valoramos tu espectacular trabajo”.
+                                    <br /><br />
+                                    “Una belleza! Hermosas flores, hermosa presentación”!
+                                    <br /><br />
+                                    “Tu trabajo resalta la belleza de mis nenas”.
+                                    <br /><br />
+                                    “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
+                                    <br /><br />
+                                </p>
+                            </div>
+                        </div>
+                        <div className="bespoken__row" >
+                            <div className="bespoken__col">
+                                <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" />
+                                <p><i>Bespoken One Year's anniversary - Buenos Aires 2022</i></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,8 +207,33 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
-                    {loading ?
+                    <h1 className="page__header-title" style={{ cursor: 'pointer' }} onClick={() => setProducts('')}>{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
+                    {products && !loading ?
+                        <div>
+                            <p>{products}</p>
+                        </div>
+                        : ''}
+                    {!products ?
+                        <div className="bespoken__product-cards">
+                            <div className="bespoken__product-card" onClick={() => setProducts('Flowers Arrangements')}>
+                                <p className="bespoken__product-card-title">Flowers Arrangements</p>
+                                <img src='https://i.pinimg.com/236x/af/a1/54/afa1545af73164c0b10fe0ddb6ba522f.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                            </div>
+                            <div className="bespoken__product-card" onClick={() => setProducts('Flowers Adornments')}>
+                                <p className="bespoken__product-card-title">Flowers Adornments</p>
+                                <img src='https://i.pinimg.com/236x/b5/88/8e/b5888e0fbc3592af01a29fd5bdde7dd9.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                            </div>
+                            <div className="bespoken__product-card" onClick={() => setProducts('Bespoken Gifts')}>
+                                <p className="bespoken__product-card-title">Bespoken Gifts</p>
+                                <img src='https://i.pinimg.com/236x/6d/a7/0f/6da70f8061b9f49149dd5ead3a1754f8.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                            </div>
+                            <div className="bespoken__product-card" onClick={() => setProducts('Our DIY Wedding')}>
+                                <p className="bespoken__product-card-title">Our DIY Wedding</p>
+                                <img src='https://i.pinimg.com/236x/b8/a5/fb/b8a5fbb39acfaf780674a62847eccccf.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                            </div>
+                        </div>
+                        : ''}
+                    {!products ? '' : loading ?
                         <div>
                             <span className="loader"></span>
                             <p>Connecting with Pinterest...</p>
@@ -176,7 +241,7 @@ export default function Bespoken({ page }: Props) {
                         :
                         <div>
                             <div className="bespoken__product-list">
-                                {pinteresImages.map((imageUrl: string, i: number) => (
+                                {images.map((imageUrl: string, i: number) =>
                                     <div
                                         key={i}
                                         className="bespoken__product-image-wrapper"
@@ -192,8 +257,7 @@ export default function Bespoken({ page }: Props) {
                                                 className={`bespoken__product-image-pin${showPin === i ? '--show' : ''}`}
                                             />
                                         </a>
-                                    </div>
-                                ))}
+                                    </div>)}
                             </div>
                         </div>}
                 </div>

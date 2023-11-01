@@ -19,7 +19,7 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish(lang === 'es' || linkLang == 'es')
+        setSpanish(lang === 'es' || linkLang === 'es')
     }, [])
 
     useEffect(() => {

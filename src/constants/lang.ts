@@ -140,7 +140,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p className="about__text">El cambio siempre es constante, es parte de la vida y nunca somos los mismos, pero al mismo tiempo, llevamos en nosotros todo lo que seremos. Como una pequeña semilla de roble que tiene el potencial de convertirse en un gran árbol, está en nosotros en todo momento. Mi objetivo es alcanzar todos los días mi plena aceptación propia y de los demás, ser valiente, auténtica y amable conmigo misma, y vivir en la libertad y grandeza que ya se nos ha otorgado con poder, amor y autodominio.</i></p>
         <p className="about__text">A menudo tendemos a hacer lo mismo que hacen otras personas, y es fácil caer en la comparación o dudar de nosotros mismos y nuestro trabajo, pero como dijo Marshall Rosenberg, esto nos impide sentir compasión por nosotros mismos y por los demás. La compasión es observar sin juzgar.<p>
         <p className="about__text">Me llevó algunos años poner en marcha este proyecto de sitio web hasta que finalmente entendí esto: <p>
-        <div style='padding: 0 1rem; border: 1px solid lightgray;'>
+        <div>
             <p className="about__text"><strong>1)</strong> Las cosas se pueden hacer a tu propio ritmo, no hay necesidad de apresurarse. Ve un día a la vez, acompañado de pequeños pasos.<p>
             <p className="about__text"><strong>2)</strong> Todo en la vida es para disfrutarlo, no para valorarlo. Clave para el éxito. <p>
             <p className="about__text"><strong>3)</strong> Puedes inspirarte en otros, pero al final, la clave es ser tú mismo, apreciar tu toque único. Todo lo que serás está dentro de ti, al igual que en todos los que te rodean. <p>
@@ -291,7 +291,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p className="about__text">Change is always a constant, it is part of life and we are never the same, but at the same time, we hold in ourselves everything we will ever be. Like a little oak seed holding the potential of becoming a big oak tree, it’s in us all the time. My goal is to reach everyday my full acceptance and of others, to be <i>fearless</i>, to be true and gentle to myself and live in the freedom and greatness that we have already been given to us with power, love and self control. <p>
         <p className="about__text">We tend to do what other people are doing and it is easy to fall into comparison or doubt about our own-selves and our work, but as Marshall Rosenberg said, this blocks you from compassion towards yourself and others. Compassion is to observe without judgement. <p>
         <p className="about__text">It took me some years to get this website project moving until I finally understood this: <p>
-        <div style='padding: 0 1rem; border: 1px solid lightgray;'>
+        <div>
             <p className="about__text"><strong>1)</strong> Things can be done at your own pace, there is no need to rush. Go one day at a time, with little steps accompanying. <p>
             <p className="about__text"><strong>2)</strong> Everything in life is to be enjoyed, not valued. A key to success. <p>
             <p className="about__text"><strong>3)</strong> You can get inspired from others, but at the end the key is to be you, appreciate your unique touch. Everything you will ever be lies within you, as it lies in everyone around you. <p>
