@@ -34,6 +34,9 @@ export default function Bespoken({ page }: Props) {
     const giftsUrl = 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/'
     const weddingUrl = 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/'
 
+    const adornmentsCaption = `I started composing natural flower crowns at the cottage of my in-laws in the summer of 2021. From that time on, I started learning about flowers and techniques so I could create different designs for crowns and ear-cuffs. Materials: Natural flowers, fabric, cold porcelain, stones, among others.`
+    const giftsCaption = `It's all about the intention, love and details ✨ I found myself creating different gift proposals I called "experiences", as they involve the sensory levels of seeing, touching, tasting and smelling. These were all crafted with a lot of detail and time. All of them were carefully designed for each customer with selected products and brands. As for the packaging and presentation, I chose carton boxes, jute twine, dried flowers and our personalised stamp with sealing wax.`
+
     const carouselImages = [
         {
             image: Carousel1
@@ -52,6 +55,13 @@ export default function Bespoken({ page }: Props) {
     useEffect(() => {
         getPinterestImages()
     }, [])
+
+    useEffect(() => {
+        if (getName(products, 'arrangements')) setImages(arrangements)
+        if (getName(products, 'adornments')) setImages(adornments)
+        if (getName(products, 'gifts')) setImages(gifts)
+        if (getName(products, 'wedding')) setImages(wedding)
+    }, [arrangements, adornments, gifts, wedding])
 
     useEffect(() => {
         const imgs = getName(products, 'arrangements') ? arrangements :
@@ -84,6 +94,11 @@ export default function Bespoken({ page }: Props) {
         } catch (err) {
             console.error(err)
         }
+    }
+
+    const getProductCaption = () => {
+        return getName(products, 'arrangements') ? adornmentsCaption :
+            getName(products, 'gifts') ? giftsCaption : ''
     }
 
     const getPinterestPage = () => {
@@ -235,13 +250,14 @@ export default function Bespoken({ page }: Props) {
                             </div>
                         </div>
                         : ''}
-                    {!products ? '' : !images.length ?
+                    {products ? !images.length ?
                         <div>
                             <span className="loader"></span>
                             <p>Connecting with Pinterest...</p>
                         </div>
                         :
-                        <div>
+                        <div className='bespoken__product-col'>
+                            <p className='bespoken__product-caption'>{getProductCaption()}</p>
                             <div className="bespoken__product-list">
                                 {images.map((imageUrl: string, i: number) =>
                                     <div
@@ -262,7 +278,8 @@ export default function Bespoken({ page }: Props) {
                                     </div>)}
                             </div>
                             <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">See more ➤</button></a>
-                        </div>}
+                        </div>
+                        : ''}
                 </div>
             </div>
         )

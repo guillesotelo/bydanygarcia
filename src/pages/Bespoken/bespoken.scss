@@ -189,6 +189,18 @@
             }
         }
 
+        &-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fade-in 1s ease-in forwards;
+        }
+
+
+        &-caption {
+            width: 35vw;
+        }
+
 
         &-seemore {
             margin-top: 4rem;
@@ -238,11 +250,22 @@
         }
 
         &__product {
+
+            &-list {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 2rem;
+                gap: 1rem;
+                
+            }
+
             &-image {
-                height: 45vh;
+                height: 50vh;
 
                 &-wrapper {
-                    height: 45vh;
+                    height: 50vh;
                 }
             }
 
@@ -301,6 +324,10 @@
                     opacity: .5;
                     transition: .3s;
                 }
+            }
+
+            &-caption {
+                width: 85vw;
             }
 
         }
