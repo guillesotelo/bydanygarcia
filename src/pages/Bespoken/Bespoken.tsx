@@ -26,7 +26,13 @@ export default function Bespoken({ page }: Props) {
     const [wedding, setWedding] = useState<any>([])
     const [images, setImages] = useState<any>([])
     const [products, setProducts] = useState('')
+    const [pinterestPage, setPinterestPage] = useState('')
     const [showPin, setShowPin] = useState(-1)
+
+    const arrangementsUrl = 'https://www.pinterest.se/bespoken_ar/flower-arrangements/'
+    const adornmentsUrl = 'https://www.pinterest.se/bespoken_ar/flower-adornments/'
+    const giftsUrl = 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/'
+    const weddingUrl = 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/'
 
     const carouselImages = [
         {
@@ -48,35 +54,43 @@ export default function Bespoken({ page }: Props) {
     }, [])
 
     useEffect(() => {
-        const getName = (products: string, name: string) => {
-            return products.toLowerCase().includes(name)
-        }
-
         const imgs = getName(products, 'arrangements') ? arrangements :
             getName(products, 'adornments') ? adornments :
                 getName(products, 'gifts') ? gifts :
                     getName(products, 'wedding') ? wedding : []
 
         setImages(imgs)
+        getPinterestPage()
     }, [products])
+
+    const getName = (products: string, name: string) => {
+        return products.toLowerCase().includes(name)
+    }
 
     const getPinterestImages = async () => {
         try {
-            const _arrangements = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/flower-arrangements/' })
+            const _arrangements = await scrapeUrl({ url: arrangementsUrl })
             if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
 
-            const _adornments = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/flower-adornments/' })
+            const _adornments = await scrapeUrl({ url: adornmentsUrl })
             if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
 
-            const _gifts = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/' })
+            const _gifts = await scrapeUrl({ url: giftsUrl })
             if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
 
-            const _wedding = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/' })
+            const _wedding = await scrapeUrl({ url: weddingUrl })
             if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
 
         } catch (err) {
             console.error(err)
         }
+    }
+
+    const getPinterestPage = () => {
+        setPinterestPage(getName(products, 'arrangements') ? arrangementsUrl :
+            getName(products, 'adornments') ? adornmentsUrl :
+                getName(products, 'gifts') ? giftsUrl :
+                    getName(products, 'wedding') ? weddingUrl : '')
     }
 
     const getPinterestUrl = (url: string) => `https://www.pinterest.se/pin/create/button/?url=${encodeURIComponent(url)}`
@@ -203,11 +217,11 @@ export default function Bespoken({ page }: Props) {
                         : ''}
                     {!products ?
                         <div className="bespoken__product-cards">
-                            <div className="bespoken__product-card" onClick={() => setProducts('Flowers Arrangements')}>
+                            <div className="bespoken__product-card" onClick={() => setProducts('Flower Arrangements')}>
                                 <p className="bespoken__product-card-title">Flowers Arrangements</p>
                                 <img src='https://i.pinimg.com/236x/af/a1/54/afa1545af73164c0b10fe0ddb6ba522f.jpg' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            <div className="bespoken__product-card" onClick={() => setProducts('Flowers Adornments')}>
+                            <div className="bespoken__product-card" onClick={() => setProducts('Flower Adornments')}>
                                 <p className="bespoken__product-card-title">Flowers Adornments</p>
                                 <img src='https://i.pinimg.com/236x/b5/88/8e/b5888e0fbc3592af01a29fd5bdde7dd9.jpg' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
@@ -247,6 +261,7 @@ export default function Bespoken({ page }: Props) {
                                         </a>
                                     </div>)}
                             </div>
+                            <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">See more ➤</button></a>
                         </div>}
                 </div>
             </div>

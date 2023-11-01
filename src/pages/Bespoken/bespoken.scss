@@ -188,6 +188,26 @@
                 transition: .3s;
             }
         }
+
+
+        &-seemore {
+            margin-top: 4rem;
+            border: 2px solid #E60023;
+            color: white;
+            background-color: #E60023;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: .7rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: .3s;
+
+            &:hover {
+                border: 2px solid #E60023;
+                background-color: white;
+                color: #E60023;
+            }
+        }
     }
 }
 
@@ -282,6 +302,7 @@
                     transition: .3s;
                 }
             }
+
         }
     }
 }
