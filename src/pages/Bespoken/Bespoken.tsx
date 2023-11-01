@@ -26,7 +26,6 @@ export default function Bespoken({ page }: Props) {
     const [wedding, setWedding] = useState<any>([])
     const [images, setImages] = useState<any>([])
     const [products, setProducts] = useState('')
-    const [loading, setLoading] = useState(false)
     const [showPin, setShowPin] = useState(-1)
 
     const carouselImages = [
@@ -63,31 +62,20 @@ export default function Bespoken({ page }: Props) {
 
     const getPinterestImages = async () => {
         try {
-            setLoading(true)
-            const _arrangements = await scrapeUrl({
-                url: 'https://www.pinterest.se/bespoken_ar/flower-arrangements/'
-            })
+            const _arrangements = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/flower-arrangements/' })
             if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
 
-            const _adornments = await scrapeUrl({
-                url: 'https://www.pinterest.se/bespoken_ar/flower-adornments/'
-            })
+            const _adornments = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/flower-adornments/' })
             if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
 
-            const _gifts = await scrapeUrl({
-                url: 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/'
-            })
+            const _gifts = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/bespoken-gifts/' })
             if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
 
-            const _wedding = await scrapeUrl({
-                url: 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/'
-            })
+            const _wedding = await scrapeUrl({ url: 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/' })
             if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
 
-            setLoading(false)
         } catch (err) {
             console.error(err)
-            setLoading(false)
         }
     }
 
@@ -208,7 +196,7 @@ export default function Bespoken({ page }: Props) {
             <div className="bespoken__container">
                 <div className="page__header">
                     <h1 className="page__header-title" style={{ cursor: 'pointer' }} onClick={() => setProducts('')}>{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
-                    {products && !loading ?
+                    {products && images.length ?
                         <div>
                             <p>{products}</p>
                         </div>
@@ -233,7 +221,7 @@ export default function Bespoken({ page }: Props) {
                             </div>
                         </div>
                         : ''}
-                    {!products ? '' : loading ?
+                    {!products ? '' : !images.length ?
                         <div>
                             <span className="loader"></span>
                             <p>Connecting with Pinterest...</p>
