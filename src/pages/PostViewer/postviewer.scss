@@ -37,6 +37,23 @@
             transition: .3s;
             background-color: white;
         }
+
+        &__routes {
+            margin-top: 1rem;
+            justify-content: space-evenly;
+
+            &-link {
+                font-size: .9rem;
+                font-weight: normal;
+                cursor: pointer;
+                transition: .3s;
+                margin: 0;
+
+                &:hover {
+                    opacity: .5;
+                }
+            }
+        }
     }
 
 }
