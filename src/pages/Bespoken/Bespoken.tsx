@@ -11,7 +11,6 @@ import { useHistory } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
-import B from '../../assets/logos/bespoken_iso.png'
 
 type Props = {
     page?: string
@@ -88,8 +87,8 @@ export default function Bespoken({ page }: Props) {
             const _gifts = await scrapeUrl({ url: giftsUrl })
             if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
 
-            const _wedding = await scrapeUrl({ url: weddingUrl })
-            if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
+            // const _wedding = await scrapeUrl({ url: weddingUrl })
+            // if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
 
         } catch (err) {
             console.error(err)
@@ -233,21 +232,21 @@ export default function Bespoken({ page }: Props) {
                     {!products ?
                         <div className="bespoken__product-cards">
                             <div className="bespoken__product-card" onClick={() => setProducts('Flower Arrangements')}>
-                                <p className="bespoken__product-card-title">Flowers Arrangements</p>
-                                <img src='https://i.pinimg.com/236x/af/a1/54/afa1545af73164c0b10fe0ddb6ba522f.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                                <p className="bespoken__product-card-title">Flower<br/>Arrangements</p>
+                                <img src='https://i.postimg.cc/QMSsn3L9/Screen-Shot-2023-11-02-at-21-47-24.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => setProducts('Flower Adornments')}>
-                                <p className="bespoken__product-card-title">Flowers Adornments</p>
-                                <img src='https://i.pinimg.com/236x/b5/88/8e/b5888e0fbc3592af01a29fd5bdde7dd9.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                                <p className="bespoken__product-card-title">Flower<br/>Adornments</p>
+                                <img src='https://i.pinimg.com/564x/e5/81/86/e58186617e8c5ec8eb6e2f55ad438901.jpg' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => setProducts('Bespoken Gifts')}>
-                                <p className="bespoken__product-card-title">Bespoken Gifts</p>
-                                <img src='https://i.pinimg.com/236x/6d/a7/0f/6da70f8061b9f49149dd5ead3a1754f8.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                                <p className="bespoken__product-card-title">Bespoken<br/>Gifts</p>
+                                <img src='https://i.postimg.cc/m2wypXXz/Screen-Shot-2023-11-02-at-21-52-53.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            <div className="bespoken__product-card" onClick={() => setProducts('Our DIY Wedding')}>
+                            {/* <div className="bespoken__product-card" onClick={() => setProducts('Our DIY Wedding')}>
                                 <p className="bespoken__product-card-title">Our DIY Wedding</p>
                                 <img src='https://i.pinimg.com/236x/b8/a5/fb/b8a5fbb39acfaf780674a62847eccccf.jpg' alt="Bespoken" className="bespoken__product-card-img" />
-                            </div>
+                            </div> */}
                         </div>
                         : ''}
                     {products ? !images.length ?

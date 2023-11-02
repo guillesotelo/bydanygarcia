@@ -59,9 +59,9 @@
     transform: translate(-50%, -100%);
     border: 6px solid gray;
     box-sizing: border-box;
-    animation: fill 2s linear infinite alternate;
+    animation: fill 2.5s linear infinite alternate;
     color: #D3AFAF;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 10px 10px;
 
     &::after {
         content: '';
@@ -73,7 +73,7 @@
         border: 6px solid gray;
         width: 18px;
         height: 25px;
-        border-radius: 0 6px 6px 0;
+        border-radius: 0 10px 10px 0;
     }
 }
 

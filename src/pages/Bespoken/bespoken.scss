@@ -148,18 +148,19 @@
             justify-content: center;
             align-items: center;
             width: 20vw;
-            height: 20vh;
+            height: 20vw;
             border: 1px solid lighgray;
-            border-radius: 1rem;
+            border-radius: 50%;
             background-color: #FFF9F5;
-            box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.127);
+            box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.152);
             cursor: pointer;
             transition: .3s;
             overflow: hidden;
             position: relative;
 
             &:hover {
-                box-shadow: 0.5rem 0.5rem 1.5rem rgba(0, 0, 0, 0.197);
+                box-shadow: 0.5rem 0.5rem 1.5rem rgba(0, 0, 0, 0.263);
+                transform: translateY(-1%);
             }
 
             &:hover .bespoken__product-card-img {
@@ -176,6 +177,8 @@
                 // font-weight: bold;
                 margin: 1rem;
                 z-index: 1;
+                color: white;
+                font-weight: bold;
                 transition: .3s;
             }
 
@@ -184,7 +187,7 @@
                 height: auto;
                 z-index: 0;
                 position: absolute;
-                opacity: .5;
+                opacity: 1;
                 transition: .3s;
             }
         }
@@ -258,7 +261,7 @@
                 align-items: center;
                 margin-top: 2rem;
                 gap: 1rem;
-                
+
             }
 
             &-image {
@@ -284,10 +287,10 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 70vw;
-                height: 20vh;
+                width: 65vw;
+                height: 65vw;
                 border: 1px solid lighgray;
-                border-radius: 1rem;
+                border-radius: 50%;
                 background-color: #FFF9F5;
                 box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.127);
                 cursor: pointer;
@@ -297,15 +300,6 @@
 
                 &:hover {
                     box-shadow: 0.5rem 0.5rem 1.5rem rgba(0, 0, 0, 0.197);
-                }
-
-                &:hover .bespoken__product-card-img {
-                    opacity: 1;
-                }
-
-                &:hover .bespoken__product-card-title {
-                    color: white;
-                    font-weight: bold;
                 }
 
                 &-title {
@@ -321,7 +315,6 @@
                     height: auto;
                     z-index: 0;
                     position: absolute;
-                    opacity: .5;
                     transition: .3s;
                 }
             }
