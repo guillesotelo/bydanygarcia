@@ -34,7 +34,8 @@ export default function Bespoken({ page }: Props) {
     const weddingUrl = 'https://www.pinterest.se/bespoken_ar/our-diy-wedding/'
 
     const adornmentsCaption = `I started composing natural flower crowns at the cottage of my in-laws in the summer of 2021. From that time on, I started learning about flowers and techniques so I could create different designs for crowns and ear-cuffs. Materials: Natural flowers, fabric, cold porcelain, stones, among others.`
-    const giftsCaption = `It's all about the intention, love and details ✨ I found myself creating different gift proposals I called "experiences", as they involve the sensory levels of seeing, touching, tasting and smelling. These were all crafted with a lot of detail and time. All of them were carefully designed for each customer with selected products and brands. As for the packaging and presentation, I chose carton boxes, jute twine, dried flowers and our personalised stamp with sealing wax.`
+    const giftsCaption = `It's all about the intention, the love and the details ✨ I found myself creating different gift proposals I called "experiences", as they involve the sensory levels of seeing, touching, tasting and smelling. These were all crafted with a lot of detail and time. `
+    const arrangementsCaptions = 'All of them were carefully designed for each customer with selected products and brands. As for the packaging and presentation, I chose carton boxes, jute twine, dried flowers and our personalised stamp with sealing wax.'
 
     const carouselImages = [
         {
@@ -96,8 +97,9 @@ export default function Bespoken({ page }: Props) {
     }
 
     const getProductCaption = () => {
-        return getName(products, 'arrangements') ? adornmentsCaption :
-            getName(products, 'gifts') ? giftsCaption : ''
+        return getName(products, 'arrangements') ? arrangementsCaptions :
+            getName(products, 'adornments') ? adornmentsCaption :
+                getName(products, 'gifts') ? giftsCaption : ''
     }
 
     const getPinterestPage = () => {
@@ -232,15 +234,15 @@ export default function Bespoken({ page }: Props) {
                     {!products ?
                         <div className="bespoken__product-cards">
                             <div className="bespoken__product-card" onClick={() => setProducts('Flower Arrangements')}>
-                                <p className="bespoken__product-card-title">Flower<br/>Arrangements</p>
+                                <p className="bespoken__product-card-title">Flower<br />Arrangements</p>
                                 <img src='https://i.postimg.cc/QMSsn3L9/Screen-Shot-2023-11-02-at-21-47-24.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => setProducts('Flower Adornments')}>
-                                <p className="bespoken__product-card-title">Flower<br/>Adornments</p>
+                                <p className="bespoken__product-card-title">Flower<br />Adornments</p>
                                 <img src='https://i.pinimg.com/564x/e5/81/86/e58186617e8c5ec8eb6e2f55ad438901.jpg' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => setProducts('Bespoken Gifts')}>
-                                <p className="bespoken__product-card-title">Bespoken<br/>Gifts</p>
+                                <p className="bespoken__product-card-title">Bespoken<br />Gifts</p>
                                 <img src='https://i.postimg.cc/m2wypXXz/Screen-Shot-2023-11-02-at-21-52-53.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             {/* <div className="bespoken__product-card" onClick={() => setProducts('Our DIY Wedding')}>

@@ -14,7 +14,7 @@ export default function Blog({ setPost }: Props) {
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
     const [category, setCategory] = useState('')
-    const { isLoggedIn } = useContext(AppContext)
+    const { isLoggedIn, lang } = useContext(AppContext)
 
     useEffect(() => {
         const cat = new URLSearchParams(document.location.search).get('category')
@@ -80,6 +80,12 @@ export default function Blog({ setPost }: Props) {
                     {allPosts.map((post, i) => <PostCard setPost={setPost} post={post} />)}
                 </div>
             }
+            <p className="blog__caption">
+                {lang === 'es' ?
+                    'Me gusta plasmar palabras a mis pensamientos y compartirlos. Me gusta llevar un registro de historias y fotografías. Esto me da un sentido de propósito y satisfacción personal. Pero también es una forma de conectar, acompañar y compartir palabras que pueden sanar, empoderar, inspirar o simplemente sacar una sonrisa.'
+                    :
+                    'I like to put word to my thoughts and share them.  I like to keep record of stories and photographs. It gives me a sense of purpose and personal fulfillment. But also, it is a way to connect, accompany and share words can that can heal, empower, inspire or just bring out a smile.'}
+            </p>
         </div>
     )
 }
