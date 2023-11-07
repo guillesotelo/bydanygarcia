@@ -83,7 +83,7 @@ export default function Blog({ setPost }: Props) {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.map((post, i) => <PostCard setPost={setPost} post={post} />)}
+                    {allPosts.map((post, i) => <PostCard key={i} setPost={setPost} post={post} />)}
                 </div>
             }
         </div>

@@ -5,8 +5,13 @@
 
 .root {
 
-    &__container {
-    }
-     &__main {
-    }
+    &__container {}
+
+    &__main {}
+}
+
+.--fixed {
+    position: fixed !important;
+    margin-top: 4vw !important;
+    top: 0 !important;
 }

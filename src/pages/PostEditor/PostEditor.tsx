@@ -40,9 +40,14 @@ export default function PostEditor({ }: Props) {
     const [html, setHtml] = useState('')
     const [spaHtml, setSpaHtml] = useState('')
     const [hasAutosave, setHasAutosave] = useState(false)
+    const [showSide, setShowSide] = useState(true)
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
+
+    useEffect(() => {
+        activateRenderEffects()
+    }, [])
 
     useEffect(() => {
         const isNew = new URLSearchParams(document.location.search).get('new')
@@ -77,6 +82,31 @@ export default function PostEditor({ }: Props) {
             localStorage.setItem('autosaveId', postId)
         }
     }, [data, html, spaHtml])
+
+
+    const activateRenderEffects = () => {
+        let position = 0
+        window.addEventListener('scroll', function () {
+            const item = document.querySelector('.tox-editor-header') as HTMLElement
+            if (item) {
+                const itemPosition = item.getBoundingClientRect().top
+                const scrollTop = document.documentElement.scrollTop
+
+                console.log('scrollTop', scrollTop)
+                console.log('itemPosition', itemPosition)
+                console.log('position', position)
+
+                if (itemPosition < 28 && !item.classList.contains('--fixed')) {
+                    position = scrollTop
+                    item.classList.add('--fixed')
+                } else {
+                    if (item.classList.contains('--fixed') && position >= scrollTop) {
+                        item.classList.remove('--fixed')
+                    }
+                }
+            }
+        })
+    }
 
     const loadAutoSave = () => {
         const autosave = localStorage.getItem('autosave')
@@ -201,13 +231,22 @@ export default function PostEditor({ }: Props) {
                         <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>
                         <h4 className={`editor__tab-item ${spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(true)}>Español</h4>
                     </div>
-                    <Switch
-                        label='Published'
-                        on='Yes'
-                        off='No'
-                        value={published}
-                        setValue={setPublished}
-                    />
+                    <div className='editor__switch-btns'>
+                        <Switch
+                            label='Show Side'
+                            on='Yes'
+                            off='No'
+                            value={showSide}
+                            setValue={setShowSide}
+                        />
+                        <Switch
+                            label='Published'
+                            on='Yes'
+                            off='No'
+                            value={published}
+                            setValue={setPublished}
+                        />
+                    </div>
                 </div>
                 <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
                 {hasAutosave ?
@@ -293,65 +332,63 @@ export default function PostEditor({ }: Props) {
                     </div>
                     : ''}
             </div>
-            <div className="editor__right-col">
-                <h1 className="editor__side-images-title">Side Images</h1>
-                <div className="editor__side-images-list">
-                    {sideImages.map((image, i) =>
-                        <>
-                            <Slider
-                                name=''
-                                type=''
-                                label='Image Size'
-                                sign='px'
-                                value={getImageProp('width', i) || 500}
-                                setValue={value => updateImgStyles('width', value, i)}
-                                min={1}
-                                max={1000}
-                            />
-                            <div key={i} className="editor__side-images-item-wrapper" style={{ maxWidth: getImageProp('width', i) || '100%' }}>
-                                <img
-                                    className='editor__side-images-item'
-                                    src={image}
-                                    alt='Post Image'
-                                    loading='lazy'
-                                    style={sideImgStyles[i] || {}}
+            {showSide ?
+                <div className="editor__right-col">
+                    <h1 className="editor__side-images-title">Side Images</h1>
+                    <div className="editor__side-images-list">
+                        {sideImages.map((image, i) =>
+                            <div key={i}>
+                                <Slider
+                                    name=''
+                                    type=''
+                                    label='Image Size'
+                                    sign='px'
+                                    value={getImageProp('width', i) || 500}
+                                    setValue={value => updateImgStyles('width', value, i)}
+                                    min={1}
+                                    max={1000}
                                 />
-                                <h4 className="editor__side-images-item-remove" onClick={() => removeSideImage(i)}>X</h4>
+                                <div key={i} className="editor__side-images-item-wrapper" style={{ maxWidth: getImageProp('width', i) || '100%' }}>
+                                    <img
+                                        className='editor__side-images-item'
+                                        src={image}
+                                        alt='Post Image'
+                                        loading='lazy'
+                                        style={sideImgStyles[i] || {}}
+                                    />
+                                    <h4 className="editor__side-images-item-remove" onClick={() => removeSideImage(i)}>X</h4>
+                                </div>
                             </div>
-                        </>
-                    )}
-                </div>
-                <div className="editor__side-images-input">
-                    <InputField
-                        name='sideImage'
-                        value={data.sideImage}
-                        updateData={updateData}
-                        placeholder='Add new image (https://example.com/image.png)'
-                    />
-                    <Button
-                        label='Add'
-                        handleClick={addSideImage}
-                        disabled={!isEdited && !isUpdate}
-                    />
-                </div>
-            </div>
-            {
-                isMobile ?
-                    <div className="editor__btns">
-                        <Button
-                            label='Discard changes'
-                            handleClick={() => isUpdate ? history.goBack() : history.go(0)}
-                            bgColor='lightgray'
-                            disabled={!isEdited && !isUpdate}
+                        )}
+                    </div>
+                    <div className="editor__side-images-input">
+                        <InputField
+                            name='sideImage'
+                            value={data.sideImage}
+                            updateData={updateData}
+                            placeholder='Add new image (https://example.com/image.png)'
                         />
                         <Button
-                            label={isUpdate ? 'Update post' : 'Save post'}
-                            handleClick={handleSave}
+                            label='Add'
+                            handleClick={addSideImage}
                             disabled={!isEdited && !isUpdate}
                         />
                     </div>
-                    : ''
-            }
+                </div> : ''}
+            {isMobile ?
+                <div className="editor__btns">
+                    <Button
+                        label='Discard changes'
+                        handleClick={() => isUpdate ? history.goBack() : history.go(0)}
+                        bgColor='lightgray'
+                        disabled={!isEdited && !isUpdate}
+                    />
+                    <Button
+                        label={isUpdate ? 'Update post' : 'Save post'}
+                        handleClick={handleSave}
+                        disabled={!isEdited && !isUpdate}
+                    />
+                </div> : ''}
         </div >
         : <div></div>
 }

@@ -5,18 +5,25 @@
         transition: .3s;
         display: flex;
         flex-direction: row;
+        justify-content: center;
         gap: 2vw;
     }
 
     &__left-col {
-        width: 60%;
+        width: 60vw;
     }
 
     &__right-col {
-        width: 40%;
+        width: 40vw;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+    }
+
+    &__switch-btns {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
     }
 
     &__tab {
@@ -38,7 +45,7 @@
             flex-direction: row;
             justify-content: space-between;
         }
-        
+
         &-item {
             padding: 1vw;
             margin: 0;
@@ -48,6 +55,7 @@
             cursor: pointer;
             transition: .3s;
         }
+
         &--selected {
             border-top-right-radius: 1vw;
             border-right: 1px solid #5D8C8C;
