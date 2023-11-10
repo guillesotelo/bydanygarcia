@@ -6,8 +6,9 @@ import Carousel1 from '../../assets/images/carousel1.png'
 import Carousel2 from '../../assets/images/carousel2.png'
 import Carousel3 from '../../assets/images/carousel3.png'
 import Carousel4 from '../../assets/images/carousel4.png'
+import OurDiyWedding1 from '../../assets/images/ourdiywedding1.png'
 import { AppContext } from '../../AppContext'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
@@ -27,6 +28,7 @@ export default function Bespoken({ page }: Props) {
     const [products, setProducts] = useState('')
     const [pinterestPage, setPinterestPage] = useState('')
     const [showPin, setShowPin] = useState(-1)
+    const location = useLocation()
 
     const arrangementsUrl = 'https://www.pinterest.se/bespoken_ar/flower-arrangements/'
     const adornmentsUrl = 'https://www.pinterest.se/bespoken_ar/flower-adornments/'
@@ -57,17 +59,26 @@ export default function Bespoken({ page }: Props) {
     }, [])
 
     useEffect(() => {
+        const category = new URLSearchParams(document.location.search).get('category')
+        const categories: { [value: string]: string } = {
+            'arrangements': 'Flower Arrangements',
+            'adornments': 'Flower Adornments',
+            'gifts': 'Bespoken Gifts'
+        }
+        if (category) setProducts(categories[category])
+        else setProducts('')
+    }, [location])
+
+    useEffect(() => {
         if (getName(products, 'arrangements')) setImages(arrangements)
         if (getName(products, 'adornments')) setImages(adornments)
         if (getName(products, 'gifts')) setImages(gifts)
-        if (getName(products, 'wedding')) setImages(wedding)
-    }, [arrangements, adornments, gifts, wedding])
+    }, [arrangements, adornments, gifts])
 
     useEffect(() => {
         const imgs = getName(products, 'arrangements') ? arrangements :
             getName(products, 'adornments') ? adornments :
-                getName(products, 'gifts') ? gifts :
-                    getName(products, 'wedding') ? wedding : []
+                getName(products, 'gifts') ? gifts : []
 
         setImages(imgs)
         getPinterestPage()
@@ -79,17 +90,19 @@ export default function Bespoken({ page }: Props) {
 
     const getPinterestImages = async () => {
         try {
-            const _arrangements = await scrapeUrl({ url: arrangementsUrl })
-            if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
+            if (page && page.includes('WEDDING')) {
+                const _wedding = await scrapeUrl({ url: weddingUrl })
+                if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
+            } else {
+                const _arrangements = await scrapeUrl({ url: arrangementsUrl })
+                if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
 
-            const _adornments = await scrapeUrl({ url: adornmentsUrl })
-            if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
+                const _adornments = await scrapeUrl({ url: adornmentsUrl })
+                if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
 
-            const _gifts = await scrapeUrl({ url: giftsUrl })
-            if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
-
-            // const _wedding = await scrapeUrl({ url: weddingUrl })
-            // if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
+                const _gifts = await scrapeUrl({ url: giftsUrl })
+                if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
+            }
 
         } catch (err) {
             console.error(err)
@@ -105,8 +118,7 @@ export default function Bespoken({ page }: Props) {
     const getPinterestPage = () => {
         setPinterestPage(getName(products, 'arrangements') ? arrangementsUrl :
             getName(products, 'adornments') ? adornmentsUrl :
-                getName(products, 'gifts') ? giftsUrl :
-                    getName(products, 'wedding') ? weddingUrl : '')
+                getName(products, 'gifts') ? giftsUrl : weddingUrl)
     }
 
     const getPinterestUrl = (url: string) => `https://www.pinterest.se/pin/create/button/?url=${encodeURIComponent(url)}`
@@ -225,30 +237,26 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    <h1 className="page__header-title" style={{ cursor: 'pointer' }} onClick={() => setProducts('')}>{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
-                    {products && images.length ?
-                        <div>
-                            <p>{products}</p>
-                        </div>
-                        : ''}
+                    {products ? <p className="bespoken__product-goback" onClick={() => setProducts('')}>↩ Categories</p> : ''}
+                    <h1
+                        className="page__header-title"
+                        style={{ cursor: 'pointer' }}>
+                        {products || 'Products'}
+                    </h1>
                     {!products ?
                         <div className="bespoken__product-cards">
-                            <div className="bespoken__product-card" onClick={() => setProducts('Flower Arrangements')}>
+                            <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=arrangements')}>
                                 <p className="bespoken__product-card-title">Flower<br />Arrangements</p>
                                 <img src='https://i.postimg.cc/QMSsn3L9/Screen-Shot-2023-11-02-at-21-47-24.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            <div className="bespoken__product-card" onClick={() => setProducts('Flower Adornments')}>
+                            <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=adornments')}>
                                 <p className="bespoken__product-card-title">Flower<br />Adornments</p>
                                 <img src='https://i.pinimg.com/564x/e5/81/86/e58186617e8c5ec8eb6e2f55ad438901.jpg' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            <div className="bespoken__product-card" onClick={() => setProducts('Bespoken Gifts')}>
+                            <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=gifts')}>
                                 <p className="bespoken__product-card-title">Bespoken<br />Gifts</p>
                                 <img src='https://i.postimg.cc/m2wypXXz/Screen-Shot-2023-11-02-at-21-52-53.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            {/* <div className="bespoken__product-card" onClick={() => setProducts('Our DIY Wedding')}>
-                                <p className="bespoken__product-card-title">Our DIY Wedding</p>
-                                <img src='https://i.pinimg.com/236x/b8/a5/fb/b8a5fbb39acfaf780674a62847eccccf.jpg' alt="Bespoken" className="bespoken__product-card-img" />
-                            </div> */}
                         </div>
                         : ''}
                     {products ? !images.length ?
@@ -291,13 +299,151 @@ export default function Bespoken({ page }: Props) {
             <div className="bespoken__container">
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
-                    <div className="bespoken__row" style={{ marginTop: '10rem' }}>
-                        <div className="bespoken__col" style={{ width: '80vw' }}>
-                            <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
-                                Coming soon...
+                </div>
+                {lang === 'es' ?
+                    <div className="bespoken__row">
+                        <div className="bespoken__col" style={{ width: '45vw' }}>
+                            <h2 className="bespoken__subtitle">
+                                Propuesta
                             </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Guille me propuso matrimonio una tarde cuando regresábamos de un viaje a la costa. Pasamos por un campo de girasoles y hicimos una parada porque "quería grabar un video con su dron". Mientras yo sostenía a Indie y recogía algunas flores (completamente ajena a lo que estaba sucediendo), me pidió que tomara el control remoto por un minuto y de repente vi cómo se arrodillaba, sosteniendo una cajita roja con un hermoso anillo. Estaba en estado de shock por lo que estaba sucediendo y sentí una profunda emoción en mi cuerpo. Un torrente de pensamientos inundó mi mente con un poco de adrenalina y felicidad. ¡Por supuesto que dije que sí!
+                            </p>
+                            <div className="bespoken__row" >
+                                <div className="bespoken__col">
+                                    <img src={OurDiyWedding1} alt="Story Image" className="bespoken__story-img" />
+                                </div>
+                            </div>
+                            <br /><br />
+                            <h2 className="bespoken__subtitle">
+                                Planificación
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Y así, poco a poco, comenzó la planificación. Era el año 2021, estábamos en medio de la pandemia de COVID-19 y también en un año en el que ambos dejamos nuestros trabajos para emprender y cambiar nuestra trayectoria profesional, por lo que establecer una fecha (y un presupuesto) nos llevó un poco de tiempo, pero finalmente decidimos que sería en marzo de 2022.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Tanto Guille como yo amamos ser anfitriones y somos buenos haciendo cosas. Yo acababa de terminar un trabajo de tres años como coordinadora de eventos, así que desde el principio sabíamos quiénes serían los planificadores de nuestra boda (nosotros, por supuesto).
+                            </p>
+
+                            <h2 className="bespoken__subtitle">
+                                Resumen del paso a paso
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                1. Pensamos en qué tipo de boda queríamos y dónde. Acordamos un estilo de boda bohemia/campestre en Buenos Aires.
+                                <br /><br />2. Revisamos lugares, lugares y precios. Elegimos <a href='https://hosteriaelcazador.com.ar/' target='_blank'>Hostería el Cazador</a>, un hermoso lugar histórico en Escobar.
+                                <br /><br />3. Guille creó nuestro  <a href='https://danyguille.vercel.app/' target='_blank'>sitio web</a> de boda personal..
+                                <br /><br />4. Hicimos la lista de invitados, diseñamos las invitaciones y las enviamos.
+                                <br /><br />5. En medio de todo esto, hice un viaje de 3 meses a Colombia donde pude pasar tiempo con mi familia y también hacer mi vestido con la modista de la familia, Estelita. Tuve una despedida de soltera sorpresa organizada por mi mamá con amigas cercanas de la familia en Cartagena.
+                                <br /><br />6. Sesiones de lluvia de ideas (gracias Pinterest) y compras para la decoración. Nos encantó ir a Tigre, donde encontramos muchos productos hechos a mano.
+                                <br /><br />7. Armado de presupuestos y planificación general, contratación de proveedores (maquillaje y estilista, fotógrafos, diseñador de pasteles, ambientación, etc) degustación de alimentos.
+                                <br /><br />8. Diseños, disposición del evento, logística, pagos, diagramas de asientos, listas de reproducción de música.
+                                <br /><br />9. Sesión de fotos preboda.
+                                <br /><br />10. Organizar visitas familiares, alojamiento y viajes, componer mi corona de flores, boutonnières, entre otras cosas.
+                            </p>
+
+                            <h2 className="bespoken__subtitle">
+                                El día
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Esperábamos alrededor de 120 invitados. No teníamos idea de cuánto trabajo tendríamos que hacer ese día y el día anterior... Fui un poco ingenua en cuanto a los tiempos y la preparación de arreglos florales y decoración, además de todos los detalles que necesitas atender. ¡Así que tuvimos la suerte de contar con varias personas, unas 15, entre amigos y familiares, que nos ayudaron con todo el montaje. Fue intenso, pero lo disfrutamos. Aunque debo decir que si organizo o aconsejo a alguien sobre su armado de boda, definitivamente sé ahora cuáles son las cosas que debes delegar y los tiempos aproximados.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Tuvimos a nuestra coordinadora de bodas durante el evento, algo que no puedes pasar por alto. Además, el servicio de catering, la música y parte de la ambientación se contrataron para trabajar sin nuestra ayuda. También, en el lugar había una pequeña casa lateral donde pudimos prepararnos.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Ese día el clima no estaba soleado y en realidad se preveía lluvia en el pronóstico, por lo que tuvimos que trasladar la boda al interior del edificio. ¡Hablemos de cambios de planes y ajustes! Pero resultó increíble y lo disfrutamos mucho.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                ¡Disfruten de nuestras fotos!
+                            </p>
                         </div>
                     </div>
+                    :
+                    <div className="bespoken__row">
+                        <div className="bespoken__col" style={{ width: '45vw' }}>
+                            <h2 className="bespoken__subtitle">
+                                Proposal
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Guille proposed to me an afternoon when we were coming back from a weekend coast trip in the summer. We passed by a field of sunflowers and made a stop because he “wanted to make a video with his drone”. As I was holding Indie and picking up flowers (completely unaware of what was happening), he asked me to take his control remote for a minute and suddenly I saw how he was down in one knee, with a red little box holding a beautiful ring. I was in shock of what was happening and felt a deep pressure in my body. A rush of thoughts came to my mind with a bit of adrenaline and happiness. Of course I said yes!
+                            </p>
+                            <div className="bespoken__row" >
+                                <div className="bespoken__col">
+                                    <img src={OurDiyWedding1} alt="Story Image" className="bespoken__story-img" />
+                                </div>
+                            </div>
+                            <br /><br />
+                            <h2 className="bespoken__subtitle">
+                                Planning
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                And so, little by little the planning started. This was the year 2021, we were in the middle of covid and also in a year where we had both left our jobs to entrepreneur and make a change in our career path, so setting up a date (and budget) took us a bit of time but we finally decided for March of 2022.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Both Guille and I love being hosts and are great at doing things. I had also just finished a three year job as event manager, so we knew from the start who would be our wedding’s planners (us, of course).
+                            </p>
+
+                            <h2 className="bespoken__subtitle">
+                                Step-by-step summary
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                1. We thought about what type of wedding we wanted and where. We agreed on a bohemian/country wedding style in Buenos Aires.
+                                <br /><br />2. Overviewed venues, places and prices. We chose <a href='https://hosteriaelcazador.com.ar/' target='_blank'>Hostería el Cazador</a>, a beautiful historical venue in Escobar.
+                                <br /><br />3. Guille created our personal <a href='https://danyguille.vercel.app/' target='_blank'>wedding website</a>.
+                                <br /><br />4. Made the guest list, designed the invitations and sent them out.
+                                <br /><br />5. In the middle I took a 3 month trip to Colombia where I was able to spend some time with my family and also have my dress done by the family dressmaker, Estelita. I had a surprise Bachelorette party from my mom with very close family friends.
+                                <br /><br />6. Budgets, planning, suppliers, food tasting, make-up and hair stylist, photographers, cake designer.
+                                <br /><br />7. Pinterest “brain-imagestorm” and shopping for decor. We loved hitting Tigre, where we found so many hand-made products.
+                                <br /><br />8. Designs, event layout, logistics, payments, seating charts, music playlists!
+                                <br /><br />9. Pre-wedding shoot.
+                                <br /><br />10. Arrange family visits, accommodation and travel, compose my flower-crown, boutonnières, among other things.
+                            </p>
+
+                            <h2 className="bespoken__subtitle">
+                                The day
+                            </h2>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                We expected around 120 guests. We had no idea how much work we would have to do that day and the day before...I was a bit naive about timings and putting together flower arrangements and decoration, plus all the details that you need to attend. So we were lucky to have more then 15 people (friends and family members) helping us out everywhere! It was intense, but we enjoyed every moment of it. Although, I have to say that if I organise or advice someone about a DIY wedding, I definitely know now what are the things that you need to delegate and approximate timings.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                We did have our wedding coordinator during the event, which is something you cannot miss. Plus, the catering, music and part of the setting was all hired to work without any of our help. Also, within the venue, there was a little side-house where we were able to ready.
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                That day the weather wasn’t sunny and there was in fact some rain predicted in the forecast, so we had to move the wedding inside the building. Talk about plans changing and readjusting! But, it turned out amazing and we enjoyed it so much!
+                            </p>
+                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                Enjoy our photos!
+                            </p>
+                        </div>
+                    </div>}
+                <br /><br />
+                <div className='bespoken__product-col'>
+                    <div className="bespoken__product-list">
+                        {wedding.map((imageUrl: string, i: number) =>
+                            <div
+                                key={i}
+                                className="bespoken__product-image-wrapper"
+                                onMouseEnter={() => setShowPin(i)}
+                                onMouseLeave={() => setShowPin(-1)}
+                                style={{ animationDelay: `${i * 200}ms`, height: '10vw' }}
+                            >
+                                <img src={imageUrl} alt={`Image ${i}`} className='bespoken__product-image' style={{ height: '10vw' }} />
+                                <a href={getPinterestUrl(imageUrl)} target='_blank'>
+                                    <img
+                                        src={PinterestSave}
+                                        alt='Save to Pinterest'
+                                        className={`bespoken__product-image-pin${showPin === i ? '--show' : ''}`}
+                                    />
+                                </a>
+                            </div>)}
+                    </div>
+                    {wedding.length ?
+                        <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">See more ➤</button></a>
+                        :
+                        <div>
+                            <span className="loader" style={{ position: 'relative' }}></span>
+                            <p>Connecting with Pinterest...</p>
+                        </div>}
                 </div>
             </div>
         )
