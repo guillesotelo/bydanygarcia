@@ -47,6 +47,8 @@ const App: React.FC = () => {
       isMobile={isMobile}
       isLoggedIn={isLoggedIn}
       setIsLoggedIn={setIsLoggedIn}
+      post={post}
+      setPost={setPost}
     >
       <RouteTracker />
       <Switch>

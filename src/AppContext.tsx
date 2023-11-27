@@ -1,4 +1,5 @@
 import React, { createContext } from 'react'
+import { dataObj } from './types'
 
 type AppContextType = {
     lang: string
@@ -8,6 +9,8 @@ type AppContextType = {
     setSearch: (search: string[]) => void
     isLoggedIn: boolean
     setIsLoggedIn: (value: boolean) => void
+    post: dataObj
+    setPost: (value: dataObj) => void
     children: React.ReactNode
 }
 
@@ -21,6 +24,8 @@ export const AppProvider: React.FC<AppContextType> = ({
     isLoggedIn,
     search,
     setSearch,
+    post, 
+    setPost,
     children
 }) => (
     <AppContext.Provider value={{
@@ -31,6 +36,8 @@ export const AppProvider: React.FC<AppContextType> = ({
         isMobile,
         setIsLoggedIn,
         isLoggedIn,
+        post,
+        setPost,
         children
     }}>{children}</AppContext.Provider>
 );
