@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom'
 import postImagePlaceholder from '../../assets/logos/isologo.png'
 import { AppContext } from '../../AppContext'
 import Lock from '../../assets/icons/lock.svg'
+import { postType } from '../../types'
 
 type Props = {
-    post: { [key: string | number]: any }
+    post: postType
     setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
@@ -22,7 +23,7 @@ export default function PostCard({ post, setPost }: Props) {
         setPost({
             ...post,
             sideImages: post.sideImgs ? JSON.parse(post.sideImgs) : [],
-            sideStyles: post.sideStyles ? JSON.parse(post.sideStyles) : []
+            sideImgsStyles: post.sideStyles ? JSON.parse(post.sideStyles) : []
         })
         if (post._id) history.push(`/post?id=${post._id}`)
     }

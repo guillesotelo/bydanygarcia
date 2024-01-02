@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PostCard from '../../components/PostCard/PostCard'
 import { getAllPosts } from '../../services'
 import { AppContext } from '../../AppContext'
-import { TEXT } from '../../constants/lang'
-import { dataObj } from '../../types'
-import CategoryCard from '../../components/CategoryCard/CategoryCard'
+import { postType } from '../../types'
 import LandingDany from '../../assets/images/landing-dany.png'
 import Button from '../../components/Button/Button'
 
@@ -53,7 +51,7 @@ export default function Home() {
         }
     }
 
-    const hasCaducated = (dateToCheck: any) => {
+    const hasCaducated = (dateToCheck: Date | string) => {
         const currentDate = new Date()
         const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
         const parsedDate = new Date(dateToCheck)
@@ -64,11 +62,11 @@ export default function Home() {
         const inspiration: string[] = []
         const motherhood: string[] = []
         const lifeabroad: string[] = []
-        allPosts.forEach((post: dataObj) => {
+        allPosts.forEach((post: postType) => {
             const imageUrl = post.imageUrl || ''
             const sideImages = JSON.parse(post.sideImgs || '[]') || []
             const postImage = imageUrl ? imageUrl : sideImages.length ? sideImages[0] : ''
-            const tags = post.tags.toLowerCase()
+            const tags = post.tags ? post.tags.toLowerCase() : ''
             if (postImage) {
                 if (tags.includes('inspiration') || tags.includes('journey')) inspiration.push(postImage)
                 if (tags.includes('motherhood')) motherhood.push(postImage)
@@ -108,7 +106,7 @@ export default function Home() {
             </p>
 
             <Button
-                label='Read more'
+                label={lang === 'es' ? 'Leer más' : 'Read more'}
                 handleClick={() => history.push(`/about`)}
                 bgColor='#ECE7E6'
             />
@@ -124,7 +122,7 @@ export default function Home() {
                     {allPosts.filter(post => post.tags.toLowerCase().includes('journey')).map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
-                label='View all'
+                label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=the_journey_within`)}
                 bgColor='#ECE7E6'
             />
@@ -140,7 +138,7 @@ export default function Home() {
                     {allPosts.filter(post => post.tags.toLowerCase().includes('motherhood')).map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
-                label='View all'
+                label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=embracing_motherhood`)}
                 bgColor='#ECE7E6'
             />
@@ -156,7 +154,7 @@ export default function Home() {
                     {allPosts.filter(post => post.tags.toLowerCase().includes('roaming')).map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
-                label='View all'
+                label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=roaming_soul`)}
                 bgColor='#ECE7E6'
             />

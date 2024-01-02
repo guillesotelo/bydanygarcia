@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast'
 import { subscribe } from '../../services/user'
 import { TEXT } from '../../constants/lang'
 import { AppContext } from '../../AppContext'
+import { onChangeEventType } from '../../types'
 
 type Props = {}
 
@@ -14,7 +15,7 @@ export default function Subscribe({ }: Props) {
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
 
-    const updateData = (key: string, e: { [key: string | number]: any }) => {
+    const updateData = (key: string, e: onChangeEventType) => {
         const value = e.target.value
         setData({ ...data, [key]: value })
     }

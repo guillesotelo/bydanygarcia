@@ -3,18 +3,18 @@ import { toast } from 'react-hot-toast'
 import ShareIcon from '../../assets/icons/share.svg'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import { dataObj } from '../../types'
+import { postHeadersType } from '../../types'
 
 type Props = {
     content?: string
     spaContent?: string
     linkLang?: string
-    headers: { [key: number | string]: any }
+    headers: postHeadersType
 }
 
 export default function Post({ headers, content, spaContent, linkLang }: Props) {
     const [sideImages, setSideImages] = useState<string[]>([])
-    const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
+    const [sideImgStyles, setSideImgStyles] = useState<React.CSSProperties[]>([])
     const [spanish, setSpanish] = useState(false)
     const { lang, isMobile } = useContext(AppContext)
 

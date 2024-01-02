@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import { useHistory } from 'react-router-dom';
 import { TEXT } from '../../constants/lang';
 import { AppContext } from '../../AppContext';
+import { onChangeEventType } from '../../types';
 
 type Props = {}
 
@@ -14,7 +15,7 @@ export default function Login({ }: Props) {
     const history = useHistory()
     const { lang, setIsLoggedIn } = useContext(AppContext)
 
-    const updateData = (key: string, e: { [key: string | number]: any }) => {
+    const updateData = (key: string, e: onChangeEventType) => {
         const value = e.target.value
         setData({ ...data, [key]: value })
     }

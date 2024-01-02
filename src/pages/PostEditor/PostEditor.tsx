@@ -10,7 +10,7 @@ import { getPostById } from '../../services/post';
 import { AppContext } from '../../AppContext';
 import { TEXT } from '../../constants/lang';
 import Slider from '../../components/Slider/Slider';
-import { dataObj } from '../../types';
+import { dataObj, onChangeEventType } from '../../types';
 import Switch from '../../components/Switch/Switch';
 
 type Props = {}
@@ -40,7 +40,7 @@ export default function PostEditor({ }: Props) {
     const [html, setHtml] = useState('')
     const [spaHtml, setSpaHtml] = useState('')
     const [hasAutosave, setHasAutosave] = useState(false)
-    const [showSide, setShowSide] = useState(true)
+    const [showSide, setShowSide] = useState(false)
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
@@ -92,10 +92,6 @@ export default function PostEditor({ }: Props) {
                 const itemPosition = item.getBoundingClientRect().top
                 const scrollTop = document.documentElement.scrollTop
 
-                console.log('scrollTop', scrollTop)
-                console.log('itemPosition', itemPosition)
-                console.log('position', position)
-
                 if (itemPosition < 28 && !item.classList.contains('--fixed')) {
                     position = scrollTop
                     item.classList.add('--fixed')
@@ -139,7 +135,7 @@ export default function PostEditor({ }: Props) {
         }
     }
 
-    const updateData = (key: string, e: { [key: string | number]: any }) => {
+    const updateData = (key: string, e: onChangeEventType) => {
         if (!isEdited) setIsEdited(true)
         const value = e.target.value
         setData({ ...data, [key]: value })
@@ -226,25 +222,30 @@ export default function PostEditor({ }: Props) {
     return isLoggedIn ?
         <div className='editor__container'>
             <div className="editor__left-col">
-                <div className="editor__tab-row">
+                <div
+                    className="editor__tab-row"
+                    style={{
+                        flexDirection: isMobile ? 'column' : 'row',
+                        gap: isMobile ? '1rem' : ''
+                    }}>
                     <div className="editor__tab-container">
                         <h4 className={`editor__tab-item ${!spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(false)}>English (default)</h4>
                         <h4 className={`editor__tab-item ${spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(true)}>Español</h4>
                     </div>
                     <div className='editor__switch-btns'>
                         <Switch
-                            label='Show Side'
-                            on='Yes'
-                            off='No'
-                            value={showSide}
-                            setValue={setShowSide}
-                        />
-                        <Switch
                             label='Published'
                             on='Yes'
                             off='No'
                             value={published}
                             setValue={setPublished}
+                        />
+                        <Switch
+                            label='Show Side images'
+                            on='Yes'
+                            off='No'
+                            value={showSide}
+                            setValue={setShowSide}
                         />
                     </div>
                 </div>

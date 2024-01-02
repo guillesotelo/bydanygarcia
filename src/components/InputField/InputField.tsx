@@ -1,8 +1,8 @@
-import React, { SyntheticEvent } from 'react'
+import { onChangeEventType } from '../../types'
 
 type Props = {
     name: string
-    updateData: (name: string, e: SyntheticEvent) => void
+    updateData: (name: string, e: onChangeEventType) => void
     className?: string
     type?: string
     placeholder?: string

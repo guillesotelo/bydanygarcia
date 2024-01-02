@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 interface Props {
-  children: any
+  children: React.ReactNode
 }
 export default function FadeInSection({ children }: Props) {
   const [isVisible, setVisible] = useState(false);

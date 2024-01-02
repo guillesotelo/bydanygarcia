@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import InputField from '../../components/InputField/InputField'
 import Button from '../../components/Button/Button'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import { sendContactEmail } from '../../services'
+import { onChangeEventType } from '../../types'
 
 type Props = {}
 
@@ -13,7 +14,7 @@ export default function Contact({ }: Props) {
     const [loading, setLoading] = useState(false)
     const { lang, setLang, isMobile } = useContext(AppContext)
 
-    const updateData = (key: string, e: { [key: string | number]: any }) => {
+    const updateData = (key: string, e: onChangeEventType) => {
         const value = e.target.value
         setData({ ...data, [key]: value })
     }

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Menu from '../../assets/icons/menu-icon.svg'
 import ChevronDown from '../../assets/icons/chevron-down.svg'
 import Search from '../../assets/icons/search-icon.svg'
@@ -6,12 +6,13 @@ import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
-import { deletePost, getAllPosts, verifyToken } from '../../services'
+import { deletePost, verifyToken } from '../../services'
 import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import byDanyLogo from '../../assets/logos/logo_cropped.png'
+import { onChangeEventType, postType } from '../../types'
 
 type Props = {
     search: string[]
@@ -48,7 +49,7 @@ export default function Header({ search, setSearch, logo }: Props) {
             }
         })
         activateHeaderHeight()
-        if(localStorage.getItem('user')) verifyUser()
+        if (localStorage.getItem('user')) verifyUser()
     }, [])
 
     useEffect(() => {
@@ -87,7 +88,7 @@ export default function Header({ search, setSearch, logo }: Props) {
         })
     }
 
-    const handleSearch = (e: any) => {
+    const handleSearch = (e: onChangeEventType) => {
         const { value } = e.target
         setPrompt(value)
     }
@@ -126,6 +127,8 @@ export default function Header({ search, setSearch, logo }: Props) {
         toast.success(TEXT[lang]['see_you_later'])
         setTimeout(() => {
             setIsLoggedIn(false)
+            const posts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
+            localStorage.setItem('posts', posts.filter((post: postType) => post.published))
             setPostId('')
             history.push('/')
         }, 1500)

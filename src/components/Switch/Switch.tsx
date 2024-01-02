@@ -16,7 +16,7 @@ export default function Switch({ label, on, off, value, setValue }: Props) {
                 backgroundColor: value ? '#e5f0e5' : '#e9d8d8',
             }}>
                 <h4 className="switch__on">{on}</h4>
-                <h4 className={`switch__slider${value ? '--on' : '--off'}`} >|||</h4>
+                <h4 className={`switch__slider${value ? '--on' : '--off'}`} >| | |</h4>
                 <h4 className="switch__off">{off}</h4>
             </div>
         </div>

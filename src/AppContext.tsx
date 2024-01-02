@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { dataObj } from './types'
+import { postType } from './types'
 
 type AppContextType = {
     lang: string
@@ -9,8 +9,8 @@ type AppContextType = {
     setSearch: (search: string[]) => void
     isLoggedIn: boolean
     setIsLoggedIn: (value: boolean) => void
-    post: dataObj
-    setPost: (value: dataObj) => void
+    post: postType
+    setPost: (value: postType) => void
     children: React.ReactNode
 }
 

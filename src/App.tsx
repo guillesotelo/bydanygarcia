@@ -18,13 +18,14 @@ import BespokenLogo from './assets/logos/bespoken_logo.png'
 import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
 import ReactGA from 'react-ga4';
+import { postType } from './types';
 
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
   const localLang = preferedLang ? preferedLang : navigator.language.startsWith('es') ? 'es' : 'en'
   const isMobile = window.screen.width <= 768
   const [search, setSearch] = useState<string[]>([])
-  const [post, setPost] = useState<{ [key: number | string]: any }>({})
+  const [post, setPost] = useState<postType>({})
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()

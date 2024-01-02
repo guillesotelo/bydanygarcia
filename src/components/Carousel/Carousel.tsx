@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { cardType } from '../../types'
 
 type Props = {
     title?: string
     caption?: string
-    cards?: any[]
+    cards?: cardType[]
 }
 
 export default function Carousel({ title, caption, cards = [] }: Props) {

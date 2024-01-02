@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { HTMLProps } from 'react';
 import ReactSlider from "react-slider";
 
 interface SliderProps {
@@ -46,8 +46,8 @@ export default function Slider(props: SliderProps) {
         }
     };
 
-    const renderMark = (props: any) => {
-        if (props.key < value) {
+    const renderMark = (props: HTMLProps<HTMLSpanElement>) => {
+        if (Number(props.key) < value) {
             props.className = "custom-slider__mark custom-slider__mark-before";
         } else if (props.key === value) {
             props.className = "custom-slider__mark custom-slider__mark-active";

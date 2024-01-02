@@ -3,6 +3,7 @@ import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
 import { TEXT } from '../../constants/lang'
 import { AppContext } from '../../AppContext'
+import { postType } from '../../types'
 
 type Props = {
     search: string[]
@@ -10,8 +11,8 @@ type Props = {
 }
 
 export default function Blog({ search, setPost }: Props) {
-    const [allPosts, setAllPosts] = useState<{ [key: string | number]: any }[]>([])
-    const [filteredPosts, setFilteredPosts] = useState<{ [key: string | number]: any }[]>([])
+    const [allPosts, setAllPosts] = useState<postType[]>([])
+    const [filteredPosts, setFilteredPosts] = useState<postType[]>([])
     const [showUp, setShowUp] = useState(false)
     const { lang, setLang, isMobile, isLoggedIn } = useContext(AppContext)
 

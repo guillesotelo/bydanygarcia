@@ -5,11 +5,11 @@ import draftToHtml from 'draftjs-to-html';
 import { Helmet } from 'react-helmet-async';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
-import { dataObj } from '../../types';
+import { postType } from '../../types';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
-    post: { [key: number | string]: any }
+    post: postType
     setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
@@ -20,7 +20,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
-    const [sideImgStyles, setSideImgStyles] = useState<dataObj[]>([])
+    const [sideImgStyles, setSideImgStyles] = useState<React.CSSProperties[]>([])
     const [linkLang, setLinkLang] = useState('')
     const [category, setCategory] = useState('')
     const location = useLocation()
@@ -49,13 +49,13 @@ export default function PostViewer({ post, setPost }: Props) {
         if (post.spaHtml) setspaHtml(post.spaHtml)
 
         if (post.sideImages) setSideImages(post.sideImages)
-        if (post.sideStyles) setSideImgStyles(post.sideStyles)
+        if (post.sideImgsStyles) setSideImgStyles(post.sideImgsStyles)
 
         if (post.tags) getCategory(post)
     }, [post, postId])
 
-    const getCategory = (post: dataObj) => {
-        const tags = post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ')
+    const getCategory = (post: postType) => {
+        const tags = post.tags ? post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ') : []
         if (tags.length) setCategory(tags[0])
     }
 

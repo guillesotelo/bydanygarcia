@@ -1,10 +1,8 @@
-import React from 'react'
-import { dataObj } from '../../types'
 import postImagePlaceholder from '../../assets/logos/isologo.png'
 import { useHistory } from 'react-router-dom'
 
 type Props = {
-    images?: any[]
+    images?: string[]
     title?: string
     subtitle?: string
     delay?: string
@@ -20,7 +18,7 @@ export default function CategoryCard({ images, title, subtitle, category, count 
             <div className="category-card__images">
                 <img src={images && images[0] ? images[0] : postImagePlaceholder} style={{ width: images && !images[1] ? '100%' : '50%' }} className='category-card__image-large' loading='lazy' />
                 <div className="category-card__images-col">
-                    {images?.map((image: any, i: number) =>
+                    {images?.map((image: string, i: number) =>
                         i > 0 && i < 3 ?
                             <img
                                 key={i}

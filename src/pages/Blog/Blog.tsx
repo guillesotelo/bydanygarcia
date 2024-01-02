@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
-import { dataObj } from '../../types'
-import { useLocation } from 'react-router-dom'
+import { catMapType, postType } from '../../types'
 import { AppContext } from '../../AppContext'
 
 type Props = {
@@ -15,6 +14,8 @@ export default function Blog({ setPost }: Props) {
     const [loading, setLoading] = useState(false)
     const [category, setCategory] = useState('')
     const { isLoggedIn, lang } = useContext(AppContext)
+
+    console.log(allPosts)
 
     useEffect(() => {
         const cat = new URLSearchParams(document.location.search).get('category')
@@ -44,7 +45,7 @@ export default function Blog({ setPost }: Props) {
         if (posts && Array.isArray(posts)) {
             if (cat) {
                 setShowUp(false)
-                const filtered = posts.filter((post: dataObj) => post.tags.toLowerCase().includes(cat.replace(/_/g, '')))
+                const filtered = posts.filter((post: postType) => post.tags && post.tags.toLowerCase().includes(cat.replace(/_/g, '')))
                 setAllPosts(filtered)
             } else {
                 setShowUp(false)
@@ -55,14 +56,14 @@ export default function Blog({ setPost }: Props) {
         }
     }
 
-    const hasCaducated = (dateToCheck: any) => {
+    const hasCaducated = (dateToCheck: Date | string) => {
         const currentDate = new Date()
         const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
         const parsedDate = new Date(dateToCheck)
         return parsedDate < twoHoursAgo
     }
 
-    const catMap: dataObj = {
+    const catMap: catMapType = {
         'the_journey_within': 'Finding Inspiration and Personal Growth',
         'embracing_motherhood': 'A Rollercoaster of Love and Learning',
         'roaming_soul': 'Journeying Through Life and Travel',

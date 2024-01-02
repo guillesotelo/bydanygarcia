@@ -1,17 +1,18 @@
 import axios from 'axios';
+import { susbscribeDataType, userType } from '../types';
 
 const API_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_API_URL
+const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
+const authorization = `Bearer ${user.token}`
 
 const getHeaders = () => {
-    const { token }: { [key: string | number]: any } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-    return { authorization: `Bearer ${token}` }
+    return { authorization }
 }
 const getConfig = () => {
-    const { token }: { [key: string | number]: any } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-    return { headers: { authorization: `Bearer ${token}` } }
+    return { headers: { authorization } }
 }
 
-const loginUser = async (user: { [key: string | number]: any }) => {
+const loginUser = async (user: userType) => {
     try {
         const res = await axios.post(`${API_URL}/api/user/login`, user)
         const finalUser = res.data
@@ -32,28 +33,28 @@ const verifyToken = async () => {
     } catch (err) { console.log(err) }
 }
 
-const registerUser = async (data: { [key: string | number]: any }) => {
+const registerUser = async (data: userType) => {
     try {
         const newUser = await axios.post(`${API_URL}/api/user/create`, data)
         return newUser.data
     } catch (err) { console.log(err) }
 }
 
-const subscribe = async (data: { [key: string | number]: any }) => {
+const subscribe = async (data: susbscribeDataType) => {
     try {
         const newEmail = await axios.post(`${API_URL}/api/app/subscribe`, data)
         return newEmail.data
     } catch (err) { console.log(err) }
 }
 
-const cancelSubscription = async (data: { [key: string | number]: any }) => {
+const cancelSubscription = async (data: susbscribeDataType) => {
     try {
         const canceled = await axios.post(`${API_URL}/api/app/cancelSubscription`, data)
         return canceled.data
     } catch (err) { console.log(err) }
 }
 
-const updateUser = async (data: { [key: string | number]: any }) => {
+const updateUser = async (data: userType) => {
     try {
         const user = await axios.post(`${API_URL}/api/user/update`, data, getConfig())
         const localUser = JSON.parse(localStorage.getItem('user') || '{}')

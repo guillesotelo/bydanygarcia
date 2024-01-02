@@ -25,6 +25,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            animation: fade-in 1.5s ease-in forwards;
 
             &-wrapper {
                 width: 100vw;

@@ -4,10 +4,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 2vw;
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 14vw;
+        height: 20vw;
         background-color: #FFF9F5;
         box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
         animation: move-y-up .7s ease-in;
@@ -18,7 +19,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 2vw;
+        gap: 4vw;
 
         &-link {
             cursor: pointer;
@@ -44,10 +45,11 @@
         margin: 0 2vw;
 
         &-svg {
-            height: 1vw;
-            margin: .7vw;
+            height: 1.2vw;
+            margin: 0 1vw;
             cursor: pointer;
             transition: 0.3s;
+            opacity: .6;
 
             &:hover {
                 opacity: 0.5;
