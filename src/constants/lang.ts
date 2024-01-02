@@ -38,6 +38,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'story_of_brand': `HISTORIA DE LA MARCA`,
         'story': `STORY`,
         'products': `PRODUCTOS`,
+        'bydanygarcia': `by Dany Garcia`,
 
         //LOGIN
         'login': 'INICIAR SESIÓN',
@@ -47,6 +48,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //POSTS
         'latest_posts': 'ÚLTIMAS PUBLICACIONES',
         'categories': 'CATEGORÍAS',
+        'categories_low': 'Categorías',
 
         //FOOTER
         'privacy': 'Política',
@@ -196,6 +198,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'story_of_brand': `STORY OF THE BRAND`,
         'story': `STORY`,
         'products': `PRODUCTS`,
+        'bydanygarcia': `by Dany Garcia`,
 
         //LOGIN
         'login': 'LOGIN',
@@ -205,6 +208,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //POSTS
         'latest_posts': 'LATEST POSTS',
         'categories': 'CATEGORIES',
+        'categories_low': 'Categories',
 
         //FOOTER
         'privacy': 'Policy',

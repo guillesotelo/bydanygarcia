@@ -120,7 +120,7 @@ export default function Bespoken({ page }: Props) {
     const renderStory = () => {
         return (
             <div className="bespoken__container">
-                <div className="page__header">
+                <div className="page__header"><p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
                 </div>
@@ -231,7 +231,10 @@ export default function Bespoken({ page }: Props) {
         return (
             <div className="bespoken__container">
                 <div className="page__header">
-                    {products ? <p className="bespoken__product-goback" onClick={() => setProducts('')}>↩ Categories</p> : ''}
+                    {products ?
+                        <p className="bespoken__product-goback" onClick={() => setProducts('')}>↩ {TEXT[lang].categories_low}</p>
+                        : <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
+                    }
                     <h1
                         className="page__header-title"
                         style={{ cursor: 'pointer' }}>
@@ -291,6 +294,7 @@ export default function Bespoken({ page }: Props) {
     const renderDiyWedding = () => {
         return (
             <div className="bespoken__container">
+                <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                 </div>
