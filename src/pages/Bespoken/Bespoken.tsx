@@ -70,19 +70,13 @@ export default function Bespoken({ page }: Props) {
     }, [location])
 
     useEffect(() => {
-        if (getName(products, 'arrangements')) setImages(arrangements)
-        if (getName(products, 'adornments')) setImages(adornments)
-        if (getName(products, 'gifts')) setImages(gifts)
-    }, [arrangements, adornments, gifts])
-
-    useEffect(() => {
         const imgs = getName(products, 'arrangements') ? arrangements :
             getName(products, 'adornments') ? adornments :
                 getName(products, 'gifts') ? gifts : []
 
         setImages(imgs)
         getPinterestPage()
-    }, [products])
+    }, [products, arrangements, adornments, gifts])
 
     const getName = (products: string, name: string) => {
         return products.toLowerCase().includes(name)

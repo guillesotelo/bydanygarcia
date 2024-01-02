@@ -109,7 +109,7 @@
 
                 &:hover {
                     // filter: brightness(110%);
-                    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .175);
+                    box-shadow: .3rem .3rem 1rem rgba(0, 0, 0, .175);
                     transform: translateY(-1%);
                 }
             }
@@ -129,6 +129,10 @@
                     right: 8%;
                     transition: .4s;
                     cursor: pointer;
+
+                    &:hover {
+                        filter: brightness(120%);
+                    }
                 }
             }
         }
@@ -136,7 +140,7 @@
         &-cards {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 5rem;
             width: 100%;
             align-items: center;
             justify-content: center;
@@ -148,8 +152,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 20vw;
-            height: 20vw;
+            width: 18vw;
+            height: 18vw;
             border: 1px solid lighgray;
             border-radius: 50%;
             background-color: #FFF9F5;
@@ -184,7 +188,7 @@
             }
 
             &-img {
-                width: 20vw;
+                width: 18vw;
                 height: auto;
                 z-index: 0;
                 position: absolute;
