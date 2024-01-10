@@ -25,7 +25,7 @@ export default function Footer({ }: Props) {
                 <img className="footer__social-svg" onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
             </div>
             <div className="footer__info">
-                <h4 className="footer__copyright no-pointer">{isMobile ? '© 2023' : 'by Dany García © 2023'}</h4>
+                <h4 className="footer__copyright no-pointer">{isMobile ? '© 2024' : 'by Dany García © 2024'}</h4>
             </div>
         </div>
     )
