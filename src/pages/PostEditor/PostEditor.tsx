@@ -78,7 +78,7 @@ export default function PostEditor({ }: Props) {
         if (statusBar) statusBar.remove()
         localStorage.setItem('autosave', html)
         localStorage.setItem('autosaveSpa', spaHtml)
-        localStorage.setItem('autosaveId', isNew ? 'new' : postId)
+        localStorage.setItem('autosaveId', postId || 'new')
     }, [data, html, spaHtml])
 
 
