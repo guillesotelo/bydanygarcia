@@ -16,7 +16,9 @@ const loginUser = async (user: userType) => {
     try {
         const res = await axios.post(`${API_URL}/api/user/login`, user)
         const finalUser = res.data
-        localStorage.clear()
+        localStorage.removeItem('user')
+        localStorage.removeItem('duedate')
+        localStorage.removeItem('posts')
         localStorage.setItem('user', JSON.stringify({
             ...finalUser,
             app: 'bydanygarcia',

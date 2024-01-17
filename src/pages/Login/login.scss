@@ -8,11 +8,8 @@
     }
 
     &__box {
-        position: fixed;
-        top: 50%;
         width: 20vw;
-        left: 50%;
-        transform: translate(-50%, -100%);
+        margin-top: 1rem;
         display: flex;
         flex-direction: column;
         gap: 1vw;

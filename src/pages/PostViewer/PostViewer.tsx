@@ -106,7 +106,7 @@ export default function PostViewer({ post, setPost }: Props) {
                 <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4>
             </div>
             {renderHelmet()}
-            {loading ? <span className="loader"></span>
+            {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>
                 :
                 <Post
                     headers={{ ...post, sideImages, sideImgStyles }}

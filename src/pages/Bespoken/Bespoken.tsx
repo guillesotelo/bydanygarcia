@@ -439,7 +439,7 @@ export default function Bespoken({ page }: Props) {
                         <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">See more ➤</button></a>
                         :
                         <div>
-                            <span className="loader" style={{ position: 'relative' }}></span>
+                            <span className="loader"></span>
                             <p>Connecting with Pinterest...</p>
                         </div>}
                 </div>

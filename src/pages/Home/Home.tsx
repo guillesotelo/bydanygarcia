@@ -45,7 +45,7 @@ export default function Home() {
         const posts = localPosts.length ? localPosts : await getAllPosts(isLoggedIn)
         setLoading(false)
         if (posts && Array.isArray(posts)) {
-            setAllPosts(posts)
+            setAllPosts(isLoggedIn ? posts : posts.filter(post => post.published))
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))
         }

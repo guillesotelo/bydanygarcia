@@ -62,11 +62,11 @@ export default function PostEditor({ }: Props) {
         }
         else if (id) setPostId(id)
 
-        const autosave = localStorage.getItem('autosave')
-        const autosaveId = localStorage.getItem('autosaveId')
-        const autosaveSpa = localStorage.getItem('autosaveSpa')
+        const autosavedHtml = localStorage.getItem('autosavedHtml')
+        const autosavedId = localStorage.getItem('autosavedId')
+        const autosavedHtmlSPa = localStorage.getItem('autosavedHtmlSPa')
 
-        if ((autosaveId === id || autosaveId === 'new') && (autosave || autosaveSpa)) setHasAutosave(true)
+        if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedHtmlSPa)) setHasAutosave(true)
     }, [location])
 
     useEffect(() => {
@@ -76,11 +76,13 @@ export default function PostEditor({ }: Props) {
     useEffect(() => {
         const statusBar = document.querySelector('.tox-statusbar')
         if (statusBar) statusBar.remove()
-        localStorage.setItem('autosave', html)
-        localStorage.setItem('autosaveSpa', spaHtml)
-        localStorage.setItem('autosaveId', postId || 'new')
+        if (isEdited) {
+            if (html) localStorage.setItem('autosavedHtml', html)
+            if (spaHtml) localStorage.setItem('autosavedHtmlSPa', spaHtml)
+            localStorage.setItem('autosavedData', JSON.stringify(data))
+            localStorage.setItem('autosavedId', postId || 'new')
+        }
     }, [data, html, spaHtml])
-
 
     const activateRenderEffects = () => {
         let position = 0
@@ -103,10 +105,12 @@ export default function PostEditor({ }: Props) {
     }
 
     const loadAutoSave = () => {
-        const autosave = localStorage.getItem('autosave')
-        const autosaveSpa = localStorage.getItem('autosaveSpa')
-        setHtml(autosave || '')
-        setSpaHtml(autosaveSpa || '')
+        const autosavedHtml = localStorage.getItem('autosavedHtml')
+        const autosavedHtmlSPa = localStorage.getItem('autosavedHtmlSPa')
+        const autosaveData = JSON.parse(localStorage.getItem('autosavedData') || '{}') || {}
+        setData(autosaveData)
+        setHtml(autosavedHtml || '')
+        setSpaHtml(autosavedHtmlSPa || '')
     }
 
     const getPost = async (id: string) => {
