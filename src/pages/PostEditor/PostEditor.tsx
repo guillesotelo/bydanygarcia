@@ -66,7 +66,7 @@ export default function PostEditor({ }: Props) {
         const autosaveId = localStorage.getItem('autosaveId')
         const autosaveSpa = localStorage.getItem('autosaveSpa')
 
-        if (autosaveId === id && (autosave || autosaveSpa)) setHasAutosave(true)
+        if ((autosaveId === id || autosaveId === 'new') && (autosave || autosaveSpa)) setHasAutosave(true)
     }, [location])
 
     useEffect(() => {
@@ -76,11 +76,9 @@ export default function PostEditor({ }: Props) {
     useEffect(() => {
         const statusBar = document.querySelector('.tox-statusbar')
         if (statusBar) statusBar.remove()
-        if (isEdited) {
-            localStorage.setItem('autosave', html)
-            localStorage.setItem('autosaveSpa', spaHtml)
-            localStorage.setItem('autosaveId', postId)
-        }
+        localStorage.setItem('autosave', html)
+        localStorage.setItem('autosaveSpa', spaHtml)
+        localStorage.setItem('autosaveId', isNew ? 'new' : postId)
     }, [data, html, spaHtml])
 
 
