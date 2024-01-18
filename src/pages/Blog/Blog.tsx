@@ -46,10 +46,10 @@ export default function Blog({ setPost }: Props) {
             if (cat) {
                 setShowUp(false)
                 const filtered = posts.filter((post: postType) => post.tags && post.tags.toLowerCase().includes(cat.replace(/_/g, '')))
-                setAllPosts(filtered)
+                setAllPosts(isLoggedIn ? filtered : filtered.filter(post => post.published))
             } else {
                 setShowUp(false)
-                setAllPosts(posts)
+                setAllPosts(isLoggedIn ? posts : posts.filter(post => post.published))
             }
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))
