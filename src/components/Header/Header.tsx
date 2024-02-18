@@ -250,20 +250,17 @@ export default function Header({ search, setSearch, logo }: Props) {
                                 <Button
                                     label='CREATE'
                                     handleClick={() => history.push('/editor?new=true')}
-                                    bgColor='#ece7e6'
                                 /> : ''}
                             {postId && isLoggedIn ?
                                 <Button
                                     svg={EditIcon}
                                     handleClick={() => history.push(`/editor?id=${postId}`)}
-                                    bgColor='#ece7e6'
                                 />
                                 : ''}
                             {postId && isLoggedIn ?
                                 <Button
                                     svg={DeleteIcon}
                                     handleClick={() => setDeleteModal(true)}
-                                    bgColor='#ece7e6'
                                 />
                                 : ''}
                             {isLoggedIn ?
@@ -362,20 +359,17 @@ export default function Header({ search, setSearch, logo }: Props) {
                     <Button
                         label='CREATE'
                         handleClick={() => history.push('/editor?new=true')}
-                        bgColor='#ece7e6'
                     />
                     {postId ?
                         <Button
                             svg={EditIcon}
                             handleClick={() => history.push(`/editor?id=${postId}`)}
-                            bgColor='#ece7e6'
                         />
                         : ''}
                     {postId ?
                         <Button
                             svg={DeleteIcon}
                             handleClick={() => setDeleteModal(true)}
-                            bgColor='#ece7e6'
                         />
                         : ''}
                 </div>

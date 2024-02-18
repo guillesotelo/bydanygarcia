@@ -135,23 +135,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'about_me': `Sobre mí`,
         'about_greeting': `HOLA :)`,
         'about_greeting2': `Sobre mí`,
-        'about_me_body': ` 
-        <p className="about__text">¡Soy Dany García! Bienvenidos a este espacio en línea donde me encanta escribir, contar historias y compartir parte de mi trabajo. Nací en Colombia, pasé algunos años en Estados Unidos, viví una década en Argentina con algunos viajes en el medio, y ahora vivo al norte de Europa. Soy mamá de Benja, esposa de Guille y dueña de nuestra pequeña Jack Russell, Indie.</p>
-        <p className="about__text">He tenido muchas aventuras alrededor del mundo y también pasado por muchas etapas de una joven adulta. Siempre he sido alguien a quien le gusta celebrar la vida y los momentos, bailar y reunirme con amigos y familiares. Mi carrera, Gestión Hotelera, fue elegida por una verdadera vocación y trabajé para hoteles y empresas privadas en las áreas de atención al cliente y experiencia de empleados. Miro hacia atrás y suelo sonreír, recordando el camino y todo el aprendizaje...y esa sensación reconfortante de haber estado conectada con tanta gente. </p>
-        <p className="about__text">Después de eso, comencé mi propio negocio en Buenos Aires llamado Bespoken, un sueño hecho realidad. Desarrollé mis habilidades creativas para crear tocados, regalos y arreglos florales. Dos años después, la vida nos llevó a Suecia, y mi principal ocupación ahora es ser mamá a tiempo completo. ¡Hablemos de <strong>GRANDES</strong> cambios! <i>Abrazar los cambios y nuevos aprendizajes, compartir fragmentos de mi vida mientras avanzo y luego escribir sobre ellos es parte de mi expresión y la forma en que conecto con los demás. Creo que está codificado en mi propósito. Y a medida que escribo y comparto contenido, también crezco yo.</i></p>
-        <p className="about__text">El cambio siempre es constante, es parte de la vida y nunca somos los mismos, pero al mismo tiempo, llevamos en nosotros todo lo que seremos. Como una pequeña semilla de roble que tiene el potencial de convertirse en un gran árbol, está en nosotros en todo momento. Mi objetivo es alcanzar todos los días mi plena aceptación propia y de los demás, ser valiente, auténtica y amable conmigo misma, y vivir en la libertad y grandeza que ya se nos ha otorgado con poder, amor y autodominio.</i></p>
-        <p className="about__text">A menudo tendemos a hacer lo mismo que hacen otras personas, y es fácil caer en la comparación o dudar de nosotros mismos y nuestro trabajo, pero como dijo Marshall Rosenberg, esto nos impide sentir compasión por nosotros mismos y por los demás. La compasión es observar sin juzgar.<p>
-        <p className="about__text">Me llevó algunos años poner en marcha este proyecto de sitio web hasta que finalmente entendí esto: <p>
-        <div>
-            <p className="about__text"><strong>1)</strong> Las cosas se pueden hacer a tu propio ritmo, no hay necesidad de apresurarse. Ve un día a la vez, acompañado de pequeños pasos.<p>
-            <p className="about__text"><strong>2)</strong> Todo en la vida es para disfrutarlo, no para valorarlo. Clave para el éxito. <p>
-            <p className="about__text"><strong>3)</strong> Puedes inspirarte en otros, pero al final, la clave es ser tú mismo, apreciar tu toque único. Todo lo que serás está dentro de ti, al igual que en todos los que te rodean. <p>
-            <p className="about__text"><strong>4)</strong> El perdón diario es clave para seguir adelante y alcanzar terrenos más altos y poderosos.  <p>
-        </div>
-        <p className="about__text">Quiero agradecer a Dios por trazar un camino más elevado y nunca abandonarme, gracias mamá por todo tu tiempo y enseñanzas, gracias Guille por tu amor y apoyo constantes. Gracias a todos mis amigos y familiares por sus palabras y tiempo, y a todas las personas que han cruzado caminos conmigo, estoy segura de que me han dejado recuerdos y enseñanzas. Sin ustedes, esto no hubiera sido posible. <p>
-        <p className="about__text">Espero que disfrutes leyendo y, mientras lo haces, puedas <i>Inspirarte</i>, tomar <i>Conciencia</i> y ser <i>Creativo</i> con tu propia vida y talentos. Nunca es demasiado tarde para comenzar a mirar hacia adentro de ti mismo.<p>
-        <p className="about__text">Con amor, <p>
-        <p className="about__text">Dany<p>`,
+        'about_me_body': ``,
 
         // SEARCH
         'no_results_for': `No hay resultados para`,
@@ -287,24 +271,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'about_me': `About me`,
         'about_greeting': `HELLO :)`,
         'about_greeting2': `About Myself`,
-        'about_me_body': ` 
-        <p className="about__text">I’m Dany García! Welcome to this online space where I love to write, tell stories and share of some of my work. </p>
-        <p className="about__text">I was born in Colombia, raised a few years in the US, have summed a decade of life in Argentina with a few trips in the middle, and now live way up north in Scandinavia. I am momma to little Benja, wife to Guille and owner of our little Jack Russell, Indie. </p>
-        <p className="about__text">I have adventured around the world quite a lot and have come through many stages of a young adult’s life.  I've always been a person who likes to celebrate life and moments, to dance and get together with friends and family. My career, Hospitality Management, was chosen out of true vocation and I worked for hotels and private companies within guest and employee services. I look back and tend to smile, remembering all the learning experiences...and that heartwarming feeling of having been connected to so many people. </p>
-        <p className="about__text">After that, I started my -out of a dream- business in Buenos Aires called Bespoken. I had embraced my creativity skill for crafted adornments, gifts and flowers. Forward two years and life brought us to Sweden, with my main job as a full-time mom. Talk about <strong>BIG</strong> changes. <i>Embracing changes and new learnings, sharing bits of my life as I go through and then writing about them is part of my expression and the way I connect with others. I believe It's encoded in my purpose. And as I write and share content, I grow too. </i></p>
-        <p className="about__text">Change is always a constant, it is part of life and we are never the same, but at the same time, we hold in ourselves everything we will ever be. Like a little oak seed holding the potential of becoming a big oak tree, it’s in us all the time. My goal is to reach everyday my full acceptance and of others, to be <i>fearless</i>, to be true and gentle to myself and live in the freedom and greatness that we have already been given to us with power, love and self control. <p>
-        <p className="about__text">We tend to do what other people are doing and it is easy to fall into comparison or doubt about our own-selves and our work, but as Marshall Rosenberg said, this blocks you from compassion towards yourself and others. Compassion is to observe without judgement. <p>
-        <p className="about__text">It took me some years to get this website project moving until I finally understood: <p>
-        <div>
-            <p className="about__text"><strong>1)</strong> Things can be done at your own pace, there is no need to rush. Go one day at a time, with little steps accompanying. <p>
-            <p className="about__text"><strong>2)</strong> Everything in life is to be enjoyed, not valued. A key to truly living life in a very present way. <p>
-            <p className="about__text"><strong>3)</strong> You can get inspired from others, but at the end the key is to be you, appreciate your unique touch. Everything you will ever be lies within you, as it lies in everyone around you. <p>
-            <p className="about__text"><strong>4)</strong> Daily forgiveness is key to keep going and reaching higher and more powerful grounds. <p>
-        </div>
-        <p className="about__text">I want to thank God for laying a higher path and never leaving, thank you mom for all your time and teachings, thank you Guille for your constant love and support. Thank you to all my friends and family for your words and time, and to all the people that have crossed paths with me, I am sure you have left me with memories and teachings. Without you this would have not been possible.  <p>
-        <p className="about__text">I hope you enjoy reading and while you are at it, can get <i>Inspired</i>, <i>Aware</i> and <i>Creative</i> with your own life and talents. It is never too late to start looking inside of You.  <p>
-        <p className="about__text">With love, <p>
-        <p className="about__text">Dany<p>`,
+        'about_me_body': ``,
 
         // SEARCH
         'no_results_for': `No Results for`,

@@ -22,14 +22,28 @@
         gap: 4vw;
 
         &-link {
-            cursor: pointer;
             font-weight: normal;
             transition: .3s;
             font-size: 1rem;
+            position: relative;
+            cursor: pointer;
 
-            &:hover {
-                opacity: .5;
-                transition: .3s;
+            &::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                transform: scaleX(0);
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                background-color: #000;
+                transform-origin: bottom right;
+                transition: transform 0.4s ease-out;
+            }
+
+            &:hover::after {
+                transform: scaleX(1);
+                transform-origin: bottom left;
             }
         }
     }
@@ -45,8 +59,8 @@
         margin: 0 2vw;
 
         &-svg {
-            height: 1.2vw;
-            margin: 0 1vw;
+            height: 1.2rem;
+            margin: 0 1rem;
             cursor: pointer;
             transition: 0.3s;
             opacity: .6;
@@ -96,7 +110,7 @@
 
         &__social {
             margin: 3vw;
-    
+
             &-svg {
                 height: 5vw;
                 margin: 3vw;

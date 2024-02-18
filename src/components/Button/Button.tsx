@@ -18,7 +18,7 @@ export default function Button({ label, handleClick, className, bgColor, textCol
             onClick={handleClick}
             style={{
                 ...style,
-                backgroundColor: bgColor || '#D9C6BA',
+                backgroundColor: bgColor || '#ece7e6',
                 color: textColor || 'black',
                 opacity: disabled ? '.3' : '',
                 padding: '.2vw',
@@ -33,7 +33,7 @@ export default function Button({ label, handleClick, className, bgColor, textCol
             onClick={handleClick}
             style={{
                 ...style,
-                backgroundColor: bgColor || '#D9C6BA',
+                backgroundColor: bgColor || '#ece7e6',
                 color: textColor || 'black',
                 opacity: disabled ? '.3' : '',
                 cursor: disabled ? 'not-allowed' : ''

@@ -28,6 +28,7 @@ export default function Bespoken({ page }: Props) {
     const [products, setProducts] = useState('')
     const [pinterestPage, setPinterestPage] = useState('')
     const [showPin, setShowPin] = useState(-1)
+    const [loading, setLoading] = useState({ products: false, wedding: false })
     const location = useLocation()
 
     const arrangementsUrl = 'https://www.pinterest.se/bespoken_ar/flower-arrangements/'
@@ -85,11 +86,15 @@ export default function Bespoken({ page }: Props) {
     const getPinterestImages = async () => {
         try {
             if (page && page.includes('WEDDING')) {
+                setLoading({ ...loading, wedding: true })
                 const _wedding = await scrapeUrl({ url: weddingUrl })
                 if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
+                setLoading({ ...loading, wedding: false })
             } else {
+                setLoading({ ...loading, products: true })
                 const _arrangements = await scrapeUrl({ url: arrangementsUrl })
                 if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
+                setLoading({ ...loading, products: false })
 
                 const _adornments = await scrapeUrl({ url: adornmentsUrl })
                 if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
@@ -97,7 +102,6 @@ export default function Bespoken({ page }: Props) {
                 const _gifts = await scrapeUrl({ url: giftsUrl })
                 if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
             }
-
         } catch (err) {
             console.error(err)
         }
@@ -125,105 +129,201 @@ export default function Bespoken({ page }: Props) {
                     {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
                 </div>
                 <div className="bespoken__row">
-                    <div className="bespoken__col">
-                        <h2 className="bespoken__subtitle">
-                            Story of the brand's begining
-                        </h2>
-                        <p className="bespoken__text">
-                            It was the summer of 2021 and I was in the search of something new. I had just finished leading a mayor online even for the company I worked at, making it the biggest coordination project of my career so far. Gift boxes for employees became a hit during pandemic times and by being close to the logistics of selecting and sending them, I felt I really enjoyed doing it. There were a lot of things I enjoyed about my job, but I was ready to move on and find new, creative horizons that made sense to the type of life I wanted to live...I just didn’t know how or whereto.
-                        </p>
-                        <p className="bespoken__text">
-                            So during holidays, one afternoon at my parents-in-law’s cottage near the Uruguay river,  I collected some flowers and long leaves. I felt like a little girl, fascinated and lost in time. Creativity took hold of me and I started making adornments to put over our heads. It was at that exact moment when the DREAM of the brand came to be. <strong>Flowers, adornments, crafting, gifts!</strong> I would use all of my insights and experiences, my values and the things I found lovely to create all the details of the brand.
-                        </p>
-                        <p className="bespoken__text">
-                            And so BESPOKEN was born to offer a unique service of crafted gifts/events experiences and  flower adornments, clearly defined with a bohemian nature, well-known products and charming details.
-                        </p>
-                        <p className="bespoken__text">
-                            The heart's business was inspired by my own life values. I wanted the accompaniment to my clients in their moments and helping them enhance their intention of gifting and celebrating.
-                        </p>
-                    </div>
+                    {lang === 'es' ?
+                        <div className="bespoken__col">
+                            <h2 className="bespoken__subtitle">
+                                Historia de la marca
+                            </h2>
+                            <p className="bespoken__text">
+                                Era el verano de 2021 y acababa de terminar de liderar un evento regional en línea para Media.Monks, la empresa en la que trabajaba, convirtiéndolo en uno de los proyectos de coordinación más grande de mi carrera hasta el momento. Durante la pandemia, las cajas de regalo para los empleados se volvieron una tendencia muy popular y pude participar en la logística y selección de ellas, algo que realmente disfruté hacer aparte de los eventos presenciales. Había muchas cosas que me gustaban de mi trabajo, pero estaba lista para seguir adelante y encontrar nuevos horizontes creativos que tuvieran sentido para el tipo de vida que quería llevar. Y así comenzó mi búsqueda.
+                            </p>
+                            <p className="bespoken__text">
+                                Durante las vacaciones, una tarde en la cabaña de mis suegros cerca del río Uruguay, recogí algunas flores y hojas largas. Me sentía como una niña pequeña, fascinada y perdida en el tiempo. La creatividad me tomo por sorpresa y empecé a hacer adornos para poner sobre nuestras cabezas. Fue en ese preciso momento cuando nació el SUEÑO de la marca. ¡Flores, adornos, manualidades, regalos! Utilizaría todas mis ideas y experiencias, mis valores y las cosas que encontraba encantadoras para crear todos los detalles de la marca.                            </p>
+                            <p className="bespoken__text">
+                                Y así nació BESPOKEN, para ofrecer un servicio único de regalos, eventos personalizados y experiencias con adornos florales, claramente definidos con un estilo bohemio, productos reconocidos y detalles encantadores. El corazón del negocio se basaban en mis propios valores de vida. Quería acompañar a mis clientes en sus momentos especiales, ayudándoles a realzar su intención de regalar y celebrar.
+                            </p>
+                        </div>
+                        :
+                        <div className="bespoken__col">
+                            <h2 className="bespoken__subtitle">
+                                Story of the brand's begining
+                            </h2>
+                            <p className="bespoken__text">
+                                It was the summer of 2021, and I had just finished leading a regional online event for Media.Monks, the company I worked at, made it one of the biggest coordination projects of my career so far. During the pandemic, gift boxes for employees became a very popular trend, and I was able to partake in the logistics and selection of them, which was something I really enjoyed doing. And there were a lot of things I enjoyed about my job, but I was ready to move on and find other new, creative horizons that made sense for the type of life I wanted to live. And so, my search began.
+                            </p>
+                            <p className="bespoken__text">
+                                During the holidays, one afternoon at my parents-in-law’s cottage near the Uruguay River, I collected some flowers and long leaves. I felt like a little girl, fascinated and lost in time. Creativity took hold of me, and I started making adornments to put over our heads. It was at that exact moment that the DREAM of the brand came true. Flowers, adornments, crafting, and gifts! I would use all of my insights and experiences, my values and the things I found lovely to create all the details of the brand.
+                            </p>
+                            <p className="bespoken__text">
+                                And so BESPOKEN was born to offer a unique service of crafted gifts, events experiences, and flower adornments, clearly defined with a Bohemian style, well-known products and charming details. The heart's business was inspired by my own life values. I wanted to accompany my clients in their special moments, by helping them enhance their intention of gifting and celebrating.
+                            </p>
+                        </div>
+                    }
                     <div className="bespoken__col">
                         <img src={StoryImage} alt="Story Image" className="bespoken__story-img" />
                     </div>
                 </div>
                 <div className="bespoken__row" style={{ marginTop: '6rem' }}>
                     <div className="bespoken__col" style={{ width: '100%' }}>
-                        <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
-                            In just one year...
-                        </h2>
-                        <p className="bespoken__text" style={{ textAlign: 'center' }}>
-                            +60 sales and clients from Argentina, Colombia, Peru and the USA
-                            <br /><br />
-                            Worked with local and imported products from Argentina, Colombia, Turkey and India
-                            <br /><br />
-                            Incorporated handmade works with gold baths and native craftsmen for jewellery .
-                            <br /><br />
-                            Produced wedding bouquets, crowns and exclusive ear adornments.
-                            <br /><br />
-                            Participated in local fairs for entrepreneurs and had a 2 week showroom.
-                            <br /><br />
-                            Better to give - 5% of sales where destined for people in need.
-                        </p>
+                        {lang === 'es' ?
+                            <>
+                                <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
+                                    En solo un año...
+                                </h2>
+                                <p className="bespoken__text" style={{ textAlign: 'center' }}>
+                                    +60 ventas y clientes de Argentina, Colombia, Perú y Estados Unidos
+                                    <br /><br />
+                                    Trabajé con productos locales e importados de Argentina, Colombia, Turquía e India
+                                    <br /><br />
+                                    Incorporé trabajos hechos a mano con baños de oro y artesanos nativos para joyería.
+                                    <br /><br />
+                                    Produje ramos de novia, coronas y adornos de orejas exclusivos.
+                                    <br /><br />
+                                    Participé en ferias locales para emprendedores y tuve un showroom de 2 semanas.
+                                    <br /><br />
+                                    Mejor dar - El 5% de las ventas fueron destinadas a personas necesitadas.
+                                </p>
+                            </>
+                            :
+                            <>
+                                <h2 className="bespoken__subtitle" style={{ alignSelf: 'center' }}>
+                                    In just one year...
+                                </h2>
+                                <p className="bespoken__text" style={{ textAlign: 'center' }}>
+                                    +60 sales and clients from Argentina, Colombia, Peru and the USA
+                                    <br /><br />
+                                    Worked with local and imported products from Argentina, Colombia, Turkey and India
+                                    <br /><br />
+                                    Incorporated handmade works with gold baths and native craftsmen for jewellery .
+                                    <br /><br />
+                                    Produced wedding bouquets, crowns and exclusive ear adornments.
+                                    <br /><br />
+                                    Participated in local fairs for entrepreneurs and had a 2 week showroom.
+                                    <br /><br />
+                                    Better to give - 5% of sales where destined for people in need.
+                                </p>
+                            </>
+                        }
                     </div>
                 </div>
                 <div className="bespoken__row" style={{ marginTop: '6rem', width: '100vw' }}>
                     <Carousel cards={carouselImages} />
                 </div>
 
-                <div className="bespoken__row" style={{ marginTop: '6rem' }}>
-                    <div className="bespoken__col" style={{ width: '100%' }}>
-                        <h2 className="bespoken__subtitle" style={{ textAlign: 'center', width: '100%' }}>
-                            Client's Experience
-                        </h2>
-                        <div className="bespoken__row" style={{ alignItems: isMobile ? '' : 'flex-start' }}>
-                            <div className="bespoken__col">
-                                <h3 className="bespoken__subtitle" >
-                                    Gift boxes/Regalos y Experiencias
-                                </h3>
-                                <p className="bespoken__text" >
-                                    “Dany querida, gracias por el amor puesto en todo. Descubro detalles amorosos”
-                                    <br /><br />
-                                    “Gracias a vos, se siente cuando las cosas son hechas con amor!”.
-                                    <br /><br />
-                                    “Hola! Re lindo, le encanto! Dijo: !Qué presentación!  Espectacular y el sello le da un toque muy especial. Quedo muy contenta y yo quede re bien! Mil gracias, Dios te bendiga”.
-                                    <br /><br />
-                                    “Estoy taaan orgullosa de ser tu amiga, cada experiencia es increible y única! Pero siempre tienes más y me sorprendes. El mundo es tuyo amiga!”
-                                    <br /><br />
-                                    “El toque delicado y personal que le das a las cajas es tremendamente hermoso”.
-                                    <br /><br />
-                                    “Le encanto, Daniela! Gracias. El cafe sale muy rico! Todo increíble, mis dieces”.
-                                    <br /><br />
-                                    “She absolutely LOVED IT”!
-                                    <br /><br />
-                                    “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
-                                    <br /><br />
-                                </p>
-                            </div>
-                            <div className="bespoken__col">
-                                <h3 className="bespoken__subtitle">
-                                    Adornments & Bouquets/ Tocados y Ramos
-                                </h3>
-                                <p className="bespoken__text" >
-                                    “Delicado, hermoso, único! Gracias por tu buen gusto y por tu dedicación. Amamos y valoramos tu espectacular trabajo”.
-                                    <br /><br />
-                                    “Una belleza! Hermosas flores, hermosa presentación”!
-                                    <br /><br />
-                                    “Tu trabajo resalta la belleza de mis nenas”.
-                                    <br /><br />
-                                    “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
-                                    <br /><br />
-                                </p>
-                            </div>
-                        </div>
-                        <div className="bespoken__row" >
-                            <div className="bespoken__col">
-                                <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" />
-                                <p><i>Bespoken's One Year anniversary - Buenos Aires 2022</i></p>
-                            </div>
-                        </div>
+                <div className="bespoken__row" >
+                    <div className="bespoken__col" style={{ margin: '4rem' }}>
+                        <img src='https://i.pinimg.com/736x/1f/b3/70/1fb3705db08c44a8af4133f6b2baf2b1.jpg' alt="Story Image" className="bespoken__story-img" loading='lazy' />
                     </div>
                 </div>
-            </div>
+
+                <div className="bespoken__row" style={{ marginTop: '6rem' }}>
+                    {lang === 'es' ?
+                        <div className="bespoken__col" style={{ width: '100%' }}>
+                            <h2 className="bespoken__subtitle" style={{ textAlign: 'center', width: '100%' }}>
+                                Experiencia del cliente
+                            </h2>
+                            <div className="bespoken__row" style={{ alignItems: isMobile ? '' : 'flex-start' }}>
+                                <div className="bespoken__col">
+                                    <h3 className="bespoken__subtitle" >
+                                        Regalos y Experiencias
+                                    </h3>
+                                    <p className="bespoken__text" >
+                                        “Dany querida, gracias por el amor puesto en todo. Descubro detalles amorosos”
+                                        <br /><br />
+                                        “Gracias a vos, se siente cuando las cosas son hechas con amor!”.
+                                        <br /><br />
+                                        “Hola! Re lindo, le encanto! Dijo: !Qué presentación!  Espectacular y el sello le da un toque muy especial. Quedo muy contenta y yo quede re bien! Mil gracias, Dios te bendiga”.
+                                        <br /><br />
+                                        “Estoy taaan orgullosa de ser tu amiga, cada experiencia es increible y única! Pero siempre tienes más y me sorprendes. El mundo es tuyo amiga!”
+                                        <br /><br />
+                                        “El toque delicado y personal que le das a las cajas es tremendamente hermoso”.
+                                        <br /><br />
+                                        “Le encanto, Daniela! Gracias. El cafe sale muy rico! Todo increíble, mis dieces”.
+                                        <br /><br />
+                                        “She absolutely LOVED IT”!
+                                        <br /><br />
+                                        “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
+                                        <br /><br />
+                                    </p>
+                                </div>
+                                <div className="bespoken__col">
+                                    <h3 className="bespoken__subtitle">
+                                        Tocados y Ramos
+                                    </h3>
+                                    <p className="bespoken__text" >
+                                        “Delicado, hermoso, único! Gracias por tu buen gusto y por tu dedicación. Amamos y valoramos tu espectacular trabajo”.
+                                        <br /><br />
+                                        “Una belleza! Hermosas flores, hermosa presentación”!
+                                        <br /><br />
+                                        “Tu trabajo resalta la belleza de mis nenas”.
+                                        <br /><br />
+                                        “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
+                                        <br /><br />
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="bespoken__row" >
+                                <div className="bespoken__col">
+                                    <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" loading='lazy' />
+                                    <p><i>1° Aniversario Bespoken - Buenos Aires 2022</i></p>
+                                </div>
+                            </div>
+                        </div>
+                        :
+                        <div className="bespoken__col" style={{ width: '100%' }}>
+                            <h2 className="bespoken__subtitle" style={{ textAlign: 'center', width: '100%' }}>
+                                Client's Experience
+                            </h2>
+                            <div className="bespoken__row" style={{ alignItems: isMobile ? '' : 'flex-start' }}>
+                                <div className="bespoken__col">
+                                    <h3 className="bespoken__subtitle">
+                                        Gift boxes
+                                    </h3>
+                                    <p className="bespoken__text">
+                                        “Dear Dany, thank you for the love put into everything. I discover loving details.”
+                                        <br /><br />
+                                        “Thanks to you, it's felt when things are done with love!”
+                                        <br /><br />
+                                        “Hi! Really lovely, she loved it! She said: What a presentation! Spectacular and the seal gives it a very special touch. I am very happy and I look great! Thank you very much, God bless you”.
+                                        <br /><br />
+                                        “I'm so proud to be your friend, every experience is incredible and unique! But you always have more and surprise me. The world is yours, friend!”
+                                        <br /><br />
+                                        “The delicate and personal touch you give to the boxes is tremendously beautiful.”
+                                        <br /><br />
+                                        “She loved it, Daniela! Thank you. The coffee tastes great! Everything is amazing, top marks”.
+                                        <br /><br />
+                                        “She absolutely LOVED IT”!
+                                        <br /><br />
+                                        “She loved it! It was beautiful, congratulations Dani. Everything is so well taken care of, with love and attention to detail. The curation of the photos simply WOW. The level of personalization in the attention, patience, and assembly of the gift is simply impeccable. I knew I could trust you. Pure BESPOKEN magic! Thank you for being my accomplice”!
+                                        <br /><br />
+                                    </p>
+                                </div>
+                                <div className="bespoken__col">
+                                    <h3 className="bespoken__subtitle">
+                                        Adornments & Bouquets
+                                    </h3>
+                                    <p className="bespoken__text">
+                                        “Delicate, beautiful, unique! Thank you for your good taste and dedication. We love and value your spectacular work”.
+                                        <br /><br />
+                                        “A beauty! Beautiful flowers, beautiful presentation!”
+                                        <br /><br />
+                                        “Your work highlights the beauty of my girls”.
+                                        <br /><br />
+                                        “She loved it! It was beautiful, congratulations Dani. Everything is so well taken care of, with love and attention to detail. The curation of the photos simply WOW. The level of personalization in the attention, patience, and assembly of the gift is simply impeccable. I knew I could trust you. Pure BESPOKEN magic! Thank you for being my accomplice”!
+                                        <br /><br />
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="bespoken__row" >
+                                <div className="bespoken__col">
+                                    <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" loading='lazy' />
+                                    <p><i>Bespoken's One Year anniversary - Buenos Aires 2022</i></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div >
         )
     }
 
@@ -256,7 +356,7 @@ export default function Bespoken({ page }: Props) {
                             </div>
                         </div>
                         : ''}
-                    {products ? !images.length ?
+                    {products ? !images.length && loading.products ?
                         <div>
                             <span className="loader"></span>
                             <p>Connecting with Pinterest...</p>
@@ -300,7 +400,7 @@ export default function Bespoken({ page }: Props) {
                 </div>
                 {lang === 'es' ?
                     <div className="bespoken__row">
-                        <div className="bespoken__col" style={{ width: '45vw' }}>
+                        <div className="bespoken__col" style={{ width: '70vw' }}>
                             <h2 className="bespoken__subtitle">
                                 Propuesta
                             </h2>
@@ -358,7 +458,7 @@ export default function Bespoken({ page }: Props) {
                     </div>
                     :
                     <div className="bespoken__row">
-                        <div className="bespoken__col" style={{ width: '45vw' }}>
+                        <div className="bespoken__col" style={{ width: '70vw' }}>
                             <h2 className="bespoken__subtitle">
                                 Proposal
                             </h2>
@@ -409,9 +509,11 @@ export default function Bespoken({ page }: Props) {
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
                                 That day the weather wasn’t sunny and there was in fact some rain predicted in the forecast, so we had to move the wedding inside the building. Talk about plans changing and readjusting! But, it turned out amazing and we enjoyed it so much!
                             </p>
-                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                Enjoy our photos!
-                            </p>
+                            {wedding.length ?
+                                <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                    Enjoy our photos!
+                                </p>
+                                : ''}
                         </div>
                     </div>}
                 <br /><br />
@@ -438,10 +540,13 @@ export default function Bespoken({ page }: Props) {
                     {wedding.length ?
                         <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">See more ➤</button></a>
                         :
-                        <div>
-                            <span className="loader"></span>
-                            <p>Connecting with Pinterest...</p>
-                        </div>}
+                        loading.wedding ?
+                            <div style={{ textAlign: 'center' }}>
+                                <span className="loader"></span>
+                                <p>Connecting with Pinterest...</p>
+                            </div>
+                            : ''
+                    }
                 </div>
             </div>
         )

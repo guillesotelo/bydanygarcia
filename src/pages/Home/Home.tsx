@@ -6,6 +6,7 @@ import { AppContext } from '../../AppContext'
 import { postType } from '../../types'
 import LandingDany from '../../assets/images/landing-dany.png'
 import Button from '../../components/Button/Button'
+import { APP_COLORS } from '../../constants/app'
 
 export default function Home() {
     const [showUp, setShowUp] = useState(false)
@@ -85,30 +86,37 @@ export default function Home() {
             </div>
             <p className="home__landing-text">
                 {lang === 'es' ?
-                    'Hace algunos años, cuando empecé a bajar la velocidad y comencé mi viaje interior, la escritura se convirtió en una forma constante de expresar mis pensamientos. Las palabras juntas se convirtieron en una manera de comunicarme y conectar con otros sobre procesos procesos de la vida similares.'
+                    <>
+                        <p>
+                            Hace algunos años, mientras ralentizaba y tranquilizaba mi vida un poco, una chispa interna y espiritual brillaba como nunca antes lo había hecho. Comencé a conectar con las palabras de otras personas maravillosas, mientras me tomaba también el tiempo para escuchar mis propios pensamientos. Fue un avance profundo en mi vida, y la escritura se convirtió en una forma de expresar lo que estaba sucediendo. Al compartir algunas de mis escrituras con otros, vi cómo un puente de comunicación me conectaba con sus experiencias también.
+                        </p>
+                        <p>
+                            Nunca pensé que encontraría tanto disfrute, creatividad, cambio, sanación y crecimiento.
+                        </p>
+                        <p>
+                            Mi intención con este blog es tener un proyecto secundario <strong>en evolución</strong>, un espacio en línea donde pueda escribir y compartir libremente lo que deseo y donde las personas puedan venir a leer si así lo desean. Como madre y persona, a veces no hay mucho tiempo, o puede que no me sienta con ánimo de crear contenido, pero vuelvo a los mismos pensamientos de dar pequeños pasos, ir un día a la vez, olvidando las expectativas, la aprobación y simplemente disfrutar de mi tiempo haciéndolo.
+                        </p>
+                    </>
                     :
-                    'Some years ago as I started slowing down and began my inward journey, writing became a constant form of expression for my thoughts.  My words put together became a way to communicate and connect with others about relatable life processes. '
-                }
-            </p>
-            <p className="home__landing-text">
-                {lang === 'es' ?
-                    'Nunca pensé que encontraría tanta creatividad y significado dentro de mí, pero eso fue lo que sucedió cuando pare y, en silencio, escuché.'
-                    :
-                    'I never thought I would find so much creativity and meaning within myself, but this is what happened when I stopped the rush and in silence, listened.'
-                }
-            </p>
-            <p className="home__landing-text">
-                {lang === 'es' ?
-                    'Mi intención con este blog es tener un proyecto en constante evolución, un lugar en línea donde pueda escribir y compartir libremente lo que deseo y donde las personas puedan venir a leer contenido refrescante. Como mamá, a veces no hay mucho tiempo, pero he aplicado la estrategia de dar pequeños pasos y avanzar un día a la vez.'
-                    :
-                    'My intention with this blog is to have an evolving side project, an online-space were I can freely write and share what I want to and where people can come and read refreshing content.  As a mom, sometimes there is not much time, but I have applied the strategy of taking little steps and going one day at a time.'
+                    <>
+                        <p>
+                            Some years ago, as I slowed and quieted my life down, an inward and spiritual search of myself sparkled as it had never done before. I started connecting with the words of other wonderful people and mentors, while taking the time to listen to my own thoughts and feelings. It was a deep breakthrough in my life, and writing became a way to express what was happening. As I shared some of my writings with others, I saw how a bridge of communication connected me with their experiences, too.
+                        </p>
+                        <p>
+                            I never thought I would find so much enjoyment, creativity, change, healing and growth.
+                        </p>
+                        <p>
+                            My intention with this blog is to have an <strong>evolving side project</strong>, an online space where I can freely write and share what I want to and where people can come and read if they would like. As a mom and person, sometimes there is not much time, or I may not feel in the mood for creating content, but I come back to the same thoughts of taking little steps, going one day at a time, forgetting about the expectations, the approval and just, simply, enjoy my time doing it.
+                        </p>
+                    </>
                 }
             </p>
 
             <Button
-                label={lang === 'es' ? 'Leer más' : 'Read more'}
+                label={lang === 'es' ? 'Conóceme' : 'Get to know me'}
                 handleClick={() => history.push(`/about`)}
-                bgColor='#ECE7E6'
+                bgColor={APP_COLORS.GRASS}
+                textColor='white'
             />
 
             <p className="home__landing-caption">
@@ -124,7 +132,6 @@ export default function Home() {
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=the_journey_within`)}
-                bgColor='#ECE7E6'
             />
 
             <p className="home__landing-caption">
@@ -140,11 +147,10 @@ export default function Home() {
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=embracing_motherhood`)}
-                bgColor='#ECE7E6'
             />
 
             <p className="home__landing-caption">
-                "I love an easy going morning at home with soft music, a little sun ray and <strong>mates</strong> anywhere I can get my notebook and write."
+                "I love an easy going morning at home with soft music, a little sunray and <i>mates</i>.<br /> Just a perfect scenario to get my notebook and write."
             </p>
             <h2 className="home__landing-title">ROAMING SOUL</h2>
             <h3 className="home__landing-subtitle">Journey Through Life and Travel</h3>
@@ -156,7 +162,6 @@ export default function Home() {
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=roaming_soul`)}
-                bgColor='#ECE7E6'
             />
         </div>
         {/* <div className="page__header">

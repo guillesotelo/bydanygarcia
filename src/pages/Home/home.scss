@@ -2,7 +2,7 @@
     &__container {
         display: flex;
         flex-direction: column;
-        padding: 3vw 0 30vw 0;
+        padding: 3vw 0 30rem 0;
     }
 
     &__postlist {
@@ -41,7 +41,7 @@
         }
 
         &>button {
-            margin-top: 2rem;
+            margin-top: 4rem;
         }
 
         &-caption {
