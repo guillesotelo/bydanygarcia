@@ -6,12 +6,29 @@ import Carousel1 from '../../assets/images/carousel1.png'
 import Carousel2 from '../../assets/images/carousel2.png'
 import Carousel3 from '../../assets/images/carousel3.png'
 import Carousel4 from '../../assets/images/carousel4.png'
+import Carousel5 from '../../assets/images/carousel5.jpg'
+import Carousel6 from '../../assets/images/carousel6.jpg'
+import Carousel7 from '../../assets/images/carousel7.jpg'
+import Carousel2_1 from '../../assets/images/carousel2-1.png'
+import Carousel2_2 from '../../assets/images/carousel2-2.jpg'
+import Carousel2_3 from '../../assets/images/carousel2-3.jpg'
+import Carousel2_4 from '../../assets/images/carousel2-4.jpg'
+import Carousel2_5 from '../../assets/images/carousel2-5.jpeg'
+import Carousel2_6 from '../../assets/images/carousel2-6.jpg'
+import Carousel2_7 from '../../assets/images/carousel2-7.jpg'
+import BespokenContact from '../../assets/images/bespoken-contact.jpg'
 import OurDiyWedding1 from '../../assets/images/ourdiywedding1.png'
 import { AppContext } from '../../AppContext'
 import { useHistory, useLocation } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
+import LandingBespoken from '../../assets/images/bespoken-landing.png'
+import FlowerAdornments from '../../assets/images/products-adornments.jpg'
+import BespokenBook from '../../assets/images/bespoken-book.png'
+import Button from '../../components/Button/Button'
+import { APP_COLORS } from '../../constants/app'
+import { whatsappMessage } from '../../constants/whatsappMessage'
 
 type Props = {
     page?: string
@@ -53,6 +70,39 @@ export default function Bespoken({ page }: Props) {
         {
             image: Carousel4
         },
+        {
+            image: Carousel5
+        },
+        {
+            image: Carousel6
+        },
+        {
+            image: Carousel7
+        },
+    ]
+
+    const carouselImages2 = [
+        {
+            image: Carousel2_1
+        },
+        {
+            image: Carousel2_2
+        },
+        {
+            image: Carousel2_3
+        },
+        {
+            image: Carousel2_4
+        },
+        {
+            image: Carousel2_5
+        },
+        {
+            image: Carousel2_6
+        },
+        {
+            image: Carousel2_7
+        },
     ]
 
     useEffect(() => {
@@ -85,7 +135,7 @@ export default function Bespoken({ page }: Props) {
 
     const getPinterestImages = async () => {
         try {
-            if (page && page.includes('WEDDING')) {
+            if (page && (page.includes('WEDDING') || page.includes('BODA'))) {
                 setLoading({ ...loading, wedding: true })
                 const _wedding = await scrapeUrl({ url: weddingUrl })
                 if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
@@ -121,9 +171,18 @@ export default function Bespoken({ page }: Props) {
 
     const getPinterestUrl = (url: string) => `https://www.pinterest.se/pin/create/button/?url=${encodeURIComponent(url)}`
 
+    const whatsappMe = () => {
+        const anchor = document.createElement('a')
+        anchor.href = `https://wa.me/460729678696?text=${encodeURIComponent(whatsappMessage)}}`
+        anchor.target = '_blank'
+        anchor.click()
+    }
     const renderStory = () => {
         return (
             <div className="bespoken__container">
+                <div className="home__landing-image-wrapper" style={{ marginTop: isMobile ? '-1rem' : '-5rem' }}>
+                    <img src={LandingBespoken} alt="Bespoken" className="home__landing-image" />
+                </div>
                 <div className="page__header"><p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
@@ -206,13 +265,46 @@ export default function Bespoken({ page }: Props) {
                         }
                     </div>
                 </div>
+
                 <div className="bespoken__row" style={{ marginTop: '6rem', width: '100vw' }}>
                     <Carousel cards={carouselImages} />
                 </div>
 
+                <Button
+                    label={lang === 'es' ? 'Ver productos' : 'View products'}
+                    handleClick={() => history.push(`/bespoken/products`)}
+                    style={{ transform: 'scale(1.3)', margin: '1rem 0 4rem 0' }}
+                    bgColor={APP_COLORS.GRASS}
+                    textColor='white'
+                />
+
                 <div className="bespoken__row" >
-                    <div className="bespoken__col" style={{ margin: '4rem' }}>
-                        <img src='https://i.pinimg.com/736x/1f/b3/70/1fb3705db08c44a8af4133f6b2baf2b1.jpg' alt="Story Image" className="bespoken__story-img" loading='lazy' />
+                    <div className="bespoken__col" style={{ margin: '4rem 0 0 0' }}>
+                        <img
+                            style={{ height: '80vh' }}
+                            src={BespokenContact}
+                            alt="Story Image"
+                            className="bespoken__story-img"
+                            loading='lazy' />
+                    </div>
+                </div>
+
+                <div className="bespoken__row" >
+                    <div className="bespoken__col" style={{ margin: '0 0 4rem' }}>
+                        <h2 className="bespoken__subtitle" style={{ alignSelf: 'center', textAlign: 'center', margin: '0 0 2rem 0' }}>
+                            {lang === 'es' ?
+                                'Necesitas un regalo o arreglo floral personalizado?'
+                                :
+                                'Are you looking for a personalized gift or adornment?'
+                            }
+                        </h2>
+                        <Button
+                            label={lang === 'es' ? 'Contáctame' : ''}
+                            handleClick={() => whatsappMe()}
+                            style={{ transform: 'scale(1.3)' }}
+                            bgColor={APP_COLORS.GRASS}
+                            textColor='white'
+                        />
                     </div>
                 </div>
 
@@ -257,17 +349,20 @@ export default function Bespoken({ page }: Props) {
                                         <br /><br />
                                         “Tu trabajo resalta la belleza de mis nenas”.
                                         <br /><br />
-                                        “Le encanto! Quedo hermoso, te felicito Dani. Está todo tan bien cuidado, con amor y atención al detalle. La curación de las fotos simplemente WOW. El nivel de personalización en la atención, paciencia y armado del regalo es simplemente impecable. Sabía que puedo confiar en vos. Pura magia BESPOKEN! Gracias por ser mi complice”!
-                                        <br /><br />
                                     </p>
                                 </div>
                             </div>
-                            <div className="bespoken__row" >
+                            {/* <div className="bespoken__row" >
                                 <div className="bespoken__col">
-                                    <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" loading='lazy' />
+                                    <img
+                                        style={{ height: '60vh', width: 'auto' }}
+                                        src={BespokenOneYear}
+                                        alt="Story Image"
+                                        className="bespoken__story-img"
+                                        loading='lazy' />
                                     <p><i>1° Aniversario Bespoken - Buenos Aires 2022</i></p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         :
                         <div className="bespoken__col" style={{ width: '100%' }}>
@@ -309,20 +404,39 @@ export default function Bespoken({ page }: Props) {
                                         <br /><br />
                                         “Your work highlights the beauty of my girls”.
                                         <br /><br />
-                                        “She loved it! It was beautiful, congratulations Dani. Everything is so well taken care of, with love and attention to detail. The curation of the photos simply WOW. The level of personalization in the attention, patience, and assembly of the gift is simply impeccable. I knew I could trust you. Pure BESPOKEN magic! Thank you for being my accomplice”!
-                                        <br /><br />
                                     </p>
                                 </div>
                             </div>
-                            <div className="bespoken__row" >
+                            {/* <div className="bespoken__row" >
                                 <div className="bespoken__col">
-                                    <img src={BespokenOneYear} alt="Story Image" className="bespoken__story-img" loading='lazy' />
+                                    <img
+                                        style={{ height: '60vh', width: 'auto' }}
+                                        src={BespokenOneYear}
+                                        alt="Story Image"
+                                        className="bespoken__story-img"
+                                        loading='lazy' />
                                     <p><i>Bespoken's One Year anniversary - Buenos Aires 2022</i></p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     }
                 </div>
+
+                <div className="bespoken__row" style={{ margin: '6rem', width: '100vw' }}>
+                    <Carousel cards={carouselImages2} />
+                </div>
+
+                <div className="bespoken__row" >
+                    <div className="bespoken__col">
+                        <img
+                            style={{ height: '80vh', width: 'auto' }}
+                            src={BespokenBook}
+                            alt="Story Image"
+                            className="bespoken__story-img"
+                            loading='lazy' />
+                    </div>
+                </div>
+
             </div >
         )
     }
@@ -343,15 +457,15 @@ export default function Bespoken({ page }: Props) {
                     {!products ?
                         <div className="bespoken__product-cards">
                             <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=arrangements')}>
-                                <p className="bespoken__product-card-title">Flower<br />Arrangements</p>
+                                <p className="bespoken__product-card-title">FLOWER<br />ARRANGEMENTS</p>
                                 <img src='https://i.postimg.cc/QMSsn3L9/Screen-Shot-2023-11-02-at-21-47-24.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=adornments')}>
-                                <p className="bespoken__product-card-title">Flower<br />Adornments</p>
-                                <img src='https://i.pinimg.com/564x/e5/81/86/e58186617e8c5ec8eb6e2f55ad438901.jpg' alt="Bespoken" className="bespoken__product-card-img" />
+                                <p className="bespoken__product-card-title">FLOWER<br />ADORNMENTS</p>
+                                <img src={FlowerAdornments} alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=gifts')}>
-                                <p className="bespoken__product-card-title">Bespoken<br />Gifts</p>
+                                <p className="bespoken__product-card-title">BESPOKEN<br />GIFTS</p>
                                 <img src='https://i.postimg.cc/m2wypXXz/Screen-Shot-2023-11-02-at-21-52-53.png' alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                         </div>
@@ -383,7 +497,7 @@ export default function Bespoken({ page }: Props) {
                                         </a>
                                     </div>)}
                             </div>
-                            <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">See more ➤</button></a>
+                            <a href={pinterestPage} target='_blank'><button className="bespoken__product-seemore">{lang === 'es' ? 'Ver más' : 'See more'} ➤</button></a>
                         </div>
                         : ''}
                 </div>
@@ -391,12 +505,17 @@ export default function Bespoken({ page }: Props) {
         )
     }
 
+
+    const parsePageTitle = (page: string) => TEXT[lang][page.toLocaleLowerCase().split(' ').join('_')]
+
+    console.log(page)
+
     const renderDiyWedding = () => {
         return (
             <div className="bespoken__container">
                 <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
                 <div className="page__header">
-                    <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
+                    <h1 className="page__header-title">{page ? parsePageTitle(page) : ''}</h1>
                 </div>
                 {lang === 'es' ?
                     <div className="bespoken__row">
@@ -613,19 +732,39 @@ export default function Bespoken({ page }: Props) {
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/story')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['story']}</h2>
-                    <h3 className="bespoken__section-description">A bit of the brand's history</h3>
+                    <h3 className="bespoken__section-description">
+                        {lang === 'es' ?
+                            'Un pedacito de la historia de la marca' :
+                            `A bit of the brand's history`
+                        }
+                    </h3>
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/products')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['products']}</h2>
-                    <h3 className="bespoken__section-description">See what's being made at the workshop</h3>
+                    <h3 className="bespoken__section-description">
+                        {lang === 'es' ?
+                            'Mira lo que se hace en el taller' :
+                            `See what's being made at the workshop`
+                        }
+                    </h3>
                 </div>
-                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/diy-wedding')}>
-                    <h2 className="bespoken__section-title">{TEXT[lang]['our_diy_wedding']}</h2>
-                    <h3 className="bespoken__section-description">Our way of celebrating commitment</h3>
+                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
+                    <h2 className="bespoken__section-title">{TEXT[lang]['our_handcrafted_wedding']}</h2>
+                    <h3 className="bespoken__section-description">
+                        {lang === 'es' ?
+                            'Nuestra forma de celebrar el compromiso' :
+                            `Our way of celebrating commitment`
+                        }
+                    </h3>
                 </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/values')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['values']}</h2>
-                    <h3 className="bespoken__section-description">The heartbeat upon the making</h3>
+                    <h3 className="bespoken__section-description">
+                        {lang === 'es' ?
+                            'El latido de corazón al hacer' :
+                            `The heartbeat upon the making`
+                        }
+                    </h3>
                 </div>
             </div>
         )
@@ -635,5 +774,5 @@ export default function Bespoken({ page }: Props) {
         page === 'STORY' ? renderStory() :
             page === 'VALUES' ? renderValues() :
                 page === 'PRODUCTS' ? renderProducts() :
-                    page === 'DIY WEDDING' ? renderDiyWedding() : null
+                    page && page.includes('WEDDING') ? renderDiyWedding() : null
 }

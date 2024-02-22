@@ -12,11 +12,12 @@
 
     &__list {
         &-wrapper {
-            overflow-x: hidden;
+            overflow: hidden;
             width: 100%;
         }
 
         width: fit-content;
+        height: 50vh;
         gap: 1rem;
         display: flex;
         flex-direction: row;

@@ -4,9 +4,10 @@ import PostCard from '../../components/PostCard/PostCard'
 import { getAllPosts } from '../../services'
 import { AppContext } from '../../AppContext'
 import { postType } from '../../types'
-import LandingDany from '../../assets/images/landing-dany.png'
+import LandingDany from '../../assets/images/landing-1.jpg'
 import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
+import { TEXT } from '../../constants/lang'
 
 export default function Home() {
     const [showUp, setShowUp] = useState(false)
@@ -117,13 +118,14 @@ export default function Home() {
                 handleClick={() => history.push(`/about`)}
                 bgColor={APP_COLORS.GRASS}
                 textColor='white'
+                style={{ transform: 'scale(1.2)' }}
             />
 
             <p className="home__landing-caption">
                 "There is nothing more lovely than the smell of fresh coffee, the sound of people chatting and a little tune playing at a cozy coffee house."
             </p>
-            <h2 className="home__landing-title">THE JOURNEY WITHIN</h2>
-            <h3 className="home__landing-subtitle">Finding Inspiration and Personal Growth</h3>
+            <h2 className="home__landing-title">{TEXT[lang]['inspiration']}</h2>
+            <h3 className="home__landing-subtitle">{TEXT[lang]['inspiration_cap']}</h3>
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
@@ -131,7 +133,8 @@ export default function Home() {
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => history.push(`/blog?category=the_journey_within`)}
+                handleClick={() => history.push(`/blog?category=inspiration`)}
+                style={{ transform: 'scale(1.3)' }}
             />
 
             <p className="home__landing-caption">
@@ -147,6 +150,7 @@ export default function Home() {
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=embracing_motherhood`)}
+                style={{ transform: 'scale(1.3)' }}
             />
 
             <p className="home__landing-caption">
@@ -162,6 +166,7 @@ export default function Home() {
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=roaming_soul`)}
+                style={{ transform: 'scale(1.3)' }}
             />
         </div>
         {/* <div className="page__header">
@@ -172,10 +177,10 @@ export default function Home() {
             <div className="home__postlist">
                 <CategoryCard
                     images={journeyWithin}
-                    title='The Journey Within'
+                    title='Inspiration'
                     count={journeyWithin.length + ' posts'}
-                    category='the_journey_within'
-                // subtitle='Finding Inspiration and Personal Growth'
+                    category='inspiration'
+                // subtitle='Sharing moments of deep awareness '
                 />
                 <CategoryCard
                     images={embracingMotherhood}

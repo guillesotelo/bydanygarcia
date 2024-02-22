@@ -187,10 +187,10 @@ const App: React.FC = () => {
           </div>
         </Route>
 
-        <Route path="/bespoken/diy-wedding">
+        <Route path="/bespoken/our_handcrafted_wedding">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
-            <Bespoken page='DIY WEDDING' />
+            <Bespoken page='OUR HANDCRAFTED WEDDING' />
             <Footer />
           </div>
         </Route>

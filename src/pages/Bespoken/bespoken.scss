@@ -90,6 +90,7 @@
             align-items: center;
             margin-top: 2rem;
             gap: 1rem;
+            height: fit-content;
         }
 
         &-image {
@@ -153,9 +154,9 @@
             justify-content: center;
             align-items: center;
             width: 18vw;
-            height: 18vw;
+            height: 22vw;
             border: 1px solid lighgray;
-            border-radius: 50%;
+            border-radius: 1rem;
             background-color: #FFF9F5;
             box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.152);
             cursor: pointer;
@@ -188,8 +189,8 @@
             }
 
             &-img {
-                width: 18vw;
-                height: auto;
+                width: auto;
+                height: 22VW;
                 z-index: 0;
                 position: absolute;
                 opacity: 1;

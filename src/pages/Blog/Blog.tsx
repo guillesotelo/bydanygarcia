@@ -3,6 +3,7 @@ import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
 import { catMapType, postType } from '../../types'
 import { AppContext } from '../../AppContext'
+import { TEXT } from '../../constants/lang'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<any>>
@@ -63,23 +64,19 @@ export default function Blog({ setPost }: Props) {
         return parsedDate < twoHoursAgo
     }
 
-    const catMap: catMapType = {
-        'the_journey_within': 'Finding Inspiration and Personal Growth',
-        'embracing_motherhood': 'A Rollercoaster of Love and Learning',
-        'roaming_soul': 'Journeying Through Life and Travel',
-    }
+    const parseCategory = (cat: string) => TEXT[lang][cat]
 
     return (
         <div className='blog__container'>
             <div className="page__header">
-                <h4 className="page__header-title">{category ? category.replace(/_/g, ' ').toUpperCase() : 'OPEN JOURNAL'}</h4>
-                {category ? <h4 className="page__header-subtitle">{catMap[category]}</h4> : ''}
+                <h4 className="page__header-title">{category ? parseCategory(category) : 'OPEN JOURNAL'}</h4>
+                {category ? <h4 className="page__header-subtitle">{TEXT[lang][`${category}_cap`]}</h4> : ''}
                 <p className="blog__caption">
                     {!category ?
                         lang === 'es' ?
-                            'Me gusta plasmar palabras a mis pensamientos y compartirlos. Me gusta llevar un registro de historias y fotografías. Esto me da un sentido de propósito y satisfacción personal. Pero también es una forma de conectar, acompañar y compartir palabras que pueden sanar, empoderar, inspirar o simplemente sacar una sonrisa.'
+                            'Cada publicación lleva consigo una chispa de alegría y vivencia personal. Se acompañan de fotos que buscan realzar la historia y concluyen con un deseo de conexión.'
                             :
-                            'I like to put word to my thoughts and share them.  I like to keep record of stories and photographs. It gives me a sense of purpose and personal fulfillment. But also, it is a way to connect, accompany and share words can that can heal, empower, inspire or just bring out a smile.'
+                            'In each post, there is a little spark of joy and personal experience. There are photos that try to complement the story and a closing that wishes for connection.'
                         : ''
                     }
                 </p>

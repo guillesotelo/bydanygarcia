@@ -164,17 +164,17 @@ export default function Header({ search, setSearch, logo }: Props) {
                             <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=the_journey_within')}>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['inspiration']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=embracing_motherhood')}>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=motherhood')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['motherhood']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=roaming_soul')}>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=life_abroad')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['life_abroad']}
                                     </h4>
@@ -205,9 +205,9 @@ export default function Header({ search, setSearch, logo }: Props) {
                                         {TEXT[lang]['products']}
                                     </h4>
                                 </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/diy-wedding')}>
+                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
                                     <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['our_diy_wedding']}
+                                        {TEXT[lang]['our_handcrafted_wedding']}
                                     </h4>
                                 </div>
                                 {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>

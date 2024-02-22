@@ -30,7 +30,7 @@
 
             &-wrapper {
                 width: 100vw;
-                height: 100vh;
+                height: auto;
                 margin-bottom: 6rem;
             }
         }
@@ -64,12 +64,23 @@
 @media only screen and (max-width: 640px) {
     .home {
         &__container {
-            padding: 16vw 0 60vw 0;
+            padding: 13vw 0 60vw 0;
         }
 
         &__postlist {
             gap: 6vw;
             margin-top: 5vw;
+        }
+
+        &__landing {
+
+            &-image {
+
+                &-wrapper {
+                    margin-bottom: 1rem;
+                }
+            }
+
         }
     }
 }
