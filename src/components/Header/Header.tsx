@@ -159,11 +159,11 @@ export default function Header({ search, setSearch, logo }: Props) {
                 : ''}
             {!isMobile ?
                 <>
-                    <div className="header__items" style={{ height: bigHeader ? '10vw' : '4vw' }}>
+                    <div className="header__items" style={{ height: bigHeader ? '5rem' : '2rem' }}>
                         <div className="header__item">
                             <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
-                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
                                 <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['inspiration']}
@@ -194,7 +194,7 @@ export default function Header({ search, setSearch, logo }: Props) {
                         <div className="header__item">
                             <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
-                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem'  }}>
                                 <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['story_of_brand']}
@@ -235,7 +235,7 @@ export default function Header({ search, setSearch, logo }: Props) {
                                 className="header__logo-image"
                                 style={{
                                     height: bigHeader ? '6vw' : logo ? '1.8vw' : '3vw',
-                                    maxHeight: logo ? '2.5vw' : '',
+                                    maxHeight: logo ? '2.5rem' : '',
                                     margin: logo ? 0 : bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
                                 }}
                                 src={logo || byDanyLogo}

@@ -123,7 +123,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p className="policy__text">Utilizamos la información que recopilamos para ayudarnos a detectar posibles riesgos y fraudes (en particular, tu dirección IP), y más en general, para mejorar y optimizar nuestro Sitio (por ejemplo, mediante la generación de análisis sobre cómo nuestros clientes navegan e interactúan con el Sitio, y para evaluar el éxito de nuestras campañas de marketing y publicidad).</p>
     
         <h2 className="policy__subtitle">Compartir tu información personal</h2>
-        <p className="policy__text">No compartimos tu información personal con terceros. Sin embargo, podemos utilizar servicios de terceros para ayudarnos a operar nuestro Sitio, como Google Analytics, que puede recopilar, usar y compartir tu información para ayudarnos a comprender cómo se utiliza nuestro Sitio. Puedes leer más sobre cómo Google utiliza tu información personal aquí: <a href="https://www.google.com/intl/es/policies/privacy/">https://www.google.com/intl/es/policies/privacy/</a>. También puedes optar por no participar en Google Analytics aquí: <a href="https://tools.google.com/dlpage/gaoptout">https://tools.google.com/dlpage/gaoptout</a>.</p>
+        <p className="policy__text">No compartimos tu información personal con terceros. Sin embargo, podemos utilizar servicios de terceros para ayudarnos a operar nuestro Sitio, como Google Analytics, que puede recopilar, usar y compartir tu información para ayudarnos a comprender cómo se utiliza nuestro Sitio. Puedes leer más sobre cómo Google utiliza tu información personal aquí: <a href="https://www.google.com/intl/es/policies/privacy/" style="color: #5D8C8C;">https://www.google.com/intl/es/policies/privacy/</a>. También puedes optar por no participar en Google Analytics aquí: <a href="https://tools.google.com/dlpage/gaoptout" style="color: #5D8C8C;">https://tools.google.com/dlpage/gaoptout</a>.</p>
     
         <h2 className="policy__subtitle">Seguridad</h2>
         <p className="policy__text">Tomamos precauciones razonables para proteger tu información personal y evitar el acceso, uso o divulgación no autorizados. Sin embargo, no podemos garantizar que tu información personal estará siempre segura, ya que ningún método de transmisión a través de Internet o almacenamiento electrónico es 100% seguro.</p>
@@ -132,7 +132,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p className="policy__text">Es posible que actualicemos esta política de privacidad de vez en cuando para reflejar, por ejemplo, cambios en nuestras prácticas u otras razones operativas, legales o regulatorias.</p>
     
         <h2 className="policy__subtitle">Contáctanos</h2>
-        <p className="policy__text">Para obtener más información sobre nuestras prácticas de privacidad, si tienes preguntas o si deseas presentar una queja, contáctanos por correo electrónico a <a href="mailto:bespoken.ar@gmail.com">bespoken.ar@gmail.com</a>.</p>`,
+        <p className="policy__text">Para obtener más información sobre nuestras prácticas de privacidad, si tienes preguntas o si deseas presentar una queja, contáctanos por correo electrónico a <a href="mailto:bespoken.ar@gmail.com" style="color: #5D8C8C;">bespoken.ar@gmail.com</a>.</p>`,
 
         //ABOUT
         'about_me': `Sobre mí`,
@@ -271,7 +271,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p className="policy__text">We may update this privacy policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons.</p>
 
         <h2 className="policy__subtitle">Contact us</h2>
-        <p className="policy__text">For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at <a href="mailto:bespoken.ar@gmail.com">bespoken.ar@gmail.com</a>.</p>`,
+        <p className="policy__text">For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at <a href="mailto:bespoken.ar@gmail.com" style="color: #5D8C8C;">bespoken.ar@gmail.com</a>.</p>`,
 
         //ABOUT
         'about_me': `About me`,

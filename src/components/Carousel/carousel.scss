@@ -72,5 +72,31 @@
                 width: 45vw;
             }
         }
+
+        &__list {
+            width: fit-content;
+            height: 70vw;
+            gap: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            transition: 300ms;
+        }
+
+        &__card {
+            &-container {
+                height: 100%;
+                width: 50vw;
+            }
+
+            &-img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                transition: .4s;
+            }
+        }
+
     }
 }

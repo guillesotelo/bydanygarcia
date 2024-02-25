@@ -6,6 +6,7 @@ export type postType = {
     description?: string
     overlap?: string
     tags?: string
+    category?: string
     rawData?: string
     image?: string
     sideImgs?: string

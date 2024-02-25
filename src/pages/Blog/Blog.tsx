@@ -46,7 +46,12 @@ export default function Blog({ setPost }: Props) {
         if (posts && Array.isArray(posts)) {
             if (cat) {
                 setShowUp(false)
-                const filtered = posts.filter((post: postType) => post.tags && post.tags.toLowerCase().includes(cat.replace(/_/g, '')))
+                const filtered = posts.filter((post: postType) => {
+                    if (post.tags && post.tags.toLowerCase().includes(cat.replace(/_/g, ''))
+                        || post.category && post.category.toLowerCase().includes(cat.replace(/_/g, ' '))) {
+                        return post
+                    }
+                })
                 setAllPosts(isLoggedIn ? filtered : filtered.filter(post => post.published))
             } else {
                 setShowUp(false)

@@ -12,9 +12,6 @@ import { TEXT } from '../../constants/lang'
 export default function Home() {
     const [showUp, setShowUp] = useState(false)
     const [allPosts, setAllPosts] = useState<any[]>([])
-    const [journeyWithin, setJourneyWithin] = useState<string[]>([])
-    const [embracingMotherhood, setEmbracingMotherhood] = useState<string[]>([])
-    const [roamingSoul, setRoamingSoul] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
     const { lang, isMobile, isLoggedIn, setPost } = useContext(AppContext)
     const history = useHistory()
@@ -22,10 +19,6 @@ export default function Home() {
     useEffect(() => {
         getPosts()
     }, [])
-
-    useEffect(() => {
-        getCategoryImages()
-    }, [allPosts])
 
     useEffect(() => {
         if (allPosts.length && !showUp) {
@@ -58,26 +51,6 @@ export default function Home() {
         const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
         const parsedDate = new Date(dateToCheck)
         return parsedDate < twoHoursAgo
-    }
-
-    const getCategoryImages = () => {
-        const inspiration: string[] = []
-        const motherhood: string[] = []
-        const lifeabroad: string[] = []
-        allPosts.forEach((post: postType) => {
-            const imageUrl = post.imageUrl || ''
-            const sideImages = JSON.parse(post.sideImgs || '[]') || []
-            const postImage = imageUrl ? imageUrl : sideImages.length ? sideImages[0] : ''
-            const tags = post.tags ? post.tags.toLowerCase() : ''
-            if (postImage) {
-                if (tags.includes('inspiration') || tags.includes('journey')) inspiration.push(postImage)
-                if (tags.includes('motherhood')) motherhood.push(postImage)
-                if (tags.includes('lifeabroad') || tags.includes('roaming')) lifeabroad.push(postImage)
-            }
-        })
-        setJourneyWithin(inspiration)
-        setEmbracingMotherhood(motherhood)
-        setRoamingSoul(lifeabroad)
     }
 
     return <div className="home__container">
@@ -140,7 +113,7 @@ export default function Home() {
             <p className="home__landing-caption">
                 "As I give myself the freedom to be part and be discovered, I will give people the same opportunity too."
             </p>
-            <h2 className="home__landing-title">EMBRACING MOTHERHOOD</h2>
+            <h2 className="home__landing-title">MOTHERHOOD</h2>
             <h3 className="home__landing-subtitle">A Rollercoaster of Love and Learning</h3>
             {loading ? <span className="loader"></span>
                 :
@@ -149,14 +122,14 @@ export default function Home() {
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => history.push(`/blog?category=embracing_motherhood`)}
+                handleClick={() => history.push(`/blog?category=motherhood`)}
                 style={{ transform: 'scale(1.3)' }}
             />
 
             <p className="home__landing-caption">
                 "I love an easy going morning at home with soft music, a little sunray and <i>mates</i>.<br /> Just a perfect scenario to get my notebook and write."
             </p>
-            <h2 className="home__landing-title">ROAMING SOUL</h2>
+            <h2 className="home__landing-title">LIFE ABROAD</h2>
             <h3 className="home__landing-subtitle">Journey Through Life and Travel</h3>
             {loading ? <span className="loader"></span>
                 :
@@ -165,7 +138,7 @@ export default function Home() {
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => history.push(`/blog?category=roaming_soul`)}
+                handleClick={() => history.push(`/blog?category=life_abroad`)}
                 style={{ transform: 'scale(1.3)' }}
             />
         </div>
@@ -186,7 +159,7 @@ export default function Home() {
                     images={embracingMotherhood}
                     title='Embracing Motherhood'
                     count={embracingMotherhood.length + ' posts'}
-                    category='embracing_motherhood'
+                    category='motherhood'
                 // subtitle='A Rollercoaster of Love and Learning'
                 />
                 <CategoryCard

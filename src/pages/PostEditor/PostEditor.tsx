@@ -18,6 +18,7 @@ const voidData = {
     title: '',
     subtitle: '',
     tags: '',
+    category: '',
     description: '',
     imageUrl: '',
     overlap: '',
@@ -276,6 +277,12 @@ export default function PostEditor({ }: Props) {
                             value={data.tags}
                             updateData={updateData}
                             placeholder='Tags (e.g experience, study, worship)'
+                        />
+                        <InputField
+                            name='category'
+                            value={data.category}
+                            updateData={updateData}
+                            placeholder='Category (Inspiration, Life Abroad...)'
                         />
                     </div>
                     <div className="editor__input-col">

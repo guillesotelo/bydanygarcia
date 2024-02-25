@@ -9,6 +9,9 @@ import Carousel4 from '../../assets/images/carousel4.png'
 import Carousel5 from '../../assets/images/carousel5.jpg'
 import Carousel6 from '../../assets/images/carousel6.jpg'
 import Carousel7 from '../../assets/images/carousel7.jpg'
+import Carousel8 from '../../assets/images/carousel8.jpg'
+import Carousel9 from '../../assets/images/carousel9.jpg'
+import Carousel10 from '../../assets/images/carousel10.jpg'
 import Carousel2_1 from '../../assets/images/carousel2-1.png'
 import Carousel2_2 from '../../assets/images/carousel2-2.jpg'
 import Carousel2_3 from '../../assets/images/carousel2-3.jpg'
@@ -23,7 +26,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
-import LandingBespoken from '../../assets/images/bespoken-landing.png'
+import LandingWedding from '../../assets/images/bespoken-wedding-landing.png'
+import LandingBespoken from '../../assets/images/bespoken-landing.jpg'
 import FlowerAdornments from '../../assets/images/products-adornments.jpg'
 import BespokenBook from '../../assets/images/bespoken-book.png'
 import Button from '../../components/Button/Button'
@@ -78,6 +82,15 @@ export default function Bespoken({ page }: Props) {
         },
         {
             image: Carousel7
+        },
+        {
+            image: Carousel8
+        },
+        {
+            image: Carousel9
+        },
+        {
+            image: Carousel10
         },
     ]
 
@@ -429,7 +442,10 @@ export default function Bespoken({ page }: Props) {
                 <div className="bespoken__row" >
                     <div className="bespoken__col">
                         <img
-                            style={{ height: '80vh', width: 'auto' }}
+                            style={{
+                                height: isMobile ? 'auto' : '80vh',
+                                width: isMobile ? '90vw' : 'auto'
+                            }}
                             src={BespokenBook}
                             alt="Story Image"
                             className="bespoken__story-img"
@@ -513,49 +529,47 @@ export default function Bespoken({ page }: Props) {
     const renderDiyWedding = () => {
         return (
             <div className="bespoken__container">
+                <div className="home__landing-image-wrapper" style={{ marginTop: isMobile ? '-1rem' : '-5rem' }}>
+                    <img src={LandingWedding} alt="Bespoken" className="home__landing-image" />
+                </div>
                 <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? parsePageTitle(page) : ''}</h1>
                 </div>
                 {lang === 'es' ?
                     <div className="bespoken__row">
-                        <div className="bespoken__col" style={{ width: '70vw' }}>
+                        <div className="bespoken__col" style={{ width: isMobile ? '' : '70vw' }}>
                             <h2 className="bespoken__subtitle">
                                 Propuesta
                             </h2>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                Guille me propuso matrimonio una tarde cuando regresábamos de un viaje a la costa. Pasamos por un campo de girasoles y hicimos una parada porque "quería grabar un video con su dron". Mientras yo sostenía a Indie y recogía algunas flores (completamente ajena a lo que estaba sucediendo), me pidió que tomara el control remoto por un minuto y de repente vi cómo se arrodillaba, sosteniendo una cajita roja con un hermoso anillo. Estaba en estado de shock por lo que estaba sucediendo y sentí una profunda emoción en mi cuerpo. Un torrente de pensamientos inundó mi mente con un poco de adrenalina y felicidad. ¡Por supuesto que dije que sí!
+                                Guille me propuso una tarde cuando regresábamos de un viaje de fin de semana a la costa en verano. Pasamos por un campo de girasoles y hicimos una parada porque "quería hacer un video con su dron". Mientras yo sostenía a Indie y recogía flores (totalmente ajena a lo que estaba sucediendo), él me pidió que tomara su control remoto por un minuto, y de repente vi cómo estaba de rodillas, con una pequeña caja roja que sostenía un hermoso anillo. Estaba en shock por lo que estaba sucediendo y sentí una profunda presión en mi cuerpo. Una oleada de pensamientos llegó a mi mente, junto con un poco de adrenalina y felicidad. ¡Por supuesto, dije que sí!
                             </p>
-                            <div className="bespoken__row" >
-                                <div className="bespoken__col">
-                                    <img src={OurDiyWedding1} alt="Story Image" className="bespoken__story-img" />
-                                </div>
-                            </div>
                             <br /><br />
                             <h2 className="bespoken__subtitle">
                                 Planificación
                             </h2>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                Y así, poco a poco, comenzó la planificación. Era el año 2021, estábamos en medio de la pandemia de COVID-19 y también en un año en el que ambos dejamos nuestros trabajos para emprender y cambiar nuestra trayectoria profesional, por lo que establecer una fecha (y un presupuesto) nos llevó un poco de tiempo, pero finalmente decidimos que sería en marzo de 2022.
+                                Y así, poco a poco, comenzó la planificación. Este era el año 2021; estábamos en medio del covid y también en un año en el que ambos dejamos nuestros trabajos para convertirnos en emprendedores y cambiar nuestra trayectoria profesional, así que establecer una fecha (y un presupuesto) nos llevó un poco de tiempo, pero finalmente decidimos marzo de 2022.
                             </p>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                Tanto Guille como yo amamos ser anfitriones y somos buenos haciendo cosas. Yo acababa de terminar un trabajo de tres años como coordinadora de eventos, así que desde el principio sabíamos quiénes serían los planificadores de nuestra boda (nosotros, por supuesto).
+                                Tanto Guille como yo amamos ser anfitriones y somos excelentes haciendo cosas. También acababa de terminar un trabajo de tres años como gerente de eventos, así que desde el principio sabíamos quiénes serían los planificadores de nuestra boda (nosotros, por supuesto).
                             </p>
 
                             <h2 className="bespoken__subtitle">
                                 Resumen del paso a paso
                             </h2>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                1. Pensamos en qué tipo de boda queríamos y dónde. Acordamos un estilo de boda bohemia/campestre en Buenos Aires.
-                                <br /><br />2. Revisamos lugares, lugares y precios. Elegimos <a href='https://hosteriaelcazador.com.ar/' target='_blank'>Hostería el Cazador</a>, un hermoso lugar histórico en Escobar.
-                                <br /><br />3. Guille creó nuestro  <a href='https://danyguille.vercel.app/' target='_blank'>sitio web</a> de boda personal..
+                                1. Pensamos en qué tipo de boda queríamos y dónde. Acordamos un estilo de boda bohemio/campestre en Buenos Aires.
+                                <br /><br />2. Revisamos lugares, lugares y precios. Elegimos <a href='https://hosteriaelcazador.com.ar/' target='_blank' style={{ color: '#5D8C8C' }}>Hostería el Cazador</a>, un hermoso lugar histórico en Escobar.
+                                <br /><br />3. Guille creó nuestro  <a href='https://danyguille.vercel.app/' target='_blank' style={{ color: '#5D8C8C' }}>sitio web</a> de la boda.
                                 <br /><br />4. Hicimos la lista de invitados, diseñamos las invitaciones y las enviamos.
-                                <br /><br />5. En medio de todo esto, hice un viaje de 3 meses a Colombia donde pude pasar tiempo con mi familia y también hacer mi vestido con la modista de la familia, Estelita. Tuve una despedida de soltera sorpresa organizada por mi mamá con amigas cercanas de la familia en Cartagena.
-                                <br /><br />6. Sesiones de lluvia de ideas (gracias Pinterest) y compras para la decoración. Nos encantó ir a Tigre, donde encontramos muchos productos hechos a mano.
-                                <br /><br />7. Armado de presupuestos y planificación general, contratación de proveedores (maquillaje y estilista, fotógrafos, diseñador de pasteles, ambientación, etc) degustación de alimentos.
-                                <br /><br />8. Diseños, disposición del evento, logística, pagos, diagramas de asientos, listas de reproducción de música.
-                                <br /><br />9. Sesión de fotos preboda.
-                                <br /><br />10. Organizar visitas familiares, alojamiento y viajes, componer mi corona de flores, boutonnières, entre otras cosas.
+                                <br /><br />5. En medio de todo, hice un viaje de 3 meses a Colombia, donde pude pasar tiempo con mi familia y también hacer mi vestido con la modista de la familia, Estelita. Tuve una despedida de soltera sorpresa de parte de mi mamá con amigos muy cercanos de la familia.
+                                <br /><br />6. Presupuestos y planificación, armado de lista de proveedores, degustación de comida, contratación de maquilladores y estilistas, fotógrafos y diseñadores de pasteles.
+                                <br /><br />7. "Tormenta de ideas de imágenes" en Pinterest y compras para la decoración. Nos encantó visitar Tigre, donde encontramos muchos productos hechos a mano.
+                                <br /><br />8. Diseños y armado de planos para el evento y cronograma, logística, pagos, diagramas de asientos ¡y listas de reproducción de música!
+                                <br /><br />9. Sesión de fotos previa a la boda.
+                                <br /><br />10. Organizar visitas familiares, alojamiento y viajes; componer mi corona de flores y los boutonnières, entre otras cosas.
                             </p>
 
                             <h2 className="bespoken__subtitle">
@@ -570,9 +584,10 @@ export default function Bespoken({ page }: Props) {
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
                                 Ese día el clima no estaba soleado y en realidad se preveía lluvia en el pronóstico, por lo que tuvimos que trasladar la boda al interior del edificio. ¡Hablemos de cambios de planes y ajustes! Pero resultó increíble y lo disfrutamos mucho.
                             </p>
-                            <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                ¡Disfruten de nuestras fotos!
-                            </p>
+                            {wedding.length ?
+                                <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
+                                    ¡Disfruten de nuestras fotos!
+                                </p> : ''}
                         </div>
                     </div>
                     :
@@ -582,7 +597,7 @@ export default function Bespoken({ page }: Props) {
                                 Proposal
                             </h2>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                Guille proposed to me an afternoon when we were coming back from a weekend coast trip in the summer. We passed by a field of sunflowers and made a stop because he “wanted to make a video with his drone”. As I was holding Indie and picking up flowers (completely unaware of what was happening), he asked me to take his control remote for a minute and suddenly I saw how he was down in one knee, with a red little box holding a beautiful ring. I was in shock of what was happening and felt a deep pressure in my body. A rush of thoughts came to my mind with a bit of adrenaline and happiness. Of course I said yes!
+                                Guille proposed to me an afternoon when we were coming back from a weekend coast trip in the summer. We passed by a field of sunflowers and made a stop because he “wanted to make a video with his drone”. As I was holding Indie and picking up flowers (completely unaware of what was happening), he asked me to take his control remote for a minute, and suddenly I saw how he was down on one knee, with a red little box holding a beautiful ring. I was in shock at what was happening and felt a deep pressure in my body. A rush of thoughts came to my mind, along with a bit of adrenaline and happiness. Of course, I said yes!
                             </p>
                             <div className="bespoken__row" >
                                 <div className="bespoken__col">
@@ -594,26 +609,26 @@ export default function Bespoken({ page }: Props) {
                                 Planning
                             </h2>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                And so, little by little the planning started. This was the year 2021, we were in the middle of covid and also in a year where we had both left our jobs to entrepreneur and make a change in our career path, so setting up a date (and budget) took us a bit of time but we finally decided for March of 2022.
+                                And so, little by little, the planning started. This was the year 2021; we were in the middle of covid and also in a year when we had both left our jobs to become entrepreneurs and make a change in our career path, so setting up a date (and budget) took us a bit of time, but we finally decided for March 2022.
                             </p>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                Both Guille and I love being hosts and are great at doing things. I had also just finished a three year job as event manager, so we knew from the start who would be our wedding’s planners (us, of course).
+                                Both Guille and I love being hosts and are great at doing things. I had also just finished a three-year job as event manager, so we knew from the start who would be our wedding’s planners (us, of course).
                             </p>
 
                             <h2 className="bespoken__subtitle">
-                                Step-by-step summary
+                                Step-by-step list
                             </h2>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                1. We thought about what type of wedding we wanted and where. We agreed on a bohemian/country wedding style in Buenos Aires.
-                                <br /><br />2. Overviewed venues, places and prices. We chose <a href='https://hosteriaelcazador.com.ar/' target='_blank'>Hostería el Cazador</a>, a beautiful historical venue in Escobar.
-                                <br /><br />3. Guille created our personal <a href='https://danyguille.vercel.app/' target='_blank'>wedding website</a>.
-                                <br /><br />4. Made the guest list, designed the invitations and sent them out.
-                                <br /><br />5. In the middle I took a 3 month trip to Colombia where I was able to spend some time with my family and also have my dress done by the family dressmaker, Estelita. I had a surprise Bachelorette party from my mom with very close family friends.
-                                <br /><br />6. Budgets, planning, suppliers, food tasting, make-up and hair stylist, photographers, cake designer.
-                                <br /><br />7. Pinterest “brain-imagestorm” and shopping for decor. We loved hitting Tigre, where we found so many hand-made products.
-                                <br /><br />8. Designs, event layout, logistics, payments, seating charts, music playlists!
+                                1. We thought about what type of wedding we wanted and where. We agreed on a Bohemian/country wedding style in Buenos Aires.
+                                <br /><br />2. Overviewed venues, places and prices. We chose <a href='https://hosteriaelcazador.com.ar/' target='_blank' style={{ color: '#5D8C8C' }}>Hostería el Cazador</a>, a beautiful historical venue in Escobar.
+                                <br /><br />3. Guille created our personal <a href='https://danyguille.vercel.app/' target='_blank' style={{ color: '#5D8C8C' }}>wedding website</a>.
+                                <br /><br />4. We made the guest list, designed the invitations and sent them out.
+                                <br /><br />5. In the middle, I took a 3-month trip to Colombia, where I was able to spend some time with my family and also have my dress done by the family dressmaker, Estelita. I had a surprise Bachelorette party from my mom with very close family friends.
+                                <br /><br />6. Budgets, planning, suppliers, food tasting, make-up and hair stylists, photographers, and cake designers.
+                                <br /><br />7. Pinterest “brain-image storm” and shopping for decor. We loved hitting Tigre, where we found so many hand-made products.
+                                <br /><br />8. Designs, event layout, logistics, payments, seating charts, and music playlists!
                                 <br /><br />9. Pre-wedding shoot.
-                                <br /><br />10. Arrange family visits, accommodation and travel, compose my flower-crown, boutonnières, among other things.
+                                <br /><br />10. Arrange family visits, accommodations, and travel; compose my flower crown and boutonnieres, among other things.
                             </p>
 
                             <h2 className="bespoken__subtitle">
@@ -626,7 +641,7 @@ export default function Bespoken({ page }: Props) {
                                 We did have our wedding coordinator during the event, which is something you cannot miss. Plus, the catering, music and part of the setting was all hired to work without any of our help. Also, within the venue, there was a little side-house where we were able to ready.
                             </p>
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
-                                That day the weather wasn’t sunny and there was in fact some rain predicted in the forecast, so we had to move the wedding inside the building. Talk about plans changing and readjusting! But, it turned out amazing and we enjoyed it so much!
+                                That day the weather wasn't sunny and there was in fact some rain predicted in the forecast, so we had to move the wedding inside the building. Talk about plans changing and readjusting! But, it turned out amazing and we enjoyed it so much!
                             </p>
                             {wedding.length ?
                                 <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
@@ -757,7 +772,7 @@ export default function Bespoken({ page }: Props) {
                         }
                     </h3>
                 </div>
-                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/values')}>
+                {/* <div className="bespoken__section-card" onClick={() => history.push('/bespoken/values')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['values']}</h2>
                     <h3 className="bespoken__section-description">
                         {lang === 'es' ?
@@ -765,7 +780,7 @@ export default function Bespoken({ page }: Props) {
                             `The heartbeat upon the making`
                         }
                     </h3>
-                </div>
+                </div> */}
             </div>
         )
     }
