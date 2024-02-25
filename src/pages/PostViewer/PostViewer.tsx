@@ -55,8 +55,10 @@ export default function PostViewer({ post, setPost }: Props) {
     }, [post, postId])
 
     const getCategory = (post: postType) => {
-        const tags = post.tags ? post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ') : []
-        if (tags.length) setCategory(tags[0])
+        const _category = post.category ? post.category.includes(',') ?
+            post.category.split(',')[0] : post.category :
+            post.tags ? post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ')[0] : ''
+        if (_category.length) setCategory(_category)
     }
 
     const getPost = async (id: string) => {
