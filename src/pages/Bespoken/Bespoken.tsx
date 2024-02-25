@@ -306,7 +306,7 @@ export default function Bespoken({ page }: Props) {
                     <div className="bespoken__col" style={{ margin: '0 0 4rem' }}>
                         <h2 className="bespoken__subtitle" style={{ alignSelf: 'center', textAlign: 'center', margin: '0 0 2rem 0' }}>
                             {lang === 'es' ?
-                                'Necesitas un regalo o arreglo floral personalizado?'
+                                '¿Necesitas un regalo o arreglo floral personalizado?'
                                 :
                                 'Are you looking for a personalized gift or adornment?'
                             }
