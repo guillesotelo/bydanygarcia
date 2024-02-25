@@ -233,7 +233,8 @@
         &-goback {
             position: absolute;
             left: 1.5%;
-            // top: 1.5%;
+            top: 8rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: .3s;
 
@@ -339,6 +340,23 @@
 
             &-caption {
                 width: 85vw;
+            }
+
+            &-goback {
+                position: relative;
+                text-align: left;
+                width: 100vw;
+                margin: -1rem 0 0 1rem;
+                left: 0;
+                top: 0;
+                // top: 3.5rem;
+                font-size: .8rem;
+                cursor: pointer;
+                transition: .3s;
+    
+                &:hover {
+                    opacity: .7;
+                }
             }
 
         }

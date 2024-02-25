@@ -185,7 +185,7 @@ export default function Bespoken({ page }: Props) {
                 </div>
                 <div className="page__header"><p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
-                    {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's begining` : ''}</h1> */}
+                    {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's beginning` : ''}</h1> */}
                 </div>
                 <div className="bespoken__row">
                     {lang === 'es' ?
@@ -205,7 +205,7 @@ export default function Bespoken({ page }: Props) {
                         :
                         <div className="bespoken__col">
                             <h2 className="bespoken__subtitle">
-                                Story of the brand's begining
+                                Story of the brand's beginning
                             </h2>
                             <p className="bespoken__text">
                                 It was the summer of 2021, and I had just finished leading a regional online event for Media.Monks, the company I worked at, made it one of the biggest coordination projects of my career so far. During the pandemic, gift boxes for employees became a very popular trend, and I was able to partake in the logistics and selection of them, which was something I really enjoyed doing. And there were a lot of things I enjoyed about my job, but I was ready to move on and find other new, creative horizons that made sense for the type of life I wanted to live. And so, my search began.
@@ -299,7 +299,7 @@ export default function Bespoken({ page }: Props) {
                             }
                         </h2>
                         <Button
-                            label={lang === 'es' ? 'Contáctame' : ''}
+                            label={lang === 'es' ? 'Contáctame' : 'Contact me'}
                             handleClick={() => whatsappMe()}
                             style={{ transform: 'scale(1.3)' }}
                             bgColor={APP_COLORS.GRASS}

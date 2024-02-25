@@ -2,7 +2,7 @@
     &__container {
         display: flex;
         flex-direction: column;
-        padding: 3vw 0 30rem 0;
+        padding: 1rem 0 30rem 0;
     }
 
     &__postlist {
@@ -38,6 +38,7 @@
         &-text {
             width: 60vw;
             align-self: center;
+            text-align: justify;
         }
 
         &>button {
@@ -45,15 +46,20 @@
         }
 
         &-caption {
-            font-family: 'Bentham', serif;
+            font-family: "Cutive Mono", monospace;
             margin: 15rem 0;
             font-size: 1.5rem;
             width: 60vw;
         }
 
-        &-title {}
+        &-title {
+            margin: 0;
+        }
 
         &-subtitle {
+            margin: 0;
+            color: #c9c9c9;
+            font-size: 1.5rem;
             font-style: italic;
             font-weight: normal;
         }
@@ -79,6 +85,15 @@
                 &-wrapper {
                     margin-bottom: 1rem;
                 }
+            }
+
+            &-text {
+                width: 90vw;
+                margin-top: 0;
+            }
+
+            &-caption {
+                width: 90vw;
             }
 
         }

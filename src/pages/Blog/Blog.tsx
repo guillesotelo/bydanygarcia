@@ -69,8 +69,8 @@ export default function Blog({ setPost }: Props) {
     return (
         <div className='blog__container'>
             <div className="page__header">
-                <h4 className="page__header-title">{category ? parseCategory(category) : 'OPEN JOURNAL'}</h4>
-                {category ? <h4 className="page__header-subtitle">{TEXT[lang][`${category}_cap`]}</h4> : ''}
+                <h4 className="page__header-title-blog">{category ? parseCategory(category) : 'OPEN JOURNAL'}</h4>
+                {category ? <h4 className="page__header-subtitle-blog">{TEXT[lang][`${category}_cap`]}</h4> : ''}
                 <p className="blog__caption">
                     {!category ?
                         lang === 'es' ?

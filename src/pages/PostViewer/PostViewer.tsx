@@ -102,8 +102,8 @@ export default function PostViewer({ post, setPost }: Props) {
         <div className='postviewer__container'>
             <div className="postviewer__routes">
                 <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>OPEN JOURNAL</h4>
-                <h4> &nbsp;-&nbsp; </h4>
-                <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4>
+                {category ? <h4 className='postviewer__routes-link' > &nbsp;-&nbsp; </h4> : ''}
+                {category ? <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4> : ''}
             </div>
             {renderHelmet()}
             {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>

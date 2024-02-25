@@ -7,8 +7,8 @@
 @import '../pages/Login/login.scss';
 @import '../pages/Search/search.scss';
 @import '../pages/Subscribe/subscribe.scss';
-@import '../pages/PostEditor/posteditor.scss' ;
-@import '../pages/Bespoken/bespoken.scss' ;
+@import '../pages/PostEditor/posteditor.scss';
+@import '../pages/Bespoken/bespoken.scss';
 
 .page {
     &__header {
@@ -16,21 +16,34 @@
         text-align: center;
 
         &-title {
-            font-size: 1.2vw;
+            font-size: 1.2rem;
             font-weight: normal;
             padding-bottom: 1rem;
             border-bottom: 1px solid gray;
             width: fit-content;
             margin: 0 auto;
             animation: move-y-up .7s ease-in;
+
+            &-blog {
+                font-size: 1rem;
+                margin: 0;
+            }
         }
 
         &-subtitle {
-            font-size: 1vw;
-            padding-bottom: 1.5vw;
+            font-size: 1rem;
+            padding-bottom: 1.5rem;
             width: fit-content;
             margin: 1rem auto 0 auto;
             animation: move-y-down .7s ease-in;
+
+            &-blog {
+                margin: 0;
+                color: #c9c9c9;
+                font-size: 1.5rem;
+                font-style: italic;
+                font-weight: normal;
+            }
         }
     }
 }

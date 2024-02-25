@@ -32,7 +32,8 @@ export default function Blog({ search, setPost }: Props) {
 
     const getPosts = async () => {
         const posts = await getAllPosts(isLoggedIn)
-        if (posts) setAllPosts(posts.length ? posts : [])
+        if (posts) setAllPosts(posts.length ? isLoggedIn ?
+            posts : posts.filter((post: postType) => post.published) : [])
     }
 
     const applyAnimation = () => {

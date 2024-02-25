@@ -140,7 +140,7 @@ export default function Header({ search, setSearch, logo }: Props) {
     }
 
     return (
-        <div className='header__container' style={{ height: bigHeader ? '10vw' : '4vw' }}>
+        <div className='header__container' style={{ height: bigHeader ? '8rem' : '4rem' }}>
             {deleteModal ?
                 <div className='header__delete-modal'>
                     <h4 className="header__delete-modal-text">Are you sure you want to delete this post?</h4>
