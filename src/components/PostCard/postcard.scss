@@ -62,7 +62,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
         text-align: center;
         background-color: #ece7e6;
         overflow: hidden;
@@ -74,15 +74,14 @@
             color: #8c776b;
             font-weight: normal;
             margin: 0;
-            height: 20%;
         }
 
         &-title {
             // font-family: 'Montserrat Alternates', sans-serif;
-            font-size: 1.2rem;
-            margin: 0;
+            font-size: 1rem;
+            margin: .8rem .5rem .5rem .5rem;
             white-space: normal;
-            height: 25%;
+            font-weight: 600;
         }
 
         &-description {
@@ -92,7 +91,6 @@
             font-style: italic;
             margin: 0;
             text-overflow: ellipsis;
-            height: 25%;
         }
     }
 }
@@ -125,20 +123,17 @@
 
             &-subtitle {
                 font-size: .6rem;
-                height: 10%;
             }
 
             &-title {
                 font-size: .9rem;
                 margin: .5rem;
-                height: 20%;
             }
 
             &-description {
                 font-size: .7rem;
                 font-weight: normal;
                 margin: 0 .5rem;
-                height: 30%;
             }
         }
     }
