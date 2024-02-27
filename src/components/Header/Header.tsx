@@ -194,7 +194,7 @@ export default function Header({ search, setSearch, logo }: Props) {
                         <div className="header__item">
                             <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
-                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem'  }}>
+                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
                                 <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['story_of_brand']}
@@ -274,7 +274,7 @@ export default function Header({ search, setSearch, logo }: Props) {
                             <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
                                 <h4 className="header__item-text">{lang.toUpperCase()}</h4>
                                 <img className="header__item-svg" src={ChevronDown} />
-                                <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '7vw' : '4vw' }}>
+                                <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
                                     <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
                                         <h4 className="header__item-dropdown-text">
                                             ENGLISH

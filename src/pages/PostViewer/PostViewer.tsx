@@ -28,7 +28,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish(lang === 'es')
+        setSpanish(lang === 'es' && !post.spaInactive)
     }, [])
 
     useEffect(() => {

@@ -12,6 +12,7 @@ import { TEXT } from '../../constants/lang';
 import Slider from '../../components/Slider/Slider';
 import { dataObj, onChangeEventType } from '../../types';
 import Switch from '../../components/Switch/Switch';
+import Dropdown from '../../components/Dropdown/Dropdown';
 
 type Props = {}
 const voidData = {
@@ -42,6 +43,8 @@ export default function PostEditor({ }: Props) {
     const [spaHtml, setSpaHtml] = useState('')
     const [hasAutosave, setHasAutosave] = useState(false)
     const [showSide, setShowSide] = useState(false)
+    const [spaPublished, setSpaPublished] = useState(false)
+    const [selectedCategory, setSelectedCategory] = useState('Inspiration')
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
@@ -135,6 +138,8 @@ export default function PostEditor({ }: Props) {
                 setSideImgStyles(sideStyles)
             }
             setPublished(_post.published || false)
+            setSpaPublished(!_post.spaInactive || false)
+            setSelectedCategory(_post.category || '')
         }
     }
 
@@ -162,7 +167,9 @@ export default function PostEditor({ }: Props) {
                 sideStyles,
                 html,
                 spaHtml,
-                published
+                published,
+                spaInactive: !spaPublished,
+                category: selectedCategory
             })
             if (updated && updated._id) {
                 localStorage.removeItem('posts')
@@ -181,7 +188,9 @@ export default function PostEditor({ }: Props) {
                 sideStyles,
                 html,
                 spaHtml,
-                published
+                published,
+                spaInactive: !spaPublished,
+                category: selectedCategory
             })
             if (saved && saved._id) {
                 localStorage.removeItem('posts')
@@ -237,14 +246,21 @@ export default function PostEditor({ }: Props) {
                     </div>
                     <div className='editor__switch-btns'>
                         <Switch
-                            label='Published'
+                            label='Published (EN)'
                             on='Yes'
                             off='No'
                             value={published}
                             setValue={setPublished}
                         />
                         <Switch
-                            label='Show Side images'
+                            label='Published (ES)'
+                            on='Yes'
+                            off='No'
+                            value={spaPublished}
+                            setValue={setSpaPublished}
+                        />
+                        <Switch
+                            label='Side images'
                             on='Yes'
                             off='No'
                             value={showSide}
@@ -278,11 +294,13 @@ export default function PostEditor({ }: Props) {
                             updateData={updateData}
                             placeholder='Tags (e.g experience, study, worship)'
                         />
-                        <InputField
-                            name='category'
-                            value={data.category}
-                            updateData={updateData}
-                            placeholder='Category (Inspiration, Life Abroad...)'
+                        <Dropdown
+                            label='Category'
+                            options={['Inspiration', 'Life Abroad', 'Motherhood']}
+                            selected={selectedCategory}
+                            value={selectedCategory}
+                            setSelected={setSelectedCategory}
+                            style={{ zIndex: 10 }}
                         />
                     </div>
                     <div className="editor__input-col">

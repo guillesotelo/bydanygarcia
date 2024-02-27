@@ -16,7 +16,7 @@ export default function PostCard({ post, setPost }: Props) {
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish(lang === 'es')
+        setSpanish(lang === 'es' && !post.spaInactive)
     }, [])
 
     const handleClick = () => {
