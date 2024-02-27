@@ -16,7 +16,7 @@ export default function PostCard({ post, setPost }: Props) {
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish(lang === 'es' && !post.spaInactive)
+        setSpanish(lang === 'es')
     }, [])
 
     const handleClick = () => {
@@ -36,7 +36,7 @@ export default function PostCard({ post, setPost }: Props) {
         <div className='postcard__container' onClick={handleClick} style={{ opacity: !post.published ? '.5' : '1' }}>
             <div className="postcard__image-div" >
                 {!post.published ? <img src={Lock} alt="Not Published" className="postcard__image-lock" /> : ''}
-                <h4 className="postcard__image-overlap">{spanish && post.spaOverlap ? post.spaOverlap : post.overlap || ''}</h4>
+                <h4 className="postcard__image-overlap">{spanish && post.spaOverlap ? post.spaOverlap : post.overlap || post.spaOverlap || ''}</h4>
                 <img
                     src={getPreview()}
                     alt="Post Image"
@@ -49,9 +49,9 @@ export default function PostCard({ post, setPost }: Props) {
                 />
             </div>
             <div className="postcard__text">
-                <h4 className="postcard__text-subtitle">{spanish && post.spaSubtitle ? post.spaSubtitle : post.subtitle || ''}</h4>
-                <h4 className="postcard__text-title">{spanish && post.spaTitle ? post.spaTitle : post.title || ''}</h4>
-                <h4 className="postcard__text-description">{spanish && post.spaDescription ? post.spaDescription : post.description || ''}</h4>
+                <h4 className="postcard__text-subtitle">{spanish && post.spaSubtitle ? post.spaSubtitle : post.subtitle || post.spaSubtitle || ''}</h4>
+                <h4 className="postcard__text-title">{spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''}</h4>
+                <h4 className="postcard__text-description">{spanish && post.spaDescription ? post.spaDescription : post.description || post.spaDescription || ''}</h4>
             </div>
         </div>
     )

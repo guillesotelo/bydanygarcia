@@ -28,7 +28,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish(lang === 'es' && !post.spaInactive)
+        setSpanish(lang === 'es')
     }, [])
 
     useEffect(() => {
@@ -92,7 +92,7 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const renderHelmet = () => {
         return <Helmet>
-            <meta property="og:title" content={spanish && post.spaTitle ? post.spaTitle : post.title} />
+            <meta property="og:title" content={spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''} />
             <meta property="og:type" content='website' />
             <meta property="og:description" content={getOgDescription()} />
             <meta property="og:image" content={post.imageUrl} />

@@ -43,7 +43,6 @@ export default function PostEditor({ }: Props) {
     const [spaHtml, setSpaHtml] = useState('')
     const [hasAutosave, setHasAutosave] = useState(false)
     const [showSide, setShowSide] = useState(false)
-    const [spaPublished, setSpaPublished] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('Inspiration')
     const history = useHistory()
     const location = useLocation()
@@ -138,7 +137,6 @@ export default function PostEditor({ }: Props) {
                 setSideImgStyles(sideStyles)
             }
             setPublished(_post.published || false)
-            setSpaPublished(!_post.spaInactive || false)
             setSelectedCategory(_post.category || '')
         }
     }
@@ -168,7 +166,6 @@ export default function PostEditor({ }: Props) {
                 html,
                 spaHtml,
                 published,
-                spaInactive: !spaPublished,
                 category: selectedCategory
             })
             if (updated && updated._id) {
@@ -189,7 +186,6 @@ export default function PostEditor({ }: Props) {
                 html,
                 spaHtml,
                 published,
-                spaInactive: !spaPublished,
                 category: selectedCategory
             })
             if (saved && saved._id) {
@@ -245,19 +241,20 @@ export default function PostEditor({ }: Props) {
                         <h4 className={`editor__tab-item ${spaSelected ? 'editor__tab--selected' : ''}`} onClick={() => setSpaSelected(true)}>Español</h4>
                     </div>
                     <div className='editor__switch-btns'>
+                        <Dropdown
+                            label='Category'
+                            options={['Inspiration', 'Life Abroad', 'Motherhood']}
+                            selected={selectedCategory}
+                            value={selectedCategory}
+                            setSelected={setSelectedCategory}
+                            style={{ zIndex: 10 }}
+                        />
                         <Switch
-                            label='Published (EN)'
+                            label='Published'
                             on='Yes'
                             off='No'
                             value={published}
                             setValue={setPublished}
-                        />
-                        <Switch
-                            label='Published (ES)'
-                            on='Yes'
-                            off='No'
-                            value={spaPublished}
-                            setValue={setSpaPublished}
                         />
                         <Switch
                             label='Side images'
@@ -269,11 +266,13 @@ export default function PostEditor({ }: Props) {
                     </div>
                 </div>
                 <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
-                {hasAutosave ?
-                    <Button
-                        label='Load autosave'
-                        handleClick={loadAutoSave}
-                    /> : ''}
+                <div className="editor__tab-row">
+                    {hasAutosave ?
+                        <Button
+                            label='Load autosave'
+                            handleClick={loadAutoSave}
+                        /> : ''}
+                </div>
                 <div className="editor__data-input">
                     <div className="editor__input-col">
                         <InputField
@@ -293,14 +292,6 @@ export default function PostEditor({ }: Props) {
                             value={data.tags}
                             updateData={updateData}
                             placeholder='Tags (e.g experience, study, worship)'
-                        />
-                        <Dropdown
-                            label='Category'
-                            options={['Inspiration', 'Life Abroad', 'Motherhood']}
-                            selected={selectedCategory}
-                            value={selectedCategory}
-                            setSelected={setSelectedCategory}
-                            style={{ zIndex: 10 }}
                         />
                     </div>
                     <div className="editor__input-col">

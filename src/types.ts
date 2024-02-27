@@ -22,7 +22,6 @@ export type postType = {
     spaHtml?: string
     published?: boolean
     removed?: boolean
-    spaInactive?: boolean
     sideImages?: string[]
     sideImgsStyles?: React.CSSProperties[]
 }
@@ -64,5 +63,4 @@ export type postHeadersType = {
     subtitle?: string
     spaTitle?: string
     spaSubtitle?: string
-    spaInactive?: boolean
 }

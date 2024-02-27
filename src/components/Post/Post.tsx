@@ -19,7 +19,7 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
     const { lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
-        setSpanish((lang === 'es' || linkLang === 'es') && !headers.spaInactive)
+        setSpanish(lang === 'es' || linkLang === 'es')
     }, [])
 
     useEffect(() => {
@@ -43,13 +43,12 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
             }}>
                 <div className="post__headers">
                     <img className="post__share-icon" onClick={copyLink} src={ShareIcon} />
-                    <h1 className="post__title">{spanish && headers.spaTitle ? headers.spaTitle : headers.title || ''}</h1>
-                    <h3 className="post__subtitle">{spanish && headers.spaSubtitle ? headers.spaSubtitle : headers.subtitle || ''}</h3>
+                    <h1 className="post__title">{spanish && headers.spaTitle ? headers.spaTitle : headers.title || headers.spaTitle || ''}</h1>
+                    <h3 className="post__subtitle">{spanish && headers.spaSubtitle ? headers.spaSubtitle : headers.subtitle || headers.spaSubtitle || ''}</h3>
                 </div>
                 <div
                     className="post__content"
-                    dangerouslySetInnerHTML={{ __html: spanish && spaContent && spaContent.length > 10 ? spaContent : content || '' }}
-
+                    dangerouslySetInnerHTML={{ __html: spanish && spaContent && spaContent.length > 10 ? spaContent : content || spaContent || '' }}
                 />
             </div>
             <div className="post__side-images">
