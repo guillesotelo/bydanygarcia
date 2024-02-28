@@ -132,7 +132,7 @@ export default function Home() {
             />
 
             <p className="home__landing-caption">
-                "I love an easy going morning at home with soft music, a little sunray and <i>mates</i>.<br /> Just a perfect scenario to get my notebook and write."
+                "I love an easy-going morning at home with soft music, a little sun, and <i>mates</i>.<br />Just a perfect scenario to get my notebook and write."
             </p>
             <h2 className="home__landing-title">LIFE ABROAD</h2>
             <h3 className="home__landing-subtitle">Journey Through Life and Travel</h3>
