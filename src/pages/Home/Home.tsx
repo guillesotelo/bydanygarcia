@@ -16,6 +16,7 @@ export default function Home() {
     const { lang, isMobile, isLoggedIn, setPost } = useContext(AppContext)
     const history = useHistory()
 
+    console.log(allPosts)
     useEffect(() => {
         getPosts()
     }, [])
@@ -51,6 +52,10 @@ export default function Home() {
         const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
         const parsedDate = new Date(dateToCheck)
         return parsedDate < twoHoursAgo
+    }
+
+    const filterPosts = (filter: string) => {
+        return allPosts.filter(post => (post.category && post.category.toLowerCase().includes(filter.toLowerCase())))
     }
 
     return <div className="home__container">
@@ -102,7 +107,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.filter(post => post.tags.toLowerCase().includes('journey')).map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
@@ -118,7 +123,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.filter(post => post.tags.toLowerCase().includes('motherhood')).map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
@@ -134,7 +139,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.filter(post => post.tags.toLowerCase().includes('roaming')).map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}

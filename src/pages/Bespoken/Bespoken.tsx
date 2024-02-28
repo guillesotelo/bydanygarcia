@@ -599,11 +599,6 @@ export default function Bespoken({ page }: Props) {
                             <p className="bespoken__text" style={{ alignSelf: 'flex-start' }}>
                                 Guille proposed to me an afternoon when we were coming back from a weekend coast trip in the summer. We passed by a field of sunflowers and made a stop because he “wanted to make a video with his drone”. As I was holding Indie and picking up flowers (completely unaware of what was happening), he asked me to take his control remote for a minute, and suddenly I saw how he was down on one knee, with a red little box holding a beautiful ring. I was in shock at what was happening and felt a deep pressure in my body. A rush of thoughts came to my mind, along with a bit of adrenaline and happiness. Of course, I said yes!
                             </p>
-                            <div className="bespoken__row" >
-                                <div className="bespoken__col">
-                                    <img src={OurDiyWedding1} alt="Story Image" className="bespoken__story-img" />
-                                </div>
-                            </div>
                             <br /><br />
                             <h2 className="bespoken__subtitle">
                                 Planning

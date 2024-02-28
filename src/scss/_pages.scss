@@ -11,6 +11,13 @@
 @import '../pages/Bespoken/bespoken.scss';
 
 .page {
+    &__wrapper {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        padding: 7rem 0;
+    }
+
     &__header {
         align-self: center;
         text-align: center;
@@ -23,6 +30,7 @@
             width: fit-content;
             margin: 0 auto;
             animation: move-y-up .7s ease-in;
+            font-family: 'Bentham', sans-serif;
 
             &-blog {
                 font-size: 1rem;

@@ -16,7 +16,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'elaborated_gifts': `REGALOS ELABORADOS`,
         'bouquets': `BOUQUETS`,
         'handcrafted_adornments': `ADORNOS HECHOS A MANO`,
-        'our_handcrafted_wedding': `NUESTRA BODA DIY`,
+        'our_handcrafted_wedding': `NUESTRA BODA HECHA A MANO`,
         'values': `VALORES`,
 
         'bespoken': 'BESPOKEN',
