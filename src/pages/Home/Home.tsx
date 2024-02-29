@@ -16,7 +16,6 @@ export default function Home() {
     const { lang, isMobile, isLoggedIn, setPost } = useContext(AppContext)
     const history = useHistory()
 
-    console.log(allPosts)
     useEffect(() => {
         getPosts()
     }, [])
@@ -100,8 +99,7 @@ export default function Home() {
             />
 
             <p className="home__landing-caption">
-                "There is nothing more lovely than the smell of fresh coffee, the sound of people chatting and a little tune playing at a cozy coffee house."
-            </p>
+                “No man ever steps in the same river twice, for it's not the same river and he's not the same man.”  Heraclitus            </p>
             <h2 className="home__landing-title">{TEXT[lang]['inspiration']}</h2>
             <h3 className="home__landing-subtitle">{TEXT[lang]['inspiration_cap']}</h3>
             {loading ? <span className="loader"></span>
@@ -116,7 +114,7 @@ export default function Home() {
             />
 
             <p className="home__landing-caption">
-                "As I give myself the freedom to be part and be discovered, I will give people the same opportunity too."
+                "En este mundo finito quiero encontrar mi equilibrio infinito espiritual contigo."
             </p>
             <h2 className="home__landing-title">MOTHERHOOD</h2>
             <h3 className="home__landing-subtitle">A Rollercoaster of Love and Learning</h3>

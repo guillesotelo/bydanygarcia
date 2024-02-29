@@ -28,6 +28,30 @@
             }
         }
     }
+
+    &__comments {
+        &-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid rgba(128, 128, 128, 0.735);
+            padding: 1rem;
+            margin: 4rem 0 8rem 0;
+        }
+
+        &-replay {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0 3rem 0;
+        }
+    }
 }
 
 @media only screen and (max-width: 640px) {

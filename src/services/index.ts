@@ -13,6 +13,16 @@ import {
 } from './post'
 
 import {
+    getAllComments,
+    createComment,
+    getPostComments,
+    getCommentById,
+    updateComment,
+    deleteComment
+} from './comment'
+
+
+import {
     sendContactEmail,
     scrapeUrl
 } from './app'
@@ -27,5 +37,11 @@ export {
     updatePost,
     deletePost,
     sendContactEmail,
-    scrapeUrl
+    scrapeUrl,
+    getAllComments,
+    createComment,
+    getPostComments,
+    getCommentById,
+    updateComment,
+    deleteComment
 }

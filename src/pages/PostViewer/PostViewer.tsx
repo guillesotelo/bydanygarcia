@@ -5,7 +5,12 @@ import draftToHtml from 'draftjs-to-html';
 import { Helmet } from 'react-helmet-async';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
-import { postType } from '../../types';
+import { commentType, onChangeEventType, postType } from '../../types';
+import InputField from '../../components/InputField/InputField';
+import Comment from '../../components/Comment/Comment';
+import { createComment, getPostComments } from '../../services';
+import Button from '../../components/Button/Button';
+import toast from 'react-hot-toast';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -14,18 +19,22 @@ type Props = {
 }
 
 export default function PostViewer({ post, setPost }: Props) {
+    const [data, setData] = useState({ fullname: '', email: '', comment: '', postId: '' })
     const [html, setHtml] = useState('')
     const [spaHtml, setspaHtml] = useState('')
     const [postId, setPostId] = useState('')
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
+    const [postComments, setPostComments] = useState<commentType[]>([])
     const [sideImgStyles, setSideImgStyles] = useState<React.CSSProperties[]>([])
     const [linkLang, setLinkLang] = useState('')
     const [category, setCategory] = useState('')
     const location = useLocation()
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
+
+    console.log(postComments)
 
     useEffect(() => {
         setSpanish(lang === 'es')
@@ -78,9 +87,19 @@ export default function PostViewer({ post, setPost }: Props) {
                 setSideImgStyles(sideStyles)
             }
         }
+        setData({ ...data, postId: id })
+        getComments(id)
         setLoading(false)
     }
 
+    const getComments = async (postId: string) => {
+        try {
+            const comments = await getPostComments(postId)
+            if (comments && Array.isArray(comments)) setPostComments(comments)
+        } catch (error) {
+            console.error(error)
+        }
+    }
     const getOgDescription = () => {
         if (spanish && post.spaSubtitle) return post.spaSubtitle
         if (post.subtitle) return post.subtitle
@@ -100,6 +119,24 @@ export default function PostViewer({ post, setPost }: Props) {
         </Helmet>
     }
 
+    const updateData = (key: string, e: onChangeEventType) => {
+        const value = e.target.value
+        setData({ ...data, [key]: value })
+    }
+
+    const postComment = async () => {
+        try {
+            const posted = await createComment(data)
+            if (posted && posted._id) {
+                toast.success(lang === 'es' ? 'Comentario añadido!' : 'Comment submitted!')
+                getComments(postId)
+            }
+            else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div className='postviewer__container'>
             <div className="postviewer__routes">
@@ -117,6 +154,39 @@ export default function PostViewer({ post, setPost }: Props) {
                     linkLang={linkLang}
                 />
             }
+            <div className="postviewer__comments-section">
+                <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2>
+                <div className="postviewer__comments-list" style={{ width: isMobile ? '' : '30vw' }}>
+                    {postComments.map(comment => <Comment comment={comment} />)}
+                </div>
+                <h2 className="postviewer__comments-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
+                <div className="postviewer__comments-replay" style={{ width: isMobile ? '' : '30vw' }}>
+                    <InputField
+                        name='fullname'
+                        value={data.fullname}
+                        updateData={updateData}
+                        placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
+                    />
+                    <InputField
+                        name='email'
+                        value={data.email}
+                        updateData={updateData}
+                        placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
+                    />
+                    <InputField
+                        name='comment'
+                        value={data.comment}
+                        updateData={updateData}
+                        placeholder={lang === 'es' ? 'Tu comentario' : 'Your comment'}
+                        type='textarea'
+                        rows={8}
+                    />
+                    <Button
+                        label={lang === 'es' ? 'Enviar Comentario' : 'Post Comment'}
+                        handleClick={postComment}
+                    />
+                </div>
+            </div>
         </div>
     )
 }

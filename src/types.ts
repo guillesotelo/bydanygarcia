@@ -64,3 +64,11 @@ export type postHeadersType = {
     spaTitle?: string
     spaSubtitle?: string
 }
+
+export type commentType = {
+    postId?: string
+    fullname?: string
+    email?: string
+    comment?: string
+    isDany?: boolean
+}

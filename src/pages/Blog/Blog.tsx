@@ -4,6 +4,7 @@ import PostCard from '../../components/PostCard/PostCard'
 import { catMapType, postType } from '../../types'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
+import { shuffleArray } from '../../helpers'
 
 type Props = {
     setPost: React.Dispatch<React.SetStateAction<any>>
@@ -15,8 +16,6 @@ export default function Blog({ setPost }: Props) {
     const [loading, setLoading] = useState(false)
     const [category, setCategory] = useState('')
     const { isLoggedIn, lang } = useContext(AppContext)
-
-    console.log(allPosts)
 
     useEffect(() => {
         const cat = new URLSearchParams(document.location.search).get('category')
@@ -55,7 +54,7 @@ export default function Blog({ setPost }: Props) {
                 setAllPosts(isLoggedIn ? filtered : filtered.filter(post => post.published))
             } else {
                 setShowUp(false)
-                setAllPosts(isLoggedIn ? posts : posts.filter(post => post.published))
+                setAllPosts(isLoggedIn ? posts : shuffleArray(posts.filter(post => post.published)))
             }
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))

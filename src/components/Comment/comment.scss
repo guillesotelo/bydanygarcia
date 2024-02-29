@@ -1,0 +1,23 @@
+.comment {
+    &__container {
+        background-color: rgb(241, 241, 241);
+        border-radius: 1rem;
+        padding: 1rem 1rem 1rem 3rem;
+        position: relative;
+    }
+
+    &__name {
+        font-weight: bold;
+        margin: 0;
+    }
+
+    &__image {
+        position: absolute;
+        top: .2rem;
+        left: .2rem;
+        border-radius: 50%;
+        height: 2rem;
+        width: 2rem;
+        opacity: .3;
+    }
+}
