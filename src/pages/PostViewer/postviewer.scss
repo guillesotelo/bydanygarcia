@@ -39,7 +39,12 @@
             margin: 4rem 0 8rem 0;
         }
 
-        &-replay {
+        &-post {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-reply {
             display: flex;
             flex-direction: column;
             gap: 1rem;

@@ -19,10 +19,16 @@ const getAllComments = async (isAdmin?: boolean) => {
     } catch (err) { console.log(err) }
 }
 
-
 const getPostComments = async (postId: string) => {
     try {
         const comment = await axios.get(`${API_URL}/api/comment/getByPostId`, { params: { postId }, headers: getHeaders() })
+        return comment.data
+    } catch (err) { console.log(err) }
+}
+
+const getRepliesById = async (replyingTo: string) => {
+    try {
+        const comment = await axios.get(`${API_URL}/api/comment/getRepliesById`, { params: { replyingTo }, headers: getHeaders() })
         return comment.data
     } catch (err) { console.log(err) }
 }
@@ -59,6 +65,7 @@ export {
     getAllComments,
     createComment,
     getPostComments,
+    getRepliesById,
     getCommentById,
     updateComment,
     deleteComment

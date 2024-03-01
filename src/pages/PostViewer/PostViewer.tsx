@@ -8,7 +8,7 @@ import { AppContext } from '../../AppContext';
 import { commentType, onChangeEventType, postType } from '../../types';
 import InputField from '../../components/InputField/InputField';
 import Comment from '../../components/Comment/Comment';
-import { createComment, getPostComments } from '../../services';
+import { createComment, getAllComments, getPostComments } from '../../services';
 import Button from '../../components/Button/Button';
 import toast from 'react-hot-toast';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
@@ -30,11 +30,10 @@ export default function PostViewer({ post, setPost }: Props) {
     const [sideImgStyles, setSideImgStyles] = useState<React.CSSProperties[]>([])
     const [linkLang, setLinkLang] = useState('')
     const [category, setCategory] = useState('')
+    const [reply, setReply] = useState(false)
     const location = useLocation()
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
-
-    console.log(postComments)
 
     useEffect(() => {
         setSpanish(lang === 'es')
@@ -72,7 +71,8 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const getPost = async (id: string) => {
         setLoading(true)
-        const _post = await getPostById(id)
+        const _id = id || post._id || ''
+        const _post = await getPostById(_id)
         if (_post) {
             setPost(_post)
             if (_post.html) setHtml(_post.html)
@@ -87,8 +87,8 @@ export default function PostViewer({ post, setPost }: Props) {
                 setSideImgStyles(sideStyles)
             }
         }
-        setData({ ...data, postId: id })
-        getComments(id)
+        setData({ ...data, postId: _id })
+        getComments(_id)
         setLoading(false)
     }
 
@@ -126,7 +126,7 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const postComment = async () => {
         try {
-            const posted = await createComment(data)
+            const posted = await createComment({ ...data, postId })
             if (posted && posted._id) {
                 toast.success(lang === 'es' ? 'Comentario añadido!' : 'Comment submitted!')
                 getComments(postId)
@@ -157,35 +157,39 @@ export default function PostViewer({ post, setPost }: Props) {
             <div className="postviewer__comments-section">
                 <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2>
                 <div className="postviewer__comments-list" style={{ width: isMobile ? '' : '30vw' }}>
-                    {postComments.map(comment => <Comment comment={comment} />)}
+                    {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={reply} setReply={setReply} />)}
                 </div>
-                <h2 className="postviewer__comments-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
-                <div className="postviewer__comments-replay" style={{ width: isMobile ? '' : '30vw' }}>
-                    <InputField
-                        name='fullname'
-                        value={data.fullname}
-                        updateData={updateData}
-                        placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
-                    />
-                    <InputField
-                        name='email'
-                        value={data.email}
-                        updateData={updateData}
-                        placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
-                    />
-                    <InputField
-                        name='comment'
-                        value={data.comment}
-                        updateData={updateData}
-                        placeholder={lang === 'es' ? 'Tu comentario' : 'Your comment'}
-                        type='textarea'
-                        rows={8}
-                    />
-                    <Button
-                        label={lang === 'es' ? 'Enviar Comentario' : 'Post Comment'}
-                        handleClick={postComment}
-                    />
-                </div>
+                {!reply ?
+                    <div className="postviewer__comments-post">
+                        <h2 className="postviewer__comments-post-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
+                        <div className="postviewer__comments-reply" style={{ width: isMobile ? '' : '30vw' }}>
+                            <InputField
+                                name='fullname'
+                                value={data.fullname}
+                                updateData={updateData}
+                                placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
+                            />
+                            <InputField
+                                name='email'
+                                value={data.email}
+                                updateData={updateData}
+                                placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
+                            />
+                            <InputField
+                                name='comment'
+                                value={data.comment}
+                                updateData={updateData}
+                                placeholder={lang === 'es' ? 'Tu comentario' : 'Your comment'}
+                                type='textarea'
+                                rows={8}
+                            />
+                            <Button
+                                label={lang === 'es' ? 'Enviar Comentario' : 'Post Comment'}
+                                handleClick={postComment}
+                            />
+                        </div>
+                    </div>
+                    : ''}
             </div>
         </div>
     )

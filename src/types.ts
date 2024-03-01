@@ -66,9 +66,14 @@ export type postHeadersType = {
 }
 
 export type commentType = {
+    _id?: string
     postId?: string
     fullname?: string
     email?: string
     comment?: string
     isDany?: boolean
+    likes?: number
+    replyingTo?: string
+    createdAt?: Date
+    updatedAt?: Date
 }

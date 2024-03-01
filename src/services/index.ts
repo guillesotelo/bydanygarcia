@@ -16,6 +16,7 @@ import {
     getAllComments,
     createComment,
     getPostComments,
+    getRepliesById,
     getCommentById,
     updateComment,
     deleteComment
@@ -41,6 +42,7 @@ export {
     getAllComments,
     createComment,
     getPostComments,
+    getRepliesById,
     getCommentById,
     updateComment,
     deleteComment
