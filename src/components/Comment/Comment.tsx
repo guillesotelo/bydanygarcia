@@ -26,7 +26,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
     const [likes, setLikes] = useState(comment?.likes || 0)
     const [replies, setReplies] = useState<commentType[]>([])
     const { lang, isMobile } = useContext(AppContext)
-    console.log(replies)
+
     useEffect(() => {
         getReplies()
     }, [comment])
@@ -103,6 +103,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
             })
             if (posted && posted._id) {
                 toast.success(lang === 'es' ? 'Respuesta añadida!' : 'Reply submitted!')
+                getReplies()
             }
             else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')
         } catch (error) {
