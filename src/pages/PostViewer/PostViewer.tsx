@@ -52,6 +52,7 @@ export default function PostViewer({ post, setPost }: Props) {
     useEffect(() => {
         renderHelmet()
         if (postId && (!post || !post._id)) getPost(postId)
+        else getComments(postId)
         if (post.html) setHtml(post.html)
 
         if (post.spaHtml) setspaHtml(post.spaHtml)
