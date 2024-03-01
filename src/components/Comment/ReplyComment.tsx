@@ -77,14 +77,28 @@ export default function ReplyComment({ comment }: Props) {
         }
     }
 
+    const getProfile = (comment?: commentType) => {
+        if (comment && comment.fullname) {
+            if (comment.fullname.length > 1) {
+                const firstName = comment.fullname.split(' ')[0][0]
+                const lastName = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : comment.fullname.split(' ')[0][1]
+                return firstName + lastName
+            } else return comment.fullname
+        }
+    }
+
+
     return (
         <div className="comment__row" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid lightgray' }}>
             <div className="comment__col" style={{ width: '10%' }}>
                 <img src={Reply} alt="Reply" className="comment__reply-image" />
             </div>
             <div className="comment__col" style={{ width: '10%' }}>
-                <img src={comment?.isDany ? Dany : User} alt="Comment Profile Image" className="comment__image" />
-            </div>
+                {comment?.isDany ?
+                    <img src={Dany} alt="Comment Profile Image" className="comment__image" />
+                    :
+                    <p className="comment__profile">{getProfile(comment)}</p>
+                }            </div>
             <div className="comment__col" style={{ width: '80%' }}>
                 <p className="comment__name">{comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
                 <p className="comment__date">{getCommentDate(comment)}</p>

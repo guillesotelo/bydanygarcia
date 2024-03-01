@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default function PostViewer({ post, setPost }: Props) {
-    const [data, setData] = useState({ fullname: '', email: '', comment: '', postId: '' })
+    const [data, setData] = useState<commentType>({})
     const [html, setHtml] = useState('')
     const [spaHtml, setspaHtml] = useState('')
     const [postId, setPostId] = useState('')
@@ -127,14 +127,15 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const postComment = async () => {
         try {
-            const posted = await createComment({ 
-                ...data, 
+            const posted = await createComment({
+                ...data,
                 postId,
-                isDany: isLoggedIn
+                isDany: isLoggedIn ? true : false
             })
             if (posted && posted._id) {
                 toast.success(lang === 'es' ? 'Comentario añadido!' : 'Comment submitted!')
                 getComments(postId)
+                setData({})
             }
             else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')
         } catch (error) {
@@ -161,25 +162,27 @@ export default function PostViewer({ post, setPost }: Props) {
             }
             <div className="postviewer__comments-section">
                 <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2>
-                <div className="postviewer__comments-list" style={{ width: isMobile ? '' : '30vw' }}>
+                <div className="postviewer__comments-list" style={{ width: isMobile ? '90vw' : '30vw' }}>
                     {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={reply} setReply={setReply} />)}
                 </div>
                 {!reply ?
                     <div className="postviewer__comments-post">
                         <h2 className="postviewer__comments-post-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
-                        <div className="postviewer__comments-reply" style={{ width: isMobile ? '' : '30vw' }}>
+                        <div className="postviewer__comments-reply" style={{ width: isMobile ? '90vw' : '30vw' }}>
                             <InputField
                                 name='fullname'
-                                value={data.fullname}
+                                value={isLoggedIn ? 'Dany' : data.fullname}
                                 updateData={updateData}
                                 placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
+                                disabled={isLoggedIn}
                             />
-                            <InputField
-                                name='email'
-                                value={data.email}
-                                updateData={updateData}
-                                placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
-                            />
+                            {isLoggedIn ? '' :
+                                <InputField
+                                    name='email'
+                                    value={data.email}
+                                    updateData={updateData}
+                                    placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
+                                />}
                             <InputField
                                 name='comment'
                                 value={data.comment}

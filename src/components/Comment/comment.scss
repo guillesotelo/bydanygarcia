@@ -38,7 +38,7 @@
         border-radius: 50%;
         height: 2.5rem;
         width: 2.5rem;
-        opacity: .3;
+        opacity: .7;
     }
 
     &__btns {
@@ -124,5 +124,17 @@
             width: 2rem;
             opacity: .15;
         }
+    }
+
+    &__profile {
+        border-radius: 50%;
+        height: 2.5rem;
+        line-height: 2.5rem;
+        text-align: center;
+        width: 2.5rem;
+        background-color: gray;
+        color: white;
+        font-weight: bold;
+        margin: 0;
     }
 }

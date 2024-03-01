@@ -21,7 +21,7 @@ type Props = {
 }
 
 export default function Comment({ comment, setReply, reply }: Props) {
-    const [data, setData] = useState({ fullname: '', email: '', comment: '', postId: '' })
+    const [data, setData] = useState<commentType>({})
     const [liked, setLiked] = useState(false)
     const [openReply, setOpenReply] = useState(false)
     const [likes, setLikes] = useState(comment?.likes || 0)
@@ -101,12 +101,13 @@ export default function Comment({ comment, setReply, reply }: Props) {
         try {
             const posted = await createComment({
                 ...data,
-                isDany: isLoggedIn,
+                isDany: isLoggedIn ? true : false,
                 replyingTo: comment?._id
             })
             if (posted && posted._id) {
                 toast.success(lang === 'es' ? 'Respuesta añadida!' : 'Reply submitted!')
                 getReplies()
+                setData({})
             }
             else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')
         } catch (error) {
@@ -127,11 +128,25 @@ export default function Comment({ comment, setReply, reply }: Props) {
         }
     }
 
+    const getProfile = (comment?: commentType) => {
+        if (comment && comment.fullname) {
+            if (comment.fullname.length > 1) {
+                const firstName = comment.fullname.split(' ')[0][0]
+                const lastName = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : comment.fullname.split(' ')[0][1]
+                return firstName + lastName
+            } else return comment.fullname
+        }
+    }
+
     return (
         <div className="comment__container">
             <div className="comment__row">
                 <div className="comment__col">
-                    <img src={comment?.isDany ? Dany : User} alt="Comment Profile Image" className="comment__image" />
+                    {comment?.isDany ?
+                        <img src={Dany} alt="Comment Profile Image" className="comment__image" />
+                        :
+                        <p className="comment__profile">{getProfile(comment)}</p>
+                    }
                 </div>
                 <div className="comment__col">
                     <p className="comment__name">{comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
@@ -158,16 +173,18 @@ export default function Comment({ comment, setReply, reply }: Props) {
                         <div className="comment__reply-box">
                             <InputField
                                 name='fullname'
-                                value={data.fullname}
+                                value={isLoggedIn ? 'Dany' : data.fullname}
                                 updateData={updateData}
                                 placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
+                                disabled={isLoggedIn}
                             />
-                            <InputField
-                                name='email'
-                                value={data.email}
-                                updateData={updateData}
-                                placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
-                            />
+                            {isLoggedIn ? '' :
+                                <InputField
+                                    name='email'
+                                    value={data.email}
+                                    updateData={updateData}
+                                    placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
+                                />}
                             <InputField
                                 name='comment'
                                 value={data.comment}

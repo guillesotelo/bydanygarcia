@@ -9,9 +9,10 @@ type Props = {
     value?: string | number
     cols?: number
     rows?: number
+    disabled?: boolean
 }
 
-export default function InputField({ value, name, updateData, className, type, placeholder, cols, rows }: Props) {
+export default function InputField({ value, name, updateData, className, type, placeholder, cols, rows, disabled }: Props) {
     return type === 'textarea' ?
         <textarea
             className={className || 'textarea__default'}
@@ -20,6 +21,7 @@ export default function InputField({ value, name, updateData, className, type, p
             value={value}
             cols={cols}
             rows={rows}
+            disabled={disabled}
         />
         :
         <input
@@ -28,5 +30,6 @@ export default function InputField({ value, name, updateData, className, type, p
             placeholder={placeholder || ''}
             onChange={e => updateData(name, e)}
             value={value}
+            disabled={disabled}
         />
 }
