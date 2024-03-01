@@ -6,7 +6,9 @@ import LikeFilled from '../../assets/icons/like-filled.svg'
 import Reply from '../../assets/icons/reply.svg'
 import { useContext, useState } from 'react'
 import { AppContext } from '../../AppContext'
-import { updateComment } from '../../services'
+import { deleteComment, updateComment } from '../../services'
+import toast from 'react-hot-toast'
+import { useHistory } from 'react-router-dom'
 
 type Props = {
     comment?: commentType
@@ -15,7 +17,8 @@ type Props = {
 export default function ReplyComment({ comment }: Props) {
     const [liked, setLiked] = useState(false)
     const [likes, setLikes] = useState(comment?.likes || 0)
-    const { lang } = useContext(AppContext)
+    const { lang, isLoggedIn } = useContext(AppContext)
+    const history = useHistory()
 
     const getCommentDate = (comment?: commentType) => {
         if (!comment || !comment.createdAt) return ''
@@ -61,6 +64,19 @@ export default function ReplyComment({ comment }: Props) {
         }
     }
 
+    const removeComment = async (comment: commentType) => {
+        try {
+            const deleted = await deleteComment(comment)
+            if (deleted) {
+                toast.success('Comment deleted')
+                setTimeout(() => history.go(0), 1000)
+            }
+            else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div className="comment__row" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid lightgray' }}>
             <div className="comment__col" style={{ width: '10%' }}>
@@ -77,6 +93,7 @@ export default function ReplyComment({ comment }: Props) {
                     <div className="comment__likes">
                         <img src={liked ? LikeFilled : Like} onClick={likeComment} alt="Like this comment" className="comment__likes-img" />
                         {likes ? <p className="comment__likes-count">{likes}</p> : ''}
+                        {isLoggedIn ? <p className='comment__reply-btn' onClick={() => removeComment(comment || {})} style={{ margin: '0 1rem' }}>Delete</p> : ''}
                     </div>
                 </div>
             </div>
