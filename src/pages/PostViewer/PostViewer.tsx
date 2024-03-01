@@ -33,7 +33,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const [reply, setReply] = useState(false)
     const location = useLocation()
     const history = useHistory()
-    const { lang, isMobile } = useContext(AppContext)
+    const { lang, isMobile, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         setSpanish(lang === 'es')
@@ -127,7 +127,11 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const postComment = async () => {
         try {
-            const posted = await createComment({ ...data, postId })
+            const posted = await createComment({ 
+                ...data, 
+                postId,
+                isDany: isLoggedIn
+            })
             if (posted && posted._id) {
                 toast.success(lang === 'es' ? 'Comentario añadido!' : 'Comment submitted!')
                 getComments(postId)

@@ -101,6 +101,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
         try {
             const posted = await createComment({
                 ...data,
+                isDany: isLoggedIn,
                 replyingTo: comment?._id
             })
             if (posted && posted._id) {
