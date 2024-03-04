@@ -6,6 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
+import NotificationIcon from '../../assets/icons/notification.svg'
 import { deletePost, verifyToken } from '../../services'
 import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
@@ -245,30 +246,35 @@ export default function Header({ search, setSearch, logo }: Props) {
                         : ''}
 
                     <div className='header__admin-search'>
-                        <div className="header__admin-btns">
-                            {isLoggedIn ?
+                        {isLoggedIn ?
+                            <div className="header__admin-btns">
                                 <Button
                                     label='CREATE'
                                     handleClick={() => history.push('/editor?new=true')}
-                                /> : ''}
-                            {postId && isLoggedIn ?
-                                <Button
-                                    svg={EditIcon}
-                                    handleClick={() => history.push(`/editor?id=${postId}`)}
                                 />
-                                : ''}
-                            {postId && isLoggedIn ?
+                                {postId ?
+                                    <>
+                                        <Button
+                                            svg={EditIcon}
+                                            handleClick={() => history.push(`/editor?id=${postId}`)}
+                                        />
+                                        <Button
+                                            svg={DeleteIcon}
+                                            handleClick={() => setDeleteModal(true)}
+                                        />
+                                    </>
+                                    : ''}
                                 <Button
-                                    svg={DeleteIcon}
-                                    handleClick={() => setDeleteModal(true)}
+                                    svg={NotificationIcon}
+                                    handleClick={() => history.push('/notifications')}
                                 />
-                                : ''}
-                            {isLoggedIn ?
-                                <div className="header__item">
-                                    <h4 className="header__item-text" onClick={logOut}>LOGOUT</h4>
-                                </div>
-                                : ''}
-                        </div>
+                                <Button
+                                    label='LOGOUT'
+                                    handleClick={logOut}
+                                    bgColor='transparent'
+                                />
+                            </div>
+                            : ''}
 
                         <div className="header__search" >
                             <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>

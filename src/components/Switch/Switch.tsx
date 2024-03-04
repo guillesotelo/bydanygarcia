@@ -5,7 +5,7 @@ type Props = {
     label: string
     on: string
     off: string
-    value: boolean
+    value?: boolean
     setValue: (value: boolean) => void
     style?: React.CSSProperties
 }

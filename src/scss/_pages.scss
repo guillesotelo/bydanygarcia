@@ -9,6 +9,7 @@
 @import '../pages/Subscribe/subscribe.scss';
 @import '../pages/PostEditor/posteditor.scss';
 @import '../pages/Bespoken/bespoken.scss';
+@import '../pages/Notifications/notifications.scss';
 
 .page {
     &__wrapper {
@@ -63,24 +64,6 @@
             min-height: 100vh;
             overflow: hidden;
             padding: 2rem 0;
-        }
-
-        &__header {
-            &-title {
-                font-size: 4vw;
-                margin-top: 5vw;
-                font-weight: normal;
-                border-bottom: 1px solid gray;
-                animation: move-y-up .7s ease-in;
-            }
-
-            &-subtitle {
-                font-size: 3vw;
-                padding-bottom: 1.5vw;
-                width: fit-content;
-                margin: 1rem auto 0 auto;
-                animation: move-y-down .7s ease-in;
-            }
         }
     }
 }

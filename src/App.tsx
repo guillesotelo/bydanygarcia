@@ -19,6 +19,7 @@ import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
 import ReactGA from 'react-ga4';
 import { postType } from './types';
+import Notifications from './pages/Notifications/Notifications';
 
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
@@ -191,6 +192,14 @@ const App: React.FC = () => {
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
             <Bespoken page='OUR HANDCRAFTED WEDDING' />
+            <Footer />
+          </div>
+        </Route>
+
+        <Route path="/notifications">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} />
+            <Notifications />
             <Footer />
           </div>
         </Route>
