@@ -174,7 +174,7 @@ export default function PostViewer({ post, setPost }: Props) {
                                 value={isLoggedIn ? 'Dany' : data.fullname}
                                 updateData={updateData}
                                 placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
-                                disabled={isLoggedIn}
+                                disabled={isLoggedIn || false}
                             />
                             {isLoggedIn ? '' :
                                 <InputField

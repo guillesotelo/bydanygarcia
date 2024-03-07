@@ -31,7 +31,7 @@ export default function Blog({ search, setPost }: Props) {
     }, [allPosts, filteredPosts])
 
     const getPosts = async () => {
-        const posts = await getAllPosts(isLoggedIn)
+        const posts = await getAllPosts(isLoggedIn || false)
         if (posts) setAllPosts(posts.length ? isLoggedIn ?
             posts : posts.filter((post: postType) => post.published) : [])
     }

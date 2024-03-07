@@ -7,8 +7,8 @@ type AppContextType = {
     setLang: (lang: string) => void
     search: string[]
     setSearch: (search: string[]) => void
-    isLoggedIn: boolean
-    setIsLoggedIn: (value: boolean) => void
+    isLoggedIn: boolean | null
+    setIsLoggedIn: (value: boolean | null) => void
     post: postType
     setPost: (value: postType) => void
     children: React.ReactNode

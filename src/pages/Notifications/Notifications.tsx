@@ -11,6 +11,7 @@ import { AppContext } from '../../AppContext'
 import toast from 'react-hot-toast'
 import Modal from '../../components/Modal/Modal'
 import { subscribe } from '../../services'
+import { useHistory } from 'react-router-dom'
 
 type Props = {}
 
@@ -28,13 +29,14 @@ export default function Notifications({ }: Props) {
     const [selectedEmail, setSelectedEmail] = useState(-1)
     const [selectedTemplate, setSelectedTemplate] = useState<templateType>({})
     const [allTemplates, setAllTemplates] = useState<templateType[]>([])
-    const { isMobile } = useContext(AppContext)
+    const { isMobile, isLoggedIn } = useContext(AppContext)
+    const history = useHistory()
 
     useEffect(() => {
+        if (isLoggedIn !== null && !isLoggedIn) return history.push('/')
         getEmails()
         getTemplates()
-    }, [])
-
+    }, [isLoggedIn])
 
     useEffect(() => {
         if (selectedEmail !== -1) {

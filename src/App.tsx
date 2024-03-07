@@ -28,7 +28,7 @@ const App: React.FC = () => {
   const [search, setSearch] = useState<string[]>([])
   const [post, setPost] = useState<postType>({})
   const [lang, setLang] = useState<string>(localLang)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const location = useLocation()
 
   useEffect(() => {
