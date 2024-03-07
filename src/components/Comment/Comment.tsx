@@ -149,7 +149,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
                     }
                 </div>
                 <div className="comment__col">
-                    <p className="comment__name">{comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
+                    <p className="comment__name">{comment?.isDany ? 'Dany' : comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
                     <p className="comment__date">{getCommentDate(comment)}</p>
                     <p className="comment__message">{comment?.comment}</p>
                     <div className="comment__btns">

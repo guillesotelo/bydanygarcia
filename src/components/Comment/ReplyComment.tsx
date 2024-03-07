@@ -100,7 +100,7 @@ export default function ReplyComment({ comment }: Props) {
                     <p className="comment__profile">{getProfile(comment)}</p>
                 }            </div>
             <div className="comment__col" style={{ width: '80%' }}>
-                <p className="comment__name">{comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
+                <p className="comment__name">{comment?.isDany ? 'Dany' : comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
                 <p className="comment__date">{getCommentDate(comment)}</p>
                 <p className="comment__message">{comment?.comment}</p>
                 <div className="comment__btns">
