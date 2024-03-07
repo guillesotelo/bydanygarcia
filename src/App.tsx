@@ -151,7 +151,7 @@ const App: React.FC = () => {
 
         <Route path="/bespoken/home">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='HOME' />
             <Footer />
           </div>
@@ -159,7 +159,7 @@ const App: React.FC = () => {
 
         <Route path="/bespoken/story">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='STORY' />
             <Footer />
           </div>
@@ -167,7 +167,7 @@ const App: React.FC = () => {
 
         <Route path="/bespoken/values">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='VALUES' />
             <Footer />
           </div>
@@ -175,14 +175,14 @@ const App: React.FC = () => {
 
         <Route path="/bespoken/products">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='PRODUCTS' />
             <Footer />
           </div>
         </Route>
         <Route path="/bespoken/products:category">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='PRODUCTS' />
             <Footer />
           </div>
@@ -190,7 +190,7 @@ const App: React.FC = () => {
 
         <Route path="/bespoken/our_handcrafted_wedding">
           <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} logo={BespokenLogo} />
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='OUR HANDCRAFTED WEDDING' />
             <Footer />
           </div>

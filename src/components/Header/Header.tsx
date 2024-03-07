@@ -12,16 +12,16 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/logo_cropped.png'
+import byDanyLogo from '../../assets/logos/logo-new.png'
 import { onChangeEventType, postType } from '../../types'
 
 type Props = {
     search: string[]
     setSearch: (value: string[]) => void
-    logo?: string
+    bespokenLogo?: string
 }
 
-export default function Header({ search, setSearch, logo }: Props) {
+export default function Header({ search, setSearch, bespokenLogo }: Props) {
     const { lang, setLang, isMobile } = useContext(AppContext)
     const [postId, setPostId] = useState('')
     const [prompt, setPrompt] = useState('')
@@ -228,18 +228,17 @@ export default function Header({ search, setSearch, logo }: Props) {
                             onClick={() => {
                                 setSearch([])
                                 setPrompt('')
-                                if (logo) history.push('/bespoken/story')
+                                if (bespokenLogo) history.push('/bespoken/story')
                                 else history.push('/')
                             }}>
                             {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                             <img
                                 className="header__logo-image"
                                 style={{
-                                    height: bigHeader ? '6vw' : logo ? '1.8vw' : '3vw',
-                                    maxHeight: logo ? '2.5rem' : '',
-                                    margin: logo ? 0 : bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
+                                    height: bigHeader ? bespokenLogo ? '3vw' : '4.5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
+                                    margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
                                 }}
-                                src={logo || byDanyLogo}
+                                src={bespokenLogo || byDanyLogo}
                                 alt='by Dany Garcia'
                                 loading='lazy' />
                         </div>
@@ -385,17 +384,17 @@ export default function Header({ search, setSearch, logo }: Props) {
                     onClick={() => {
                         setSearch([])
                         setPrompt('')
-                        if (logo) history.push('/bespoken/home')
+                        if (bespokenLogo) history.push('/bespoken/home')
                         else history.push('/')
                     }}>
                     {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                     <img
                         className="header__logo-image"
                         style={{
-                            maxHeight: logo ? '9vw' : '',
-                            margin: logo ? 0 : ''
+                            maxHeight: bespokenLogo ? '9vw' : '',
+                            margin: bespokenLogo ? 0 : ''
                         }}
-                        src={logo || byDanyLogo}
+                        src={bespokenLogo || byDanyLogo}
                         alt='by Dany Garcia'
                         loading='lazy' />
                 </div>

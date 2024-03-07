@@ -23,6 +23,7 @@ export default function Notifications({ }: Props) {
     const [saveAsNew, setSaveAsNew] = useState(false)
     const [emailModal, setEmailModal] = useState(false)
     const [emailActive, setEmailActive] = useState(true)
+    const [loading, setLoading] = useState(true)
     const [htmlContent, setHtmlContent] = useState('')
     const [selectedEmail, setSelectedEmail] = useState(-1)
     const [selectedTemplate, setSelectedTemplate] = useState<templateType>({})
@@ -66,38 +67,50 @@ export default function Notifications({ }: Props) {
 
     const saveTemplate = async () => {
         try {
+            setLoading(true)
             const saved = await createTemplate({ ...data, html: htmlContent })
             if (saved) {
                 toast.success('Template saved!')
                 setSaveAsNew(false)
                 getTemplates()
-            }
+            } else toast.error('Error saving template. Try again later.')
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
+            toast.error('Error saving template. Try again later.')
             console.error(error)
         }
     }
 
     const updateTemplateData = async () => {
         try {
+            setLoading(true)
             if (!htmlContent) return toast.error('HTML content is empty')
             const saved = await updateTemplate({ ...selectedTemplate, html: htmlContent })
             if (saved) {
                 toast.success('Template saved!')
                 getTemplates()
             } else toast.error('Error saving template. Try again later.')
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
+            toast.error('Error saving template. Try again later.')
             console.error(error)
         }
     }
 
     const sendNotifications = async () => {
         try {
+            setLoading(true)
             const saved = await sendNotification({ ...data, html: htmlContent, emailList: allEmails.map(data => data.email || '') })
             if (saved) {
                 toast.success('Emails sent!')
                 setEmailModal(false)
-            }
+            } else toast.error('Error sending emails. Try again later.')
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
+            toast.error('Error sending emails. Try again later.')
             console.error(error)
         }
     }
@@ -124,6 +137,7 @@ export default function Notifications({ }: Props) {
 
     const saveEmail = async () => {
         try {
+            setLoading(true)
             const saved = newEmail ? await subscribe({ ...emailData, isActive: emailActive })
                 : await updateSubscription({ ...emailData, isActive: emailActive })
             if (saved) {
@@ -131,7 +145,10 @@ export default function Notifications({ }: Props) {
                 discardEmail()
                 getEmails()
             } else toast.error('Error saving email. Try again later.')
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
+            toast.error('Error saving email. Try again later.')
             console.error(error)
         }
     }
@@ -155,10 +172,12 @@ export default function Notifications({ }: Props) {
                                 label='Cancel'
                                 handleClick={() => setEmailModal(false)}
                                 bgColor='transparent'
+                                disabled={loading}
                             />
                             <Button
                                 label='Confirm'
                                 handleClick={sendNotifications}
+                                disabled={loading}
                             />
                         </div>
                     </Modal> : ''}
@@ -192,10 +211,12 @@ export default function Notifications({ }: Props) {
                                 label='Cancel'
                                 handleClick={discardEmail}
                                 bgColor='transparent'
+                                disabled={loading}
                             />
                             <Button
                                 label='Save'
                                 handleClick={saveEmail}
+                                disabled={loading}
                             />
                         </div>
                     </Modal> : ''}
@@ -241,6 +262,7 @@ export default function Notifications({ }: Props) {
                                         label='Update Template'
                                         handleClick={updateTemplateData}
                                         style={{ marginTop: '1rem', width: '100%' }}
+                                        disabled={loading}
                                     /> : ''}
                             </>}
                         {saveAsNew ?
@@ -256,7 +278,7 @@ export default function Notifications({ }: Props) {
                                     label='Save Template'
                                     handleClick={saveTemplate}
                                     style={{ marginTop: '1rem', width: '100%' }}
-                                    disabled={!data.name || !htmlContent}
+                                    disabled={!data.name || !htmlContent || loading}
                                 />
                                 <Button
                                     label='Cancel'
@@ -266,21 +288,22 @@ export default function Notifications({ }: Props) {
                                     }}
                                     style={{ marginTop: '1rem', width: '100%' }}
                                     bgColor='lightgray'
+                                    disabled={loading}
                                 />
                             </>
                             : <Button
                                 label='Save As...'
                                 handleClick={() => setSaveAsNew(true)}
                                 style={{ marginTop: '1rem', width: '100%' }}
-                                disabled={!htmlContent}
-                                />}
+                                disabled={!htmlContent || loading}
+                            />}
                         {!saveAsNew ?
                             <>
                                 <Button
                                     label='Send Notification'
                                     handleClick={() => setEmailModal(true)}
                                     style={{ marginTop: '1rem', width: '100%' }}
-                                    disabled={!allEmails.length}
+                                    disabled={!allEmails.length || loading}
                                 />
                                 {htmlContent ?
                                     <Button
@@ -288,6 +311,7 @@ export default function Notifications({ }: Props) {
                                         handleClick={clearTemplate}
                                         style={{ marginTop: '2rem', width: '100%' }}
                                         bgColor='lightgray'
+                                        disabled={loading}
                                     />
                                     : ''}
                             </>
@@ -312,6 +336,7 @@ export default function Notifications({ }: Props) {
                                 label='New Email'
                                 handleClick={() => setNewEmail(true)}
                                 style={{ margin: '0 2rem', alignSelf: 'center', width: '90%' }}
+                                disabled={loading}
                             />
                             <DataTable
                                 tableData={allEmails}
@@ -349,6 +374,7 @@ export default function Notifications({ }: Props) {
                                     label='Update Template'
                                     handleClick={updateTemplateData}
                                     style={{ marginTop: '2rem', width: '100%' }}
+                                    disabled={loading}
                                 /> : ''}
                         </>}
                     <InputField
@@ -381,7 +407,7 @@ export default function Notifications({ }: Props) {
                                 label='Save Template'
                                 handleClick={saveTemplate}
                                 style={{ marginTop: '2rem', width: '100%' }}
-                                disabled={!data.name}
+                                disabled={!data.name || loading}
                             />
                             <Button
                                 label='Cancel'
@@ -391,12 +417,14 @@ export default function Notifications({ }: Props) {
                                 }}
                                 style={{ marginTop: '2rem', width: '100%' }}
                                 bgColor='lightgray'
+                                disabled={loading}
                             />
                         </>
                         : <Button
                             label='Save As New'
                             handleClick={() => setSaveAsNew(true)}
                             style={{ marginTop: '2rem', width: '100%' }}
+                            disabled={loading}
                         />}
                 </div>
 
