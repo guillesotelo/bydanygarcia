@@ -12,6 +12,7 @@ type Props = {}
 
 export default function Login({ }: Props) {
     const [data, setData] = useState({ email: '', password: '' })
+    const [loading, setLoading] = useState(false)
     const history = useHistory()
     const { lang, setIsLoggedIn } = useContext(AppContext)
 
@@ -21,6 +22,7 @@ export default function Login({ }: Props) {
     }
 
     const onLogin = async () => {
+        setLoading(true)
         const loading = toast.loading('Logging in...')
         const logged = await loginUser(data)
         if (logged) {
@@ -28,6 +30,7 @@ export default function Login({ }: Props) {
             setIsLoggedIn(true)
             setTimeout(() => history.push('/'), 1500)
         } else toast.error('Error logging in, try again later')
+        setLoading(false)
         return toast.remove(loading)
     }
 
@@ -50,7 +53,7 @@ export default function Login({ }: Props) {
                 <Button
                     label={TEXT[lang]['login']}
                     handleClick={onLogin}
-                    disabled={!data.email || !data.password}
+                    disabled={!data.email || !data.password || loading}
                     style={{ width: '100%' }}
                 />
             </div>

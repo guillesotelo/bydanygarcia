@@ -6,21 +6,22 @@ import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
 import EditIcon from '../../assets/icons/edit.svg'
+import NotificationIcon from '../../assets/icons/notification.svg'
 import { deletePost, verifyToken } from '../../services'
 import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/logo_cropped.png'
+import byDanyLogo from '../../assets/logos/logo-new.png'
 import { onChangeEventType, postType } from '../../types'
 
 type Props = {
     search: string[]
     setSearch: (value: string[]) => void
-    logo?: string
+    bespokenLogo?: string
 }
 
-export default function Header({ search, setSearch, logo }: Props) {
+export default function Header({ search, setSearch, bespokenLogo }: Props) {
     const { lang, setLang, isMobile } = useContext(AppContext)
     const [postId, setPostId] = useState('')
     const [prompt, setPrompt] = useState('')
@@ -227,48 +228,52 @@ export default function Header({ search, setSearch, logo }: Props) {
                             onClick={() => {
                                 setSearch([])
                                 setPrompt('')
-                                if (logo) history.push('/bespoken/story')
+                                if (bespokenLogo) history.push('/bespoken/story')
                                 else history.push('/')
                             }}>
                             {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                             <img
                                 className="header__logo-image"
                                 style={{
-                                    height: bigHeader ? '6vw' : logo ? '1.8vw' : '3vw',
-                                    maxHeight: logo ? '2.5rem' : '',
-                                    margin: logo ? 0 : bigHeader ? '0 3vw 1vw 3vw' : '0 3vw .5vw 3vw'
+                                    height: bigHeader ? bespokenLogo ? '3vw' : '4.5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
+                                    margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
                                 }}
-                                src={logo || byDanyLogo}
+                                src={bespokenLogo || byDanyLogo}
                                 alt='by Dany Garcia'
                                 loading='lazy' />
                         </div>
                         : ''}
 
                     <div className='header__admin-search'>
-                        <div className="header__admin-btns">
-                            {isLoggedIn ?
+                        {isLoggedIn ?
+                            <div className="header__admin-btns">
                                 <Button
                                     label='CREATE'
                                     handleClick={() => history.push('/editor?new=true')}
-                                /> : ''}
-                            {postId && isLoggedIn ?
-                                <Button
-                                    svg={EditIcon}
-                                    handleClick={() => history.push(`/editor?id=${postId}`)}
                                 />
-                                : ''}
-                            {postId && isLoggedIn ?
+                                {postId ?
+                                    <>
+                                        <Button
+                                            svg={EditIcon}
+                                            handleClick={() => history.push(`/editor?id=${postId}`)}
+                                        />
+                                        <Button
+                                            svg={DeleteIcon}
+                                            handleClick={() => setDeleteModal(true)}
+                                        />
+                                    </>
+                                    : ''}
                                 <Button
-                                    svg={DeleteIcon}
-                                    handleClick={() => setDeleteModal(true)}
+                                    svg={NotificationIcon}
+                                    handleClick={() => history.push('/notifications')}
                                 />
-                                : ''}
-                            {isLoggedIn ?
-                                <div className="header__item">
-                                    <h4 className="header__item-text" onClick={logOut}>LOGOUT</h4>
-                                </div>
-                                : ''}
-                        </div>
+                                <Button
+                                    label='LOGOUT'
+                                    handleClick={logOut}
+                                    bgColor='transparent'
+                                />
+                            </div>
+                            : ''}
 
                         <div className="header__search" >
                             <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
@@ -379,17 +384,17 @@ export default function Header({ search, setSearch, logo }: Props) {
                     onClick={() => {
                         setSearch([])
                         setPrompt('')
-                        if (logo) history.push('/bespoken/home')
+                        if (bespokenLogo) history.push('/bespoken/home')
                         else history.push('/')
                     }}>
                     {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
                     <img
                         className="header__logo-image"
                         style={{
-                            maxHeight: logo ? '9vw' : '',
-                            margin: logo ? 0 : ''
+                            maxHeight: bespokenLogo ? '9vw' : '',
+                            margin: bespokenLogo ? 0 : ''
                         }}
-                        src={logo || byDanyLogo}
+                        src={bespokenLogo || byDanyLogo}
                         alt='by Dany Garcia'
                         loading='lazy' />
                 </div>

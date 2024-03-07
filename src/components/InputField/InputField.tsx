@@ -10,9 +10,10 @@ type Props = {
     cols?: number
     rows?: number
     disabled?: boolean
+    style?: React.CSSProperties
 }
 
-export default function InputField({ value, name, updateData, className, type, placeholder, cols, rows, disabled }: Props) {
+export default function InputField({ value, name, updateData, className, type, placeholder, cols, rows, disabled, style }: Props) {
     return type === 'textarea' ?
         <textarea
             className={className || 'textarea__default'}
@@ -22,6 +23,7 @@ export default function InputField({ value, name, updateData, className, type, p
             cols={cols}
             rows={rows}
             disabled={disabled}
+            style={style}
         />
         :
         <input
@@ -31,5 +33,6 @@ export default function InputField({ value, name, updateData, className, type, p
             onChange={e => updateData(name, e)}
             value={value}
             disabled={disabled}
+            style={style}
         />
 }

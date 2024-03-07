@@ -77,3 +77,23 @@ export type commentType = {
     createdAt?: Date
     updatedAt?: Date
 }
+
+export type emailType = {
+    _id?: string
+    fullname?: string
+    email?: string
+    capturedFrom?: string
+    isActive?: boolean
+    createdAt?: Date
+    updatedAt?: Date
+}
+
+export type templateType = {
+    _id?: string
+    name?: string
+    type?: string
+    html?: string
+    emailList?: string[]
+    createdAt?: Date
+    updatedAt?: Date
+}

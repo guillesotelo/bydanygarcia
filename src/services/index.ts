@@ -22,10 +22,22 @@ import {
     deleteComment
 } from './comment'
 
+import {
+    getAllTemplates,
+    createTemplate,
+    getTemplateById,
+    updateTemplate,
+    deleteTemplate
+} from './emailTemplate'
 
 import {
     sendContactEmail,
-    scrapeUrl
+    sendNotification,
+    getAllEmails,
+    scrapeUrl,
+    subscribe,
+    updateSubscription,
+    cancelSubscription
 } from './app'
 
 export {
@@ -38,12 +50,22 @@ export {
     updatePost,
     deletePost,
     sendContactEmail,
+    sendNotification,
+    getAllEmails,
     scrapeUrl,
+    subscribe,
+    updateSubscription,
+    cancelSubscription,
     getAllComments,
     createComment,
     getPostComments,
     getRepliesById,
     getCommentById,
     updateComment,
-    deleteComment
+    deleteComment,
+    getAllTemplates,
+    createTemplate,
+    getTemplateById,
+    updateTemplate,
+    deleteTemplate,
 }

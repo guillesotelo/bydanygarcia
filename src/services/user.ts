@@ -42,20 +42,6 @@ const registerUser = async (data: userType) => {
     } catch (err) { console.log(err) }
 }
 
-const subscribe = async (data: susbscribeDataType) => {
-    try {
-        const newEmail = await axios.post(`${API_URL}/api/app/subscribe`, data)
-        return newEmail.data
-    } catch (err) { console.log(err) }
-}
-
-const cancelSubscription = async (data: susbscribeDataType) => {
-    try {
-        const canceled = await axios.post(`${API_URL}/api/app/cancelSubscription`, data)
-        return canceled.data
-    } catch (err) { console.log(err) }
-}
-
 const updateUser = async (data: userType) => {
     try {
         const user = await axios.post(`${API_URL}/api/user/update`, data, getConfig())
@@ -73,6 +59,4 @@ export {
     verifyToken,
     registerUser,
     updateUser,
-    subscribe,
-    cancelSubscription
 }

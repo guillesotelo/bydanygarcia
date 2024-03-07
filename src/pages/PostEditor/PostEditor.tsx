@@ -49,8 +49,9 @@ export default function PostEditor({ }: Props) {
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
+        if (isLoggedIn !== null && !isLoggedIn) return history.push('/')
         activateRenderEffects()
-    }, [])
+    }, [isLoggedIn])
 
     useEffect(() => {
         const isNew = new URLSearchParams(document.location.search).get('new')
