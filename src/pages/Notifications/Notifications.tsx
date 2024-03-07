@@ -23,7 +23,7 @@ export default function Notifications({ }: Props) {
     const [saveAsNew, setSaveAsNew] = useState(false)
     const [emailModal, setEmailModal] = useState(false)
     const [emailActive, setEmailActive] = useState(true)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [htmlContent, setHtmlContent] = useState('')
     const [selectedEmail, setSelectedEmail] = useState(-1)
     const [selectedTemplate, setSelectedTemplate] = useState<templateType>({})
