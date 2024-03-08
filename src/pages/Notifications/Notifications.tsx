@@ -25,6 +25,7 @@ export default function Notifications({ }: Props) {
     const [emailModal, setEmailModal] = useState(false)
     const [emailActive, setEmailActive] = useState(true)
     const [loading, setLoading] = useState(false)
+    const [loadingTemplates, setLoadingTemplates] = useState(false)
     const [htmlContent, setHtmlContent] = useState('')
     const [selectedEmail, setSelectedEmail] = useState(-1)
     const [selectedTemplate, setSelectedTemplate] = useState<templateType>({})
@@ -60,9 +61,12 @@ export default function Notifications({ }: Props) {
 
     const getTemplates = async () => {
         try {
+            setLoadingTemplates(true)
             const templates = await getAllTemplates()
             if (templates && Array.isArray(templates)) setAllTemplates(templates)
+            setLoadingTemplates(false)
         } catch (error) {
+            setLoadingTemplates(false)
             console.error(error)
         }
     }
@@ -258,6 +262,7 @@ export default function Notifications({ }: Props) {
                                     setSelected={setSelectedTemplate}
                                     objKey='name'
                                     style={{ marginTop: '1rem', width: '100%' }}
+                                    loading={loadingTemplates}
                                 />
                                 {selectedTemplate._id ?
                                     <Button
