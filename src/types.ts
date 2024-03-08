@@ -94,6 +94,8 @@ export type templateType = {
     type?: string
     html?: string
     emailList?: string[]
+    testEmails?: string
+    subject?: string
     createdAt?: Date
     updatedAt?: Date
 }

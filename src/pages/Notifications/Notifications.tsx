@@ -13,9 +13,7 @@ import Modal from '../../components/Modal/Modal'
 import { subscribe } from '../../services'
 import { useHistory } from 'react-router-dom'
 
-type Props = {}
-
-export default function Notifications({ }: Props) {
+export default function Notifications() {
     const [data, setData] = useState<templateType>({})
     const [emailData, setEmailData] = useState<emailType>({})
     const [allEmails, setAllEmails] = useState<emailType[]>([])
@@ -23,6 +21,7 @@ export default function Notifications({ }: Props) {
     const [htmlViewer, setHtmlViewer] = useState(true)
     const [saveAsNew, setSaveAsNew] = useState(false)
     const [emailModal, setEmailModal] = useState(false)
+    const [testModal, setTestModal] = useState(false)
     const [emailActive, setEmailActive] = useState(true)
     const [loading, setLoading] = useState(false)
     const [loadingTemplates, setLoadingTemplates] = useState(false)
@@ -30,6 +29,7 @@ export default function Notifications({ }: Props) {
     const [selectedEmail, setSelectedEmail] = useState(-1)
     const [selectedTemplate, setSelectedTemplate] = useState<templateType>({})
     const [allTemplates, setAllTemplates] = useState<templateType[]>([])
+    const [testEmails, setTestEmails] = useState([])
     const { isMobile, isLoggedIn } = useContext(AppContext)
     const history = useHistory()
 
@@ -108,9 +108,33 @@ export default function Notifications({ }: Props) {
     const sendNotifications = async () => {
         try {
             setLoading(true)
-            const saved = await sendNotification({ ...data, html: htmlContent, emailList: allEmails.map(data => data.email || '') })
+            const saved = await sendNotification({
+                ...data,
+                html: htmlContent,
+                emailList: allEmails.map(data => data.email || '')
+            })
             if (saved) {
                 toast.success('Emails sent!')
+                setEmailModal(false)
+            } else toast.error('Error sending emails. Try again later.')
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            toast.error('Error sending emails. Try again later.')
+            console.error(error)
+        }
+    }
+
+    const sendTestEmail = async () => {
+        try {
+            setLoading(true)
+            const saved = await sendNotification({
+                ...data,
+                html: htmlContent,
+                emailList: data.testEmails?.replaceAll(' ', '').split(',')
+            })
+            if (saved) {
+                toast.success('Test emails sent!')
                 setEmailModal(false)
             } else toast.error('Error sending emails. Try again later.')
             setLoading(false)
@@ -172,7 +196,7 @@ export default function Notifications({ }: Props) {
                     <Modal
                         title='Send Notifications'
                         onClose={() => setEmailModal(false)}>
-                        <p style={{ textAlign: 'center' }}>You are about to send notifications to {allEmails.length} contacts.<br />Are you sure you want to proceed?</p>
+                        <p style={{ textAlign: 'center' }}>You are about to send notifications to {allEmails.filter(email => email.isActive).length} active contacts.<br />Are you sure you want to proceed?</p>
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Button
                                 label='Cancel'
@@ -186,7 +210,32 @@ export default function Notifications({ }: Props) {
                                 disabled={loading}
                             />
                         </div>
-                    </Modal> : ''}
+                    </Modal>
+                    : testModal ?
+                        <Modal
+                            title='Send Test Email'
+                            onClose={() => setTestModal(false)}>
+                            <p style={{ textAlign: 'center' }}>Write the email recipients for the test, separated by comma.</p>
+                            <InputField
+                                value={data.testEmails}
+                                updateData={updateEmailData}
+                                name='testEmails'
+                                placeholder='user@email.com, another_user@email.com...'
+                            />
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Button
+                                    label='Cancel'
+                                    handleClick={() => setTestModal(false)}
+                                    bgColor='transparent'
+                                    disabled={loading}
+                                />
+                                <Button
+                                    label='Confirm'
+                                    handleClick={sendTestEmail}
+                                    disabled={loading}
+                                />
+                            </div>
+                        </Modal> : ''}
                 {newEmail || selectedEmail !== -1 ?
                     <Modal
                         title={selectedEmail !== -1 ? 'New Email' : 'Email Details'}
@@ -281,6 +330,13 @@ export default function Notifications({ }: Props) {
                                     style={{ marginTop: '2rem', width: '92%' }}
                                     placeholder='Template Name'
                                 />
+                                 <InputField
+                                    name='subject'
+                                    updateData={updateData}
+                                    value={data.subject || ''}
+                                    style={{ marginTop: '2rem', width: '92%' }}
+                                    placeholder='Email Subject'
+                                />
                                 <Button
                                     label='Save Template'
                                     handleClick={saveTemplate}
@@ -311,6 +367,12 @@ export default function Notifications({ }: Props) {
                                     handleClick={() => setEmailModal(true)}
                                     style={{ marginTop: '1rem', width: '100%' }}
                                     disabled={!allEmails.length || loading}
+                                />
+                                <Button
+                                    label='Send Test'
+                                    handleClick={() => setTestModal(true)}
+                                    style={{ marginTop: '1rem', width: '100%' }}
+                                    disabled={loading}
                                 />
                                 {htmlContent ?
                                     <Button
