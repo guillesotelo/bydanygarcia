@@ -133,8 +133,8 @@ export default function Comment({ comment, setReply, reply }: Props) {
             if (comment.fullname.length > 1) {
                 const firstName = comment.fullname.split(' ')[0][0]
                 const lastName = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : comment.fullname.split(' ')[0][1]
-                return firstName + lastName
-            } else return comment.fullname
+                return firstName.toUpperCase() + lastName.toUpperCase()
+            } else return comment.fullname.toUpperCase()
         }
     }
 
@@ -194,11 +194,11 @@ export default function Comment({ comment, setReply, reply }: Props) {
                                 rows={8}
                             />
                             <div className="comment__reply-btns">
+                                <p className='comment__reply-btn' onClick={renderReply}>{lang === 'es' ? 'Cancelar' : 'Cancel'}</p>
                                 <Button
-                                    label={lang === 'es' ? 'Enviar Comentario' : 'Post Comment'}
+                                    label={lang === 'es' ? 'Enviar' : 'Post Comment'}
                                     handleClick={postReply}
                                 />
-                                <p className='comment__reply-btn' onClick={renderReply}>{lang === 'es' ? 'Cancelar' : 'Cancel'}</p>
                             </div>
                         </div>
                     </div>

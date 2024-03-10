@@ -90,16 +90,16 @@ export default function ReplyComment({ comment }: Props) {
 
     return (
         <div className="comment__row" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid lightgray' }}>
-            <div className="comment__col" style={{ width: '10%' }}>
+            <div className="comment__col">
                 <img src={Reply} alt="Reply" className="comment__reply-image" />
             </div>
-            <div className="comment__col" style={{ width: '10%' }}>
+            <div className="comment__col" >
                 {comment?.isDany ?
                     <img src={Dany} alt="Comment Profile Image" className="comment__image" />
                     :
                     <p className="comment__profile">{getProfile(comment)}</p>
                 }            </div>
-            <div className="comment__col" style={{ width: '80%' }}>
+            <div className="comment__col">
                 <p className="comment__name">{comment?.isDany ? 'Dany' : comment?.fullname ? comment.fullname.split(' ')[0] : ''}</p>
                 <p className="comment__date">{getCommentDate(comment)}</p>
                 <p className="comment__message">{comment?.comment}</p>

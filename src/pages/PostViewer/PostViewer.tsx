@@ -30,13 +30,14 @@ export default function PostViewer({ post, setPost }: Props) {
     const [sideImgStyles, setSideImgStyles] = useState<React.CSSProperties[]>([])
     const [linkLang, setLinkLang] = useState('')
     const [category, setCategory] = useState('')
-    const [reply, setReply] = useState(false)
+    const [submitComment, setSubmitComment] = useState(false)
     const location = useLocation()
     const history = useHistory()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         setSpanish(lang === 'es')
+        changeBackground()
     }, [])
 
     useEffect(() => {
@@ -52,7 +53,7 @@ export default function PostViewer({ post, setPost }: Props) {
     useEffect(() => {
         renderHelmet()
         if (postId && (!post || !post._id)) getPost(postId)
-        else if (!postComments.length) getComments(postId)
+        if (!postComments.length) getComments(postId)
         if (post.html) setHtml(post.html)
 
         if (post.spaHtml) setspaHtml(post.spaHtml)
@@ -63,6 +64,11 @@ export default function PostViewer({ post, setPost }: Props) {
         if (post.tags) getCategory(post)
     }, [post, postId])
 
+    const changeBackground = () => {
+        const page = document.querySelector('.page__wrapper') as HTMLDivElement
+        if(page) page.style.backgroundColor = '#D9C6B9'
+    }
+    
     const getCategory = (post: postType) => {
         const _category = post.category ? post.category.includes(',') ?
             post.category.split(',')[0] : post.category :
@@ -163,9 +169,9 @@ export default function PostViewer({ post, setPost }: Props) {
             <div className="postviewer__comments-section">
                 <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2>
                 <div className="postviewer__comments-list" style={{ width: isMobile ? '90vw' : '30vw' }}>
-                    {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={reply} setReply={setReply} />)}
+                    {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={submitComment} setReply={setSubmitComment} />)}
                 </div>
-                {!reply ?
+                {!submitComment ?
                     <div className="postviewer__comments-post">
                         <h2 className="postviewer__comments-post-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
                         <div className="postviewer__comments-reply" style={{ width: isMobile ? '90vw' : '30vw' }}>
@@ -192,7 +198,7 @@ export default function PostViewer({ post, setPost }: Props) {
                                 rows={8}
                             />
                             <Button
-                                label={lang === 'es' ? 'Enviar Comentario' : 'Post Comment'}
+                                label={lang === 'es' ? 'Enviar' : 'Post Comment'}
                                 handleClick={postComment}
                             />
                         </div>
