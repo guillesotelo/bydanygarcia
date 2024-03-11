@@ -84,6 +84,7 @@ export type emailType = {
     email?: string
     capturedFrom?: string
     isActive?: boolean
+    testEmails?: string
     createdAt?: Date
     updatedAt?: Date
 }
@@ -94,7 +95,6 @@ export type templateType = {
     type?: string
     html?: string
     emailList?: string[]
-    testEmails?: string
     subject?: string
     createdAt?: Date
     updatedAt?: Date

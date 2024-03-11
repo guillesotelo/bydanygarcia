@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import DataTable from '../../components/DataTable/DataTable'
 import { subscriptionHeaders } from '../../constants/tableHeaders'
 import { createTemplate, getAllEmails, getAllTemplates, sendNotification, updateSubscription, updateTemplate } from '../../services'
@@ -29,7 +29,6 @@ export default function Notifications() {
     const [selectedEmail, setSelectedEmail] = useState(-1)
     const [selectedTemplate, setSelectedTemplate] = useState<templateType>({})
     const [allTemplates, setAllTemplates] = useState<templateType[]>([])
-    const [testEmails, setTestEmails] = useState([])
     const { isMobile, isLoggedIn } = useContext(AppContext)
     const history = useHistory()
 
@@ -48,6 +47,7 @@ export default function Notifications() {
 
     useEffect(() => {
         if (selectedTemplate._id) setHtmlContent(selectedTemplate.html || '')
+        if (selectedTemplate.subject) setData({ ...data, subject: selectedTemplate.subject })
     }, [selectedTemplate])
 
     const getEmails = async () => {
@@ -92,7 +92,11 @@ export default function Notifications() {
         try {
             setLoading(true)
             if (!htmlContent) return toast.error('HTML content is empty')
-            const saved = await updateTemplate({ ...selectedTemplate, html: htmlContent })
+            const saved = await updateTemplate({
+                ...selectedTemplate,
+                html: htmlContent,
+                subject: data.subject
+            })
             if (saved) {
                 toast.success('Template saved!')
                 getTemplates()
@@ -131,10 +135,11 @@ export default function Notifications() {
             const saved = await sendNotification({
                 ...data,
                 html: htmlContent,
-                emailList: data.testEmails?.replaceAll(' ', '').split(',')
+                emailList: emailData.testEmails?.replaceAll(' ', '').split(',')
             })
             if (saved) {
                 toast.success('Test emails sent!')
+                setEmailModal(false)
                 setEmailModal(false)
             } else toast.error('Error sending emails. Try again later.')
             setLoading(false)
@@ -215,9 +220,9 @@ export default function Notifications() {
                         <Modal
                             title='Send Test Email'
                             onClose={() => setTestModal(false)}>
-                            <p style={{ textAlign: 'center' }}>Write the email recipients for the test, separated by comma.</p>
+                            <p style={{ textAlign: 'center' }}>Enter the email recipients for the test, separated by comma.</p>
                             <InputField
-                                value={data.testEmails}
+                                value={emailData.testEmails}
                                 updateData={updateEmailData}
                                 name='testEmails'
                                 placeholder='user@email.com, another_user@email.com...'
@@ -275,10 +280,10 @@ export default function Notifications() {
                             />
                         </div>
                     </Modal> : ''}
-                <div className="page__header" style={{ filter: emailModal || newEmail || selectedEmail !== -1 ? 'blur(3px)' : '' }}>
+                <div className="page__header" style={{ filter: emailModal || newEmail || selectedEmail !== -1 || emailModal ? 'blur(3px)' : '' }}>
                     <h4 className="page__header-title">EMAIL NOTIFICATIONS</h4>
                 </div>
-                <div className="notifications__row" style={{ filter: emailModal || newEmail || selectedEmail !== -1 ? 'blur(3px)' : '' }}>
+                <div className="notifications__row" style={{ filter: emailModal || newEmail || selectedEmail !== -1 || emailModal ? 'blur(3px)' : '' }}>
                     <div className="notifications__col" style={{ width: '45%' }}>
                         <h4 className="page__header-subtitle">TEMPLATE</h4>
 
@@ -313,6 +318,13 @@ export default function Notifications() {
                                     style={{ marginTop: '1rem', width: '100%' }}
                                     loading={loadingTemplates}
                                 />
+                                <InputField
+                                    name='subject'
+                                    updateData={updateData}
+                                    value={data.subject || ''}
+                                    style={{ marginTop: '1rem', width: '92%' }}
+                                    placeholder='Email Subject'
+                                />
                                 {selectedTemplate._id ?
                                     <Button
                                         label='Update Template'
@@ -330,7 +342,7 @@ export default function Notifications() {
                                     style={{ marginTop: '2rem', width: '92%' }}
                                     placeholder='Template Name'
                                 />
-                                 <InputField
+                                <InputField
                                     name='subject'
                                     updateData={updateData}
                                     value={data.subject || ''}
@@ -366,13 +378,13 @@ export default function Notifications() {
                                     label='Send Notification'
                                     handleClick={() => setEmailModal(true)}
                                     style={{ marginTop: '1rem', width: '100%' }}
-                                    disabled={!allEmails.length || loading}
+                                    disabled={!allEmails.length || loading || !htmlContent}
                                 />
                                 <Button
                                     label='Send Test'
                                     handleClick={() => setTestModal(true)}
                                     style={{ marginTop: '1rem', width: '100%' }}
-                                    disabled={loading}
+                                    disabled={loading || !htmlContent}
                                 />
                                 {htmlContent ?
                                     <Button
