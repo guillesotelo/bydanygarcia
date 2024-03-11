@@ -131,6 +131,8 @@ export default function Notifications() {
 
     const sendTestEmail = async () => {
         try {
+            if (!emailData.testEmails || !emailData.testEmails.includes('@')
+                || !emailData.testEmails.includes('.')) return toast.error('Enter valid email(s)')
             setLoading(true)
             const saved = await sendNotification({
                 ...data,
@@ -194,6 +196,8 @@ export default function Notifications() {
         setSelectedTemplate({})
     }
 
+    const modalFilter = () => emailModal || newEmail || selectedEmail !== -1 || testModal ? 'blur(3px)' : ''
+
     const renderDesktop = () => {
         return (
             <div className="notifications__container" >
@@ -220,14 +224,17 @@ export default function Notifications() {
                         <Modal
                             title='Send Test Email'
                             onClose={() => setTestModal(false)}>
-                            <p style={{ textAlign: 'center' }}>Enter the email recipients for the test, separated by comma.</p>
-                            <InputField
-                                value={emailData.testEmails}
-                                updateData={updateEmailData}
-                                name='testEmails'
-                                placeholder='user@email.com, another_user@email.com...'
-                            />
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <p >Enter the email recipients for the test, separated by comma.</p>
+                                <InputField
+                                    value={emailData.testEmails}
+                                    updateData={updateEmailData}
+                                    name='testEmails'
+                                    placeholder='user@email.com, anotheruser@email.com, ...'
+                                    style={{ width: '80%' }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '2rem' }}>
                                 <Button
                                     label='Cancel'
                                     handleClick={() => setTestModal(false)}
@@ -235,7 +242,7 @@ export default function Notifications() {
                                     disabled={loading}
                                 />
                                 <Button
-                                    label='Confirm'
+                                    label='Send'
                                     handleClick={sendTestEmail}
                                     disabled={loading}
                                 />
@@ -280,10 +287,10 @@ export default function Notifications() {
                             />
                         </div>
                     </Modal> : ''}
-                <div className="page__header" style={{ filter: emailModal || newEmail || selectedEmail !== -1 || emailModal ? 'blur(3px)' : '' }}>
+                <div className="page__header" style={{ filter: modalFilter() }}>
                     <h4 className="page__header-title">EMAIL NOTIFICATIONS</h4>
                 </div>
-                <div className="notifications__row" style={{ filter: emailModal || newEmail || selectedEmail !== -1 || emailModal ? 'blur(3px)' : '' }}>
+                <div className="notifications__row" style={{ filter: modalFilter() }}>
                     <div className="notifications__col" style={{ width: '45%' }}>
                         <h4 className="page__header-subtitle">TEMPLATE</h4>
 
@@ -435,29 +442,97 @@ export default function Notifications() {
     const renderMobile = () => {
         return (
             <div className="notifications__container">
-                <div className="page__header">
+                {emailModal ?
+                    <Modal
+                        title='Send Notifications'
+                        onClose={() => setEmailModal(false)}>
+                        <p style={{ textAlign: 'center' }}>You are about to send notifications to {allEmails.filter(email => email.isActive).length} active contacts.<br />Are you sure you want to proceed?</p>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Button
+                                label='Cancel'
+                                handleClick={() => setEmailModal(false)}
+                                bgColor='transparent'
+                                disabled={loading}
+                            />
+                            <Button
+                                label='Confirm'
+                                handleClick={sendNotifications}
+                                disabled={loading}
+                            />
+                        </div>
+                    </Modal>
+                    : testModal ?
+                        <Modal
+                            title='Send Test Email'
+                            onClose={() => setTestModal(false)}>
+                            <div style={{ textAlign: 'center' }}>
+                                <p >Enter the email recipients for the test, separated by comma.</p>
+                                <InputField
+                                    value={emailData.testEmails}
+                                    updateData={updateEmailData}
+                                    name='testEmails'
+                                    placeholder='user@email.com, anotheruser@email.com, ...'
+                                    style={{ width: '80%' }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '2rem' }}>
+                                <Button
+                                    label='Cancel'
+                                    handleClick={() => setTestModal(false)}
+                                    bgColor='transparent'
+                                    disabled={loading}
+                                />
+                                <Button
+                                    label='Send'
+                                    handleClick={sendTestEmail}
+                                    disabled={loading}
+                                />
+                            </div>
+                        </Modal> : ''}
+                {newEmail || selectedEmail !== -1 ?
+                    <Modal
+                        title={selectedEmail !== -1 ? 'New Email' : 'Email Details'}
+                        onClose={discardEmail}>
+                        <div className="notifications__col" style={{ gap: '1rem' }}>
+                            <InputField
+                                value={emailData.fullname}
+                                updateData={updateEmailData}
+                                name='fullname'
+                                placeholder='Full Name'
+                            />
+                            <InputField
+                                value={emailData.email}
+                                updateData={updateEmailData}
+                                name='email'
+                                placeholder='Email'
+                            />
+                            <Switch
+                                label='Is Active'
+                                on='Yes'
+                                off='No'
+                                value={emailActive}
+                                setValue={setEmailActive}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Button
+                                label='Cancel'
+                                handleClick={discardEmail}
+                                bgColor='transparent'
+                                disabled={loading}
+                            />
+                            <Button
+                                label='Save'
+                                handleClick={saveEmail}
+                                disabled={loading}
+                            />
+                        </div>
+                    </Modal> : ''}
+                <div className="page__header" style={{ filter: modalFilter() }}>
                     <h4 className="page__header-title">EMAIL NOTIFICATIONS</h4>
                 </div>
-                <div className="notifications__col" style={{ marginTop: '3rem' }}>
+                <div className="notifications__col" style={{ marginTop: '3rem', filter: modalFilter() }}>
                     <h4 className="page__header-subtitle">NEW NOTIFICATION</h4>
-                    {saveAsNew ? '' :
-                        <>
-                            <Dropdown
-                                label='Template'
-                                options={allTemplates}
-                                selected={selectedTemplate}
-                                setSelected={setSelectedTemplate}
-                                objKey='name'
-                                style={{ marginBottom: '2rem', width: '100%' }}
-                            />
-                            {selectedTemplate._id ?
-                                <Button
-                                    label='Update Template'
-                                    handleClick={updateTemplateData}
-                                    style={{ marginTop: '2rem', width: '100%' }}
-                                    disabled={loading}
-                                /> : ''}
-                        </>}
                     <InputField
                         value={htmlContent}
                         updateData={updateHtml}
@@ -468,27 +543,52 @@ export default function Notifications() {
                         style={{ alignSelf: 'center' }}
                         placeholder='Write or paste HTML here'
                     />
-                </div>
-                <div className="notifications__col" style={{ marginTop: '3rem', border: '1px solid lightgray', borderRadius: '1rem' }}>
-                    <h4 className="page__header-subtitle">HTML VIEWER</h4>
-                    <div className="notifications__html-viewer" dangerouslySetInnerHTML={{ __html: htmlContent }} />
-                </div>
-
-                <div className="notifications__col" style={{ marginTop: '1rem' }}>
+                    {saveAsNew ? '' :
+                        <>
+                            <Dropdown
+                                label='Template'
+                                options={allTemplates}
+                                selected={selectedTemplate}
+                                setSelected={setSelectedTemplate}
+                                objKey='name'
+                                style={{ margin: '1rem 0', width: '80vw' }}
+                            />
+                            <InputField
+                                name='subject'
+                                updateData={updateData}
+                                value={data.subject || ''}
+                                style={{ marginBottom: '2rem', width: '75vw' }}
+                                placeholder='Email Subject'
+                            />
+                            {selectedTemplate._id ?
+                                <Button
+                                    label='Update Template'
+                                    handleClick={updateTemplateData}
+                                    style={{ marginBottom: '1rem', width: '80vw' }}
+                                    disabled={loading}
+                                /> : ''}
+                        </>}
                     {saveAsNew ?
                         <>
                             <InputField
                                 name='name'
                                 updateData={updateData}
                                 value={data.name || ''}
-                                style={{ marginTop: '1rem', width: '92%' }}
+                                style={{ marginTop: '2rem', width: '92%' }}
                                 placeholder='Template Name'
+                            />
+                            <InputField
+                                name='subject'
+                                updateData={updateData}
+                                value={data.subject || ''}
+                                style={{ marginTop: '2rem', width: '92%' }}
+                                placeholder='Email Subject'
                             />
                             <Button
                                 label='Save Template'
                                 handleClick={saveTemplate}
-                                style={{ marginTop: '2rem', width: '100%' }}
-                                disabled={!data.name || loading}
+                                style={{ marginTop: '1rem', width: '100%' }}
+                                disabled={!data.name || !htmlContent || loading}
                             />
                             <Button
                                 label='Cancel'
@@ -496,24 +596,70 @@ export default function Notifications() {
                                     setSaveAsNew(false)
                                     setData({ ...data, name: '' })
                                 }}
-                                style={{ marginTop: '2rem', width: '100%' }}
+                                style={{ marginTop: '1rem', width: '100%' }}
                                 bgColor='lightgray'
                                 disabled={loading}
                             />
                         </>
                         : <Button
-                            label='Save As New'
+                            label='Save As...'
                             handleClick={() => setSaveAsNew(true)}
-                            style={{ marginTop: '2rem', width: '100%' }}
-                            disabled={loading}
+                            style={{ marginBottom: '1rem', width: '80vw' }}
+                            disabled={!htmlContent || loading}
                         />}
+                    {!saveAsNew ?
+                        <>
+                            <Button
+                                label='Send Notification'
+                                handleClick={() => setEmailModal(true)}
+                                style={{ marginBottom: '1rem', width: '80vw' }}
+                                disabled={!allEmails.length || loading || !htmlContent}
+                            />
+                            <Button
+                                label='Send Test'
+                                handleClick={() => setTestModal(true)}
+                                style={{ marginBottom: '1rem', width: '80vw' }}
+                                disabled={loading || !htmlContent}
+                            />
+                            {htmlContent ?
+                                <Button
+                                    label='Clear'
+                                    handleClick={clearTemplate}
+                                    style={{ marginBottom: '1rem', width: '80vw' }}
+                                    bgColor='lightgray'
+                                    disabled={loading}
+                                />
+                                : ''}
+                        </>
+                        : ''}
                 </div>
-
-                <div className="notifications__col" style={{ marginTop: '3rem' }}>
+                <div
+                    className="notifications__col"
+                    style={{
+                        marginTop: '3rem',
+                        width: '90vw',
+                        overflow: 'scroll',
+                        border: '1px solid lightgray',
+                        borderRadius: '1rem',
+                        filter: modalFilter()
+                    }}>
+                    <h4 className="page__header-subtitle">HTML VIEWER</h4>
+                    <div className="notifications__html-viewer" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                </div>
+                <div className="notifications__col" style={{ marginTop: '3rem', filter: modalFilter() }}>
                     <h4 className="page__header-subtitle">EMAIL LIST</h4>
+                    <Button
+                        label='New Email'
+                        handleClick={() => setNewEmail(true)}
+                        style={{ margin: '1rem 2rem', alignSelf: 'center', width: '90%' }}
+                        disabled={loading}
+                    />
                     <DataTable
                         tableData={allEmails}
                         tableHeaders={subscriptionHeaders}
+                        style={{ width: '90vw', alignSelf: 'center' }}
+                        selected={selectedEmail}
+                        setSelected={setSelectedEmail}
                     />
                 </div>
             </div>

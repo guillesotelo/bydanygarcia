@@ -22,6 +22,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
         'subscribe': 'SUBSCRÍBETE',
+        'subscribe2': 'Suscríbete',
         'who_am_i': 'QUIEN SOY',
         'hygge': 'HYGGE',
         'contact': 'CONTACTO',
@@ -76,13 +77,13 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //SUBSCRIBE
         'full_name': `Tu nombre completo`,
         'subscribe_info': `  <h2>Subscríbete</h2>
-        <h3>Suscríbase a by DANY GARCIA y manténgase actualizado con los últimos contenidos, noticias y ofertas especiales de BESPOKEN.
+        <h3>Suscríbase a by DANY GARCIA y manténgase actualizado con los últimos contenidos del blog y ofertas especiales de BESPOKEN.
         </h3>
         <h4>Como suscriptor, recibirás:</h4>
         <ul>
-            <li>Actualizaciones periódicas sobre las últimas publicaciones y artículos del blog
+            <li>Actualizaciones sobre las últimas publicaciones y artículos del blog
             </li>
-            <li>Acceso exclusivo a contenido exclusivo para suscriptores
+            <li>Acceso a contenido exclusivo para suscriptores
             </li>
             <li>Primeros dibs en nuestras ofertas especiales y promociones de BESPOKEN
             </li>
@@ -93,12 +94,11 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <h4>¡Todo esto gratis!
         </h4>
         <br /> <br /> <br /> <br />
-        <p>Para suscribirse, simplemente ingrese su dirección de correo electrónico en el formulario y haga clic en "Suscribirse". Le enviaremos un correo electrónico de confirmación para verificar su dirección de correo electrónico y confirmar su suscripción.
+        <p>Para suscribirse, simplemente ingrese su nombre y dirección de correo electrónico en el formulario y haga clic en "Suscribirse".
+        <br />Al suscribirte, aceptas recibir correos electrónicos y boletines de DANY GARCIA. Nunca compartiré ni venderé su dirección de correo electrónico a organizaciones de terceros. Puede darse de baja en cualquier momento haciendo clic en el enlace "cancelar suscripción" en la parte inferior de nuestros correos electrónicos.
 
-            <br />By subscribing, you agree to receive emails and newsletters from by DANY GARCIA. We will never share or sell your email address to third-party organizations. You can unsubscribe at any time by clicking the "unsubscribe" link at the bottom of our emails.
-
-            <br /> <br />Thank you for subscribing to by DANY GARCIA! I look forward to sharing my latest content and news with you.
-        </p>`,
+        <br /> <br />¡Gracias por suscribirte a by DANY GARCIA! Espero poder compartir mis últimos contenidos contigo.
+      </p>`,
 
 
         //CONTACT
@@ -169,6 +169,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',
         'subscribe': 'SUBSCRIBE',
+        'subscribe2': 'Subscribe',
         'who_am_i': 'WHO AM I',
         'contact': 'CONTACT',
         'hygge': 'HYGGE',
@@ -223,22 +224,21 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //SUBSCRIBE
         'full_name': `Your full name`,
         'subscribe_info': `  <h2>Subscribe</h2>
-        <h3>Subscribe to by DANY GARCIA and stay up-to-date with the latest content, news, and special offers from BESPOKEN.</h3>
-        <h4>As a subscriber, you'll receive:</h4>
+        <h3>Subscribe to by DANY GARCIA and stay updated with the latest blog content and special offers from BESPOKEN.</h3>
+        <h4>As a subscriber, you will receive:</h4>
         <ul>
-            <li>Regular updates on the latest blog posts and articles</li>
-            <li>Exclusive access to subscriber-only content</li>
-            <li>First dibs on our special offers and promotions from BESPOKEN</li>
+            <li>Updates on the latest blog posts and articles</li>
+            <li>Access to exclusive content for subscribers</li>
+            <li>First access to our special offers and promotions from BESPOKEN</li>
             <li>The option to unsubscribe at any time</li>
         </ul>
         <br />
-        <h4>All this for free!</h4>
+        <h4>All of this for free!</h4>
         <br /> <br /> <br /> <br />
-        <p>To subscribe, simply enter your email address in the form and click "Subscribe". We'll send you a confirmation email to verify your email address and confirm your subscription.
-            <br />Al suscribirte, aceptas recibir correos electrónicos y boletines de DANY GARCIA. Nunca compartiremos ni venderemos su dirección de correo electrónico a organizaciones de terceros. Puede darse de baja en cualquier momento haciendo clic en el enlace "cancelar suscripción" en la parte inferior de nuestros correos electrónicos.
-
-            <br /> <br />¡Gracias por suscribirte a by DANY GARCIA! Espero poder compartir mis últimos contenidos y noticias contigo.
-        </p>`,
+        <p>To subscribe, simply enter your name and email address in the form and click "Subscribe".<br />
+        By subscribing, you agree to receive emails and newsletters from DANY GARCIA. I will never share or sell your email address to third-party organizations. You can unsubscribe at any time by clicking the "unsubscribe" link at the bottom of our emails.
+        <br /> <br />Thank you for subscribing to by DANY GARCIA! I look forward to sharing my latest content with you.</p>
+        `,
 
         //CONTACT
         'your_name': 'Your name',

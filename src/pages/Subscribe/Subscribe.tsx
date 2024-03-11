@@ -22,6 +22,10 @@ export default function Subscribe({ }: Props) {
 
     const onSubscribe = async () => {
         const loading = toast.loading(TEXT[lang]['subscribing'])
+        if (!data.fullname.includes(' ') || !data.email.includes('@') || !data.email.includes('.')) {
+            toast.error(lang === 'es' ? 'Checkea los campos' : 'Check the fields')
+            return toast.remove(loading)
+        }
         const logged = await subscribe(data)
         if (logged) {
             toast.success(TEXT[lang]['subscribe_ok'])
@@ -49,7 +53,7 @@ export default function Subscribe({ }: Props) {
                     type='email'
                 />
                 <Button
-                    label='Subscribe'
+                    label={lang === 'es' ? 'Subscríbete' : 'Subscribe'}
                     handleClick={onSubscribe}
                     disabled={!data.email || !data.fullname}
                     style={{ width: '100%' }}

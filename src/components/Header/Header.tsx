@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react'
 import Menu from '../../assets/icons/menu-icon.svg'
 import ChevronDown from '../../assets/icons/chevron-down.svg'
 import Search from '../../assets/icons/search-icon.svg'
+import SpainFlag from '../../assets/icons/spain-flag.png'
+import UsaFlag from '../../assets/icons/usa-flag.png'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
@@ -95,7 +97,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     }
 
     const triggerSearch = () => {
-        setSearchClicked(true)
+        // setSearchClicked(true)
         if (prompt.trim()) {
             setSearchClicked(false)
             setSearch(prompt.split(' '))
@@ -281,11 +283,13 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 <img className="header__item-svg" src={ChevronDown} />
                                 <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
                                     <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
+                                        <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
                                         <h4 className="header__item-dropdown-text">
                                             ENGLISH
                                         </h4>
                                     </div>
                                     <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
+                                        <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
                                         <h4 className="header__item-dropdown-text">
                                             ESPAÑOL
                                         </h4>
@@ -331,10 +335,14 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             }}>{TEXT[lang]['about_greeting']}</h4>
                         </div>
                         <div className="header__menu-item header__language">
-                            <h4 className="header__menu-item-text" onClick={() => {
+                            <div className="header__menu-item-text" onClick={() => {
                                 changeLanguage(lang === 'en' ? 'es' : 'en')
                                 setTimeout(() => setMenuToggle(false), 1000)
-                            }}>{lang === 'es' ? '[ES]' : '[EN]'}</h4>
+                            }}>
+                                {lang === 'es' ?
+                                    <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
+                                    : <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
+                                }</div>
                         </div>
                         {isLoggedIn ?
                             <div className="header__menu-item" >

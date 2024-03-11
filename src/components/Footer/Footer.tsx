@@ -18,6 +18,7 @@ export default function Footer({ }: Props) {
                 <h4 className="footer__nav-link" onClick={() => history.push('/about')}>{TEXT[lang]['about2']}</h4>
                 <h4 className="footer__nav-link" onClick={() => history.push('/privacyPolicy')}>{isMobile ? TEXT[lang]['privacy'] : TEXT[lang]['privacy_policy']}</h4>
                 <h4 className="footer__nav-link" onClick={() => history.push('/contact')}>{isMobile ? TEXT[lang]['contact2'] : TEXT[lang]['contact_me']}</h4>
+                <h4 className="footer__nav-link" onClick={() => history.push('/subscribe')}>{TEXT[lang]['subscribe2']}</h4>
             </div>
             <div className="footer__social">
                 <img className="footer__social-svg" onClick={() => window.open('https://www.instagram.com/by.danygarcia/', '_blank', 'noreferrer')} src={Instagram} />
