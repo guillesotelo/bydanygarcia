@@ -37,8 +37,6 @@ export default function PostViewer({ post, setPost }: Props) {
 
     useEffect(() => {
         setSpanish(lang === 'es')
-        changeBackground('#D9C6B9')
-        return changeBackground('unset')
     }, [])
 
     useEffect(() => {
@@ -64,11 +62,6 @@ export default function PostViewer({ post, setPost }: Props) {
 
         if (post.tags) getCategory(post)
     }, [post, postId])
-
-    const changeBackground = (color: string) => {
-        const page = document.querySelector('.page__wrapper') as HTMLDivElement
-        if (page) page.style.backgroundColor = color
-    }
 
     const getCategory = (post: postType) => {
         const _category = post.category ? post.category.includes(',') ?
