@@ -115,7 +115,8 @@ export default function PostViewer({ post, setPost }: Props) {
             <meta property="og:title" content={spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''} />
             <meta property="og:type" content='website' />
             <meta property="og:description" content={getOgDescription()} />
-            <meta property="og:image" content={post.imageUrl} />
+            {/* <meta property="og:image" content={post.imageUrl} /> */}
+            <meta property="og:image" content='https://www.bydanygarcia.com/images/stay-connected2.png' />
             <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
         </Helmet>
     }
