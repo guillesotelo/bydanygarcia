@@ -11,6 +11,13 @@ import Comment from '../../components/Comment/Comment';
 import { createComment, getAllComments, getPostComments } from '../../services';
 import Button from '../../components/Button/Button';
 import toast from 'react-hot-toast';
+import Instagram from '../../assets/icons/instagram.svg'
+import Facebook from '../../assets/icons/facebook.svg'
+import X from '../../assets/icons/x.svg'
+import Linkedin from '../../assets/icons/linkedin.svg'
+import Whatsapp from '../../assets/icons/whatsapp.svg'
+import { TEXT } from '../../constants/lang';
+import { platform } from 'os';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -144,6 +151,20 @@ export default function PostViewer({ post, setPost }: Props) {
         }
     }
 
+    const shareToPlatform = (site: string) => {
+        const currentUrl = encodeURIComponent(`${window.location.href}&lang=${lang}`)
+        const platforms: any = {
+            'facebook': `https://www.facebook.com/sharer/sharer.php?u=`,
+            'x': `https://twitter.com/intent/tweet?url=`,
+            'linkedin': `https://www.linkedin.com/shareArticle?mini=true&url=`,
+            'instagram': `https://www.instagram.com/?url=`,
+            'pinterest': `https://www.instagram.com/?url=`,
+            'whatsapp': `https://api.whatsapp.com/send?text=`,
+        }
+        const url = `${platforms[site]}${currentUrl}`
+        window.open(url, '_blank', 'noreferrer')
+    }
+
     return (
         <div className='postviewer__container'>
             <div className="postviewer__routes">
@@ -161,6 +182,16 @@ export default function PostViewer({ post, setPost }: Props) {
                     linkLang={linkLang}
                 />
             }
+            <div className="postviewer__row">
+                <div className="postviewer__share-section">
+                    <h2 className="postviewer__share-text">{lang === 'es' ? 'Comparte este post' : 'Share this post'}</h2>
+                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('instagram')} src={Instagram} />
+                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('facebook')} src={Facebook} />
+                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('x')} src={X} />
+                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('linkedin')} src={Linkedin} />
+                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('whatsapp')} src={Whatsapp} />
+                </div>
+            </div>
             <div className="postviewer__comments-section">
                 <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2>
                 <div className="postviewer__comments-list" style={{ width: isMobile ? '90vw' : '30vw' }}>
