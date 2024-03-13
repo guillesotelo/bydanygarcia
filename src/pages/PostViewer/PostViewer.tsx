@@ -19,6 +19,7 @@ import Whatsapp from '../../assets/icons/whatsapp.svg'
 import { TEXT } from '../../constants/lang';
 import { platform } from 'os';
 import axios from 'axios';
+import SEO from '../../components/SEO/Seo';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -58,7 +59,7 @@ export default function PostViewer({ post, setPost }: Props) {
     }, [location])
 
     useEffect(() => {
-        renderHelmet()
+        renderSeo()
         if (postId && (!post || !post._id)) getPost(postId)
         if (!postComments.length) getComments(postId)
         if (post.html) setHtml(post.html)
@@ -118,25 +119,19 @@ export default function PostViewer({ post, setPost }: Props) {
         return div.textContent?.substring(0, 40) + '...'
     }
 
-    const renderHelmet = async () => {
+    const renderSeo = async () => {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
         const url = `${REACT_APP_PAGE}/post?id=${postId}`
 
-        try {
-            await axios.get('/dynamicRender', { params: { title, description, image } })
-        } catch (error) {
-            console.log(error)
-        }
-
-        return <Helmet>
-            <meta property="og:title" content={title} />
-            <meta property="og:type" content='website' />
-            <meta property="og:description" content={description} />
-            <meta property="og:image" content={image} />
-            <meta property="og:url" content={url} />
-        </Helmet>
+        return <SEO
+            title={title}
+            description={description}
+            image={image}
+            url={url}
+            type='website'
+        />
     }
 
     const updateData = (key: string, e: onChangeEventType) => {
@@ -178,12 +173,12 @@ export default function PostViewer({ post, setPost }: Props) {
 
     return (
         <div className='postviewer__container'>
+            {renderSeo()}
             <div className="postviewer__routes">
                 <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>OPEN JOURNAL</h4>
                 {category ? <h4 className='postviewer__routes-link' > &nbsp;-&nbsp; </h4> : ''}
                 {category ? <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4> : ''}
             </div>
-            {renderHelmet()}
             {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>
                 :
                 <Post
