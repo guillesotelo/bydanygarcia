@@ -125,6 +125,38 @@
                 }
             }
         }
+
+        &__share {
+            &-section {
+                text-align: center;
+                background-color: white;
+                box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
+                border-radius: 1rem;
+                width: 90vw;
+                padding: 2rem;
+                margin: 3rem 0 0 0;
+            }
+    
+            &-text {
+                margin: 0 0 2rem 0;
+                color: #414141;
+            }
+    
+            &-icon {
+                height: 1.8rem;
+                margin: 0 1rem;
+                cursor: pointer;
+                transition: 0.3s;
+                opacity: .6;
+                margin: 0 .7rem;
+    
+                &:hover {
+                    transition: 0.3s;
+                    filter: invert(51%) sepia(3%) saturate(2931%) hue-rotate(314deg) brightness(103%) contrast(99%);
+                    transform: translateY(-10%);
+                }
+            }
+        }
     }
 
 }
