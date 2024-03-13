@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
 import { getPostById } from '../../services/post'
-import draftToHtml from 'draftjs-to-html';
-import { Helmet } from 'react-helmet-async';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 import { commentType, onChangeEventType, postType } from '../../types';
@@ -16,9 +14,6 @@ import Facebook from '../../assets/icons/facebook.svg'
 import X from '../../assets/icons/x.svg'
 import Linkedin from '../../assets/icons/linkedin.svg'
 import Whatsapp from '../../assets/icons/whatsapp.svg'
-import { TEXT } from '../../constants/lang';
-import { platform } from 'os';
-import axios from 'axios';
 import SEO from '../../components/SEO/Seo';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
@@ -119,7 +114,7 @@ export default function PostViewer({ post, setPost }: Props) {
         return div.textContent?.substring(0, 40) + '...'
     }
 
-    const renderSeo = async () => {
+    const renderSeo = () => {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
