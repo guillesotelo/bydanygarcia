@@ -18,6 +18,7 @@ import Linkedin from '../../assets/icons/linkedin.svg'
 import Whatsapp from '../../assets/icons/whatsapp.svg'
 import { TEXT } from '../../constants/lang';
 import { platform } from 'os';
+import axios from 'axios';
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -117,14 +118,20 @@ export default function PostViewer({ post, setPost }: Props) {
         return div.textContent?.substring(0, 40) + '...'
     }
 
-    const renderHelmet = () => {
+    const renderHelmet = async () => {
+        const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
+        const description = getOgDescription()
+        const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
+        const url = `${REACT_APP_PAGE}/post?id=${postId}`
+
+        await axios.get('/dynamicRender', { params: { title, description, image } })
+
         return <Helmet>
-            <meta property="og:title" content={spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''} />
+            <meta property="og:title" content={title} />
             <meta property="og:type" content='website' />
-            <meta property="og:description" content={getOgDescription()} />
-            {/* <meta property="og:image" content={post.imageUrl} /> */}
-            <meta property="og:image" content='https://www.bydanygarcia.com/images/stay-connected2.png' />
-            <meta property="og:url" content={`${REACT_APP_PAGE}/post?id=${postId}`} />
+            <meta property="og:description" content={description} />
+            <meta property="og:image" content={image} />
+            <meta property="og:url" content={url} />
         </Helmet>
     }
 
