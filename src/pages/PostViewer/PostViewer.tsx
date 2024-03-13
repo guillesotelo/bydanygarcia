@@ -124,7 +124,11 @@ export default function PostViewer({ post, setPost }: Props) {
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
         const url = `${REACT_APP_PAGE}/post?id=${postId}`
 
-        await axios.get('/dynamicRender', { params: { title, description, image } })
+        try {
+            await axios.get('/dynamicRender', { params: { title, description, image } })
+        } catch (error) {
+            console.log(error)
+        }
 
         return <Helmet>
             <meta property="og:title" content={title} />
