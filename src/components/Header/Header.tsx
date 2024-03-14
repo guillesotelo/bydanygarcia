@@ -248,9 +248,16 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
 
                     <div className='header__admin-search'>
                         {isLoggedIn ?
-                            <div className="header__admin-btns">
+                            <div className="header__admin-btns"
+                                style={{
+                                    borderRight: bigHeader ? '' : '1px solid #aaaaaa',
+                                    borderLeft: bigHeader ? '' : '1px solid #aaaaaa',
+                                    borderBottom: bigHeader ? '' : 'none',
+                                    borderTop: bigHeader ? '' : 'none'
+                                }}
+                            >
                                 <Button
-                                    label='CREATE'
+                                    label='Create'
                                     handleClick={() => history.push('/editor?new=true')}
                                 />
                                 {postId ?
@@ -270,7 +277,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                     handleClick={() => history.push('/notifications')}
                                 />
                                 <Button
-                                    label='LOGOUT'
+                                    label='Logout'
                                     handleClick={logOut}
                                     bgColor='transparent'
                                 />
@@ -349,7 +356,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 <h4 className="header__menu-item-text" onClick={() => {
                                     setTimeout(() => setMenuToggle(false), 50)
                                     logOut()
-                                }}>LOGOUT</h4>
+                                }}>Logout</h4>
                             </div>
                             : ''}
                         <div className="header__menu-item" style={{
@@ -370,7 +377,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
             {isMobile && isLoggedIn && !searchClicked ?
                 <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
                     <Button
-                        label='CREATE'
+                        label='Create'
                         handleClick={() => history.push('/editor?new=true')}
                     />
                     {postId ?
