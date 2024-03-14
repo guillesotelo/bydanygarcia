@@ -97,7 +97,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     }
 
     const triggerSearch = () => {
-        // setSearchClicked(true)
+        if(isMobile) setSearchClicked(true)
         if (prompt.trim()) {
             setSearchClicked(false)
             setSearch(prompt.split(' '))
@@ -142,178 +142,9 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
         localStorage.setItem('preferedLang', language)
     }
 
-    return (
-        <div className='header__container' style={{ height: bigHeader ? '8rem' : '4rem' }}>
-            {deleteModal ?
-                <div className='header__delete-modal'>
-                    <h4 className="header__delete-modal-text">Are you sure you want to delete this post?</h4>
-                    <div className="header__delete-modal-btns">
-                        <Button
-                            label='Cancel'
-                            handleClick={() => setDeleteModal(false)}
-                            bgColor='lightgray'
-                        />
-                        <Button
-                            label='Delete'
-                            handleClick={handleDeletePost}
-                        />
-                    </div>
-                </div>
-                : ''}
-            {!isMobile ?
-                <>
-                    <div className="header__items" style={{ height: bigHeader ? '5rem' : '2rem' }}>
-                        <div className="header__item">
-                            <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
-                            <img className="header__item-svg" src={ChevronDown} />
-                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['inspiration']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=motherhood')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['motherhood']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=life_abroad')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['life_abroad']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/blog')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['see_all']}
-                                    </h4>
-                                </div>
-                                {/* <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
-                                        {TEXT[lang]['subscribe']}
-                                    </h4>
-                                </div> */}
-                            </div>
-                        </div>
-                        <div className="header__item">
-                            <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
-                            <img className="header__item-svg" src={ChevronDown} />
-                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['story_of_brand']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/products')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['products']}
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['our_handcrafted_wedding']}
-                                    </h4>
-                                </div>
-                                {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['values']}
-                                    </h4>
-                                </div> */}
-                            </div>
-                        </div>
-                        <div className="header__item" onClick={() => history.push('/about')}>
-                            <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
-                        </div>
-                    </div>
-
-                    {!searchClicked || !isLoggedIn ?
-                        <div className="header__logo"
-                            onClick={() => {
-                                setSearch([])
-                                setPrompt('')
-                                if (bespokenLogo) history.push('/bespoken/story')
-                                else history.push('/')
-                            }}>
-                            {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
-                            <img
-                                className="header__logo-image"
-                                style={{
-                                    height: bigHeader ? bespokenLogo ? '3vw' : '4.5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
-                                    margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
-                                }}
-                                src={bespokenLogo || byDanyLogo}
-                                alt='by Dany Garcia'
-                                loading='lazy' />
-                        </div>
-                        : ''}
-
-                    <div className='header__admin-search'>
-                        {isLoggedIn ?
-                            <div className="header__admin-btns"
-                                style={{
-                                    borderRight: bigHeader ? '' : '1px solid #aaaaaa',
-                                    borderLeft: bigHeader ? '' : '1px solid #aaaaaa',
-                                    borderBottom: bigHeader ? '' : 'none',
-                                    borderTop: bigHeader ? '' : 'none'
-                                }}
-                            >
-                                <Button
-                                    label='Create'
-                                    handleClick={() => history.push('/editor?new=true')}
-                                />
-                                {postId ?
-                                    <>
-                                        <Button
-                                            svg={EditIcon}
-                                            handleClick={() => history.push(`/editor?id=${postId}`)}
-                                        />
-                                        <Button
-                                            svg={DeleteIcon}
-                                            handleClick={() => setDeleteModal(true)}
-                                        />
-                                    </>
-                                    : ''}
-                                <Button
-                                    svg={NotificationIcon}
-                                    handleClick={() => history.push('/notifications')}
-                                />
-                                <Button
-                                    label='Logout'
-                                    handleClick={logOut}
-                                    bgColor='transparent'
-                                />
-                            </div>
-                            : ''}
-
-                        <div className="header__search" >
-                            <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
-                                <h4 className="header__item-text">{lang.toUpperCase()}</h4>
-                                <img className="header__item-svg" src={ChevronDown} />
-                                <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                                    <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
-                                        <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                        <h4 className="header__item-dropdown-text">
-                                            ENGLISH
-                                        </h4>
-                                    </div>
-                                    <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
-                                        <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                        <h4 className="header__item-dropdown-text">
-                                            ESPAÑOL
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <img className="header__search-svg" src={Search} onClick={triggerSearch} />
-                            {searchClicked || !isMobile ?
-                                <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
-                                    if (e.key === 'Enter') triggerSearch()
-                                }} />
-                                : ''}
-                        </div>
-                    </div>
-                </>
-                : ''}
-            {isMobile ?
+    const renderMobile = () => {
+        return (
+            <>
                 <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)} >
                     <img className="header__menu-svg" src={Menu} />
                     <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
@@ -373,48 +204,46 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         </div>
                     </div>
                 </div>
-                : ''}
-            {isMobile && isLoggedIn && !searchClicked ?
-                <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
-                    <Button
-                        label='Create'
-                        handleClick={() => history.push('/editor?new=true')}
-                    />
-                    {postId ?
+                {isLoggedIn && !searchClicked ?
+                    <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
                         <Button
-                            svg={EditIcon}
-                            handleClick={() => history.push(`/editor?id=${postId}`)}
+                            label='Create'
+                            handleClick={() => history.push('/editor?new=true')}
                         />
-                        : ''}
-                    {postId ?
-                        <Button
-                            svg={DeleteIcon}
-                            handleClick={() => setDeleteModal(true)}
-                        />
-                        : ''}
-                </div>
-                : ''}
-            {isMobile && !searchClicked && !isLoggedIn ?
-                <div className="header__logo"
-                    onClick={() => {
-                        setSearch([])
-                        setPrompt('')
-                        if (bespokenLogo) history.push('/bespoken/home')
-                        else history.push('/')
-                    }}>
-                    {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
-                    <img
-                        className="header__logo-image"
-                        style={{
-                            maxHeight: bespokenLogo ? '9vw' : '',
-                            margin: bespokenLogo ? 0 : ''
-                        }}
-                        src={bespokenLogo || byDanyLogo}
-                        alt='by Dany Garcia'
-                        loading='lazy' />
-                </div>
-                : ''}
-            {isMobile ?
+                        {postId ?
+                            <Button
+                                svg={EditIcon}
+                                handleClick={() => history.push(`/editor?id=${postId}`)}
+                            />
+                            : ''}
+                        {postId ?
+                            <Button
+                                svg={DeleteIcon}
+                                handleClick={() => setDeleteModal(true)}
+                            />
+                            : ''}
+                    </div>
+                    : ''}
+                {!searchClicked && !isLoggedIn ?
+                    <div className="header__logo"
+                        onClick={() => {
+                            setSearch([])
+                            setPrompt('')
+                            if (bespokenLogo) history.push('/bespoken/home')
+                            else history.push('/')
+                        }}>
+                        {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                        <img
+                            className="header__logo-image"
+                            style={{
+                                maxHeight: bespokenLogo ? '9vw' : '',
+                                margin: bespokenLogo ? 0 : ''
+                            }}
+                            src={bespokenLogo || byDanyLogo}
+                            alt='by Dany Garcia'
+                            loading='lazy' />
+                    </div>
+                    : ''}
                 <div className="header__search" >
                     <img className="header__search-svg" src={Search} onClick={triggerSearch} />
                     {searchClicked || !isMobile ?
@@ -423,7 +252,184 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         }} />
                         : ''}
                 </div>
+            </>
+        )
+    }
+
+    const renderDesktop = () => {
+        return (
+            <>
+                <div className="header__items" style={{ height: bigHeader ? '5rem' : '2rem' }}>
+                    <div className="header__item">
+                        <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['inspiration']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=motherhood')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['motherhood']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=life_abroad')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['life_abroad']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['see_all']}
+                                </h4>
+                            </div>
+                            {/* <div className="header__item-dropdown-row">
+                                    <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
+                                        {TEXT[lang]['subscribe']}
+                                    </h4>
+                                </div> */}
+                        </div>
+                    </div>
+                    <div className="header__item">
+                        <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
+                        <img className="header__item-svg" src={ChevronDown} />
+                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['story_of_brand']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/products')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['products']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['our_handcrafted_wedding']}
+                                </h4>
+                            </div>
+                            {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
+                                    <h4 className="header__item-dropdown-text">
+                                        {TEXT[lang]['values']}
+                                    </h4>
+                                </div> */}
+                        </div>
+                    </div>
+                    <div className="header__item" onClick={() => history.push('/about')}>
+                        <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
+                    </div>
+                </div>
+
+                {!searchClicked || !isLoggedIn ?
+                    <div className="header__logo"
+                        onClick={() => {
+                            setSearch([])
+                            setPrompt('')
+                            if (bespokenLogo) history.push('/bespoken/story')
+                            else history.push('/')
+                        }}>
+                        {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                        <img
+                            className="header__logo-image"
+                            style={{
+                                height: bigHeader ? bespokenLogo ? '3vw' : '4.5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
+                                margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
+                            }}
+                            src={bespokenLogo || byDanyLogo}
+                            alt='by Dany Garcia'
+                            loading='lazy' />
+                    </div>
+                    : ''}
+
+                <div className='header__admin-search'>
+                    {isLoggedIn ?
+                        <div className="header__admin-btns"
+                            style={{
+                                borderRight: bigHeader ? '' : '1px solid #aaaaaa',
+                                borderLeft: bigHeader ? '' : '1px solid #aaaaaa',
+                                borderBottom: bigHeader ? '' : 'none',
+                                borderTop: bigHeader ? '' : 'none'
+                            }}
+                        >
+                            <Button
+                                label='Create'
+                                handleClick={() => history.push('/editor?new=true')}
+                            />
+                            {postId ?
+                                <>
+                                    <Button
+                                        svg={EditIcon}
+                                        handleClick={() => history.push(`/editor?id=${postId}`)}
+                                    />
+                                    <Button
+                                        svg={DeleteIcon}
+                                        handleClick={() => setDeleteModal(true)}
+                                    />
+                                </>
+                                : ''}
+                            <Button
+                                svg={NotificationIcon}
+                                handleClick={() => history.push('/notifications')}
+                            />
+                            <Button
+                                label='Logout'
+                                handleClick={logOut}
+                                bgColor='transparent'
+                            />
+                        </div>
+                        : ''}
+
+                    <div className="header__search" >
+                        <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
+                            <h4 className="header__item-text">{lang.toUpperCase()}</h4>
+                            <img className="header__item-svg" src={ChevronDown} />
+                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
+                                <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
+                                    <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
+                                    <h4 className="header__item-dropdown-text">
+                                        ENGLISH
+                                    </h4>
+                                </div>
+                                <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
+                                    <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
+                                    <h4 className="header__item-dropdown-text">
+                                        ESPAÑOL
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <img className="header__search-svg" src={Search} onClick={triggerSearch} />
+                        {searchClicked || !isMobile ?
+                            <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
+                                if (e.key === 'Enter') triggerSearch()
+                            }} />
+                            : ''}
+                    </div>
+                </div>
+            </>)
+    }
+
+    return (
+        <div className='header__container' style={{ height: bigHeader ? '8rem' : '4rem' }}>
+            {deleteModal ?
+                <div className='header__delete-modal'>
+                    <h4 className="header__delete-modal-text">Are you sure you want to delete this post?</h4>
+                    <div className="header__delete-modal-btns">
+                        <Button
+                            label='Cancel'
+                            handleClick={() => setDeleteModal(false)}
+                            bgColor='lightgray'
+                        />
+                        <Button
+                            label='Delete'
+                            handleClick={handleDeletePost}
+                        />
+                    </div>
+                </div>
                 : ''}
+            {isMobile ? renderMobile() : renderDesktop()}
         </div>
     )
 }
