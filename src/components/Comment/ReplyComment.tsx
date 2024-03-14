@@ -80,22 +80,21 @@ export default function ReplyComment({ comment }: Props) {
     const getProfile = (comment?: commentType) => {
         if (comment && comment.fullname) {
             if (comment.fullname.length > 1) {
-                const firstName = comment.fullname.split(' ')[0][0]
-                const lastName = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : comment.fullname.split(' ')[0][1]
-                return firstName + lastName
-            } else return comment.fullname
+                const firstLetter = comment.fullname.split(' ')[0][0]
+                const secondLetter = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : ''
+                return firstLetter.toUpperCase() + secondLetter.toUpperCase()
+            } else return comment.fullname.toUpperCase()
         }
     }
-
-
+    
     return (
         <div className="comment__row" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid lightgray' }}>
             <div className="comment__col">
-                <img src={Reply} alt="Reply" className="comment__reply-image" />
+                <img src={Reply} alt="Reply" className="comment__reply-image" draggable={false} />
             </div>
             <div className="comment__col" >
                 {comment?.isDany ?
-                    <img src={Dany} alt="Comment Profile Image" className="comment__image" />
+                    <img src={Dany} alt="Comment Profile Image" className="comment__image" draggable={false} />
                     :
                     <p className="comment__profile">{getProfile(comment)}</p>
                 }            </div>
@@ -105,7 +104,7 @@ export default function ReplyComment({ comment }: Props) {
                 <p className="comment__message">{comment?.comment}</p>
                 <div className="comment__btns">
                     <div className="comment__likes">
-                        <img src={liked ? LikeFilled : Like} onClick={likeComment} alt="Like this comment" className="comment__likes-img" />
+                        <img src={liked ? LikeFilled : Like} onClick={likeComment} alt="Like this comment" className="comment__likes-img" draggable={false} />
                         {likes ? <p className="comment__likes-count">{likes}</p> : ''}
                         {isLoggedIn ? <p className='comment__reply-btn' onClick={() => removeComment(comment || {})} style={{ margin: '0 1rem' }}>Delete</p> : ''}
                     </div>

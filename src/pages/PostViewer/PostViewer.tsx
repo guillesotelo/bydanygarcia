@@ -227,6 +227,7 @@ export default function PostViewer({ post, setPost }: Props) {
                             <Button
                                 label={lang === 'es' ? 'Enviar' : 'Post Comment'}
                                 handleClick={postComment}
+                                style={{ width: '100%' }}
                             />
                         </div>
                     </div>

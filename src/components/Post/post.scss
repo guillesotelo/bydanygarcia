@@ -1,7 +1,7 @@
 .post {
     &__container {
         margin: 2vw 2vw 5vw 2vw;
-        // position: relative;
+        position: relative;
         display: flex;
         gap: 4rem;
         flex-direction: column;
@@ -15,6 +15,7 @@
         padding: 4rem 5rem;
         border-radius: 1rem;
         animation: fade-in 1s ease-in;
+        overflow: hidden;
     }
 
     &__body {
@@ -84,6 +85,21 @@
 
         &:hover {
             filter: grayscale(100%);
+        }
+    }
+
+    &__not-published {
+        position: absolute;
+        right: -5rem;
+        top: 3rem;
+        transform: rotate(45deg);
+        background-color: orange;
+
+        &-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0 5rem;
         }
     }
 }

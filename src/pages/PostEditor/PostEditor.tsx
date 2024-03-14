@@ -248,7 +248,6 @@ export default function PostEditor({ }: Props) {
                             selected={selectedCategory}
                             value={selectedCategory}
                             setSelected={setSelectedCategory}
-                            style={{ zIndex: 10 }}
                         />
                         <Switch
                             label='Published'
@@ -343,11 +342,13 @@ export default function PostEditor({ }: Props) {
                             handleClick={() => isUpdate ? history.goBack() : history.go(0)}
                             bgColor='lightgray'
                             disabled={!isEdited && !isUpdate}
+                            style={{ width: '45%' }}
                         />
                         <Button
                             label={isUpdate ? 'Update' : 'Save'}
                             handleClick={handleSave}
                             disabled={!isEdited && !isUpdate}
+                            style={{ width: '45%' }}
                         />
                     </div>
                     : ''}

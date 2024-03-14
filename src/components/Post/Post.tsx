@@ -38,6 +38,17 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
             flexDirection: !isMobile && sideImages.length ? 'row' : 'column',
             alignItems: !isMobile && sideImages.length ? 'flex-start' : 'center',
         }}>
+            {headers._id && !headers.published ?
+                <div
+                    className="post__not-published"
+                    style={{
+                        right: isMobile ? '-6rem' : '',
+                        top: isMobile ? '1rem' : '',
+                        transform: isMobile ? 'rotate(45deg) scale(.7)' : '',
+                    }}
+                >
+                    <p className="post__not-published-text">Not Published</p>
+                </div> : ''}
             <div className="post__body" style={{
                 width: !isMobile && sideImages.length ? '50%' : ''
             }}>

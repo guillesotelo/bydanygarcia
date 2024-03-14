@@ -56,7 +56,7 @@ export type cardType = {
 
 export type onChangeEventType = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
 
-export type postHeadersType = {
+export type postHeadersType = postType & {
     sideImages?: string[]
     sideImgStyles?: React.CSSProperties[]
     title?: string

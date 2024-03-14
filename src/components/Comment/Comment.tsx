@@ -99,6 +99,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
 
     const postReply = async () => {
         try {
+            if (!data.comment || (!isLoggedIn && !data.fullname)) return toast.error(lang === 'es' ? 'Checkea los campos' : 'Check the fields')
             const posted = await createComment({
                 ...data,
                 isDany: isLoggedIn ? true : false,
@@ -108,6 +109,8 @@ export default function Comment({ comment, setReply, reply }: Props) {
                 toast.success(lang === 'es' ? 'Respuesta añadida!' : 'Reply submitted!')
                 getReplies()
                 setData({})
+                setOpenReply(false)
+                setReply(false)
             }
             else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')
         } catch (error) {
@@ -131,9 +134,9 @@ export default function Comment({ comment, setReply, reply }: Props) {
     const getProfile = (comment?: commentType) => {
         if (comment && comment.fullname) {
             if (comment.fullname.length > 1) {
-                const firstName = comment.fullname.split(' ')[0][0]
-                const lastName = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : comment.fullname.split(' ')[0][1]
-                return firstName.toUpperCase() + lastName.toUpperCase()
+                const firstLetter = comment.fullname.split(' ')[0][0]
+                const secondLetter = comment.fullname.split(' ')[1] ? comment.fullname.split(' ')[1][0] : ''
+                return firstLetter.toUpperCase() + secondLetter.toUpperCase()
             } else return comment.fullname.toUpperCase()
         }
     }
@@ -143,7 +146,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
             <div className="comment__row">
                 <div className="comment__col">
                     {comment?.isDany ?
-                        <img src={Dany} alt="Comment Profile Image" className="comment__image" />
+                        <img src={Dany} alt="Comment Profile Image" className="comment__image" draggable={false} />
                         :
                         <p className="comment__profile">{getProfile(comment)}</p>
                     }
@@ -154,7 +157,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
                     <p className="comment__message">{comment?.comment}</p>
                     <div className="comment__btns">
                         <div className="comment__likes">
-                            <img src={liked ? LikeFilled : Like} onClick={likeComment} alt="Like this comment" className="comment__likes-img" />
+                            <img src={liked ? LikeFilled : Like} onClick={likeComment} alt="Like this comment" className="comment__likes-img" draggable={false} />
                             {likes ? <p className="comment__likes-count">{likes}</p> : ''}
                         </div>
                         <p className='comment__reply-btn' onClick={renderReply}>{lang === 'es' ? 'Responder' : 'Reply'}</p>
@@ -166,7 +169,7 @@ export default function Comment({ comment, setReply, reply }: Props) {
             {openReply ?
                 <div className="comment__reply-row" >
                     <div className="comment__col" style={{ width: '15%' }}>
-                        <img src={Reply} alt="Reply" className="comment__reply-image" />
+                        <img src={Reply} alt="Reply" className="comment__reply-image" draggable={false} />
                     </div>
                     <div className="comment__col" style={{ width: '80%' }}>
                         <p className="comment__reply-title">{lang === 'es' ? 'Responde a ' : 'Reply to '}{comment?.fullname ? <i>{comment.fullname.split(' ')[0]}</i> : ''}</p>
