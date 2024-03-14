@@ -82,13 +82,14 @@
 @media only screen and (max-width: 640px) {
     .footer {
         &__container {
-            height: 40vw;
+            height: 20rem;
         }
 
         &__nav {
             // justify-content: space-between;
-            width: 70%;
+            width: 80vw;
             margin: 0 4vw;
+            flex-wrap: wrap;
 
             &-link {
                 font-size: 3.5vw;
@@ -109,7 +110,7 @@
         }
 
         &__social {
-            margin: 3vw;
+            margin: 2rem;
 
             &-svg {
                 height: 5vw;

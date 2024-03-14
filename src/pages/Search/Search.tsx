@@ -75,6 +75,9 @@ export default function Blog({ search, setPost }: Props) {
             <div className="page__header">
                 <h4 className="page__header-title">{search.length ? TEXT[lang]['search_title'] : TEXT[lang]['search_title2']}</h4>
             </div>
+            {filteredPosts.length ?
+                <h4 className='search__no-results'>{lang === 'es' ? 'Resultados para' : 'Results for'} <strong>{search.join(', ')}</strong></h4>
+                : ''}
             <div className="blog__list">
                 {render()}
             </div>

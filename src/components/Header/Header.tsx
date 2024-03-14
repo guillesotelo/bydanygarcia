@@ -102,6 +102,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
             setSearchClicked(false)
             setSearch(prompt.split(' '))
             history.push('/search')
+            setPrompt('')
         }
     }
 
@@ -246,7 +247,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     : ''}
                 <div className="header__search" >
                     <img className="header__search-svg" src={Search} onClick={triggerSearch} />
-                    {searchClicked || !isMobile ?
+                    {searchClicked ?
                         <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
                             if (e.key === 'Enter') triggerSearch()
                         }} />

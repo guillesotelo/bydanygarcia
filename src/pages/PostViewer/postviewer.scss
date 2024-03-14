@@ -50,6 +50,8 @@
         &-text {
             margin: 0 0 2rem 0;
             color: #414141;
+            font-weight: normal;
+            font-size: 1.2rem;
         }
 
         &-icon {
@@ -104,7 +106,7 @@
 @media only screen and (max-width: 640px) {
     .postviewer {
         &__container {
-            padding: 10vw 4vw 20vw 4vw;
+            padding: 2rem 2rem 20rem 2rem;
             transition: .3s;
             background-color: white;
         }
@@ -133,21 +135,21 @@
                 box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
                 border-radius: 1rem;
                 width: 90vw;
-                padding: 2rem;
+                padding: 1.5rem;
                 margin: 3rem 0 0 0;
             }
     
             &-text {
                 margin: 0 0 2rem 0;
-                color: #414141;
+                color: #333333;
             }
     
             &-icon {
-                height: 1.8rem;
+                height: 1.5rem;
                 margin: 0 1rem;
                 cursor: pointer;
                 transition: 0.3s;
-                opacity: .6;
+                opacity: .5;
                 margin: 0 .7rem;
     
                 &:hover {

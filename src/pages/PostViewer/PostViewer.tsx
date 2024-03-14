@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
 import { getPostById } from '../../services/post'
-import { useHistory, useLocation } from 'react-router-dom';
-import { AppContext } from '../../AppContext';
-import { commentType, onChangeEventType, postType } from '../../types';
-import InputField from '../../components/InputField/InputField';
-import Comment from '../../components/Comment/Comment';
-import { createComment, getAllComments, getPostComments } from '../../services';
-import Button from '../../components/Button/Button';
-import toast from 'react-hot-toast';
+import { useHistory, useLocation } from 'react-router-dom'
+import { AppContext } from '../../AppContext'
+import { commentType, onChangeEventType, postType } from '../../types'
+import InputField from '../../components/InputField/InputField'
+import Comment from '../../components/Comment/Comment'
+import { createComment, getAllComments, getPostComments } from '../../services'
+import Button from '../../components/Button/Button'
+import toast from 'react-hot-toast'
 import Instagram from '../../assets/icons/instagram.svg'
 import Facebook from '../../assets/icons/facebook.svg'
 import X from '../../assets/icons/x.svg'
 import Linkedin from '../../assets/icons/linkedin.svg'
 import Whatsapp from '../../assets/icons/whatsapp.svg'
-import SEO from '../../components/SEO/Seo';
+import SEO from '../../components/SEO/Seo'
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -66,6 +66,27 @@ export default function PostViewer({ post, setPost }: Props) {
 
         if (post.tags) getCategory(post)
     }, [post, postId])
+
+
+    useEffect(() => {
+        styleImagesInParagraphs()
+    }, [html, spaHtml, loading])
+
+    const styleImagesInParagraphs = () => {
+        const paragraphsWithImages = Array.from(document.querySelectorAll('p > img'))
+        paragraphsWithImages.forEach((image) => {
+            console.log(image)
+            if (image.parentElement instanceof HTMLElement) {
+                const paragraph = image.parentElement
+                paragraph.style.textAlign = 'center';
+                (image as HTMLElement).style.borderRadius = '.5rem';
+                (image as HTMLElement).style.margin = '.5rem';
+                (image as HTMLElement).style.display = 'inline';
+                if (isMobile) (image as HTMLElement).style.width = '90%';
+
+            }
+        })
+    }
 
     const getCategory = (post: postType) => {
         const _category = post.category ? post.category.includes(',') ?
@@ -171,7 +192,7 @@ export default function PostViewer({ post, setPost }: Props) {
             {renderSeo()}
             <div className="postviewer__routes">
                 <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>OPEN JOURNAL</h4>
-                {category ? <h4 className='postviewer__routes-link' > &nbsp;-&nbsp; </h4> : ''}
+                {category ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}
                 {category ? <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4> : ''}
             </div>
             {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>
