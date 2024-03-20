@@ -34,6 +34,7 @@
             font-family: 'Bentham', sans-serif;
 
             &-blog {
+                animation: move-y-up .7s ease-in;
                 font-size: 2rem;
                 margin: 0 0 .5rem 0;
             }

@@ -53,7 +53,7 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
                 width: !isMobile && sideImages.length ? '50%' : ''
             }}>
                 <div className="post__headers">
-                    <img className="post__share-icon" onClick={copyLink} src={ShareIcon} />
+                    {/* <img className="post__share-icon" onClick={copyLink} src={ShareIcon} /> */}
                     <h1 className="post__title">{spanish && headers.spaTitle ? headers.spaTitle : headers.title || headers.spaTitle || ''}</h1>
                     <h3 className="post__subtitle">{spanish && headers.spaSubtitle ? headers.spaSubtitle : headers.subtitle || headers.spaSubtitle || ''}</h3>
                 </div>

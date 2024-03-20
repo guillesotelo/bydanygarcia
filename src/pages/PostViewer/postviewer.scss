@@ -1,6 +1,6 @@
 .postviewer {
     &__container {
-        padding: 5vw 5vw 15vw 5vw;
+        padding: 2rem 2rem 20rem 2rem;
         transition: .3s;
         min-height: 100vh;
         background-color: #d9c6ba;
@@ -106,7 +106,6 @@
 @media only screen and (max-width: 640px) {
     .postviewer {
         &__container {
-            padding: 2rem 2rem 20rem 2rem;
             transition: .3s;
             background-color: white;
         }

@@ -64,7 +64,7 @@ export default function PostViewer({ post, setPost }: Props) {
         if (post.sideImages) setSideImages(post.sideImages)
         if (post.sideImgsStyles) setSideImgStyles(post.sideImgsStyles)
 
-        if (post.tags) getCategory(post)
+        getCategory()
     }, [post, postId])
 
 
@@ -88,11 +88,11 @@ export default function PostViewer({ post, setPost }: Props) {
         })
     }
 
-    const getCategory = (post: postType) => {
+    const getCategory = () => {
         const _category = post.category ? post.category.includes(',') ?
             post.category.split(',')[0] : post.category :
             post.tags ? post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ')[0] : ''
-        if (_category.length) setCategory(_category)
+        if (_category.length) setCategory(_category.toLocaleLowerCase())
     }
 
     const getPost = async (id: string) => {
@@ -191,9 +191,15 @@ export default function PostViewer({ post, setPost }: Props) {
         <div className='postviewer__container'>
             {renderSeo()}
             <div className="postviewer__routes">
-                <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>OPEN JOURNAL</h4>
-                {category ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}
-                {category ? <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category}`)}>{category.toUpperCase()}</h4> : ''}
+                <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>{lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
+                {category ?
+                    <>
+                        <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4>
+                        <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category.trim().replaceAll(' ', '_')}`)}>{category.toUpperCase()}</h4>
+                    </>
+                    : ''}
+                <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4>
+                <h4 className='postviewer__routes-link'>{lang === 'es' && post.spaTitle ? post.spaTitle.toUpperCase() : post.title?.toUpperCase()}</h4>
             </div>
             {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>
                 :
@@ -249,6 +255,7 @@ export default function PostViewer({ post, setPost }: Props) {
                                 label={lang === 'es' ? 'Enviar' : 'Post Comment'}
                                 handleClick={postComment}
                                 style={{ width: '100%' }}
+                                disabled={!data.comment || !data.fullname}
                             />
                         </div>
                     </div>
