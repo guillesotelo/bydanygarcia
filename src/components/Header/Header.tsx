@@ -29,6 +29,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     const [prompt, setPrompt] = useState('')
     const [deleteModal, setDeleteModal] = useState(false)
     const [menuToggle, setMenuToggle] = useState(false)
+    const [blogToggle, setBlogToggle] = useState(false)
     const [searchClicked, setSearchClicked] = useState(false)
     const [bigHeader, setBigHeader] = useState(true)
     const history = useHistory()
@@ -97,7 +98,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     }
 
     const triggerSearch = () => {
-        if(isMobile) setSearchClicked(true)
+        if (isMobile) setSearchClicked(true)
         if (prompt.trim()) {
             setSearchClicked(false)
             setSearch(prompt.split(' '))
@@ -151,46 +152,74 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
                         <div className="header__menu-item" style={{ marginTop: isMobile ? '6vw' : '2vw' }}>
                             <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/blog')
+                                // setTimeout(() => setMenuToggle(false), 50)
+                                // history.push('/blog')
+                                setBlogToggle(!blogToggle)
                             }}>{TEXT[lang]['blog']}</h4>
                         </div>
-                        <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/bespoken/home')
-                            }}>{TEXT[lang]['bespoken']}</h4>
-                        </div>
-                        {/* <div className="header__menu-item">
+                        {blogToggle ?
+                            <div className="header__menu-subitem">
+                                <h4 
+                                className="header__menu-subitem-text" 
+                                onClick={() => {
+                                    setTimeout(() => setMenuToggle(false), 50)
+                                    history.push('/blog?category=inspiration')
+                                }}>{TEXT[lang]['inspiration']}</h4>
+                                <h4 
+                                className="header__menu-subitem-text" 
+                                style={{ animationDelay: '.2s' }}
+                                onClick={() => {
+                                    setTimeout(() => setMenuToggle(false), 50)
+                                    history.push('/blog?category=motherhood')
+                                }}>{TEXT[lang]['motherhood']}</h4>
+                                <h4 
+                                className="header__menu-subitem-text" 
+                                style={{ animationDelay: '.4s' }}
+                                onClick={() => {
+                                    setTimeout(() => setMenuToggle(false), 50)
+                                    history.push('/blog?category=life_abroad')
+                                }}>{TEXT[lang]['life_abroad']}</h4>
+                            </div>
+                            : ''}
+                        {!blogToggle ?
+                            <>
+                                <div className="header__menu-item">
+                                    <h4 className="header__menu-item-text" onClick={() => {
+                                        setTimeout(() => setMenuToggle(false), 50)
+                                        history.push('/bespoken/home')
+                                    }}>{TEXT[lang]['bespoken']}</h4>
+                                </div>
+                                {/* <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
                                 history.push('/subscribe')
                             }}>{TEXT[lang]['subscribe']}</h4>
                         </div> */}
-                        <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/about')
-                            }}>{TEXT[lang]['about_greeting']}</h4>
-                        </div>
-                        <div className="header__menu-item header__language">
-                            <div className="header__menu-item-text" onClick={() => {
-                                changeLanguage(lang === 'en' ? 'es' : 'en')
-                                setTimeout(() => setMenuToggle(false), 1000)
-                            }}>
-                                {lang === 'es' ?
-                                    <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                    : <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                }</div>
-                        </div>
-                        {isLoggedIn ?
-                            <div className="header__menu-item" >
-                                <h4 className="header__menu-item-text" onClick={() => {
-                                    setTimeout(() => setMenuToggle(false), 50)
-                                    logOut()
-                                }}>Logout</h4>
-                            </div>
-                            : ''}
+                                <div className="header__menu-item">
+                                    <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
+                                        setTimeout(() => setMenuToggle(false), 50)
+                                        history.push('/about')
+                                    }}>{TEXT[lang]['about_greeting']}</h4>
+                                </div>
+                                <div className="header__menu-item header__language">
+                                    <div className="header__menu-item-text" onClick={() => {
+                                        changeLanguage(lang === 'en' ? 'es' : 'en')
+                                        setTimeout(() => setMenuToggle(false), 1000)
+                                    }}>
+                                        {lang === 'es' ?
+                                            <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
+                                            : <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
+                                        }</div>
+                                </div>
+                                {isLoggedIn ?
+                                    <div className="header__menu-item" >
+                                        <h4 className="header__menu-item-text" onClick={() => {
+                                            setTimeout(() => setMenuToggle(false), 50)
+                                            logOut()
+                                        }}>Logout</h4>
+                                    </div>
+                                    : ''}
+                            </> : ''}
                         <div className="header__menu-item" style={{
                             // position: 'relative'
                         }}>
