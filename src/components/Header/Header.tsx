@@ -373,7 +373,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     </div>
                     : ''}
 
-                <div className='header__admin-search'>
+                <div className='header__admin-panel'>
                     {isLoggedIn ?
                         <div className="header__admin-btns"
                             style={{

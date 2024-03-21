@@ -194,12 +194,12 @@ export default function PostViewer({ post, setPost }: Props) {
                 <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>{lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
                 {category ?
                     <>
-                        <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4>
-                        <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category.trim().replaceAll(' ', '_')}`)}>{category.toUpperCase()}</h4>
+                        {!isMobile ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}
+                        <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category.trim().replaceAll(' ', '_')}`)}>{isMobile ? '.' : ''}{category.toUpperCase()}</h4>
                     </>
                     : ''}
-                <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4>
-                <h4 className='postviewer__routes-link'>{lang === 'es' && post.spaTitle ? post.spaTitle.toUpperCase() : post.title?.toUpperCase()}</h4>
+                {!isMobile ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}
+                <h4 className='postviewer__routes-link'>{isMobile ? '..' : ''}{lang === 'es' && post.spaTitle ? post.spaTitle.toUpperCase() : post.title?.toUpperCase()}</h4>
             </div>
             {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>
                 :
