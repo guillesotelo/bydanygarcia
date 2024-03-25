@@ -8,17 +8,22 @@ import LandingDany from '../../assets/images/landing-1.jpg'
 import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
 import { TEXT } from '../../constants/lang'
+import Player from '../../components/Player/Player'
+const Track1 = require('../../assets/audio/Jamie-Duffy_Solas.mp3')
+const Track2 = require('../../assets/audio/Je-Te-Laisserai_Des-Mots.mp3')
 
 export default function Home() {
     const [showUp, setShowUp] = useState(false)
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
+    const [showPlayer, setShowPlayer] = useState(false)
     const { lang, isMobile, isLoggedIn, setPost } = useContext(AppContext)
     const history = useHistory()
 
     useEffect(() => {
         getPosts()
-    }, [])
+        if (isLoggedIn) setTimeout(() => setShowPlayer(true), 2000)
+    }, [isLoggedIn])
 
     useEffect(() => {
         if (allPosts.length && !showUp) {
@@ -174,5 +179,6 @@ export default function Home() {
                 />
             </div>
         } */}
+        {showPlayer ? <Player filePath={[Track1, Track2]} /> : ''}
     </div>
 }
