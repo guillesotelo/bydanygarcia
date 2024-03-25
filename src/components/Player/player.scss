@@ -12,8 +12,26 @@
         z-index: 5;
     }
 
+    &__close {
+        margin: 0 1rem 0 0;
+        border: none;
+        background-color: transparent;
+        font-weight: bold;
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover{
+            opacity: .5;
+        }
+    }
+
     &__track {
         &-name {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
             &-label {
                 margin: 1rem;
             }
@@ -36,6 +54,7 @@
     &__btn {
         border: none;
         background: transparent;
+
         &-svg {
             height: 2rem;
             cursor: pointer;
@@ -46,6 +65,7 @@
                 cursor: pointer;
                 transition: .2s;
                 transform: rotate(180deg);
+
                 &:hover {
                     opacity: .7;
                 }
@@ -55,6 +75,7 @@
                 height: 1.5rem;
                 cursor: pointer;
                 transition: .2s;
+
                 &:hover {
                     opacity: .7;
                 }
@@ -84,6 +105,7 @@ input[type=range]::-webkit-slider-runnable-track {
     cursor: pointer;
     background: #6d6d6d;
     border-radius: .2rem;
+
     &:hover {
         background-color: #8a8a8a;
     }

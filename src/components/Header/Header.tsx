@@ -235,7 +235,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     </div>
                 </div>
                 {isLoggedIn && !searchClicked ?
-                    <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw' }}>
+                    <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw', border: 'none' }}>
                         <Button
                             label='Create'
                             handleClick={() => history.push('/editor?new=true')}

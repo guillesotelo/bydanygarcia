@@ -179,6 +179,6 @@ export default function Home() {
                 />
             </div>
         } */}
-        {showPlayer ? <Player filePath={[Track1, Track2]} /> : ''}
+        {showPlayer ? <Player filePath={[Track1, Track2]} setShowPlayer={setShowPlayer} /> : ''}
     </div>
 }

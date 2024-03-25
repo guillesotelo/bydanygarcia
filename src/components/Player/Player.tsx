@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PlayTrack from '../../assets/icons/play-track.svg'
 import PauseTrack from '../../assets/icons/pause-track.svg'
 import NextTrack from '../../assets/icons/next-track.svg'
+import { AppContext } from '../../AppContext'
 
 type Props = {
     filePath?: string | string[]
+    setShowPlayer?: (value: boolean) => void
 }
 
-export default function Player({ filePath }: Props) {
+export default function Player({ filePath, setShowPlayer }: Props) {
     const [playing, setPlaying] = useState(false)
     const [audioFile, setAudioFile] = useState<HTMLAudioElement | null>(null)
     const [fileName, setFileName] = useState<string | null>(null)
     const [pathIndex, setPathIndex] = useState(0)
     const [currentTime, setCurrentTime] = useState(0)
     const [duration, setDuration] = useState(0)
+    const { isMobile } = useContext(AppContext)
 
     useEffect(() => {
         if (filePath) {
@@ -42,8 +45,8 @@ export default function Player({ filePath }: Props) {
     }, [audioFile])
 
     useEffect(() => {
-        if(currentTime >= duration) nextTrack()
-    },[currentTime])
+        if (currentTime >= duration) nextTrack()
+    }, [currentTime])
 
     const getFileNameFromURL = (url: string): string => {
         const parts = url.split('/')
@@ -100,10 +103,25 @@ export default function Player({ filePath }: Props) {
         }
     }
 
+    const closePlayer = () => {
+        if (audioFile) {
+            audioFile.pause()
+            audioFile.currentTime = 0
+        }
+        if (setShowPlayer) setShowPlayer(false)
+    }
+
     return (
-        <div className="player__container">
+        <div
+            className="player__container"
+            style={{
+                width: isMobile ? '100vw' : '',
+                bottom: isMobile ? 0 : '',
+                right: isMobile ? 0 : '',
+            }}>
             <div className="player__track-name">
                 <p className="player__track-name-label">{fileName || 'Track Name - Artist Name'}</p>
+                <button className='player__close' onClick={closePlayer}>X</button>
             </div>
             <div className="player__track-path">
                 <input
