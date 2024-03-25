@@ -41,6 +41,10 @@ export default function Player({ filePath }: Props) {
         }
     }, [audioFile])
 
+    useEffect(() => {
+        if(currentTime >= duration) nextTrack()
+    },[currentTime])
+
     const getFileNameFromURL = (url: string): string => {
         const parts = url.split('/')
         return parts[parts.length - 1].split('.')[0].replaceAll('-', ' ').replaceAll('_', ' - ')
