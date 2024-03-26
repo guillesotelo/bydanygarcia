@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PlayTrack from '../../assets/icons/play-track.svg'
 import PauseTrack from '../../assets/icons/pause-track.svg'
-import NextTrack from '../../assets/icons/next-track.svg'
+import ChangeTrack from '../../assets/icons/next-track.svg'
 import { AppContext } from '../../AppContext'
 
 type Props = {
@@ -20,7 +20,7 @@ export default function Player({ filePath, setShowPlayer }: Props) {
 
     useEffect(() => {
         if (filePath) {
-            const audio = new Audio(typeof filePath === 'string' ? filePath : filePath[pathIndex] ? filePath[pathIndex] : '')
+            const audio = new Audio(Array.isArray(filePath) ? filePath[pathIndex] : filePath)
             setFileName(getFileNameFromURL(audio.src))
             setAudioFile(audio)
         }
@@ -45,7 +45,7 @@ export default function Player({ filePath, setShowPlayer }: Props) {
     }, [audioFile])
 
     useEffect(() => {
-        if (currentTime >= duration) nextTrack()
+        if (audioFile && currentTime >= duration) nextTrack()
     }, [currentTime])
 
     const getFileNameFromURL = (url: string): string => {
@@ -55,13 +55,13 @@ export default function Player({ filePath, setShowPlayer }: Props) {
 
     const prevTrack = () => {
         setPlaying(false)
-        if (filePath && typeof filePath !== 'string') {
+        if (filePath) {
             const index = pathIndex > 0 ? pathIndex - 1 : filePath.length - 1
             setPathIndex(index)
             if (audioFile) {
                 audioFile.pause()
                 audioFile.currentTime = 0
-                const audio = new Audio(filePath[index])
+                const audio = new Audio(Array.isArray(filePath) ? filePath[index] : filePath)
                 setFileName(getFileNameFromURL(audio.src))
                 audio.play()
                 setAudioFile(audio)
@@ -72,16 +72,16 @@ export default function Player({ filePath, setShowPlayer }: Props) {
 
     const nextTrack = () => {
         setPlaying(false)
-        if (filePath && typeof filePath !== 'string') {
+        if (filePath) {
             const index = pathIndex < filePath.length - 1 ? pathIndex + 1 : 0
             setPathIndex(index)
             if (audioFile) {
                 audioFile.pause()
                 audioFile.currentTime = 0
-                const audio = new Audio(filePath[index])
+                const audio = new Audio(Array.isArray(filePath) ? filePath[index] : filePath)
                 setFileName(getFileNameFromURL(audio.src))
-                audio.play()
                 setAudioFile(audio)
+                audio.play()
                 setPlaying(true)
             }
         }
@@ -134,7 +134,7 @@ export default function Player({ filePath, setShowPlayer }: Props) {
             </div>
             <div className="player__buttons">
                 <button className="player__btn" onClick={prevTrack}>
-                    <img src={NextTrack} alt="Previous track" className="player__btn-svg-previous" draggable={false} />
+                    <img src={ChangeTrack} alt="Previous track" className="player__btn-svg-previous" draggable={false} />
                 </button>
 
                 <button className="player__btn" onClick={playTrack}>
@@ -142,7 +142,7 @@ export default function Player({ filePath, setShowPlayer }: Props) {
                 </button>
 
                 <button className="player__btn" onClick={nextTrack}>
-                    <img src={NextTrack} alt="Next track" className="player__btn-svg-next" draggable={false} />
+                    <img src={ChangeTrack} alt="Next track" className="player__btn-svg-next" draggable={false} />
                 </button>
             </div>
         </div>
