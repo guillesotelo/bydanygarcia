@@ -24,7 +24,8 @@ import Notifications from './pages/Notifications/Notifications';
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
   const localLang = preferedLang ? preferedLang : navigator.language.startsWith('es') ? 'es' : 'en'
-  const isMobile = window.screen.width <= 768
+  const isInstagram = (navigator.userAgent.indexOf('Instagram') > -1) ? true : false
+  const isMobile = isInstagram || window.screen.width <= 768
   const [search, setSearch] = useState<string[]>([])
   const [post, setPost] = useState<postType>({})
   const [lang, setLang] = useState<string>(localLang)

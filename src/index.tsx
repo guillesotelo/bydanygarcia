@@ -10,7 +10,8 @@ import ReactGA from 'react-ga4';
 const TRACKING_ID = "G-M92VPE29C8";
 ReactGA.initialize(TRACKING_ID);
 
-const isMobile = window.screen.width <= 768
+const isInstagram = (navigator.userAgent.indexOf('Instagram') > -1) ? true : false
+const isMobile = isInstagram || window.screen.width <= 768
 
 const toastOptions = {
   style: {
