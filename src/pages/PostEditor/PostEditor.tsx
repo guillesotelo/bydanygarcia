@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Editor } from '@tinymce/tinymce-react';
-import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
-import { useHistory, useLocation } from 'react-router-dom';
-import InputField from '../../components/InputField/InputField';
-import Button from '../../components/Button/Button';
-import { createPost, updatePost } from '../../services';
-import { toast } from 'react-hot-toast';
-import { getPostById } from '../../services/post';
-import { AppContext } from '../../AppContext';
-import { TEXT } from '../../constants/lang';
-import Slider from '../../components/Slider/Slider';
-import { dataObj, onChangeEventType } from '../../types';
-import Switch from '../../components/Switch/Switch';
-import Dropdown from '../../components/Dropdown/Dropdown';
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { Editor } from '@tinymce/tinymce-react'
+import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
+import { useHistory, useLocation } from 'react-router-dom'
+import InputField from '../../components/InputField/InputField'
+import Button from '../../components/Button/Button'
+import { createPost, updatePost } from '../../services'
+import { toast } from 'react-hot-toast'
+import { getPostById } from '../../services/post'
+import { AppContext } from '../../AppContext'
+import { TEXT } from '../../constants/lang'
+import Slider from '../../components/Slider/Slider'
+import { dataObj, onChangeEventType } from '../../types'
+import Switch from '../../components/Switch/Switch'
+import Dropdown from '../../components/Dropdown/Dropdown'
 
 type Props = {}
 const voidData = {
@@ -47,6 +47,7 @@ export default function PostEditor({ }: Props) {
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
+    const editorRef = useRef<any>(null)
 
     useEffect(() => {
         if (isLoggedIn !== null && !isLoggedIn) return history.push('/')
@@ -203,7 +204,7 @@ export default function PostEditor({ }: Props) {
         localStorage.removeItem('posts')
         setIsEdited(false)
         return toast.remove(loading)
-    };
+    }
 
     const addSideImage = () => {
         if (data.sideImage) {
@@ -227,6 +228,39 @@ export default function PostEditor({ }: Props) {
     const getImageProp = (prop: string, index: number) => {
         return sideImgStyles[index] && sideImgStyles[index][prop] ? sideImgStyles[index][prop] : 0
     }
+
+    const filePickerCallback = (callback: any) => {
+        const input = document.createElement('input')
+        input.setAttribute('type', 'file')
+        input.setAttribute('accept', 'image/*')
+
+        input.onchange = () => {
+            if (input.files) {
+                const file = input.files[0]
+                const reader = new FileReader()
+
+                reader.onload = () => {
+                    const img = new Image()
+                    img.src = reader.result as string
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas')
+                        const ctx = canvas.getContext('2d')
+                        canvas.width = img.width
+                        canvas.height = img.height
+                        ctx?.drawImage(img, 0, 0)
+
+                        // Compress the image
+                        const compressedBase64 = canvas.toDataURL(file.type, 0.5) // Adjust compression quality as needed (0.1 to 1)
+                        callback(compressedBase64, { title: file.name }) // Pass the compressed base64 string to the callback with additional meta data
+                    }
+                }
+                reader.onerror = (error) => console.error('Error reading file:', error)
+                if (file) reader.readAsDataURL(file)
+            }
+        }
+        input.click()
+    }
+
 
     return isLoggedIn ?
         <div className='editor__container'>
@@ -322,6 +356,8 @@ export default function PostEditor({ }: Props) {
                 </div>
                 <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}>
                     <Editor
+                        onInit={(_, editor) => editorRef.current = editor}
+                        initialValue=""
                         value={spaSelected ? spaHtml : html}
                         onEditorChange={handleEditorChange}
                         apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
@@ -332,6 +368,7 @@ export default function PostEditor({ }: Props) {
                             statusbar: false,
                             toolbar:
                                 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons wordcount',
+                            file_picker_callback: filePickerCallback
                         }}
                     />
                 </GrammarlyEditorPlugin>

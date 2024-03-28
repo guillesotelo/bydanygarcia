@@ -20,7 +20,7 @@ export default function Post({ headers, content, spaContent, linkLang }: Props) 
 
     useEffect(() => {
         setSpanish(lang === 'es' || linkLang === 'es')
-    }, [])
+    }, [lang])
 
     useEffect(() => {
         if (headers.sideImages) setSideImages(headers.sideImages)

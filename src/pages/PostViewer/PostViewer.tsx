@@ -75,7 +75,6 @@ export default function PostViewer({ post, setPost }: Props) {
     const styleImagesInParagraphs = () => {
         const paragraphsWithImages = Array.from(document.querySelectorAll('p > img'))
         paragraphsWithImages.forEach((image) => {
-            console.log(image)
             if (image.parentElement instanceof HTMLElement) {
                 const paragraph = image.parentElement
                 paragraph.style.textAlign = 'center';
@@ -83,7 +82,6 @@ export default function PostViewer({ post, setPost }: Props) {
                 (image as HTMLElement).style.margin = '.5rem';
                 (image as HTMLElement).style.display = 'inline';
                 if (isMobile) (image as HTMLElement).style.width = '90%';
-
             }
         })
     }
