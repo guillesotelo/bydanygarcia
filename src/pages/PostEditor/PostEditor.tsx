@@ -81,13 +81,19 @@ export default function PostEditor({ }: Props) {
     useEffect(() => {
         const statusBar = document.querySelector('.tox-statusbar')
         if (statusBar) statusBar.remove()
-        if (isEdited) {
+        if (isEdited) saveLocalPost()
+    }, [data, html, spaHtml])
+
+    const saveLocalPost = () => {
+        try {
             if (html) localStorage.setItem('autosavedHtml', html)
             if (spaHtml) localStorage.setItem('autosavedHtmlSPa', spaHtml)
             localStorage.setItem('autosavedData', JSON.stringify(data))
             localStorage.setItem('autosavedId', postId || 'new')
+        } catch (error) {
+            toast.info('Post not be saved in autosave. Large images or too many.')
         }
-    }, [data, html, spaHtml])
+    }
 
     const activateRenderEffects = () => {
         let position = 0
@@ -156,54 +162,58 @@ export default function PostEditor({ }: Props) {
     }
 
     const handleSave = async () => {
-        const loading = toast.loading(isUpdate ? TEXT[lang]['updating'] : TEXT[lang]['saving'])
-        const sideImgs = JSON.stringify(sideImages)
-        const sideStyles = JSON.stringify(sideImgStyles)
-
-        if (isUpdate) {
-            const updated = await updatePost({
-                ...data,
-                sideImgs,
-                sideStyles,
-                html,
-                spaHtml,
-                published,
-                category: selectedCategory
-            })
-            if (updated && updated._id) {
-                localStorage.removeItem('posts')
-                toast.success(TEXT[lang]['saving_ok'])
-                setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
-            }
-            else {
-                toast.error(TEXT[lang]['error_saving'])
-                return toast.remove(loading)
-            }
-            getPost(postId)
-        } else {
-            const saved = await createPost({
-                ...data,
-                sideImgs,
-                sideStyles,
-                html,
-                spaHtml,
-                published,
-                category: selectedCategory
-            })
-            if (saved && saved._id) {
-                localStorage.removeItem('posts')
-                toast.success(TEXT[lang]['saving_ok'])
-                setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
+        try {
+            const loading = toast.loading(isUpdate ? TEXT[lang]['updating'] : TEXT[lang]['saving'])
+            const sideImgs = JSON.stringify(sideImages)
+            const sideStyles = JSON.stringify(sideImgStyles)
+    
+            if (isUpdate) {
+                const updated = await updatePost({
+                    ...data,
+                    sideImgs,
+                    sideStyles,
+                    html,
+                    spaHtml,
+                    published,
+                    category: selectedCategory
+                })
+                if (updated && updated._id) {
+                    localStorage.removeItem('posts')
+                    toast.success(TEXT[lang]['saving_ok'])
+                    setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
+                }
+                else {
+                    toast.error(TEXT[lang]['error_saving'])
+                    return toast.remove(loading)
+                }
+                getPost(postId)
             } else {
-                toast.error(TEXT[lang]['error_saving'])
-                return toast.remove(loading)
+                const saved = await createPost({
+                    ...data,
+                    sideImgs,
+                    sideStyles,
+                    html,
+                    spaHtml,
+                    published,
+                    category: selectedCategory
+                })
+                if (saved && saved._id) {
+                    localStorage.removeItem('posts')
+                    toast.success(TEXT[lang]['saving_ok'])
+                    setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
+                } else {
+                    toast.error(TEXT[lang]['error_saving'])
+                    return toast.remove(loading)
+                }
             }
+            setHtml('')
+            setData(voidData)
+            localStorage.removeItem('posts')
+            setIsEdited(false)
+            return toast.remove(loading)
+        } catch (error) {
+            toast.error('Error saving post. Please try again')
         }
-        setHtml('')
-        setData(voidData)
-        localStorage.removeItem('posts')
-        setIsEdited(false)
-        return toast.remove(loading)
     }
 
     const addSideImage = () => {
