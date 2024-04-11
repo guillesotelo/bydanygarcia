@@ -91,7 +91,12 @@ export default function PostEditor({ }: Props) {
             localStorage.setItem('autosavedData', JSON.stringify(data))
             localStorage.setItem('autosavedId', postId || 'new')
         } catch (error) {
-            toast.info('Post not be saved in autosave. Large images or too many.')
+            toast(
+                'Post not be saved in autosave. Large images or too many.',
+                {
+                  duration: 4000,
+                }
+              )
         }
     }
 
