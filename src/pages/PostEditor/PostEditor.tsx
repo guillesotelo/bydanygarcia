@@ -13,6 +13,7 @@ import Slider from '../../components/Slider/Slider'
 import { dataObj, onChangeEventType } from '../../types'
 import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
+import { getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
 
 type Props = {}
 const voidData = {
@@ -67,11 +68,7 @@ export default function PostEditor({ }: Props) {
         }
         else if (id) setPostId(id)
 
-        const autosavedHtml = localStorage.getItem('autosavedHtml')
-        const autosavedId = localStorage.getItem('autosavedId')
-        const autosavedHtmlSPa = localStorage.getItem('autosavedHtmlSPa')
-
-        if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedHtmlSPa)) setHasAutosave(true)
+        processAutosave(id, isNew)
     }, [location])
 
     useEffect(() => {
@@ -84,19 +81,33 @@ export default function PostEditor({ }: Props) {
         if (isEdited) saveLocalPost()
     }, [data, html, spaHtml])
 
-    const saveLocalPost = () => {
+    const processAutosave = async (id: string | null, isNew: string | null) => {
         try {
-            if (html) localStorage.setItem('autosavedHtml', html)
-            if (spaHtml) localStorage.setItem('autosavedHtmlSPa', spaHtml)
+            const items = await getAllRecordsFromDB()
+
+            const autosavedHtml = items[id || 'new'].html
+            const autosavedHtmlSPa = items[id || 'new'].spaHtml
+
+            const autosavedId = localStorage.getItem('autosavedId')
+            if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedHtmlSPa)) setHasAutosave(true)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const saveLocalPost = async () => {
+        try {
+            if (html) await saveItemToDB({ html, id: postId || 'new' })
+            if (spaHtml) await saveItemToDB({ spaHtml, id: postId || 'new' })
             localStorage.setItem('autosavedData', JSON.stringify(data))
             localStorage.setItem('autosavedId', postId || 'new')
         } catch (error) {
             toast(
-                'Post not be saved in autosave. Large images or too many.',
+                'Error running autosave. Write with caution.',
                 {
-                  duration: 4000,
+                    duration: 4000,
                 }
-              )
+            )
         }
     }
 
@@ -120,9 +131,12 @@ export default function PostEditor({ }: Props) {
         })
     }
 
-    const loadAutoSave = () => {
-        const autosavedHtml = localStorage.getItem('autosavedHtml')
-        const autosavedHtmlSPa = localStorage.getItem('autosavedHtmlSPa')
+    const loadAutoSave = async () => {
+        const items = await getAllRecordsFromDB()
+
+        const autosavedHtml = items[postId || 'new'].html
+        const autosavedHtmlSPa = items[postId || 'new'].spaHtml
+
         const autosaveData = JSON.parse(localStorage.getItem('autosavedData') || '{}') || {}
         setData(autosaveData)
         setHtml(autosavedHtml || '')
@@ -171,7 +185,7 @@ export default function PostEditor({ }: Props) {
             const loading = toast.loading(isUpdate ? TEXT[lang]['updating'] : TEXT[lang]['saving'])
             const sideImgs = JSON.stringify(sideImages)
             const sideStyles = JSON.stringify(sideImgStyles)
-    
+
             if (isUpdate) {
                 const updated = await updatePost({
                     ...data,
