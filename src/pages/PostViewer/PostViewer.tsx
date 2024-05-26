@@ -45,28 +45,21 @@ export default function PostViewer({ post, setPost }: Props) {
 
     useEffect(() => {
         const id = new URLSearchParams(document.location.search).get('id')
-        const updated = new URLSearchParams(document.location.search).get('updated')
         const language = new URLSearchParams(document.location.search).get('lang')
+        // const updated = new URLSearchParams(document.location.search).get('updated')
 
-        if (updated && id) getPost(id)
+        // if (updated && id) getPost(id)
         if (id) setPostId(id)
         if (language) setLinkLang(language)
     }, [location])
 
     useEffect(() => {
         renderSeo()
-        if (postId && (!post || !post._id)) getPost(postId)
+        const id = post && post._id ? post._id : postId
+        if (!html && !spaHtml) getPost(id)
         if (!postComments.length) getComments(postId)
-        if (post.html) setHtml(post.html)
-
-        if (post.spaHtml) setspaHtml(post.spaHtml)
-
-        if (post.sideImages) setSideImages(post.sideImages)
-        if (post.sideImgsStyles) setSideImgStyles(post.sideImgsStyles)
-
-        getCategory()
+        if (!category) getCategory()
     }, [post, postId])
-
 
     useEffect(() => {
         styleImagesInParagraphs()
@@ -95,8 +88,7 @@ export default function PostViewer({ post, setPost }: Props) {
 
     const getPost = async (id: string) => {
         setLoading(true)
-        const _id = id || post._id || ''
-        const _post = await getPostById(_id)
+        const _post = await getPostById(id)
         if (_post) {
             setPost(_post)
             if (_post.html) setHtml(_post.html)
@@ -111,8 +103,8 @@ export default function PostViewer({ post, setPost }: Props) {
                 setSideImgStyles(sideStyles)
             }
         }
-        setData({ ...data, postId: _id })
-        getComments(_id)
+        setData({ ...data, postId: id })
+        getComments(id)
         setLoading(false)
     }
 
