@@ -10,7 +10,7 @@ export const openDB = (): Promise<IDBDatabase> => {
 
         request.onsuccess = (event: Event) => {
             const db = (event.target as IDBOpenDBRequest).result as IDBDatabase
-            // console.log('Database opened successfully')
+            console.log('Database opened successfully')
             resolve(db)
         }
 

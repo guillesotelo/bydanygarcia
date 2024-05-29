@@ -526,8 +526,6 @@ export default function Bespoken({ page }: Props) {
 
     const parsePageTitle = (page: string) => TEXT[lang][page.toLocaleLowerCase().split(' ').join('_')]
 
-    console.log(page)
-
     const renderDiyWedding = () => {
         return (
             <div className="bespoken__container">
