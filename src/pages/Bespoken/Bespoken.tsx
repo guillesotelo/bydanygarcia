@@ -28,7 +28,9 @@ import { scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
 import LandingWedding from '../../assets/images/bespoken-wedding-landing.png'
 import LandingBespoken from '../../assets/images/bespoken-landing.jpg'
-import FlowerAdornments from '../../assets/images/products-adornments.jpg'
+import FlowerAdornments from '../../assets/images/products-adornments.png'
+import FlowerArrangements from '../../assets/images/products-arrangements.png'
+import ProductGifts from '../../assets/images/products-gifts.png'
 import BespokenBook from '../../assets/images/bespoken-book.png'
 import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
@@ -474,7 +476,7 @@ export default function Bespoken({ page }: Props) {
                         <div className="bespoken__product-cards">
                             <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=arrangements')}>
                                 <p className="bespoken__product-card-title">FLOWER<br />ARRANGEMENTS</p>
-                                <img src='https://i.postimg.cc/QMSsn3L9/Screen-Shot-2023-11-02-at-21-47-24.png' alt="Bespoken" className="bespoken__product-card-img" />
+                                <img src={FlowerArrangements} alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                             <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=adornments')}>
                                 <p className="bespoken__product-card-title">FLOWER<br />ADORNMENTS</p>
@@ -482,7 +484,7 @@ export default function Bespoken({ page }: Props) {
                             </div>
                             <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=gifts')}>
                                 <p className="bespoken__product-card-title">BESPOKEN<br />GIFTS</p>
-                                <img src='https://i.postimg.cc/m2wypXXz/Screen-Shot-2023-11-02-at-21-52-53.png' alt="Bespoken" className="bespoken__product-card-img" />
+                                <img src={ProductGifts} alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
                         </div>
                         : ''}
