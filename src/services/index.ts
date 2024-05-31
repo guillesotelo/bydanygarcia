@@ -37,7 +37,8 @@ import {
     scrapeUrl,
     subscribe,
     updateSubscription,
-    cancelSubscription
+    cancelSubscription,
+    getScrappedImages
 } from './app'
 
 export {
@@ -68,4 +69,5 @@ export {
     getTemplateById,
     updateTemplate,
     deleteTemplate,
+    getScrappedImages
 }

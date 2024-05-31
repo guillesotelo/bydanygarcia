@@ -24,7 +24,7 @@ import OurDiyWedding1 from '../../assets/images/ourdiywedding1.png'
 import { AppContext } from '../../AppContext'
 import { useHistory, useLocation } from 'react-router-dom'
 import PinterestSave from '../../assets/icons/pinterest-color.svg'
-import { scrapeUrl } from '../../services'
+import { getScrappedImages, scrapeUrl } from '../../services'
 import { TEXT } from '../../constants/lang'
 import LandingWedding from '../../assets/images/bespoken-wedding-landing.png'
 import LandingBespoken from '../../assets/images/bespoken-landing.jpg'
@@ -152,19 +152,19 @@ export default function Bespoken({ page }: Props) {
         try {
             if (page && (page.includes('WEDDING') || page.includes('BODA'))) {
                 setLoading({ ...loading, wedding: true })
-                const _wedding = await scrapeUrl({ url: weddingUrl })
+                const _wedding = await getScrappedImages('wedding')
                 if (_wedding && Array.isArray(_wedding)) setWedding(_wedding.filter(img => img))
                 setLoading({ ...loading, wedding: false })
             } else {
                 setLoading({ ...loading, products: true })
-                const _arrangements = await scrapeUrl({ url: arrangementsUrl })
+                const _arrangements = await getScrappedImages('arrangements')
                 if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
                 setLoading({ ...loading, products: false })
 
-                const _adornments = await scrapeUrl({ url: adornmentsUrl })
+                const _adornments = await getScrappedImages('adornments')
                 if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
 
-                const _gifts = await scrapeUrl({ url: giftsUrl })
+                const _gifts = await getScrappedImages('gifts')
                 if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
             }
         } catch (err) {

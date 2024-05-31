@@ -61,6 +61,13 @@ const scrapeUrl = async (data: { url: string }) => {
     } catch (err) { console.log(err) }
 }
 
+const getScrappedImages = async (gallery: string) => {
+    try {
+        const iamges = await axios.get(`${API_URL}/api/app/getScrappedImages`, { params: { gallery }, headers: getHeaders() })
+        return iamges.data
+    } catch (err) { console.log(err) }
+}
+
 export {
     sendContactEmail,
     sendNotification,
@@ -68,5 +75,6 @@ export {
     updateSubscription,
     scrapeUrl,
     subscribe,
-    cancelSubscription
+    cancelSubscription,
+    getScrappedImages
 }
