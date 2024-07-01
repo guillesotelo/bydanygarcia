@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
-import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
+// import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
 import { useHistory, useLocation } from 'react-router-dom'
 import InputField from '../../components/InputField/InputField'
 import Button from '../../components/Button/Button'
@@ -383,24 +383,24 @@ export default function PostEditor({ }: Props) {
                 /> */}
                     </div>
                 </div>
-                <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}>
-                    <Editor
-                        onInit={(_, editor) => editorRef.current = editor}
-                        initialValue=""
-                        value={spaSelected ? spaHtml : html}
-                        onEditorChange={handleEditorChange}
-                        apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-                        init={{
-                            height: 700,
-                            menubar: true,
-                            plugins: 'link image lists wordcount emoticons',
-                            statusbar: false,
-                            toolbar:
-                                'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons wordcount',
-                            file_picker_callback: filePickerCallback
-                        }}
-                    />
-                </GrammarlyEditorPlugin>
+                {/* <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}> */}
+                <Editor
+                    onInit={(_, editor) => editorRef.current = editor}
+                    initialValue=""
+                    value={spaSelected ? spaHtml : html}
+                    onEditorChange={handleEditorChange}
+                    apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+                    init={{
+                        height: 700,
+                        menubar: true,
+                        plugins: 'link image lists wordcount emoticons',
+                        statusbar: false,
+                        toolbar:
+                            'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons wordcount',
+                        file_picker_callback: filePickerCallback
+                    }}
+                />
+                {/* </GrammarlyEditorPlugin> */}
                 {!isMobile ?
                     <div className="editor__btns">
                         <Button
