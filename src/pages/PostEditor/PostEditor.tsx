@@ -270,7 +270,7 @@ export default function PostEditor({ }: Props) {
                 const file = input.files[0]
                 const compressOptions = {
                     maxSizeMB: 0.3,
-                    maxWidthOrHeight: 300,
+                    maxWidthOrHeight: 800,
                     useWebWorker: true
                 }
 
