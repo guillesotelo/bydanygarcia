@@ -14,6 +14,8 @@ import { dataObj, onChangeEventType } from '../../types'
 import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
+import imageCompression from 'browser-image-compression';
+import { convertToBase64 } from '../../helpers'
 
 type Props = {}
 const voidData = {
@@ -263,28 +265,19 @@ export default function PostEditor({ }: Props) {
         input.setAttribute('type', 'file')
         input.setAttribute('accept', 'image/*')
 
-        input.onchange = () => {
+        input.onchange = async () => {
             if (input.files) {
                 const file = input.files[0]
-                const reader = new FileReader()
-
-                reader.onload = () => {
-                    const img = new Image()
-                    img.src = reader.result as string
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas')
-                        const ctx = canvas.getContext('2d')
-                        canvas.width = img.width
-                        canvas.height = img.height
-                        ctx?.drawImage(img, 0, 0)
-
-                        // Compress the image
-                        const compressedBase64 = canvas.toDataURL(file.type, 0.35) // Adjust compression quality as needed (0.1 to 1)
-                        callback(compressedBase64, { title: file.name }) // Pass the compressed base64 string to the callback with additional meta data
-                    }
+                const compressOptions = {
+                    maxSizeMB: 0.3,
+                    maxWidthOrHeight: 300,
+                    useWebWorker: true
                 }
-                reader.onerror = (error) => console.error('Error reading file:', error)
-                if (file) reader.readAsDataURL(file)
+
+                const compressedFile = await imageCompression(file, compressOptions)
+                const base64 = await convertToBase64(compressedFile)
+
+                callback(base64, { title: file.name })
             }
         }
         input.click()

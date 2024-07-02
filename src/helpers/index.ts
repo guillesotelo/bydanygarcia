@@ -1,3 +1,5 @@
+import { File } from "buffer"
+
 export const shuffleArray = (array: any[]) => {
     const newArr = [...array]
     let currentIndex = newArr.length, randomIndex
@@ -17,4 +19,21 @@ export const sortArray = (arr: any[], key: string | number, order?: boolean) => 
         if (typeof bValue !== 'number' && !bValue) return -1
         return order ? aValue < bValue ? 1 : -1 : aValue < bValue ? -1 : 1
     })
+}
+
+export const convertToBase64 = (file: any) => {
+    try {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    } catch (err) {
+        console.error(err)
+    }
 }
