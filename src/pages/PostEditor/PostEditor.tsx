@@ -279,7 +279,7 @@ export default function PostEditor({ }: Props) {
                         ctx?.drawImage(img, 0, 0)
 
                         // Compress the image
-                        const compressedBase64 = canvas.toDataURL(file.type, 0.5) // Adjust compression quality as needed (0.1 to 1)
+                        const compressedBase64 = canvas.toDataURL(file.type, 0.35) // Adjust compression quality as needed (0.1 to 1)
                         callback(compressedBase64, { title: file.name }) // Pass the compressed base64 string to the callback with additional meta data
                     }
                 }
