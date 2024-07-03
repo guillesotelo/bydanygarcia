@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Bentham&family=Lora:wght@400..700&family=Lora:ital,wght@1,400..700&family=Cutive+Mono&family=Montserrat+Alternates:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bentham&family=Lora:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lora:ital,wght@1,400..700&family=Cutive+Mono&family=Montserrat+Alternates:wght@400..7000&display=swap');
 
 body {
   margin: 0;
   font-family: 'Lora', serif;
-  
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,7 +14,7 @@ code {
 }
 
 p img {
-  border-radius: .5vw;
+  /* border-radius: .5vw; */
   /* box-shadow: 5px 5px 15px rgb(179, 179, 179); */
   transition: .4s;
   max-width: 100%;
@@ -27,4 +27,16 @@ p img:hover {
 
 .no-pointer {
   cursor: default !important;
+}
+
+h4,
+button,
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: normal !important;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: normal !important;
 }

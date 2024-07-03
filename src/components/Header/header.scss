@@ -193,6 +193,7 @@
             font-weight: normal;
             transition: .3s;
             cursor: pointer;
+            // font-family: 'Lora', serif;
         }
 
         &-svg {
@@ -256,7 +257,7 @@
 
     }
 
-    &__admin-panel{
+    &__admin-panel {
         display: flex;
         flex-direction: row;
         width: 40%;

@@ -63,7 +63,7 @@ export default function Blog({ search, setPost }: Props) {
     const render = () => {
         setTimeout(() => applyAnimation(), 50)
         return filteredPosts.length ?
-            filteredPosts.map((post, i) => <PostCard setPost={setPost} key={i} post={post} />)
+            filteredPosts.map((post, i) => <PostCard index={i} setPost={setPost} key={i} post={post} />)
             : search.length ?
                 <h4 className='search__no-results'>{TEXT[lang]['no_results_for']} <strong>{search.join(', ')}</strong></h4>
                 :

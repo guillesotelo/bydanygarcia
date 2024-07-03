@@ -71,7 +71,7 @@ export default function PostViewer({ post, setPost }: Props) {
             if (image.parentElement instanceof HTMLElement) {
                 const paragraph = image.parentElement
                 paragraph.style.textAlign = 'center';
-                (image as HTMLElement).style.borderRadius = '.5rem';
+                // (image as HTMLElement).style.borderRadius = '.5rem';
                 (image as HTMLElement).style.margin = '.5rem';
                 (image as HTMLElement).style.display = 'inline';
                 if (isMobile) (image as HTMLElement).style.width = '90%';
@@ -245,7 +245,7 @@ export default function PostViewer({ post, setPost }: Props) {
                                 label={lang === 'es' ? 'Enviar' : 'Post Comment'}
                                 handleClick={postComment}
                                 style={{ width: '100%' }}
-                                disabled={!data.comment || !data.fullname}
+                                disabled={!data.comment || (!isLoggedIn && !data.fullname)}
                             />
                         </div>
                     </div>

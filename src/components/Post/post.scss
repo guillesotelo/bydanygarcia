@@ -1,6 +1,6 @@
 .post {
     &__container {
-        margin: 2vw 2vw 5vw 2vw;
+        margin: 3rem 0 0 0;
         position: relative;
         display: flex;
         gap: 4rem;
@@ -8,11 +8,9 @@
         align-items: center;
         justify-content: center;
         background-color: white;
-        padding: 3rem 2rem;
-        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
+        // box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
         width: 50vw;
         align-self: center;
-        padding: 4rem 5rem;
         border-radius: 1rem;
         animation: fade-in 1s ease-in;
         overflow: hidden;
@@ -44,10 +42,15 @@
     &__title {
         width: fit-content;
         margin-top: 0;
+        font-size: 3rem !important;
     }
 
     &__subtitle {
         width: fit-content;
+        font-family: 'Montserrat';
+        font-size: 1rem;
+        color: #8c776b;
+        margin-bottom: 2rem;
     }
 
     &__share-icon {
