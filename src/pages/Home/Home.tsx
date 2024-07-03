@@ -110,7 +110,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
@@ -126,7 +126,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
@@ -142,7 +142,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}

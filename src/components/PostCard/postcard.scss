@@ -130,7 +130,7 @@
         }
 
         &__text {
-            height: 30%;
+            // height: 30%;
             overflow: visible;
             white-space: normal;
 
@@ -140,13 +140,11 @@
 
             &-title {
                 font-size: .9rem;
-                margin: .5rem;
             }
 
             &-description {
                 font-size: .7rem;
                 font-weight: normal;
-                margin: 0 .5rem;
             }
         }
     }

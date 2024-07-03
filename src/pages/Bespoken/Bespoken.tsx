@@ -592,7 +592,7 @@ export default function Bespoken({ page }: Props) {
                     </div>
                     :
                     <div className="bespoken__row">
-                        <div className="bespoken__col" style={{ width: '70vw' }}>
+                        <div className="bespoken__col" style={{ width: isMobile ? '' : '70vw' }}>
                             <h2 className="bespoken__subtitle">
                                 Proposal
                             </h2>
@@ -654,9 +654,9 @@ export default function Bespoken({ page }: Props) {
                                 className="bespoken__product-image-wrapper"
                                 onMouseEnter={() => setShowPin(i)}
                                 onMouseLeave={() => setShowPin(-1)}
-                                style={{ animationDelay: `${i * 200}ms`, height: '10vw' }}
+                                style={{ animationDelay: `${i * 200}ms`, height: isMobile ? '20vh' : '10vw' }}
                             >
-                                <img src={imageUrl} alt={`Image ${i}`} className='bespoken__product-image' style={{ height: '10vw' }} />
+                                <img src={imageUrl} alt={`Image ${i}`} className='bespoken__product-image' style={{ height: isMobile ? '20vh' : '10vw' }} />
                                 <a href={getPinterestUrl(imageUrl)} target='_blank'>
                                     <img
                                         src={PinterestSave}

@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/logo-new.png'
+import byDanyLogo from '../../assets/logos/logo_cropped.png'
 import { onChangeEventType, postType } from '../../types'
 
 type Props = {
