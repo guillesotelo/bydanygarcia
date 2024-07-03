@@ -269,8 +269,8 @@ export default function PostEditor({ }: Props) {
             if (input.files) {
                 const file = input.files[0]
                 const compressOptions = {
-                    maxSizeMB: 0.3,
-                    maxWidthOrHeight: 800,
+                    maxSizeMB: 0.45,
+                    maxWidthOrHeight: 1000,
                     useWebWorker: true
                 }
 
@@ -385,6 +385,7 @@ export default function PostEditor({ }: Props) {
                     apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
                     init={{
                         height: 700,
+                        width: 700,
                         menubar: true,
                         plugins: 'link image lists wordcount emoticons',
                         statusbar: false,
