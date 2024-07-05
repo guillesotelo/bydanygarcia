@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
-import { getPostById } from '../../services/post'
+import { getPostById, getPostByTitle } from '../../services/post'
 import { useHistory, useLocation } from 'react-router-dom'
 import { AppContext } from '../../AppContext'
 import { commentType, onChangeEventType, postType } from '../../types'
@@ -26,7 +26,7 @@ export default function PostViewer({ post, setPost }: Props) {
     const [data, setData] = useState<commentType>({})
     const [html, setHtml] = useState('')
     const [spaHtml, setspaHtml] = useState('')
-    const [postId, setPostId] = useState('')
+    const [postTitle, setPostTitle] = useState('')
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
@@ -44,22 +44,21 @@ export default function PostViewer({ post, setPost }: Props) {
     }, [])
 
     useEffect(() => {
-        const id = new URLSearchParams(document.location.search).get('id')
+        const title = location.pathname.split('/')[2]
         const language = new URLSearchParams(document.location.search).get('lang')
         // const updated = new URLSearchParams(document.location.search).get('updated')
 
         // if (updated && id) getPost(id)
-        if (id) setPostId(id)
+        if (title) setPostTitle(title)
         if (language) setLinkLang(language)
     }, [location])
 
     useEffect(() => {
         renderSeo()
-        const id = post && post._id ? post._id : postId
-        if (!html && !spaHtml) getPost(id)
-        if (!postComments.length) getComments(postId)
+        if (!html && !spaHtml && postTitle) getPost(postTitle)
+        if (!postComments.length && post && post._id) getComments(post._id)
         if (!category) getCategory()
-    }, [post, postId])
+    }, [post, postTitle])
 
     useEffect(() => {
         styleImagesInParagraphs()
@@ -86,31 +85,37 @@ export default function PostViewer({ post, setPost }: Props) {
         if (_category.length) setCategory(_category.toLocaleLowerCase())
     }
 
-    const getPost = async (id: string) => {
-        setLoading(true)
-        const _post = await getPostById(id)
-        if (_post) {
-            setPost(_post)
-            if (_post.html) setHtml(_post.html)
-            if (_post.spaHtml) setspaHtml(_post.spaHtml)
+    const getPost = async (title: string) => {
+        try {
+            setLoading(true)
+            const _post = await getPostByTitle(title.replaceAll('-', ' '))
+            if (_post) {
+                setPost(_post)
+                if (_post.html) setHtml(_post.html)
+                if (_post.spaHtml) setspaHtml(_post.spaHtml)
 
-            if (_post.sideImgs) {
-                const sideImgs = JSON.parse(_post.sideImgs)
-                setSideImages(sideImgs)
+                if (_post.sideImgs) {
+                    const sideImgs = JSON.parse(_post.sideImgs)
+                    setSideImages(sideImgs)
+                }
+                if (_post.sideStyles) {
+                    const sideStyles = JSON.parse(_post.sideStyles)
+                    setSideImgStyles(sideStyles)
+                }
+                setPostTitle(_post._id)
+                getComments(_post._id)
+                setData({ ...data, postId: _post._id })
             }
-            if (_post.sideStyles) {
-                const sideStyles = JSON.parse(_post.sideStyles)
-                setSideImgStyles(sideStyles)
-            }
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            console.error(error)
         }
-        setData({ ...data, postId: id })
-        getComments(id)
-        setLoading(false)
     }
 
-    const getComments = async (postId: string) => {
+    const getComments = async (postTitle: string) => {
         try {
-            const comments = await getPostComments(postId)
+            const comments = await getPostComments(postTitle)
             if (comments && Array.isArray(comments)) setPostComments(comments)
         } catch (error) {
             console.error(error)
@@ -129,7 +134,7 @@ export default function PostViewer({ post, setPost }: Props) {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
-        const url = `${REACT_APP_PAGE}/post?id=${postId}`
+        const url = `${REACT_APP_PAGE}/post/${post.title?.replaceAll(' ', '-')}`
 
         return <SEO
             title={title}
@@ -149,12 +154,12 @@ export default function PostViewer({ post, setPost }: Props) {
         try {
             const posted = await createComment({
                 ...data,
-                postId,
+                postId: post._id,
                 isDany: isLoggedIn ? true : false
             })
             if (posted && posted._id) {
                 toast.success(lang === 'es' ? 'Comentario añadido!' : 'Comment submitted!')
-                getComments(postId)
+                getComments(post._id || data.postId || '')
                 setData({})
             }
             else toast.error(lang === 'es' ? 'Error al enviar comentario. Intenta nuevamente.' : 'Error while sending comment. Please try again.')

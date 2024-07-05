@@ -110,7 +110,7 @@ const App: React.FC = () => {
             <Footer />
           </div>
         </Route>
-        <Route path="/post:id">
+        <Route path="/post/:title">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
             <PostViewer post={post} setPost={setPost} />

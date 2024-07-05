@@ -201,7 +201,7 @@ export default function PostEditor({ }: Props) {
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post?id=${updated._id}&updated=true`), 1500)
+                    setTimeout(() => history.push(`/post/${updated.title.replaceAll(' ', '-')}&updated=true`), 1500)
                 }
                 else {
                     toast.error(TEXT[lang]['error_saving'])
@@ -221,7 +221,7 @@ export default function PostEditor({ }: Props) {
                 if (saved && saved._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post?id=${saved._id}`), 1500)
+                    setTimeout(() => history.push(`/post/${saved.title.replaceAll(' ', '-')}`), 1500)
                 } else {
                     toast.error(TEXT[lang]['error_saving'])
                     return toast.remove(loading)

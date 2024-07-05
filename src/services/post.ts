@@ -26,6 +26,13 @@ const getPostById = async (_id: string) => {
     } catch (err) { console.log(err) }
 }
 
+const getPostByTitle = async (title: string) => {
+    try {
+        const post = await axios.get(`${API_URL}/api/post/getByTitle`, { params: { title }, headers: getHeaders() })
+        return post.data
+    } catch (err) { console.log(err) }
+}
+
 const createPost = async (data: postType) => {
     try {
         const post = await axios.post(`${API_URL}/api/post/create`, data, getConfig())
@@ -51,6 +58,7 @@ export {
     getAllPosts,
     createPost,
     getPostById,
+    getPostByTitle,
     updatePost,
     deletePost
 }
