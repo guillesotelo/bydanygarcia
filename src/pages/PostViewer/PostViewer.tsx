@@ -134,7 +134,7 @@ export default function PostViewer({ post, setPost }: Props) {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
-        const url = `${REACT_APP_PAGE}/post/${post.title?.replaceAll(' ', '-')}`
+        const url = `${REACT_APP_PAGE}/post/${(post.title || post.spaTitle)?.replaceAll(' ', '-')}`
 
         return <SEO
             title={title}

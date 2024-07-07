@@ -16,6 +16,7 @@ import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import byDanyLogo from '../../assets/logos/logo_cropped.png'
 import { onChangeEventType, postType } from '../../types'
+import { getPostByTitle } from '../../services/post'
 
 type Props = {
     search: string[]
@@ -57,9 +58,12 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     }, [])
 
     useEffect(() => {
-        const id = new URLSearchParams(document.location.search).get('id')
-        if (id) setPostId(id)
-        else setPostId('')
+        const isPost = location.pathname.split('/')[1] === 'post'
+        if (isPost) {
+            const title = location.pathname.split('/')[2]
+            if (title) getPostId(title)
+            else setPostId('')
+        }
     }, [location])
 
     useEffect(() => {
@@ -74,6 +78,17 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
             else postEditor.style.filter = ''
         }
     }, [deleteModal])
+
+    const getPostId = async (title: string) => {
+        try {
+            const post = await getPostByTitle(title.replaceAll('-', ' '))
+            if (post && post._id) setPostId(post._id)
+            else setPostId('')
+        } catch (error) {
+            setPostId('')
+            console.error(error)
+        }
+    }
 
     const verifyUser = async () => {
         try {
@@ -159,26 +174,26 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         </div>
                         {blogToggle ?
                             <div className="header__menu-subitem">
-                                <h4 
-                                className="header__menu-subitem-text" 
-                                onClick={() => {
-                                    setTimeout(() => setMenuToggle(false), 50)
-                                    history.push('/blog?category=inspiration')
-                                }}>{TEXT[lang]['inspiration']}</h4>
-                                <h4 
-                                className="header__menu-subitem-text" 
-                                style={{ animationDelay: '.2s' }}
-                                onClick={() => {
-                                    setTimeout(() => setMenuToggle(false), 50)
-                                    history.push('/blog?category=motherhood')
-                                }}>{TEXT[lang]['motherhood']}</h4>
-                                <h4 
-                                className="header__menu-subitem-text" 
-                                style={{ animationDelay: '.4s' }}
-                                onClick={() => {
-                                    setTimeout(() => setMenuToggle(false), 50)
-                                    history.push('/blog?category=life_abroad')
-                                }}>{TEXT[lang]['life_abroad']}</h4>
+                                <h4
+                                    className="header__menu-subitem-text"
+                                    onClick={() => {
+                                        setTimeout(() => setMenuToggle(false), 50)
+                                        history.push('/blog?category=inspiration')
+                                    }}>{TEXT[lang]['inspiration']}</h4>
+                                <h4
+                                    className="header__menu-subitem-text"
+                                    style={{ animationDelay: '.2s' }}
+                                    onClick={() => {
+                                        setTimeout(() => setMenuToggle(false), 50)
+                                        history.push('/blog?category=motherhood')
+                                    }}>{TEXT[lang]['motherhood']}</h4>
+                                <h4
+                                    className="header__menu-subitem-text"
+                                    style={{ animationDelay: '.4s' }}
+                                    onClick={() => {
+                                        setTimeout(() => setMenuToggle(false), 50)
+                                        history.push('/blog?category=life_abroad')
+                                    }}>{TEXT[lang]['life_abroad']}</h4>
                             </div>
                             : ''}
                         {!blogToggle ?

@@ -27,7 +27,7 @@ export default function PostCard({ post, setPost, index, style }: Props) {
             sideImages: post.sideImgs ? JSON.parse(post.sideImgs) : [],
             sideImgsStyles: post.sideStyles ? JSON.parse(post.sideStyles) : []
         })
-        if (post._id) history.push(`/post/${post.title?.replaceAll(' ', '-')}`)
+        if (post._id) history.push(`/post/${(post.title || post.spaTitle)?.replaceAll(' ', '-')}`)
     }
 
     const getPreview = () => {

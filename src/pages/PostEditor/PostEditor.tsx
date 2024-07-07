@@ -68,14 +68,14 @@ export default function PostEditor({ }: Props) {
             setIsEdited(false)
             setPostId('')
         }
-        else if (id) setPostId(id)
+        else if (id) getPost(id)
 
         processAutosave(id, isNew)
     }, [location])
 
-    useEffect(() => {
-        if (postId && !html && !spaHtml) getPost(postId)
-    }, [postId])
+    // useEffect(() => {
+    //     if (postId && !html && !spaHtml) getPost(postId)
+    // }, [postId])
 
     useEffect(() => {
         const statusBar = document.querySelector('.tox-statusbar')
@@ -87,11 +87,13 @@ export default function PostEditor({ }: Props) {
         try {
             const items = await getAllRecordsFromDB()
 
-            const autosavedHtml = items[id || 'new'].html
-            const autosavedHtmlSPa = items[id || 'new'].spaHtml
+            if (items.length) {
+                const autosavedHtml = items[id || 'new'].html
+                const autosavedHtmlSPa = items[id || 'new'].spaHtml
 
-            const autosavedId = localStorage.getItem('autosavedId')
-            if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedHtmlSPa)) setHasAutosave(true)
+                const autosavedId = localStorage.getItem('autosavedId')
+                if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedHtmlSPa)) setHasAutosave(true)
+            }
         } catch (error) {
             console.error(error)
         }
@@ -146,27 +148,31 @@ export default function PostEditor({ }: Props) {
     }
 
     const getPost = async (id: string) => {
-        const _post = await getPostById(id)
-        if (_post) {
-            setData(_post)
-            if (_post.html) {
-                setHtml(_post.html)
-                setIsUpdate(true)
+        try {
+            const _post = await getPostById(id)
+            if (_post) {
+                setData(_post)
+                if (_post.html) {
+                    setHtml(_post.html)
+                    setIsUpdate(true)
+                }
+                if (_post.spaHtml) {
+                    setSpaHtml(_post.spaHtml)
+                    setIsUpdate(true)
+                }
+                if (_post.sideImgs) {
+                    const sideImgs = JSON.parse(_post.sideImgs)
+                    setSideImages(sideImgs)
+                }
+                if (_post.sideStyles) {
+                    const sideStyles = JSON.parse(_post.sideStyles)
+                    setSideImgStyles(sideStyles)
+                }
+                setPublished(_post.published || false)
+                setSelectedCategory(_post.category || '')
             }
-            if (_post.spaHtml) {
-                setSpaHtml(_post.spaHtml)
-                setIsUpdate(true)
-            }
-            if (_post.sideImgs) {
-                const sideImgs = JSON.parse(_post.sideImgs)
-                setSideImages(sideImgs)
-            }
-            if (_post.sideStyles) {
-                const sideStyles = JSON.parse(_post.sideStyles)
-                setSideImgStyles(sideStyles)
-            }
-            setPublished(_post.published || false)
-            setSelectedCategory(_post.category || '')
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -201,7 +207,7 @@ export default function PostEditor({ }: Props) {
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${updated.title.replaceAll(' ', '-')}&updated=true`), 1500)
+                    setTimeout(() => history.push(`/post/${(updated.title || updated.spaTitle).replaceAll(' ', '-')}&updated=true`), 1500)
                 }
                 else {
                     toast.error(TEXT[lang]['error_saving'])
@@ -221,7 +227,7 @@ export default function PostEditor({ }: Props) {
                 if (saved && saved._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${saved.title.replaceAll(' ', '-')}`), 1500)
+                    setTimeout(() => history.push(`/post/${(saved.title || saved.spaTitle).replaceAll(' ', '-')}`), 1500)
                 } else {
                     toast.error(TEXT[lang]['error_saving'])
                     return toast.remove(loading)
@@ -369,14 +375,8 @@ export default function PostEditor({ }: Props) {
                             updateData={updateData}
                             placeholder='Description (short text)'
                         />
-                        {/* <InputField
-                    name='type'
-                    updateData={updateData}
-                    placeholder='Type (optional)'
-                /> */}
                     </div>
                 </div>
-                {/* <GrammarlyEditorPlugin clientId={process.env.REACT_APP_GRAMMAR_CID}> */}
                 <Editor
                     onInit={(_, editor) => editorRef.current = editor}
                     initialValue=""
@@ -394,7 +394,6 @@ export default function PostEditor({ }: Props) {
                         file_picker_callback: filePickerCallback
                     }}
                 />
-                {/* </GrammarlyEditorPlugin> */}
                 {!isMobile ?
                     <div className="editor__btns">
                         <Button
