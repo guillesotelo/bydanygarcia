@@ -379,7 +379,7 @@ export default function PostEditor({ }: Props) {
                 </div>
                 <Editor
                     onInit={(_, editor) => editorRef.current = editor}
-                    initialValue=""
+                    initialValue={spaSelected ? spaHtml : html}
                     value={spaSelected ? spaHtml : html}
                     onEditorChange={handleEditorChange}
                     apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
