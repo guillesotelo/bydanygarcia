@@ -8,7 +8,6 @@
         align-items: center;
         justify-content: center;
         background-color: white;
-        // box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
         width: 700px;
         align-self: center;
         border-radius: 1rem;
@@ -111,7 +110,6 @@
     .post {
         &__container {
             margin: 2vw 2vw 0 2vw;
-            // position: relative;
             display: flex;
             gap: 4rem;
             flex-direction: column;
@@ -119,10 +117,9 @@
             justify-content: center;
             background-color: white;
             padding: 3rem 2rem;
-            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
             width: 90vw;
             align-self: center;
-            padding: 8vw 8vw 30vw 8vw;
+            padding: 2vh;
             border-radius: 1rem;
         }
 

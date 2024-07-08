@@ -15,6 +15,8 @@ import X from '../../assets/icons/x.svg'
 import Linkedin from '../../assets/icons/linkedin.svg'
 import Whatsapp from '../../assets/icons/whatsapp.svg'
 import SEO from '../../components/SEO/Seo'
+import WebSignature from '../../assets/illustrations/web-signature.png'
+import WebSignatureMobile from '../../assets/illustrations/web-signature-mobile.png'
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -205,6 +207,7 @@ export default function PostViewer({ post, setPost }: Props) {
                     linkLang={linkLang}
                 />
             }
+            <img src={isMobile ? WebSignatureMobile : WebSignature} alt="Signature" draggable={false} className="postviewer__signature" />
             <div className="postviewer__row">
                 <div className="postviewer__share-section">
                     <h2 className="postviewer__share-text">{lang === 'es' ? 'Comparte este post' : 'Share this post'}</h2>
@@ -216,7 +219,7 @@ export default function PostViewer({ post, setPost }: Props) {
                 </div>
             </div>
             <div className="postviewer__comments-section">
-                <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2>
+                {/* <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2> */}
                 <div className="postviewer__comments-list" style={{ width: isMobile ? '90vw' : '30vw' }}>
                     {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={submitComment} setReply={setSubmitComment} />)}
                 </div>
