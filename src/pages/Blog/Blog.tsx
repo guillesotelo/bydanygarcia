@@ -19,8 +19,8 @@ export default function Blog({ setPost }: Props) {
 
     useEffect(() => {
         const cat = new URLSearchParams(document.location.search).get('category')
-        setCategory(cat || '')
-        getPosts(cat || '')
+        setCategory(cat?.replace('and', '&') || '')
+        getPosts(cat?.replace('and', '&') || '')
     }, [document.location.search])
 
     useEffect(() => {
@@ -69,6 +69,8 @@ export default function Blog({ setPost }: Props) {
     }
 
     const parseCategory = (cat: string) => TEXT[lang][cat]
+
+    console.log(category)
 
     return (
         <div className='blog__container'>
