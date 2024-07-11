@@ -311,6 +311,7 @@ export default function PostEditor({ }: Props) {
                             selected={selectedCategory}
                             value={selectedCategory}
                             setSelected={setSelectedCategory}
+                            style={{ maxWidth: '12rem' }}
                         />
                         <Switch
                             label='Published'
