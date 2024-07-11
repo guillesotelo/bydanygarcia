@@ -194,6 +194,13 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                         setTimeout(() => setMenuToggle(false), 50)
                                         history.push('/blog?category=life_abroad')
                                     }}>{TEXT[lang]['life_abroad']}</h4>
+                                <h4
+                                className="header__menu-subitem-text"
+                                style={{ animationDelay: '.5s' }}
+                                onClick={() => {
+                                    setTimeout(() => setMenuToggle(false), 50)
+                                    history.push('/blog?category=hospitality_&_career_insights')
+                                }}>{TEXT[lang]['hospitality_&_career_insights']}</h4>
                             </div>
                             : ''}
                         {!blogToggle ?
@@ -322,6 +329,11 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=life_abroad')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['life_abroad']}
+                                </h4>
+                            </div>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=hospitality_&_career_insights')}>
+                                <h4 className="header__item-dropdown-text">
+                                    {TEXT[lang]['hospitality_&_career_insights']}
                                 </h4>
                             </div>
                             <div className="header__item-dropdown-row" onClick={() => history.push('/blog')}>
