@@ -306,7 +306,7 @@ export default function PostEditor({ }: Props) {
                     <div className='editor__switch-btns'>
                         <Dropdown
                             label='Category'
-                            options={['Inspiration', 'Life Abroad', 'Motherhood']}
+                            options={['Hospitality & Career Insights','Inspiration', 'Life Abroad', 'Motherhood']}
                             selected={selectedCategory}
                             value={selectedCategory}
                             setSelected={setSelectedCategory}
