@@ -293,6 +293,7 @@ export default function PostEditor({ }: Props) {
     return isLoggedIn ?
         <div className='editor__container'>
             <div className="editor__left-col">
+                <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
                 <div
                     className="editor__tab-row"
                     style={{
@@ -327,7 +328,6 @@ export default function PostEditor({ }: Props) {
                         />
                     </div>
                 </div>
-                <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
                 <div className="editor__tab-row">
                     {hasAutosave ?
                         <Button
