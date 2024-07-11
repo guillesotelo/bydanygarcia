@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { susbscribeDataType, userType } from '../types';
+import { userType } from '../types';
+import { retryWithDelay } from '../helpers';
 
 const API_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_API_URL
 const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
@@ -14,7 +15,7 @@ const getConfig = () => {
 
 const loginUser = async (user: userType) => {
     try {
-        const res = await axios.post(`${API_URL}/api/user/login`, user)
+        const res = await retryWithDelay(() => axios.post(`${API_URL}/api/user/login`, user), 5, 100)
         const finalUser = res.data
         localStorage.removeItem('user')
         localStorage.removeItem('duedate')
@@ -30,21 +31,21 @@ const loginUser = async (user: userType) => {
 
 const verifyToken = async () => {
     try {
-        const verify = await axios.post(`${API_URL}/api/user/verify`, {}, getConfig())
+        const verify = await retryWithDelay(() => axios.post(`${API_URL}/api/user/verify`, {}, getConfig()), 5, 100)
         return verify.data
     } catch (err) { console.log(err) }
 }
 
 const registerUser = async (data: userType) => {
     try {
-        const newUser = await axios.post(`${API_URL}/api/user/create`, data)
+        const newUser = await retryWithDelay(() => axios.post(`${API_URL}/api/user/create`, data), 5, 100)
         return newUser.data
     } catch (err) { console.log(err) }
 }
 
 const updateUser = async (data: userType) => {
     try {
-        const user = await axios.post(`${API_URL}/api/user/update`, data, getConfig())
+        const user = await retryWithDelay(() => axios.post(`${API_URL}/api/user/update`, data, getConfig()), 5, 100)
         const localUser = JSON.parse(localStorage.getItem('user') || '{}')
         localStorage.setItem('user', JSON.stringify({
             ...localUser,

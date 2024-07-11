@@ -37,3 +37,21 @@ export const convertToBase64 = (file: any) => {
         console.error(err)
     }
 }
+
+export const retryWithDelay = async <T>(fn: () => Promise<T>, maxAttempts: number, delayMs = 1000): Promise<T> => {
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+    let attempts = 0
+    while (attempts < maxAttempts) {
+        try {
+            const result = await fn()
+            if (result) {
+                return result
+            }
+        } catch (err: any) {
+            console.error(`Attempt ${attempts + 1} failed: ${err.message}`)
+        }
+        attempts++
+        await delay(delayMs)
+    }
+    throw new Error(`Maximum retry attempts reached (${maxAttempts})`)
+}
