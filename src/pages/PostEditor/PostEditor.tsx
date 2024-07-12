@@ -224,6 +224,8 @@ export default function PostEditor({ }: Props) {
             } else {
                 const postData = {
                     ...data,
+                    title: data.title.trim(),
+                    spaTitle: data.spaTitle.trim(),
                     sideImgs,
                     sideStyles,
                     html,
