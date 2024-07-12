@@ -7,12 +7,11 @@ import { postType } from '../../types'
 
 type Props = {
     post: postType
-    setPost: React.Dispatch<React.SetStateAction<any>>
     index: number
     style?: React.CSSProperties
 }
 
-export default function PostCard({ post, setPost, index, style }: Props) {
+export default function PostCard({ post, index, style }: Props) {
     const [spanish, setSpanish] = useState(false)
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
@@ -22,12 +21,7 @@ export default function PostCard({ post, setPost, index, style }: Props) {
     }, [])
 
     const handleClick = () => {
-        setPost({
-            ...post,
-            sideImages: post.sideImgs ? JSON.parse(post.sideImgs) : [],
-            sideImgsStyles: post.sideStyles ? JSON.parse(post.sideStyles) : []
-        })
-        if (post._id) history.push(`/post/${(post.title || post.spaTitle)?.replaceAll(' ', '-')}`)
+        if (post.title) history.push(`/post/${(post.title || post.spaTitle)?.replaceAll(' ', '-')}`)
     }
 
     const getPreview = () => {

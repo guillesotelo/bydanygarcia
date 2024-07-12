@@ -10,7 +10,7 @@ import { getPostById } from '../../services/post'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import Slider from '../../components/Slider/Slider'
-import { dataObj, onChangeEventType } from '../../types'
+import { dataObj, onChangeEventType, postType } from '../../types'
 import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
@@ -153,16 +153,14 @@ export default function PostEditor({ }: Props) {
     const getPost = async (id: string) => {
         try {
             const _post = await getPostById(id)
-            if (_post) {
-                console.log('POST', _post)
+            if (_post && _post._id) {
                 setData(_post)
+                setIsUpdate(true)
                 if (_post.html) {
                     setHtml(_post.html)
-                    setIsUpdate(true)
                 }
                 if (_post.spaHtml) {
                     setSpaHtml(_post.spaHtml)
-                    setIsUpdate(true)
                 }
                 if (_post.sideImgs) {
                     const sideImgs = JSON.parse(_post.sideImgs)
@@ -201,7 +199,7 @@ export default function PostEditor({ }: Props) {
             const sideStyles = JSON.stringify(sideImgStyles)
 
             if (isUpdate) {
-                const updated = await updatePost({
+                const updatedPost: postType = {
                     ...data,
                     sideImgs,
                     sideStyles,
@@ -209,7 +207,8 @@ export default function PostEditor({ }: Props) {
                     spaHtml,
                     published,
                     category: selectedCategory
-                })
+                }
+                const updated = await updatePost(updatedPost)
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
@@ -221,7 +220,7 @@ export default function PostEditor({ }: Props) {
                 }
                 getPost(postId)
             } else {
-                const saved = await createPost({
+                const postData = {
                     ...data,
                     sideImgs,
                     sideStyles,
@@ -229,7 +228,8 @@ export default function PostEditor({ }: Props) {
                     spaHtml,
                     published,
                     category: selectedCategory
-                })
+                }
+                const saved = await createPost(postData)
                 if (saved && saved._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
@@ -240,6 +240,7 @@ export default function PostEditor({ }: Props) {
                 }
             }
             setHtml('')
+            setSpaHtml('')
             setData(voidData)
             localStorage.removeItem('posts')
             setIsEdited(false)

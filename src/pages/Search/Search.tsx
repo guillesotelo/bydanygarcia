@@ -7,14 +7,13 @@ import { postType } from '../../types'
 
 type Props = {
     search: string[]
-    setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
-export default function Blog({ search, setPost }: Props) {
+export default function Blog({ search }: Props) {
     const [allPosts, setAllPosts] = useState<postType[]>([])
     const [filteredPosts, setFilteredPosts] = useState<postType[]>([])
     const [showUp, setShowUp] = useState(false)
-    const { lang, setLang, isMobile, isLoggedIn } = useContext(AppContext)
+    const { lang, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
         getPosts()
@@ -63,7 +62,7 @@ export default function Blog({ search, setPost }: Props) {
     const render = () => {
         setTimeout(() => applyAnimation(), 50)
         return filteredPosts.length ?
-            filteredPosts.map((post, i) => <PostCard index={i} setPost={setPost} key={i} post={post} />)
+            filteredPosts.map((post, i) => <PostCard index={i} key={i} post={post} />)
             : search.length ?
                 <h4 className='search__no-results'>{TEXT[lang]['no_results_for']} <strong>{search.join(', ')}</strong></h4>
                 :

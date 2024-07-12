@@ -27,7 +27,6 @@ const App: React.FC = () => {
   const isInstagram = (navigator.userAgent.indexOf('Instagram') > -1) ? true : false
   const isMobile = isInstagram || window.screen.width <= 768
   const [search, setSearch] = useState<string[]>([])
-  const [post, setPost] = useState<postType>({})
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const location = useLocation()
@@ -50,8 +49,6 @@ const App: React.FC = () => {
       isMobile={isMobile}
       isLoggedIn={isLoggedIn}
       setIsLoggedIn={setIsLoggedIn}
-      post={post}
-      setPost={setPost}
     >
       <RouteTracker />
       <Switch>
@@ -106,14 +103,14 @@ const App: React.FC = () => {
         <Route path="/post">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
-            <PostViewer post={post} setPost={setPost} />
+            <PostViewer />
             <Footer />
           </div>
         </Route>
         <Route path="/post/:title">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
-            <PostViewer post={post} setPost={setPost} />
+            <PostViewer />
             <Footer />
           </div>
         </Route>
@@ -121,7 +118,7 @@ const App: React.FC = () => {
         <Route path="/blog">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
-            <Blog setPost={setPost} />
+            <Blog />
             <Footer />
           </div>
         </Route>
@@ -137,7 +134,7 @@ const App: React.FC = () => {
         <Route path="/search">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
-            <Search search={search} setPost={setPost} />
+            <Search search={search} />
             <Footer />
           </div>
         </Route>

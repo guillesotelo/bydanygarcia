@@ -9,8 +9,6 @@ type AppContextType = {
     setSearch: (search: string[]) => void
     isLoggedIn: boolean | null
     setIsLoggedIn: (value: boolean | null) => void
-    post: postType
-    setPost: (value: postType) => void
     children: React.ReactNode
 }
 
@@ -24,8 +22,6 @@ export const AppProvider: React.FC<AppContextType> = ({
     isLoggedIn,
     search,
     setSearch,
-    post, 
-    setPost,
     children
 }) => (
     <AppContext.Provider value={{
@@ -36,8 +32,6 @@ export const AppProvider: React.FC<AppContextType> = ({
         isMobile,
         setIsLoggedIn,
         isLoggedIn,
-        post,
-        setPost,
         children
     }}>{children}</AppContext.Provider>
 );

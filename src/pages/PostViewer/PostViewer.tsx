@@ -20,12 +20,11 @@ import WebSignatureMobile from '../../assets/illustrations/web-signature-mobile.
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
-    post: postType
-    setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
-export default function PostViewer({ post, setPost }: Props) {
+export default function PostViewer({ }: Props) {
     const [data, setData] = useState<commentType>({})
+    const [post, setPost] = useState<postType>({})
     const [html, setHtml] = useState('')
     const [spaHtml, setspaHtml] = useState('')
     const [postTitle, setPostTitle] = useState('')
@@ -60,7 +59,7 @@ export default function PostViewer({ post, setPost }: Props) {
         if (!html && !spaHtml && postTitle) getPost(postTitle)
         if (!postComments.length && post && post._id) getComments(post._id)
         if (!category) getCategory()
-    }, [post, postTitle])
+    }, [postTitle])
 
     useEffect(() => {
         styleImagesInParagraphs()
@@ -91,7 +90,7 @@ export default function PostViewer({ post, setPost }: Props) {
         try {
             setLoading(true)
             const _post = await getPostByTitle(title.replaceAll('-', ' '))
-            if (_post) {
+            if (_post && _post._id) {
                 setPost(_post)
                 if (_post.html) setHtml(_post.html)
                 if (_post.spaHtml) setspaHtml(_post.spaHtml)
@@ -104,7 +103,6 @@ export default function PostViewer({ post, setPost }: Props) {
                     const sideStyles = JSON.parse(_post.sideStyles)
                     setSideImgStyles(sideStyles)
                 }
-                setPostTitle(_post._id)
                 getComments(_post._id)
                 setData({ ...data, postId: _post._id })
             }
@@ -115,9 +113,9 @@ export default function PostViewer({ post, setPost }: Props) {
         }
     }
 
-    const getComments = async (postTitle: string) => {
+    const getComments = async (id: string) => {
         try {
-            const comments = await getPostComments(postTitle)
+            const comments = await getPostComments(id)
             if (comments && Array.isArray(comments)) setPostComments(comments)
         } catch (error) {
             console.error(error)

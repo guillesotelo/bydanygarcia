@@ -17,7 +17,7 @@ export default function Home() {
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false)
-    const { lang, isMobile, isLoggedIn, setPost } = useContext(AppContext)
+    const { lang, isMobile, isLoggedIn } = useContext(AppContext)
     const history = useHistory()
 
     useEffect(() => {
@@ -110,7 +110,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
@@ -126,7 +126,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
@@ -142,7 +142,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} setPost={setPost} post={post} /> : null)}
+                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i}  post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}

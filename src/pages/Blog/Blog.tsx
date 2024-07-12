@@ -7,10 +7,9 @@ import { TEXT } from '../../constants/lang'
 import { shuffleArray } from '../../helpers'
 
 type Props = {
-    setPost: React.Dispatch<React.SetStateAction<any>>
 }
 
-export default function Blog({ setPost }: Props) {
+export default function Blog({  }: Props) {
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -70,8 +69,6 @@ export default function Blog({ setPost }: Props) {
 
     const parseCategory = (cat: string) => TEXT[lang][cat]
 
-    console.log(category)
-
     return (
         <div className='blog__container'>
             <div className="page__header">
@@ -90,7 +87,7 @@ export default function Blog({ setPost }: Props) {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.map((post, i) => <PostCard key={i} index={i} setPost={setPost} post={post} />)}
+                    {allPosts.map((post, i) => <PostCard key={i} index={i} post={post} />)}
                 </div>
             }
         </div>
