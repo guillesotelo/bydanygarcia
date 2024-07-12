@@ -10,14 +10,14 @@ export const openDB = (): Promise<IDBDatabase> => {
 
         request.onsuccess = (event: Event) => {
             const db = (event.target as IDBOpenDBRequest).result as IDBDatabase
-            console.log('Database opened successfully')
+            // console.log('Database opened successfully')
             resolve(db)
         }
 
         request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
             const db = (event.target as IDBOpenDBRequest).result as IDBDatabase
             db.createObjectStore('itemStore', { keyPath: 'id' })
-            console.log('Item DB created')
+            // console.log('Item DB created')
         }
     })
 }
@@ -30,7 +30,7 @@ export const saveItemToDB = async (trackData: any): Promise<void> => {
         const request = store.put(trackData)
 
         request.onsuccess = () => {
-            console.log('New Item saved to IndexedDB')
+            // console.log('New Item saved to IndexedDB')
         }
 
         request.onerror = (event: Event) => {
