@@ -89,7 +89,7 @@ export default function PostViewer({ }: Props) {
     const getPost = async (title: string) => {
         try {
             setLoading(true)
-            const _post = await getPostByTitle(title.replaceAll('-', ' '))
+            const _post = await getPostByTitle(title.replaceAll('-', ' ').replaceAll('_', '-'))
             if (_post && _post._id) {
                 setPost(_post)
                 if (_post.html) setHtml(_post.html)
@@ -134,7 +134,7 @@ export default function PostViewer({ }: Props) {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
-        const url = `${REACT_APP_PAGE}/post/${(post.title || post.spaTitle)?.replaceAll(' ', '-')}`
+        const url = `${REACT_APP_PAGE}/post/${(post.title || post.spaTitle)?.replaceAll('-', '_').replaceAll(' ', '-')}`
 
         return <SEO
             title={title}

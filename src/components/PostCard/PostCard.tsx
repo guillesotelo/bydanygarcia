@@ -21,7 +21,7 @@ export default function PostCard({ post, index, style }: Props) {
     }, [])
 
     const handleClick = () => {
-        if (post.title) history.push(`/post/${(post.title || post.spaTitle)?.replaceAll(' ', '-')}`)
+        if (post.title) history.push(`/post/${(post.title || post.spaTitle)?.replaceAll('-', '_').replaceAll(' ', '-')}`)
     }
 
     const getPreview = () => {

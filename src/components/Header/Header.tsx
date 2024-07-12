@@ -81,7 +81,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
 
     const getPostId = async (title: string) => {
         try {
-            const post = await getPostByTitle(title.replaceAll('-', ' '))
+            const post = await getPostByTitle(title.replaceAll('-', ' ').replaceAll('_', '-'))
             if (post && post._id) setPostId(post._id)
             else setPostId('')
         } catch (error) {
@@ -195,12 +195,12 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                         history.push('/blog?category=life_abroad')
                                     }}>{TEXT[lang]['life_abroad']}</h4>
                                 <h4
-                                className="header__menu-subitem-text"
-                                style={{ animationDelay: '.5s' }}
-                                onClick={() => {
-                                    setTimeout(() => setMenuToggle(false), 50)
-                                    history.push('/blog?category=\career_insights')
-                                }}>{TEXT[lang]['career_insights']}</h4>
+                                    className="header__menu-subitem-text"
+                                    style={{ animationDelay: '.5s' }}
+                                    onClick={() => {
+                                        setTimeout(() => setMenuToggle(false), 50)
+                                        history.push('/blog?category=\career_insights')
+                                    }}>{TEXT[lang]['career_insights']}</h4>
                             </div>
                             : ''}
                         {!blogToggle ?

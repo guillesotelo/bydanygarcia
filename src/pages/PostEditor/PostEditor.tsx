@@ -201,6 +201,8 @@ export default function PostEditor({ }: Props) {
             if (isUpdate) {
                 const updatedPost: postType = {
                     ...data,
+                    title: data.title.trim(),
+                    spaTitle: data.spaTitle.trim(),
                     sideImgs,
                     sideStyles,
                     html,
@@ -212,7 +214,7 @@ export default function PostEditor({ }: Props) {
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${(updated.title || updated.spaTitle).replaceAll(' ', '-')}`), 1500)
+                    setTimeout(() => history.push(`/post/${(updated.title || updated.spaTitle).replaceAll('-', '_').replaceAll(' ', '-')}`), 1500)
                 }
                 else {
                     toast.error(TEXT[lang]['error_saving'])
@@ -233,7 +235,7 @@ export default function PostEditor({ }: Props) {
                 if (saved && saved._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${(saved.title || saved.spaTitle).replaceAll(' ', '-')}`), 1500)
+                    setTimeout(() => history.push(`/post/${(saved.title || saved.spaTitle).replaceAll('-', '_').replaceAll(' ', '-')}`), 1500)
                 } else {
                     toast.error(TEXT[lang]['error_saving'])
                     return toast.remove(loading)
