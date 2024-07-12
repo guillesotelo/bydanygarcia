@@ -3,14 +3,14 @@ import { postType } from '../types';
 import { retryWithDelay } from '../helpers';
 
 const API_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_API_URL
-const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
-const authorization = `Bearer ${user.token}`
 
 const getHeaders = () => {
-    return { authorization }
+    const { token }: { [key: string | number]: any } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
+    return { authorization: `Bearer ${token}` }
 }
 const getConfig = () => {
-    return { headers: { authorization } }
+    const { token }: { [key: string | number]: any } = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
+    return { headers: { authorization: `Bearer ${token}` } }
 }
 
 const getAllPosts = async (isAdmin?: boolean) => {
