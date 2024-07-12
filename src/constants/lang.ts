@@ -18,8 +18,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'handcrafted_adornments': `ADORNOS HECHOS A MANO`,
         'our_handcrafted_wedding': `NUESTRA BODA HECHA A MANO`,
         'values': `VALORES`,
-        'hospitality_&_career_insights': 'HOSPITALIDAD & PERSPECTIVA PROFESIONAL',
-        'hospitality_&_career_insights_cap': `Una montaña rusa de amor y aprendizaje`,
+        'career_insights': 'PERSPECTIVA PROFESIONAL',
+        'career_insights_cap': ``,
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
@@ -167,8 +167,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'handcrafted_adornments': `HANDCRAFTED ADORNMENTS`,
         'our_handcrafted_wedding': `OUR HANDCRAFTED WEDDING`,
         'values': `VALUES`,
-        'hospitality_&_career_insights': 'HOSPITALITY & CAREER INSIGHTS',
-        'hospitality_&_career_insights_cap': `A rollercoaster of love and learning`,
+        'career_insights': 'CAREER INSIGHTS',
+        'career_insights_cap': ``,
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',

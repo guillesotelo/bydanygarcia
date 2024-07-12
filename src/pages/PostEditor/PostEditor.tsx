@@ -68,7 +68,10 @@ export default function PostEditor({ }: Props) {
             setIsEdited(false)
             setPostId('')
         }
-        else if (id) getPost(id)
+        else if (id) {
+            getPost(id)
+            setPostId(id)
+        }
 
         processAutosave(id, isNew)
     }, [location])
@@ -151,6 +154,7 @@ export default function PostEditor({ }: Props) {
         try {
             const _post = await getPostById(id)
             if (_post) {
+                console.log('POST', _post)
                 setData(_post)
                 if (_post.html) {
                     setHtml(_post.html)
@@ -170,6 +174,8 @@ export default function PostEditor({ }: Props) {
                 }
                 setPublished(_post.published || false)
                 setSelectedCategory(_post.category || '')
+                // This is a horrible fix, but lets stay with this for now:
+                setTimeout(() => handleEditorChange(spaSelected && _post.spaHtml ? _post.spaHtml : _post.html || ''), 200)
             }
         } catch (error) {
             console.error(error)
@@ -207,7 +213,7 @@ export default function PostEditor({ }: Props) {
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${(updated.title || updated.spaTitle).replaceAll(' ', '-')}&updated=true`), 1500)
+                    setTimeout(() => history.push(`/post/${(updated.title || updated.spaTitle).replaceAll(' ', '-')}`), 1500)
                 }
                 else {
                     toast.error(TEXT[lang]['error_saving'])
@@ -293,7 +299,7 @@ export default function PostEditor({ }: Props) {
     return isLoggedIn ?
         <div className='editor__container'>
             <div className="editor__left-col">
-                <h1 className="page__title">{postId ? 'Edit Post' : 'Create New Post'}</h1>
+                <h1 className="page__title">{postId && data.title ? `Editing: ${data.title}` : 'New Post'}</h1>
                 <div
                     className="editor__tab-row"
                     style={{
@@ -307,7 +313,7 @@ export default function PostEditor({ }: Props) {
                     <div className='editor__switch-btns'>
                         <Dropdown
                             label='Category'
-                            options={['Hospitality & Career Insights','Inspiration', 'Life Abroad', 'Motherhood']}
+                            options={['Career Insights', 'Inspiration', 'Life Abroad', 'Motherhood']}
                             selected={selectedCategory}
                             value={selectedCategory}
                             setSelected={setSelectedCategory}
@@ -380,7 +386,7 @@ export default function PostEditor({ }: Props) {
                 </div>
                 <Editor
                     onInit={(_, editor) => editorRef.current = editor}
-                    initialValue={spaSelected ? spaHtml : html}
+                    initialValue=''
                     value={spaSelected ? spaHtml : html}
                     onEditorChange={handleEditorChange}
                     apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
