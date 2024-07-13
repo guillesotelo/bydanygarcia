@@ -25,11 +25,18 @@ const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
   const localLang = preferedLang ? preferedLang : navigator.language.startsWith('es') ? 'es' : 'en'
   const isInstagram = (navigator.userAgent.indexOf('Instagram') > -1) ? true : false
-  const isMobile = isInstagram || window.screen.width <= 768
   const [search, setSearch] = useState<string[]>([])
+  const [isMobile, setIsMobile] = useState(isInstagram || window.screen.width <= 768)
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const location = useLocation()
+
+  useEffect(() => {
+    const checkWidth = () => setIsMobile(window.innerWidth <= 768)
+
+    window.addEventListener("resize", checkWidth)
+    return () => window.removeEventListener("resize", checkWidth)
+  }, [])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })

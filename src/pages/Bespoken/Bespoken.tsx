@@ -51,7 +51,7 @@ export default function Bespoken({ page }: Props) {
     const [products, setProducts] = useState('')
     const [pinterestPage, setPinterestPage] = useState('')
     const [showPin, setShowPin] = useState(-1)
-    const [loading, setLoading] = useState({ products: false, wedding: false })
+    const [loading, setLoading] = useState({ products: false, wedding: false, adornments: false, gifts: false })
     const location = useLocation()
 
     const arrangementsUrl = 'https://www.pinterest.se/bespoken_ar/flower-arrangements/'
@@ -161,11 +161,15 @@ export default function Bespoken({ page }: Props) {
                 if (_arrangements && Array.isArray(_arrangements)) setArrangements(_arrangements.filter(img => img))
                 setLoading({ ...loading, products: false })
 
+                setLoading({ ...loading, adornments: true })
                 const _adornments = await getScrappedImages('adornments')
                 if (_adornments && Array.isArray(_adornments)) setAdornments(_adornments.filter(img => img))
+                setLoading({ ...loading, adornments: false })
 
+                setLoading({ ...loading, gifts: true })
                 const _gifts = await getScrappedImages('gifts')
                 if (_gifts && Array.isArray(_gifts)) setGifts(_gifts.filter(img => img))
+                setLoading({ ...loading, gifts: false })
             }
         } catch (err) {
             console.error(err)
