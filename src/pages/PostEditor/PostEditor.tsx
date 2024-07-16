@@ -201,7 +201,7 @@ export default function PostEditor({ }: Props) {
             if (isUpdate) {
                 const updatedPost: postType = {
                     ...data,
-                    title: data.title.trim(),
+                    title: data.title.trim() || `New Post [${(Math.random()*10000).toFixed(0)}]`,
                     spaTitle: data.spaTitle.trim(),
                     sideImgs,
                     sideStyles,
