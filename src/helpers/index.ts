@@ -55,3 +55,9 @@ export const retryWithDelay = async <T>(fn: () => Promise<T>, maxAttempts: numbe
     }
     throw new Error(`Maximum retry attempts reached (${maxAttempts})`)
 }
+
+export const createSlug = (word: string) => {
+    return word.replace(/[^a-zA-Z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+}

@@ -27,9 +27,9 @@ const getPostById = async (_id: string) => {
     } catch (err) { console.log(err) }
 }
 
-const getPostByTitle = async (title: string) => {
+const getPostBySlug = async (slug: string) => {
     try {
-        const post = await retryWithDelay(() => axios.get(`${API_URL}/api/post/getByTitle`, { params: { title }, headers: getHeaders() }), 5, 100)
+        const post = await retryWithDelay(() => axios.get(`${API_URL}/api/post/getBySlug`, { params: { slug }, headers: getHeaders() }), 5, 100)
         return post.data
     } catch (err) { console.log(err) }
 }
@@ -59,7 +59,7 @@ export {
     getAllPosts,
     createPost,
     getPostById,
-    getPostByTitle,
+    getPostBySlug,
     updatePost,
     deletePost
 }

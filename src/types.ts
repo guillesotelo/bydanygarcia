@@ -4,6 +4,7 @@ export type postType = {
     title?: string
     subtitle?: string
     description?: string
+    slug?: string
     overlap?: string
     tags?: string
     category?: string

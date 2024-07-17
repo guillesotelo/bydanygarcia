@@ -16,7 +16,7 @@ import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import byDanyLogo from '../../assets/logos/logo_cropped.png'
 import { onChangeEventType, postType } from '../../types'
-import { getPostByTitle } from '../../services/post'
+import { getPostBySlug } from '../../services/post'
 
 type Props = {
     search: string[]
@@ -60,8 +60,8 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     useEffect(() => {
         const isPost = location.pathname.split('/')[1] === 'post'
         if (isPost) {
-            const title = location.pathname.split('/')[2]
-            if (title) getPostId(title)
+            const slug = location.pathname.split('/')[2]
+            if (slug) getPostId(slug)
             else setPostId('')
         }
     }, [location])
@@ -79,9 +79,9 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
         }
     }, [deleteModal])
 
-    const getPostId = async (title: string) => {
+    const getPostId = async (slug: string) => {
         try {
-            const post = await getPostByTitle(title.replaceAll('-', ' ').replaceAll('_', '-'))
+            const post = await getPostBySlug(slug)
             if (post && post._id) setPostId(post._id)
             else setPostId('')
         } catch (error) {

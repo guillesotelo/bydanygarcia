@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
-import { getPostById, getPostByTitle } from '../../services/post'
+import { getPostById, getPostBySlug } from '../../services/post'
 import { useHistory, useLocation } from 'react-router-dom'
 import { AppContext } from '../../AppContext'
 import { commentType, onChangeEventType, postType } from '../../types'
@@ -27,7 +27,7 @@ export default function PostViewer({ }: Props) {
     const [post, setPost] = useState<postType>({})
     const [html, setHtml] = useState('')
     const [spaHtml, setspaHtml] = useState('')
-    const [postTitle, setPostTitle] = useState('')
+    const [postSlug, setPostSlug] = useState('')
     const [loading, setLoading] = useState(false)
     const [spanish, setSpanish] = useState(false)
     const [sideImages, setSideImages] = useState<string[]>([])
@@ -45,21 +45,21 @@ export default function PostViewer({ }: Props) {
     }, [])
 
     useEffect(() => {
-        const title = location.pathname.split('/')[2]
+        const slug = location.pathname.split('/')[2]
         const language = new URLSearchParams(document.location.search).get('lang')
         // const updated = new URLSearchParams(document.location.search).get('updated')
 
         // if (updated && id) getPost(id)
-        if (title) setPostTitle(title)
+        if (slug) setPostSlug(slug)
         if (language) setLinkLang(language)
     }, [location])
 
     useEffect(() => {
         renderSeo()
-        if (!html && !spaHtml && postTitle) getPost(postTitle)
+        if (!html && !spaHtml && postSlug) getPost(postSlug)
         if (!postComments.length && post && post._id) getComments(post._id)
         if (!category) getCategory()
-    }, [postTitle])
+    }, [postSlug])
 
     useEffect(() => {
         styleImagesInParagraphs()
@@ -86,10 +86,10 @@ export default function PostViewer({ }: Props) {
         if (_category.length) setCategory(_category.toLocaleLowerCase())
     }
 
-    const getPost = async (title: string) => {
+    const getPost = async (slug: string) => {
         try {
             setLoading(true)
-            const _post = await getPostByTitle(title.replaceAll('-', ' ').replaceAll('_', '-'))
+            const _post = await getPostBySlug(slug)
             if (_post && _post._id) {
                 setPost(_post)
                 if (_post.html) setHtml(_post.html)
@@ -134,7 +134,7 @@ export default function PostViewer({ }: Props) {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
         const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
-        const url = `${REACT_APP_PAGE}/post/${(post.title || post.spaTitle)?.replaceAll('-', '_').replaceAll(' ', '-')}`
+        const url = `${REACT_APP_PAGE}/post/${post.slug}`
 
         return <SEO
             title={title}

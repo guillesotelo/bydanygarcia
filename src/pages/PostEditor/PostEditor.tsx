@@ -15,7 +15,7 @@ import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
 import imageCompression from 'browser-image-compression';
-import { convertToBase64 } from '../../helpers'
+import { convertToBase64, createSlug } from '../../helpers'
 
 type Props = {}
 const voidData = {
@@ -199,22 +199,24 @@ export default function PostEditor({ }: Props) {
             const sideStyles = JSON.stringify(sideImgStyles)
 
             if (isUpdate) {
+                const title = data.title.trim() || `New Post [${(Math.random() * 10000).toFixed(0)}]`
                 const updatedPost: postType = {
                     ...data,
-                    title: data.title.trim() || `New Post [${(Math.random()*10000).toFixed(0)}]`,
+                    title,
                     spaTitle: data.spaTitle.trim(),
                     sideImgs,
                     sideStyles,
                     html,
                     spaHtml,
                     published,
-                    category: selectedCategory
+                    category: selectedCategory,
+                    slug: createSlug(title)
                 }
                 const updated = await updatePost(updatedPost)
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${(updated.title || updated.spaTitle).replaceAll('-', '_').replaceAll(' ', '-')}`), 1500)
+                    setTimeout(() => history.push(`/post/${updated.slug}`), 1500)
                 }
                 else {
                     toast.error(TEXT[lang]['error_saving'])
@@ -231,13 +233,14 @@ export default function PostEditor({ }: Props) {
                     html,
                     spaHtml,
                     published,
-                    category: selectedCategory
+                    category: selectedCategory,
+                    slug: createSlug(data.title.trim())
                 }
                 const saved = await createPost(postData)
                 if (saved && saved._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => history.push(`/post/${(saved.title || saved.spaTitle).replaceAll('-', '_').replaceAll(' ', '-')}`), 1500)
+                    setTimeout(() => history.push(`/post/${saved.slug}`), 1500)
                 } else {
                     toast.error(TEXT[lang]['error_saving'])
                     return toast.remove(loading)
