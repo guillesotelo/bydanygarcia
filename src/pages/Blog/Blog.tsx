@@ -5,6 +5,7 @@ import { catMapType, postType } from '../../types'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import { shuffleArray, sortArray } from '../../helpers'
+import Switch from '../../components/Switch/Switch'
 
 type Props = {
 }
@@ -13,6 +14,7 @@ export default function Blog({ }: Props) {
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [showPublished, setShowPublished] = useState(false)
     const [category, setCategory] = useState('')
     const { isLoggedIn, lang } = useContext(AppContext)
 
@@ -43,6 +45,7 @@ export default function Blog({ }: Props) {
         const posts = await getAllPosts(isLoggedIn || false)
         setLoading(false)
         if (posts && Array.isArray(posts)) {
+            setAllPosts(posts)
             if (cat) {
                 setShowUp(false)
                 const filtered = posts.filter((post: postType) => {
@@ -51,11 +54,10 @@ export default function Blog({ }: Props) {
                         return post
                     }
                 })
-                const shuffledPosts = shuffleArray(filtered.filter(post => post.published))
-                setAllPosts(shuffledPosts)
+                setAllPosts(shuffleArray(filtered))
             } else {
                 setShowUp(false)
-                setAllPosts(shuffleArray(posts.filter(post => post.published)))
+                setAllPosts(shuffleArray(posts))
             }
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))
@@ -73,6 +75,14 @@ export default function Blog({ }: Props) {
 
     return (
         <div className='blog__container'>
+            <Switch
+                label='Show unpublished'
+                on='Yes'
+                off='No'
+                value={showPublished}
+                setValue={setShowPublished}
+                style={{ position: 'absolute', right: '1rem', transform: 'scale(0.9)' }}
+            />
             <div className="page__header">
                 <h4 className="page__header-title-blog">{category ? parseCategory(category) : lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
                 {category ? <h4 className="page__header-subtitle-blog">{TEXT[lang][`${category}_cap`]}</h4> : ''}
@@ -89,7 +99,8 @@ export default function Blog({ }: Props) {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {allPosts.map((post, i) => <PostCard key={i} index={i} post={post} />)}
+                    {(showPublished ? allPosts : allPosts.filter(p => p.published))
+                        .map((post, i) => <PostCard key={i} index={i} post={post} />)}
                 </div>
             }
         </div>

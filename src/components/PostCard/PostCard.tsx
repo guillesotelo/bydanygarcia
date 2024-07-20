@@ -31,7 +31,7 @@ export default function PostCard({ post, index, style }: Props) {
     }
 
     const getOverlap = () => {
-        const readMore = spanish ? 'Ver post' : 'See post'
+        const readMore = spanish ? 'Leer post' : 'Read post'
         return spanish && post.spaOverlap ? post.spaOverlap : post.overlap ? post.overlap : spanish && post.spaDescription ? post.spaDescription : post.description || readMore
     }
 
