@@ -91,6 +91,8 @@ export default function PostViewer({ }: Props) {
             setLoading(true)
             const _post = await getPostBySlug(slug)
             if (_post && _post._id) {
+                if (_post.unpublished && !isLoggedIn === false) history.goBack()
+
                 setPost(_post)
                 if (_post.html) setHtml(_post.html)
                 if (_post.spaHtml) setspaHtml(_post.spaHtml)
