@@ -16,8 +16,6 @@ export default function PostCard({ post, index, style }: Props) {
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
 
-    console.log(post.title, post)
-
     useEffect(() => {
         setSpanish(lang === 'es')
     }, [])

@@ -57,7 +57,10 @@ export const retryWithDelay = async <T>(fn: () => Promise<T>, maxAttempts: numbe
 }
 
 export const createSlug = (word: string) => {
-    return word.replace(/[^a-zA-Z0-9\s-]/g, '')
+    return word
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9\s-]/g, '')
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
 }
