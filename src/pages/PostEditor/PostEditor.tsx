@@ -199,7 +199,7 @@ export default function PostEditor({ }: Props) {
             const sideStyles = JSON.stringify(sideImgStyles)
 
             if (isUpdate) {
-                const title = data.title.trim() || `New Post [${(Math.random() * 10000).toFixed(0)}]`
+                const title = data.title.trim() || data.spaTitle.trim() || `New Post [${(Math.random() * 10000).toFixed(0)}]`
                 const updatedPost: postType = {
                     ...data,
                     title,
@@ -234,7 +234,7 @@ export default function PostEditor({ }: Props) {
                     spaHtml,
                     published,
                     category: selectedCategory,
-                    slug: createSlug(data.title.trim())
+                    slug: createSlug(data.title.trim() || data.spaTitle.trim())
                 }
                 const saved = await createPost(postData)
                 if (saved && saved._id) {

@@ -4,12 +4,12 @@ import PostCard from '../../components/PostCard/PostCard'
 import { catMapType, postType } from '../../types'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import { shuffleArray } from '../../helpers'
+import { shuffleArray, sortArray } from '../../helpers'
 
 type Props = {
 }
 
-export default function Blog({  }: Props) {
+export default function Blog({ }: Props) {
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [showUp, setShowUp] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -51,10 +51,11 @@ export default function Blog({  }: Props) {
                         return post
                     }
                 })
-                setAllPosts(isLoggedIn ? filtered : filtered.filter(post => post.published))
+                const shuffledPosts = shuffleArray(filtered.filter(post => post.published))
+                setAllPosts(shuffledPosts)
             } else {
                 setShowUp(false)
-                setAllPosts(isLoggedIn ? posts : shuffleArray(posts.filter(post => post.published)))
+                setAllPosts(shuffleArray(posts.filter(post => post.published)))
             }
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))

@@ -16,6 +16,8 @@ export default function PostCard({ post, index, style }: Props) {
     const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
 
+    console.log(post.title, post)
+
     useEffect(() => {
         setSpanish(lang === 'es')
     }, [])
@@ -34,9 +36,10 @@ export default function PostCard({ post, index, style }: Props) {
     }
 
     return (
-        <div
+        <a
             className='postcard__container'
-            onClick={handleClick}
+            // onClick={handleClick}
+            href={`https://bydanygarcia.com/post/${post.slug}`}
             style={{
                 opacity: !post.published ? '.5' : '1',
                 width: isMobile ? '70%' : index % 5 === 0 ? '45%' : '',
@@ -62,6 +65,6 @@ export default function PostCard({ post, index, style }: Props) {
                 <h4 className="postcard__text-title">{spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''}</h4>
                 {/* <h4 className="postcard__text-description">{spanish && post.spaDescription ? post.spaDescription : post.description || post.spaDescription || ''}</h4> */}
             </div>
-        </div>
+        </a>
     )
 }

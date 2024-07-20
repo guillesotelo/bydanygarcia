@@ -105,7 +105,7 @@ export default function PostViewer({ }: Props) {
                 }
                 getComments(_post._id)
                 setData({ ...data, postId: _post._id })
-            }
+            } else history.goBack()
             setLoading(false)
         } catch (error) {
             setLoading(false)

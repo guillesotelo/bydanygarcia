@@ -9,6 +9,8 @@
         animation: fade-in-card 1s ease-in;
         // border-radius: 1rem;
         overflow: hidden;
+        color: unset;
+        text-decoration: none;
 
         &:hover {
             filter: brightness(110%) saturate(120%);
