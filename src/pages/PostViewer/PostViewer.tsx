@@ -80,8 +80,7 @@ export default function PostViewer({ }: Props) {
     }
 
     const getCategory = () => {
-        const _category = post.category ? post.category.includes(',') ?
-            post.category.split(',')[0] : post.category :
+        const _category = post.category ? JSON.parse(post.category || '[]')[0] :
             post.tags ? post.tags.replace(/#/g, '').replace(/_/g, ' ').split(' ')[0] : ''
         if (_category.length) setCategory(_category.toLocaleLowerCase())
     }

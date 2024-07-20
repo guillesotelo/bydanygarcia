@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import postImagePlaceholder from '../../assets/logos/isologo.png'
 import { AppContext } from '../../AppContext'
 import Lock from '../../assets/icons/lock.svg'
@@ -13,16 +12,13 @@ type Props = {
 
 export default function PostCard({ post, index, style }: Props) {
     const [spanish, setSpanish] = useState(false)
-    const history = useHistory()
     const { lang, isMobile } = useContext(AppContext)
+    const webUrl = process.env.NODE_ENV === 'production' ?
+        'https://bydanygarcia.com' : 'http://localhost:3000'
 
     useEffect(() => {
         setSpanish(lang === 'es')
     }, [])
-
-    const handleClick = () => {
-        if (post.slug) history.push(`/post/${post.slug}`)
-    }
 
     const getPreview = () => {
         return post.imageUrl || JSON.parse(post.sideImgs || '[]')[0] || postImagePlaceholder
@@ -36,8 +32,7 @@ export default function PostCard({ post, index, style }: Props) {
     return (
         <a
             className='postcard__container'
-            // onClick={handleClick}
-            href={`https://bydanygarcia.com/post/${post.slug}`}
+            href={`${webUrl}/post/${post.slug}`}
             style={{
                 opacity: !post.published ? '.5' : '1',
                 width: isMobile ? '70%' : index % 5 === 0 ? '45%' : '',
@@ -51,6 +46,7 @@ export default function PostCard({ post, index, style }: Props) {
                     src={getPreview()}
                     alt="Post Image"
                     className="postcard__image"
+                    draggable={false}
                     style={{
                         objectFit: !post.imageUrl && !JSON.parse(post.sideImgs || '[]')[0] ? 'contain' : 'cover',
                         minWidth: !post.imageUrl && !JSON.parse(post.sideImgs || '[]')[0] ? '50%' : '100%',

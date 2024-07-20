@@ -96,3 +96,22 @@ export const getAllRecordsFromDB = async (): Promise<{ [key: string]: any }> => 
         return {}
     }
 }
+
+export const clearDB = async (): Promise<void> => {
+    try {
+        const db = await openDB()
+        const transaction = db.transaction(['itemStore'], 'readwrite')
+        const store = transaction.objectStore('itemStore')
+        const request = store.clear()
+
+        request.onsuccess = () => {
+            // console.log('New Item saved to IndexedDB')
+        }
+
+        request.onerror = (event: Event) => {
+            console.error('Error clearing IndexedDB:', (event.target as IDBRequest).error)
+        }
+    } catch (error) {
+        console.error('Error opening IndexedDB:', error)
+    }
+}

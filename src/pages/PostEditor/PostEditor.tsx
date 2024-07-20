@@ -13,7 +13,7 @@ import Slider from '../../components/Slider/Slider'
 import { dataObj, onChangeEventType, postType } from '../../types'
 import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
-import { getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
+import { clearDB, getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
 import imageCompression from 'browser-image-compression';
 import { convertToBase64, createSlug } from '../../helpers'
 
@@ -46,7 +46,7 @@ export default function PostEditor({ }: Props) {
     const [spaHtml, setSpaHtml] = useState('')
     const [hasAutosave, setHasAutosave] = useState(false)
     const [showSide, setShowSide] = useState(false)
-    const [selectedCategory, setSelectedCategory] = useState('Inspiration')
+    const [selectedCategory, setSelectedCategory] = useState(['Inspiration'])
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
@@ -90,12 +90,12 @@ export default function PostEditor({ }: Props) {
         try {
             const items = await getAllRecordsFromDB()
 
-            if (items.length) {
+            if (Object.keys(items).length) {
                 const autosavedHtml = items[id || 'new'].html
-                const autosavedHtmlSPa = items[id || 'new'].spaHtml
+                const autosavedSpaHtml = items[id || 'new'].spaHtml
 
                 const autosavedId = localStorage.getItem('autosavedId')
-                if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedHtmlSPa)) setHasAutosave(true)
+                if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedSpaHtml)) setHasAutosave(true)
             }
         } catch (error) {
             console.error(error)
@@ -104,8 +104,9 @@ export default function PostEditor({ }: Props) {
 
     const saveLocalPost = async () => {
         try {
-            if (html) await saveItemToDB({ html, id: postId || 'new' })
-            if (spaHtml) await saveItemToDB({ spaHtml, id: postId || 'new' })
+            if (html && !spaHtml) await saveItemToDB({ html, id: postId || 'new' })
+            else if (!html && spaHtml) await saveItemToDB({ spaHtml, id: postId || 'new' })
+            else if (html && spaHtml) await saveItemToDB({ html, spaHtml, id: postId || 'new' })
             localStorage.setItem('autosavedData', JSON.stringify(data))
             localStorage.setItem('autosavedId', postId || 'new')
         } catch (error) {
@@ -142,12 +143,15 @@ export default function PostEditor({ }: Props) {
         const items = await getAllRecordsFromDB()
 
         const autosavedHtml = items[postId || 'new'].html
-        const autosavedHtmlSPa = items[postId || 'new'].spaHtml
+        const autosavedSpaHtml = items[postId || 'new'].spaHtml
 
         const autosaveData = JSON.parse(localStorage.getItem('autosavedData') || '{}') || {}
         setData(autosaveData)
         setHtml(autosavedHtml || '')
-        setSpaHtml(autosavedHtmlSPa || '')
+        setSpaHtml(autosavedSpaHtml || '')
+
+        toast.success('Autosave loaded')
+        await clearDB()
     }
 
     const getPost = async (id: string) => {
@@ -171,7 +175,7 @@ export default function PostEditor({ }: Props) {
                     setSideImgStyles(sideStyles)
                 }
                 setPublished(_post.published || false)
-                setSelectedCategory(_post.category || '')
+                setSelectedCategory(JSON.parse(_post.category || '[]'))
                 // This is a horrible fix, but lets stay with this for now:
                 setTimeout(() => handleEditorChange(spaSelected && _post.spaHtml ? _post.spaHtml : _post.html || ''), 200)
             }
@@ -209,7 +213,7 @@ export default function PostEditor({ }: Props) {
                     html,
                     spaHtml,
                     published,
-                    category: selectedCategory,
+                    category: JSON.stringify(selectedCategory),
                     slug: createSlug(title)
                 }
                 const updated = await updatePost(updatedPost)
@@ -233,7 +237,7 @@ export default function PostEditor({ }: Props) {
                     html,
                     spaHtml,
                     published,
-                    category: selectedCategory,
+                    category: JSON.stringify(selectedCategory),
                     slug: createSlug(data.title.trim() || data.spaTitle.trim())
                 }
                 const saved = await createPost(postData)
@@ -320,12 +324,13 @@ export default function PostEditor({ }: Props) {
                     </div>
                     <div className='editor__switch-btns'>
                         <Dropdown
-                            label='Category'
+                            label='Categories'
                             options={['Career Insights', 'Inspiration', 'Life Abroad', 'Motherhood']}
                             selected={selectedCategory}
                             value={selectedCategory}
                             setSelected={setSelectedCategory}
                             style={{ maxWidth: '12rem' }}
+                            multiselect
                         />
                         <Switch
                             label='Published'
@@ -348,6 +353,7 @@ export default function PostEditor({ }: Props) {
                         <Button
                             label='Load autosave'
                             handleClick={loadAutoSave}
+                            style={{ margin: '1rem 0' }}
                         /> : ''}
                 </div>
                 <div className="editor__data-input">
