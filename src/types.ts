@@ -7,6 +7,7 @@ export type postType = {
     slug?: string
     overlap?: string
     tags?: string
+    video?: string
     category?: string
     rawData?: string
     image?: string

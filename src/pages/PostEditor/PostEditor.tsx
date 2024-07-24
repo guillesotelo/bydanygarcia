@@ -31,6 +31,7 @@ const voidData = {
     spaSubtitle: '',
     spaDescription: '',
     spaOverlap: '',
+    video: ''
 }
 
 export default function PostEditor({ }: Props) {
@@ -397,6 +398,15 @@ export default function PostEditor({ }: Props) {
                             placeholder='Description (short text)'
                         />
                     </div>
+                </div>
+                <div className="editor__data-input">
+                    <InputField
+                        name='video'
+                        value={data.video}
+                        updateData={updateData}
+                        placeholder='Video URL'
+                        style={{ width: '100%' }}
+                    />
                 </div>
                 <Editor
                     onInit={(_, editor) => editorRef.current = editor}

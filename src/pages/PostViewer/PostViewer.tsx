@@ -66,18 +66,36 @@ export default function PostViewer({ }: Props) {
     }, [html, spaHtml, loading])
 
     const styleImagesInParagraphs = () => {
+        const paragraphs = document.querySelectorAll('p');
+        paragraphs.forEach(paragraph => {
+            const images = paragraph.querySelectorAll('img');
+            if (images.length === 1) {
+                (images[0] as HTMLElement).style.width = '100%';
+                if (isMobile) (images[0] as HTMLElement).style.width = '90%';
+            } else if (images.length > 1) {
+                paragraph.style.textAlign = 'center';
+                const width = 100 / images.length;
+                images.forEach(image => {
+                    // (image as HTMLElement).style.width = `${width}%`;
+                    (image as HTMLElement).style.height = 'auto';
+                    (image as HTMLElement).style.display = 'inline';
+                    if (isMobile) (image as HTMLElement).style.width = '90%';
+                });
+            }
+        });
+
         const paragraphsWithImages = Array.from(document.querySelectorAll('p > img'))
         paragraphsWithImages.forEach((image) => {
             if (image.parentElement instanceof HTMLElement) {
                 const paragraph = image.parentElement
                 paragraph.style.textAlign = 'center';
-                // (image as HTMLElement).style.borderRadius = '.5rem';
-                (image as HTMLElement).style.margin = '.5rem';
                 (image as HTMLElement).style.display = 'inline';
                 if (isMobile) (image as HTMLElement).style.width = '90%';
             }
         })
     }
+
+
 
     const getCategory = () => {
         const _category = post.category ? JSON.parse(post.category || '[]')[0] :
@@ -183,6 +201,13 @@ export default function PostViewer({ }: Props) {
         window.open(url, '_blank', 'noreferrer')
     }
 
+    const parseYTLink = (url: string) => {
+        const link = !url.includes('embed') ?
+            url.replace('youtube.com/watch?v=', 'youtube.com/embed/')
+                .replace('youtu.be/', 'youtube.com/embed/') : url
+        return link
+    }
+
     return (
         <div className='postviewer__container'>
             {renderSeo()}
@@ -206,6 +231,13 @@ export default function PostViewer({ }: Props) {
                     linkLang={linkLang}
                 />
             }
+
+            {post.video ?
+                <div style={{ textAlign: 'center', margin: '0 0 6rem 0' }}>
+                    <iframe src={parseYTLink(post.video)} width="700" height={400} frameBorder={0} allowFullScreen />
+                </div>
+                : ''}
+
             <img src={isMobile ? WebSignatureMobile : WebSignature} alt="Signature" draggable={false} className="postviewer__signature" />
             <div className="postviewer__row">
                 <div className="postviewer__share-section">
