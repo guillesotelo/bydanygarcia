@@ -79,7 +79,7 @@ export default function PostViewer({ }: Props) {
                     // (image as HTMLElement).style.width = `${width}%`;
                     (image as HTMLElement).style.height = 'auto';
                     (image as HTMLElement).style.display = 'inline';
-                    if (isMobile) (image as HTMLElement).style.width = '90%';
+                    if (isMobile) (image as HTMLElement).style.width = '100%';
                 });
             }
         });
@@ -90,7 +90,7 @@ export default function PostViewer({ }: Props) {
                 const paragraph = image.parentElement
                 paragraph.style.textAlign = 'center';
                 (image as HTMLElement).style.display = 'inline';
-                if (isMobile) (image as HTMLElement).style.width = '90%';
+                if (isMobile) (image as HTMLElement).style.width = '100%';
             }
         })
     }
@@ -234,7 +234,7 @@ export default function PostViewer({ }: Props) {
 
             {post.video ?
                 <div style={{ textAlign: 'center', margin: '0 0 6rem 0' }}>
-                    <iframe src={parseYTLink(post.video)} width="700" height={400} frameBorder={0} allowFullScreen />
+                    <iframe src={parseYTLink(post.video)} width={isMobile ? '90%' : "700"} height={isMobile ? 'auto' : "400"} frameBorder={0} allowFullScreen />
                 </div>
                 : ''}
 
