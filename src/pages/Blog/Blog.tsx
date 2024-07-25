@@ -75,14 +75,14 @@ export default function Blog({ }: Props) {
 
     return (
         <div className='blog__container'>
-            <Switch
+            {isLoggedIn ? <Switch
                 label='Show unpublished'
                 on='Yes'
                 off='No'
                 value={showPublished}
                 setValue={setShowPublished}
                 style={{ position: 'absolute', right: '1rem', transform: 'scale(0.9)' }}
-            />
+            /> : ''}
             <div className="page__header">
                 <h4 className="page__header-title-blog">{category ? parseCategory(category) : lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
                 {category ? <h4 className="page__header-subtitle-blog">{TEXT[lang][`${category}_cap`]}</h4> : ''}
