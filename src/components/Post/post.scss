@@ -148,6 +148,10 @@
 
         &__side-image {
             border-radius: 1.5vw;
+
+            &:hover {
+                filter: none;
+            }
         }
     }
 }

@@ -80,6 +80,10 @@
                 top: 0;
                 box-shadow: 5px 5px 20px rgb(162, 162, 162);
             }
+
+            &:hover {
+                filter: none;
+            }
         }
     }
 }

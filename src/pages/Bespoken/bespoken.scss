@@ -274,6 +274,10 @@
         &__story-img {
             margin-top: 2rem;
             width: 86vw;
+
+            &:hover {
+                filter: none;
+            }
         }
 
         &__product {
