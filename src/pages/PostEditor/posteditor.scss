@@ -83,6 +83,26 @@
         gap: .5vw;
     }
 
+    &__input-image {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        width: 100%;
+        position: relative;
+    }
+
+    &__image-url {
+        height: 2rem;
+        width: 2rem;
+        transition: .4s;
+
+        &:hover {
+            height: 10rem;
+            width: auto;
+        }
+    }
+
+
     &__btns {
         display: flex;
         flex-direction: row;

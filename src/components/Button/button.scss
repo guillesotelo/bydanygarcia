@@ -13,6 +13,7 @@
         border: none;
         border: 1px solid transparent;
         color: black;
+        place-content: center;
 
         &:hover {
             filter: brightness(110%);

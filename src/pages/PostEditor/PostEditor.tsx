@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
-// import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
 import { useHistory, useLocation } from 'react-router-dom'
 import InputField from '../../components/InputField/InputField'
 import Button from '../../components/Button/Button'
@@ -16,6 +15,7 @@ import Dropdown from '../../components/Dropdown/Dropdown'
 import { clearDB, getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
 import imageCompression from 'browser-image-compression';
 import { convertToBase64, createSlug } from '../../helpers'
+import Upload from '../../assets/icons/upload.svg'
 
 type Props = {}
 const voidData = {
@@ -31,7 +31,8 @@ const voidData = {
     spaSubtitle: '',
     spaDescription: '',
     spaOverlap: '',
-    video: ''
+    video: '',
+    imageUrlTitle: ''
 }
 
 export default function PostEditor({ }: Props) {
@@ -51,7 +52,7 @@ export default function PostEditor({ }: Props) {
     const history = useHistory()
     const location = useLocation()
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
-    const editorRef = useRef<any>(null)
+    const imageUrlRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(() => {
         if (isLoggedIn !== null && !isLoggedIn) return history.push('/')
@@ -92,8 +93,8 @@ export default function PostEditor({ }: Props) {
             const items = await getAllRecordsFromDB()
 
             if (Object.keys(items).length) {
-                const autosavedHtml = items[id || 'new'].html
-                const autosavedSpaHtml = items[id || 'new'].spaHtml
+                const autosavedHtml = items[id || 'new']?.html
+                const autosavedSpaHtml = items[id || 'new']?.spaHtml
 
                 const autosavedId = localStorage.getItem('autosavedId')
                 if ((autosavedId === id || (isNew && autosavedId === 'new')) && (autosavedHtml || autosavedSpaHtml)) setHasAutosave(true)
@@ -176,7 +177,7 @@ export default function PostEditor({ }: Props) {
                     setSideImgStyles(sideStyles)
                 }
                 setPublished(_post.published || false)
-                setSelectedCategory(JSON.parse(_post.category || '[]'))
+                setSelectedCategory(_post.category.includes('[') ? JSON.parse(_post.category || '[]') : [_post.category])
                 // This is a horrible fix, but lets stay with this for now:
                 setTimeout(() => handleEditorChange(spaSelected && _post.spaHtml ? _post.spaHtml : _post.html || ''), 200)
             }
@@ -285,6 +286,27 @@ export default function PostEditor({ }: Props) {
         return sideImgStyles[index] && sideImgStyles[index][prop] ? sideImgStyles[index][prop] : 0
     }
 
+    const uploadImage = async (e: any) => {
+        if (e.target.files) {
+            const file = e.target.files[0]
+            const compressOptions = {
+                maxSizeMB: 0.45,
+                maxWidthOrHeight: 1000,
+                useWebWorker: true
+            }
+
+            const compressedFile = await imageCompression(file, compressOptions)
+            const base64 = await convertToBase64(compressedFile)
+            const title = file.name
+
+            setData(data => ({
+                ...data,
+                imageUrl: String(base64),
+                imageUrlTitle: title
+            }))
+        }
+    }
+
     const filePickerCallback = (callback: any) => {
         const input = document.createElement('input')
         input.setAttribute('type', 'file')
@@ -306,6 +328,12 @@ export default function PostEditor({ }: Props) {
             }
         }
         input.click()
+    }
+
+    const openFilePicker = () => {
+        if (imageUrlRef.current) {
+            imageUrlRef.current.click()
+        }
     }
 
 
@@ -379,12 +407,22 @@ export default function PostEditor({ }: Props) {
                         />
                     </div>
                     <div className="editor__input-col">
-                        <InputField
-                            name='imageUrl'
-                            value={data.imageUrl}
-                            updateData={updateData}
-                            placeholder='Image URL (https://example.com/image.png)'
-                        />
+                        <div className='editor__input-image'>
+                            <InputField
+                                name='imageUrl'
+                                value={data.imageUrlTitle || data.imageUrl}
+                                updateData={updateData}
+                                placeholder='Image URL (https://example.com/image.png)'
+                                style={{ width: '90%' }}
+                                disabled={Boolean(data.imageUrlTitle)}
+                            />
+                            {data.imageUrl ? <img src={data.imageUrl} alt='Image URL' className='editor__image-url' /> : ''}
+                            <Button
+                                svg={Upload}
+                                handleClick={openFilePicker}
+                            />
+                            <input ref={imageUrlRef} type='file' accept='image/*' onChange={uploadImage} style={{ display: 'none' }} />
+                        </div>
                         <InputField
                             name={spaSelected ? 'spaOverlap' : 'overlap'}
                             value={spaSelected ? data.spaOverlap : data.overlap}
@@ -409,7 +447,6 @@ export default function PostEditor({ }: Props) {
                     />
                 </div>
                 <Editor
-                    onInit={(_, editor) => editorRef.current = editor}
                     initialValue=''
                     value={spaSelected ? spaHtml : html}
                     onEditorChange={handleEditorChange}
