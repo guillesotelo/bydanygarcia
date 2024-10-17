@@ -14,7 +14,11 @@ code {
     monospace;
 }
 
-p img {
+p img,
+h1 img,
+h2 img,
+h3 img,
+h4 img {
   /* border-radius: .5vw; */
   /* box-shadow: 5px 5px 15px rgb(179, 179, 179); */
   transition: .4s;
@@ -22,7 +26,11 @@ p img {
   height: auto;
 }
 
-p img:hover {
+p img:hover,
+h1 img:hover,
+h2 img:hover,
+h3 img:hover,
+h4 img:hover {
   filter: grayscale(100%);
 }
 
@@ -44,7 +52,12 @@ h1 {
 
 
 @media only screen and (max-width: 640px) {
-  p img:hover {
+
+  p img:hover,
+  h1 img:hover,
+  h2 img:hover,
+  h3 img:hover,
+  h4 img:hover {
     filter: none;
   }
 }
