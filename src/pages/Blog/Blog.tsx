@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { getAllPosts } from '../../services'
 import PostCard from '../../components/PostCard/PostCard'
-import { catMapType, postType } from '../../types'
+import { postType } from '../../types'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import { shuffleArray, sortArray } from '../../helpers'
 import Switch from '../../components/Switch/Switch'
 
 type Props = {
@@ -54,10 +53,10 @@ export default function Blog({ }: Props) {
                         return post
                     }
                 })
-                setAllPosts(shuffleArray(filtered))
+                setAllPosts(filtered)
             } else {
                 setShowUp(false)
-                setAllPosts(shuffleArray(posts))
+                setAllPosts(posts)
             }
             localStorage.setItem('posts', JSON.stringify(posts))
             localStorage.setItem('duedate', JSON.stringify(new Date()))
