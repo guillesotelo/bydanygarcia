@@ -204,6 +204,8 @@ export default function PostEditor({ }: Props) {
             const sideImgs = JSON.stringify(sideImages)
             const sideStyles = JSON.stringify(sideImgStyles)
 
+            if(!data.title || !data.spaTItle) return toast.error('Please enter a title')
+
             if (isUpdate) {
                 const title = data.title.trim() || data.spaTitle.trim() || `New Post [${(Math.random() * 10000).toFixed(0)}]`
                 const updatedPost: postType = {
