@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/echoes-logo.svg'
+import byDanyLogo from '../../assets/logos/echo-logo.svg'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 
