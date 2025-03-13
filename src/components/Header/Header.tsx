@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/logo_cropped.png'
+import byDanyLogo from '../../assets/logos/echoes-logo.svg'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 
@@ -391,7 +391,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         <img
                             className="header__logo-image"
                             style={{
-                                height: bigHeader ? bespokenLogo ? '3vw' : '4.5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
+                                height: bigHeader ? bespokenLogo ? '3vw' : '5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
                                 margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
                             }}
                             src={bespokenLogo || byDanyLogo}

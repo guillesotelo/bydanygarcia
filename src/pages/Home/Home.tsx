@@ -1,497 +1,183 @@
-import { useContext, useEffect, useState } from 'react'
-import Menu from '../../assets/icons/menu-icon.svg'
-import ChevronDown from '../../assets/icons/chevron-down.svg'
-import Search from '../../assets/icons/search-icon.svg'
-import SpainFlag from '../../assets/icons/spain-flag.png'
-import UsaFlag from '../../assets/icons/usa-flag.png'
-import { useHistory, useLocation } from 'react-router-dom'
-import Button from '../Button/Button'
-import DeleteIcon from '../../assets/icons/delete.svg'
-import EditIcon from '../../assets/icons/edit.svg'
-import NotificationIcon from '../../assets/icons/notification.svg'
-import { deletePost, verifyToken } from '../../services'
-import { toast } from 'react-hot-toast'
-import { APP_VERSION } from '../../constants/app'
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import PostCard from '../../components/PostCard/PostCard'
+import { getAllPosts } from '../../services'
 import { AppContext } from '../../AppContext'
+import LandingDany from '../../assets/images/landing-1.jpg'
+import Button from '../../components/Button/Button'
+import { APP_COLORS } from '../../constants/app'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/logo_cropped.png'
-import NewLogo1 from '../../assets/logos/warren-smith.svg'
-import NewLogo2 from '../../assets/logos/warren-smith2.svg'
-import { onChangeEventType, postType } from '../../types'
-import { getPostBySlug } from '../../services/post'
+import Player from '../../components/Player/Player'
+const Track1 = require('../../assets/audio/Jamie-Duffy_Solas.mp3')
+const Track2 = require('../../assets/audio/Je-Te-Laisserai_Des-Mots.mp3')
 
-type Props = {
-    search: string[]
-    setSearch: (value: string[]) => void
-    bespokenLogo?: string
-}
-
-export default function Header({ search, setSearch, bespokenLogo }: Props) {
-    const { lang, setLang, isMobile } = useContext(AppContext)
-    const [postId, setPostId] = useState('')
-    const [prompt, setPrompt] = useState('')
-    const [deleteModal, setDeleteModal] = useState(false)
-    const [menuToggle, setMenuToggle] = useState(false)
-    const [blogToggle, setBlogToggle] = useState(false)
-    const [searchClicked, setSearchClicked] = useState(false)
-    const [bigHeader, setBigHeader] = useState(true)
-    const [logo, setLogo] = useState(NewLogo1)
+export default function Home() {
+    const [showUp, setShowUp] = useState(false)
+    const [allPosts, setAllPosts] = useState<any[]>([])
+    const [loading, setLoading] = useState(false)
+    const [showPlayer, setShowPlayer] = useState(false)
+    const { lang, isMobile, isLoggedIn } = useContext(AppContext)
     const history = useHistory()
-    const location = useLocation()
-    const { setIsLoggedIn, isLoggedIn } = useContext(AppContext)
 
     useEffect(() => {
-        const svg = document.querySelector('.header__menu-svg')
-        const container = document.querySelector('.header__container')
-        const list = document.querySelector('.home__postlist')
-        const home = document.querySelector('.home__container')
-        const blog = document.querySelector('.blog__container')
-        window.addEventListener('mouseup', e => {
-            const clicked = e.target
-            if (clicked !== svg) setMenuToggle(false)
-            if (clicked === container
-                || clicked === home
-                || clicked === blog
-                || clicked === list) {
-                setSearchClicked(false)
-            }
-        })
-        activateHeaderHeight()
-        if (localStorage.getItem('user')) verifyUser()
-
-        setInterval(() => setLogo((prev: any) => prev === NewLogo1 ? NewLogo2 : NewLogo1), 5000)
-    }, [])
+        getPosts()
+        if (isLoggedIn) setTimeout(() => setShowPlayer(true), 2000)
+    }, [isLoggedIn])
 
     useEffect(() => {
-        const isPost = location.pathname.split('/')[1] === 'post'
-        if (isPost) {
-            const slug = location.pathname.split('/')[2]
-            if (slug) getPostId(slug)
-            else setPostId('')
+        if (allPosts.length && !showUp) {
+            const cards = Array.from(document.getElementsByClassName('postcard__container') as HTMLCollectionOf<HTMLElement>)
+            if (cards && cards.length) cards.forEach((card, i) => {
+                setTimeout(() => {
+                    card.style.display = 'flex'
+                    card.style.transition = '.5s'
+                }, i * 120)
+            })
+            setShowUp(true)
         }
-    }, [location])
+    }, [allPosts])
 
-    useEffect(() => {
-        const postViewr = document.querySelector<HTMLElement>('.postviewer__container')
-        const postEditor = document.querySelector<HTMLElement>('.editor__container')
-        if (postViewr) {
-            if (deleteModal) postViewr.style.filter = 'blur(10px)'
-            else postViewr.style.filter = ''
-        }
-        if (postEditor) {
-            if (deleteModal) postEditor.style.filter = 'blur(10px)'
-            else postEditor.style.filter = ''
-        }
-    }, [deleteModal])
-
-    const getPostId = async (slug: string) => {
-        try {
-            const post = await getPostBySlug(slug)
-            if (post && post._id) setPostId(post._id)
-            else setPostId('')
-        } catch (error) {
-            setPostId('')
-            console.error(error)
+    const getPosts = async () => {
+        setLoading(true)
+        const duedate = localStorage.getItem('duedate') ? localStorage.getItem('duedate') : null
+        const localPosts = duedate && !hasCaducated(JSON.parse(duedate)) && localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
+        const posts = localPosts.length ? localPosts : await getAllPosts(isLoggedIn || false)
+        setLoading(false)
+        if (posts && Array.isArray(posts)) {
+            setAllPosts(isLoggedIn ? posts : posts.filter(post => post.published))
+            localStorage.setItem('posts', JSON.stringify(posts))
+            localStorage.setItem('duedate', JSON.stringify(new Date()))
         }
     }
 
-    const verifyUser = async () => {
-        try {
-            const isLodded = await verifyToken()
-            if (isLodded) setIsLoggedIn(isLodded)
-        } catch (err) {
-            console.error(err)
-        }
+    const hasCaducated = (dateToCheck: Date | string) => {
+        const currentDate = new Date()
+        const twoHoursAgo = new Date(currentDate.getTime() - 2 * 60 * 60 * 1000)
+        const parsedDate = new Date(dateToCheck)
+        return parsedDate < twoHoursAgo
     }
 
-    const activateHeaderHeight = () => {
-        window.addEventListener('scroll', function () {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-            if (scrollTop > 200) setBigHeader(false)
-            else setBigHeader(true)
-        })
+    const filterPosts = (filter: string) => {
+        return allPosts.filter(post => (post.category && post.category.toLowerCase().includes(filter.toLowerCase())))
     }
 
-    const handleSearch = (e: onChangeEventType) => {
-        const { value } = e.target
-        setPrompt(value)
-    }
-
-    const triggerSearch = () => {
-        if (isMobile) setSearchClicked(true)
-        if (prompt.trim()) {
-            setSearchClicked(false)
-            setSearch(prompt.split(' '))
-            history.push('/search')
-            setPrompt('')
-        }
-    }
-
-    const handleDeletePost = async () => {
-        try {
-            await toast.promise(
-                deletePost({ _id: postId }),
-                {
-                    loading: TEXT[lang]['deleting_post'],
-                    success: <b>Post deleted successfully. Redirecting...</b>,
-                    error: <b>Error deleting post</b>,
+    return <div className="home__container">
+        <div className="home__landing">
+            <div className="home__landing-image-wrapper">
+                <img src={LandingDany} alt="Dany Garcia" className="home__landing-image" />
+            </div>
+            <p className="home__landing-text">
+                {lang === 'es' ?
+                    <>
+                        <p>
+                            Hace algunos años, mientras ralentizaba y tranquilizaba mi vida un poco, una chispa interna y espiritual brillaba como nunca antes lo había hecho. Comencé a conectar con las palabras de otras personas maravillosas, mientras me tomaba también el tiempo para escuchar mis propios pensamientos. Fue un avance profundo en mi vida, y la escritura se convirtió en una forma de expresar lo que estaba sucediendo. Al compartir algunas de mis escrituras con otros, vi cómo un puente de comunicación me conectaba con sus experiencias también.
+                        </p>
+                        <p>
+                            Nunca pensé que encontraría tanto disfrute, creatividad, cambio, sanación y crecimiento.
+                        </p>
+                        <p>
+                            Mi intención con este blog es tener un proyecto secundario <strong>en evolución</strong>, un espacio en línea donde pueda escribir y compartir libremente lo que deseo y donde las personas puedan venir a leer si así lo desean. Como madre y persona, a veces no hay mucho tiempo, o puede que no me sienta con ánimo de crear contenido, pero vuelvo a los mismos pensamientos de dar pequeños pasos, ir un día a la vez, olvidando las expectativas, la aprobación y simplemente disfrutar de mi tiempo haciéndolo.
+                        </p>
+                    </>
+                    :
+                    <>
+                        <p>
+                            Some years ago, as I slowed and quieted my life down, an inward and spiritual search of myself sparkled as it had never done before. I started connecting with the words of other wonderful people and mentors, while taking the time to listen to my own thoughts and feelings. It was a deep breakthrough in my life, and writing became a way to express what was happening. As I shared some of my writings with others, I saw how a bridge of communication connected me with their experiences, too.
+                        </p>
+                        <p>
+                            I never thought I would find so much enjoyment, creativity, change, healing and growth.
+                        </p>
+                        <p>
+                            My intention with this blog is to have an <strong>evolving side project</strong>, an online space where I can freely write and share what I want to and where people can come and read if they would like. As a mom and person, sometimes there is not much time, or I may not feel in the mood for creating content, but I come back to the same thoughts of taking little steps, going one day at a time, forgetting about the expectations, the approval and just, simply, enjoy my time doing it.
+                        </p>
+                    </>
                 }
-            )
-            setDeleteModal(false)
-            localStorage.removeItem('posts')
-            setTimeout(() => history.push('/blog'), 1500)
-        } catch (err) {
-            console.error(err)
-            setDeleteModal(false)
-            toast.error('An error occurred while trying to delete the post')
-        }
-    }
+            </p>
 
-    const logOut = () => {
-        localStorage.clear()
-        toast.success(TEXT[lang]['see_you_later'])
-        setTimeout(() => {
-            setIsLoggedIn(false)
-            const posts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
-            localStorage.setItem('posts', posts.filter((post: postType) => post.published))
-            setPostId('')
-            history.push('/')
-        }, 1500)
-    }
+            <Button
+                label={lang === 'es' ? 'Conóceme' : 'Get to know me'}
+                handleClick={() => history.push(`/about`)}
+                bgColor={APP_COLORS.GRASS}
+                textColor='white'
+                style={{ transform: 'scale(1.2)' }}
+            />
 
-    const changeLanguage = (language: string) => {
-        setLang(language)
-        localStorage.setItem('preferedLang', language)
-    }
+            <p className="home__landing-caption">
+                “No man ever steps in the same river twice, for it's not the same river and he's not the same man.”  Heraclitus            </p>
+            <h2 className="home__landing-title">{TEXT[lang]['inspiration']}</h2>
+            <h3 className="home__landing-subtitle">{TEXT[lang]['inspiration_cap']}</h3>
+            {loading ? <span className="loader"></span>
+                :
+                <div className="blog__list">
+                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+                </div>}
+            <Button
+                label={lang === 'es' ? 'Ver todo' : 'View all'}
+                handleClick={() => history.push(`/blog?category=inspiration`)}
+                style={{ transform: 'scale(1.3)' }}
+            />
 
-    const renderMobile = () => {
-        return (
-            <>
-                <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)} >
-                    <img className="header__menu-svg" src={Menu} />
-                    <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
-                        <div className="header__menu-item" style={{ marginTop: isMobile ? '6vw' : '2vw' }}>
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                // setTimeout(() => setMenuToggle(false), 50)
-                                // history.push('/blog')
-                                setBlogToggle(!blogToggle)
-                            }}>{TEXT[lang]['blog']}</h4>
-                        </div>
-                        {blogToggle ?
-                            <div className="header__menu-subitem">
-                                <h4
-                                    className="header__menu-subitem-text"
-                                    onClick={() => {
-                                        setTimeout(() => setMenuToggle(false), 50)
-                                        history.push('/blog?category=inspiration')
-                                    }}>{TEXT[lang]['inspiration']}</h4>
-                                <h4
-                                    className="header__menu-subitem-text"
-                                    style={{ animationDelay: '.2s' }}
-                                    onClick={() => {
-                                        setTimeout(() => setMenuToggle(false), 50)
-                                        history.push('/blog?category=motherhood')
-                                    }}>{TEXT[lang]['motherhood']}</h4>
-                                <h4
-                                    className="header__menu-subitem-text"
-                                    style={{ animationDelay: '.4s' }}
-                                    onClick={() => {
-                                        setTimeout(() => setMenuToggle(false), 50)
-                                        history.push('/blog?category=life_abroad')
-                                    }}>{TEXT[lang]['life_abroad']}</h4>
-                                <h4
-                                    className="header__menu-subitem-text"
-                                    style={{ animationDelay: '.5s' }}
-                                    onClick={() => {
-                                        setTimeout(() => setMenuToggle(false), 50)
-                                        history.push('/blog?category=\career_insights')
-                                    }}>{TEXT[lang]['career_insights']}</h4>
-                            </div>
-                            : ''}
-                        {!blogToggle ?
-                            <>
-                                <div className="header__menu-item">
-                                    <h4 className="header__menu-item-text" onClick={() => {
-                                        setTimeout(() => setMenuToggle(false), 50)
-                                        history.push('/bespoken/home')
-                                    }}>{TEXT[lang]['bespoken']}</h4>
-                                </div>
-                                {/* <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/subscribe')
-                            }}>{TEXT[lang]['subscribe']}</h4>
-                        </div> */}
-                                <div className="header__menu-item">
-                                    <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
-                                        setTimeout(() => setMenuToggle(false), 50)
-                                        history.push('/about')
-                                    }}>{TEXT[lang]['about_greeting']}</h4>
-                                </div>
-                                <div className="header__menu-item header__language">
-                                    <div className="header__menu-item-text" onClick={() => {
-                                        changeLanguage(lang === 'en' ? 'es' : 'en')
-                                        setTimeout(() => setMenuToggle(false), 1000)
-                                    }}>
-                                        {lang === 'es' ?
-                                            <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                            : <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                        }</div>
-                                </div>
-                                {isLoggedIn ?
-                                    <div className="header__menu-item" >
-                                        <h4 className="header__menu-item-text" onClick={() => {
-                                            setTimeout(() => setMenuToggle(false), 50)
-                                            logOut()
-                                        }}>Logout</h4>
-                                    </div>
-                                    : ''}
-                            </> : ''}
-                        <div className="header__menu-item" style={{
-                            // position: 'relative'
-                        }}>
-                            <h4 className="header__menu-item-text" style={{
-                                position: 'fixed',
-                                bottom: '20%',
-                                marginBottom: '4vw',
-                                color: 'gray',
-                                fontSize: isMobile ? '3vw' : '.7vw'
-                            }}
-                                onClick={() => window.open('https://github.com/guillesotelo/bydanygarcia', '_blank', 'noreferrer')}>{APP_VERSION}</h4>
-                        </div>
-                    </div>
-                </div>
-                {isLoggedIn && !searchClicked ?
-                    <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw', border: 'none' }}>
-                        <Button
-                            label='Create'
-                            handleClick={() => history.push('/editor?new=true')}
-                        />
-                        {postId ?
-                            <Button
-                                svg={EditIcon}
-                                handleClick={() => history.push(`/editor?id=${postId}`)}
-                            />
-                            : ''}
-                        {postId ?
-                            <Button
-                                svg={DeleteIcon}
-                                handleClick={() => setDeleteModal(true)}
-                            />
-                            : ''}
-                    </div>
-                    : ''}
-                {!searchClicked && !isLoggedIn ?
-                    <div className="header__logo"
-                        onClick={() => {
-                            setSearch([])
-                            setPrompt('')
-                            if (bespokenLogo) history.push('/bespoken/home')
-                            else history.push('/')
-                        }}>
-                        {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
-                        <img
-                            className="header__logo-image"
-                            style={{
-                                maxHeight: bespokenLogo ? '9vw' : '',
-                                margin: bespokenLogo ? 0 : ''
-                            }}
-                            src={bespokenLogo || logo}
-                            alt='by Dany Garcia'
-                            loading='lazy' />
-                    </div>
-                    : ''}
-                <div className="header__search" >
-                    <img className="header__search-svg" src={Search} onClick={triggerSearch} />
-                    {searchClicked ?
-                        <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
-                            if (e.key === 'Enter') triggerSearch()
-                        }} />
-                        : ''}
-                </div>
-            </>
-        )
-    }
+            <p className="home__landing-caption">
+                "En este mundo finito quiero encontrar mi equilibrio infinito espiritual contigo."
+            </p>
+            <h2 className="home__landing-title">MOTHERHOOD</h2>
+            <h3 className="home__landing-subtitle">A Rollercoaster of Love and Learning</h3>
+            {loading ? <span className="loader"></span>
+                :
+                <div className="blog__list">
+                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+                </div>}
+            <Button
+                label={lang === 'es' ? 'Ver todo' : 'View all'}
+                handleClick={() => history.push(`/blog?category=motherhood`)}
+                style={{ transform: 'scale(1.3)' }}
+            />
 
-    const renderDesktop = () => {
-        return (
-            <>
-                <div className="header__items" style={{ height: bigHeader ? '5rem' : '2rem' }}>
-                    <div className="header__item">
-                        <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['inspiration']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=motherhood')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['motherhood']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=life_abroad')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['life_abroad']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=\career_insights')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['career_insights']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['see_all']}
-                                </h4>
-                            </div>
-                            {/* <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
-                                        {TEXT[lang]['subscribe']}
-                                    </h4>
-                                </div> */}
-                        </div>
-                    </div>
-                    <div className="header__item">
-                        <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
-                        <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['story_of_brand']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/products')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['products']}
-                                </h4>
-                            </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
-                                <h4 className="header__item-dropdown-text">
-                                    {TEXT[lang]['our_handcrafted_wedding']}
-                                </h4>
-                            </div>
-                            {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
-                                    <h4 className="header__item-dropdown-text">
-                                        {TEXT[lang]['values']}
-                                    </h4>
-                                </div> */}
-                        </div>
-                    </div>
-                    <div className="header__item" onClick={() => history.push('/about')}>
-                        <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
-                    </div>
-                </div>
-
-                {!searchClicked || !isLoggedIn ?
-                    <div className="header__logo"
-                        onClick={() => {
-                            setSearch([])
-                            setPrompt('')
-                            if (bespokenLogo) history.push('/bespoken/story')
-                            else history.push('/')
-                        }}>
-                        {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
-                        <img
-                            className="header__logo-image"
-                            style={{
-                                height: bigHeader ? bespokenLogo ? '3vw' : '4.5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
-                                margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
-                            }}
-                            src={bespokenLogo || logo}
-                            alt='by Dany Garcia'
-                            loading='lazy' />
-                    </div>
-                    : ''}
-
-                <div className='header__admin-panel'>
-                    {isLoggedIn ?
-                        <div className="header__admin-btns"
-                            style={{
-                                borderRight: bigHeader ? '' : '1px solid #aaaaaa',
-                                borderLeft: bigHeader ? '' : '1px solid #aaaaaa',
-                                borderBottom: bigHeader ? '' : 'none',
-                                borderTop: bigHeader ? '' : 'none'
-                            }}
-                        >
-                            <Button
-                                label='Create'
-                                handleClick={() => history.push('/editor?new=true')}
-                            />
-                            {postId ?
-                                <>
-                                    <Button
-                                        svg={EditIcon}
-                                        handleClick={() => history.push(`/editor?id=${postId}`)}
-                                    />
-                                    <Button
-                                        svg={DeleteIcon}
-                                        handleClick={() => setDeleteModal(true)}
-                                    />
-                                </>
-                                : ''}
-                            <Button
-                                svg={NotificationIcon}
-                                handleClick={() => history.push('/notifications')}
-                            />
-                            <Button
-                                label='Logout'
-                                handleClick={logOut}
-                                bgColor='transparent'
-                            />
-                        </div>
-                        : ''}
-
-                    <div className="header__search" >
-                        <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
-                            <h4 className="header__item-text">{lang.toUpperCase()}</h4>
-                            <img className="header__item-svg" src={ChevronDown} />
-                            <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                                <div className="header__item-dropdown-row" onClick={() => changeLanguage('en')}>
-                                    <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                    <h4 className="header__item-dropdown-text">
-                                        ENGLISH
-                                    </h4>
-                                </div>
-                                <div className="header__item-dropdown-row" onClick={() => changeLanguage('es')}>
-                                    <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
-                                    <h4 className="header__item-dropdown-text">
-                                        ESPAÑOL
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <img className="header__search-svg" src={Search} onClick={triggerSearch} />
-                        {searchClicked || !isMobile ?
-                            <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
-                                if (e.key === 'Enter') triggerSearch()
-                            }} />
-                            : ''}
-                    </div>
-                </div>
-            </>)
-    }
-
-    return (
-        <div className='header__container' style={{ height: bigHeader ? '8rem' : '4rem' }}>
-            {deleteModal ?
-                <div className='header__delete-modal'>
-                    <h4 className="header__delete-modal-text">Are you sure you want to delete this post?</h4>
-                    <div className="header__delete-modal-btns">
-                        <Button
-                            label='Cancel'
-                            handleClick={() => setDeleteModal(false)}
-                            bgColor='lightgray'
-                        />
-                        <Button
-                            label='Delete'
-                            handleClick={handleDeletePost}
-                        />
-                    </div>
-                </div>
-                : ''}
-            {isMobile ? renderMobile() : renderDesktop()}
+            <p className="home__landing-caption">
+                "I love an easy-going morning at home with soft music, a little sun, and <i>mates</i>.<br />Just a perfect scenario to get my notebook and write."
+            </p>
+            <h2 className="home__landing-title">LIFE ABROAD</h2>
+            <h3 className="home__landing-subtitle">Journey Through Life and Travel</h3>
+            {loading ? <span className="loader"></span>
+                :
+                <div className="blog__list">
+                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i}  post={post} /> : null)}
+                </div>}
+            <Button
+                label={lang === 'es' ? 'Ver todo' : 'View all'}
+                handleClick={() => history.push(`/blog?category=life_abroad`)}
+                style={{ transform: 'scale(1.3)' }}
+            />
         </div>
-    )
+        {/* <div className="page__header">
+            <h4 className="page__header-title">{TEXT[lang]['categories']}</h4>
+        </div>
+        {loading ? <span className="loader"></span>
+            :
+            <div className="home__postlist">
+                <CategoryCard
+                    images={journeyWithin}
+                    title='Inspiration'
+                    count={journeyWithin.length + ' posts'}
+                    category='inspiration'
+                // subtitle='Sharing moments of deep awareness '
+                />
+                <CategoryCard
+                    images={embracingMotherhood}
+                    title='Embracing Motherhood'
+                    count={embracingMotherhood.length + ' posts'}
+                    category='motherhood'
+                // subtitle='A Rollercoaster of Love and Learning'
+                />
+                <CategoryCard
+                    images={roamingSoul}
+                    title='Roaming Soul'
+                    count={roamingSoul.length + ' posts'}
+                    category='roaming_soul'
+                // subtitle='Journeying Through Life and Travel'
+                />
+            </div>
+        } */}
+        {showPlayer ? <Player filePath={[Track1, Track2]} setShowPlayer={setShowPlayer} /> : ''}
+    </div>
 }
