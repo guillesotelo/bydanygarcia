@@ -97,7 +97,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         </h4>
         <br /> <br /> <br /> <br />
         <p>Para suscribirse, simplemente ingrese su nombre y dirección de correo electrónico en el formulario y haga clic en "Suscribirse".
-        <br />Al suscribirte, aceptas recibir correos electrónicos y boletines de DANY GARCIA. Nunca compartiré ni venderé su dirección de correo electrónico a organizaciones de terceros. Puede darse de baja en cualquier momento haciendo clic en el enlace "cancelar suscripción" en la parte inferior de nuestros correos electrónicos.
+        <br />Al suscribirte, aceptas recibir correos electrónicos y boletines de An Echo of the Heart. Nunca compartiré ni venderé su dirección de correo electrónico a organizaciones de terceros. Puede darse de baja en cualquier momento haciendo clic en el enlace "cancelar suscripción" en la parte inferior de nuestros correos electrónicos.
 
         <br /> <br />¡Gracias por suscribirte a An Echo of the Heart! Espero poder compartir mis últimos contenidos contigo.
       </p>`,
