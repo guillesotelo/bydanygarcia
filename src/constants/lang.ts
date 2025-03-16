@@ -44,7 +44,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'story_of_brand': `HISTORIA DE LA MARCA`,
         'story': `HISTORIA`,
         'products': `PRODUCTOS`,
-        'bydanygarcia': `by Dany Garcia`,
+        'bydanygarcia': `An Echo of the Heart`,
 
         //LOGIN
         'login': 'INICIAR SESIÓN',
@@ -79,7 +79,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //SUBSCRIBE
         'full_name': `Tu nombre completo`,
         'subscribe_info': `  <h2>Subscríbete</h2>
-        <h3>Suscríbase a by DANY GARCIA y manténgase actualizado con los últimos contenidos del blog y ofertas especiales de BESPOKEN.
+        <h3>Suscríbase a An Echo of the Heart y manténgase actualizado con los últimos contenidos del blog y ofertas especiales de BESPOKEN.
         </h3>
         <h4>Como suscriptor, recibirás:</h4>
         <ul>
@@ -99,7 +99,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <p>Para suscribirse, simplemente ingrese su nombre y dirección de correo electrónico en el formulario y haga clic en "Suscribirse".
         <br />Al suscribirte, aceptas recibir correos electrónicos y boletines de DANY GARCIA. Nunca compartiré ni venderé su dirección de correo electrónico a organizaciones de terceros. Puede darse de baja en cualquier momento haciendo clic en el enlace "cancelar suscripción" en la parte inferior de nuestros correos electrónicos.
 
-        <br /> <br />¡Gracias por suscribirte a by DANY GARCIA! Espero poder compartir mis últimos contenidos contigo.
+        <br /> <br />¡Gracias por suscribirte a An Echo of the Heart! Espero poder compartir mis últimos contenidos contigo.
       </p>`,
 
 
@@ -193,7 +193,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'story_of_brand': `STORY OF THE BEGINNING`,
         'story': `STORY`,
         'products': `PRODUCTS`,
-        'bydanygarcia': `by Dany Garcia`,
+        'bydanygarcia': `An Echo of the Heart`,
 
         //LOGIN
         'login': 'LOGIN',
@@ -228,7 +228,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //SUBSCRIBE
         'full_name': `Your full name`,
         'subscribe_info': `  <h2>Subscribe</h2>
-        <h3>Subscribe to by DANY GARCIA and stay updated with the latest blog content and special offers from BESPOKEN.</h3>
+        <h3>Subscribe to An Echo of the Heart and stay updated with the latest blog content and special offers from BESPOKEN.</h3>
         <h4>As a subscriber, you will receive:</h4>
         <ul>
             <li>Updates on the latest blog posts and articles</li>
@@ -241,7 +241,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         <br /> <br /> <br /> <br />
         <p>To subscribe, simply enter your name and email address in the form and click "Subscribe".<br />
         By subscribing, you agree to receive emails and newsletters from DANY GARCIA. I will never share or sell your email address to third-party organizations. You can unsubscribe at any time by clicking the "unsubscribe" link at the bottom of our emails.
-        <br /> <br />Thank you for subscribing to by DANY GARCIA! I look forward to sharing my latest content with you.</p>
+        <br /> <br />Thank you for subscribing to An Echo of the Heart! I look forward to sharing my latest content with you.</p>
         `,
 
         //CONTACT

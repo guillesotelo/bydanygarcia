@@ -285,7 +285,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             if (bespokenLogo) history.push('/bespoken/home')
                             else history.push('/')
                         }}>
-                        {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                        {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
                         <img
                             className="header__logo-image"
                             style={{
@@ -293,7 +293,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 margin: bespokenLogo ? 0 : ''
                             }}
                             src={bespokenLogo || EchoLogoMobile}
-                            alt='by Dany Garcia'
+                            alt='An Echo of the Heart'
                             loading='lazy' />
                     </div>
                     : ''}
@@ -388,7 +388,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             if (bespokenLogo) history.push('/bespoken/story')
                             else history.push('/')
                         }}>
-                        {/* <h4 className="header__logo-text">by DANY GARCIA</h4> */}
+                        {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
                         <img
                             className="header__logo-image"
                             style={{
@@ -396,7 +396,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
                             }}
                             src={bespokenLogo || EchoLogo}
-                            alt='by Dany Garcia'
+                            alt='An Echo of the Heart'
                             loading='lazy' />
                     </div>
                     : ''}
