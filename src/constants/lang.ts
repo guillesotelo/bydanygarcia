@@ -44,7 +44,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'story_of_brand': `HISTORIA DE LA MARCA`,
         'story': `HISTORIA`,
         'products': `PRODUCTOS`,
-        'bydanygarcia': `An Echo of the Heart`,
+        'anechooftheheart': `An Echo of the Heart`,
 
         //LOGIN
         'login': 'INICIAR SESIÓN',
@@ -193,7 +193,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'story_of_brand': `STORY OF THE BEGINNING`,
         'story': `STORY`,
         'products': `PRODUCTS`,
-        'bydanygarcia': `An Echo of the Heart`,
+        'anechooftheheart': `An Echo of the Heart`,
 
         //LOGIN
         'login': 'LOGIN',

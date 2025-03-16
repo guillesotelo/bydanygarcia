@@ -22,7 +22,7 @@ const loginUser = async (user: userType) => {
         localStorage.removeItem('posts')
         localStorage.setItem('user', JSON.stringify({
             ...finalUser,
-            app: 'bydanygarcia',
+            app: 'anechooftheheart',
             login: new Date()
         }))
         return finalUser

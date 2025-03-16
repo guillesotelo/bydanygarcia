@@ -14,7 +14,7 @@ export default function PostCard({ post, index, style }: Props) {
     const [spanish, setSpanish] = useState(false)
     const { lang, isMobile } = useContext(AppContext)
     const webUrl = process.env.NODE_ENV === 'production' ?
-        'https://bydanygarcia.com' : 'http://localhost:3000'
+        'https://anechooftheheart.com' : 'http://localhost:3000'
 
     useEffect(() => {
         setSpanish(lang === 'es')

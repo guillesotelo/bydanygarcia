@@ -202,7 +202,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="home__landing-image-wrapper" style={{ marginTop: isMobile ? '-1rem' : '-5rem' }}>
                     <img src={LandingBespoken} alt="Bespoken" className="home__landing-image" />
                 </div>
-                <div className="page__header"><p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
+                <div className="page__header"><p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].anechooftheheart}</p>
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's beginning` : ''}</h1> */}
                 </div>
@@ -469,7 +469,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="page__header">
                     {products ?
                         <p className="bespoken__product-goback" onClick={() => setProducts('')}>↩ {TEXT[lang].categories_low}</p>
-                        : <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
+                        : <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].anechooftheheart}</p>
                     }
                     <h1
                         className="page__header-title"
@@ -536,7 +536,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="home__landing-image-wrapper" style={{ marginTop: isMobile ? '-1rem' : '-5rem' }}>
                     <img src={LandingWedding} alt="Bespoken" className="home__landing-image" />
                 </div>
-                <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].bydanygarcia}</p>
+                <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].anechooftheheart}</p>
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? parsePageTitle(page) : ''}</h1>
                 </div>

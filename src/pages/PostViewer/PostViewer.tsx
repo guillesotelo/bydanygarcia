@@ -152,7 +152,7 @@ export default function PostViewer({ }: Props) {
     const renderSeo = () => {
         const title = spanish && post.spaTitle ? post.spaTitle : post.title || post.spaTitle || ''
         const description = getOgDescription()
-        const image = post.imageUrl || 'https://www.bydanygarcia.com/images/stay-connected2.png'
+        const image = post.imageUrl || 'https://www.anechooftheheart.com/images/stay-connected2.png'
         const url = `${REACT_APP_PAGE}/post/${post.slug}`
 
         return <SEO
