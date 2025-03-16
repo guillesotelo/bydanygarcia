@@ -14,7 +14,8 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import byDanyLogo from '../../assets/logos/echo-logo.svg'
+import EchoLogo from '../../assets/logos/echo-logo.svg'
+import EchoLogoMobile from '../../assets/logos/echo-logo-mobile.png'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 
@@ -291,7 +292,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 maxHeight: bespokenLogo ? '9vw' : '',
                                 margin: bespokenLogo ? 0 : ''
                             }}
-                            src={bespokenLogo || byDanyLogo}
+                            src={bespokenLogo || EchoLogoMobile}
                             alt='by Dany Garcia'
                             loading='lazy' />
                     </div>
@@ -394,7 +395,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 height: bigHeader ? bespokenLogo ? '3vw' : '5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
                                 margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
                             }}
-                            src={bespokenLogo || byDanyLogo}
+                            src={bespokenLogo || EchoLogo}
                             alt='by Dany Garcia'
                             loading='lazy' />
                     </div>
