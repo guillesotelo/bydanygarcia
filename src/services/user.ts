@@ -2,7 +2,7 @@ import axios from 'axios';
 import { userType } from '../types';
 import { retryWithDelay } from '../helpers';
 
-const API_URL = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : {}
 const authorization = `Bearer ${user.token}`
 

@@ -14,8 +14,7 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import EchoLogo from '../../assets/logos/echo-logo.svg'
-import EchoLogoMobile from '../../assets/logos/echo-logo-mobile.png'
+import EchoLogo from '../../assets/logos/eth.svg'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 
@@ -292,7 +291,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 maxHeight: bespokenLogo ? '9vw' : '',
                                 margin: bespokenLogo ? 0 : ''
                             }}
-                            src={bespokenLogo || EchoLogoMobile}
+                            src={bespokenLogo || EchoLogo}
                             alt='An Echo of the Heart'
                             loading='lazy' />
                     </div>

@@ -15,8 +15,10 @@ import X from '../../assets/icons/x.svg'
 import Linkedin from '../../assets/icons/linkedin.svg'
 import Whatsapp from '../../assets/icons/whatsapp.svg'
 import SEO from '../../components/SEO/Seo'
-import WebSignature from '../../assets/illustrations/web-signature.png'
-import WebSignatureMobile from '../../assets/illustrations/web-signature-mobile.png'
+import WebSignature from '../../assets/illustrations/signature.png'
+import WebSignatureMobile from '../../assets/illustrations/signature-mobile.png'
+import { TEXT } from '../../constants/lang'
+import { subscribe } from '../../services'
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -24,6 +26,7 @@ type Props = {
 
 export default function PostViewer({ }: Props) {
     const [data, setData] = useState<commentType>({})
+    const [subscribeData, setSubscribeData] = useState({ email: '', fullname: '' })
     const [post, setPost] = useState<postType>({})
     const [html, setHtml] = useState('')
     const [spaHtml, setspaHtml] = useState('')
@@ -64,6 +67,26 @@ export default function PostViewer({ }: Props) {
     useEffect(() => {
         styleImagesInParagraphs()
     }, [html, spaHtml, loading])
+
+    const updateSubscribeData = (key: string, e: onChangeEventType) => {
+        const value = e.target.value
+        setSubscribeData({ ...subscribeData, [key]: value })
+    }
+
+    const onSubscribe = async () => {
+        const loading = toast.loading(TEXT[lang]['subscribing'])
+        if (!subscribeData.fullname.includes(' ') || !subscribeData.email.includes('@') || !subscribeData.email.includes('.')) {
+            toast.error(lang === 'es' ? 'Checkea los campos' : 'Check the fields')
+            return toast.remove(loading)
+        }
+        const logged = await subscribe(data)
+        if (logged) {
+            toast.success(TEXT[lang]['subscribe_ok'])
+            setTimeout(() => history.push('/'), 1500)
+        } else toast.error(TEXT[lang]['subscribe_error'])
+
+        return toast.remove(loading)
+    }
 
     const styleImagesInParagraphs = () => {
         const paragraphs = document.querySelectorAll('p');
@@ -237,8 +260,6 @@ export default function PostViewer({ }: Props) {
                     <iframe src={parseYTLink(post.video)} width={isMobile ? '90%' : "700"} height={isMobile ? 'auto' : "400"} frameBorder={0} allowFullScreen />
                 </div>
                 : ''}
-
-            <img src={isMobile ? WebSignatureMobile : WebSignature} alt="Signature" draggable={false} className="postviewer__signature" />
             <div className="postviewer__row">
                 <div className="postviewer__share-section">
                     <h2 className="postviewer__share-text">{lang === 'es' ? 'Comparte este post' : 'Share this post'}</h2>
@@ -247,6 +268,29 @@ export default function PostViewer({ }: Props) {
                     <img className="postviewer__share-icon" onClick={() => shareToPlatform('x')} src={X} />
                     <img className="postviewer__share-icon" onClick={() => shareToPlatform('linkedin')} src={Linkedin} />
                     <img className="postviewer__share-icon" onClick={() => shareToPlatform('whatsapp')} src={Whatsapp} />
+                </div>
+            </div>
+            <div className="postviewer__subscribe">
+                <h2 style={{ fontFamily: '"Madelyn", sans-serif' }}>{lang === 'es' ? 'Únete a mi Comunidad' : 'Join my Mail Community'}</h2>
+                <h3>{lang === 'es' ? 'Únete y recibe cartas mensuales 🖤' : 'Sign up for monthly letters 🖤'}</h3>
+                <div className="postviewer__subscribe-row">
+                    <InputField
+                        name='fullname'
+                        updateData={updateSubscribeData}
+                        placeholder={TEXT[lang]['full_name']}
+                    />
+                    <InputField
+                        name='email'
+                        updateData={updateSubscribeData}
+                        placeholder={TEXT[lang]['your_email']}
+                        type='email'
+                    />
+                    <Button
+                        label={lang === 'es' ? 'Únete' : 'Join'}
+                        handleClick={onSubscribe}
+                        disabled={!subscribeData.email || !subscribeData.fullname}
+                    // style={{ width: '100%' }}
+                    />
                 </div>
             </div>
             <div className="postviewer__comments-section">
@@ -290,6 +334,8 @@ export default function PostViewer({ }: Props) {
                     </div>
                     : ''}
             </div>
+            <img src={isMobile ? WebSignatureMobile : WebSignature} alt="Signature" draggable={false} className="postviewer__signature" />
+
         </div>
     )
 }

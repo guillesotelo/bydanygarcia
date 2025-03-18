@@ -37,8 +37,9 @@ export default function Subscribe({ }: Props) {
 
     return (
         <div className='subscribe__container'>
-            <div className="subscribe__row-container">
-                <div className="subscribe__info" dangerouslySetInnerHTML={{ __html: TEXT[lang]['subscribe_info'] }} />
+            <div className="subscribe-col">
+                <h2>{lang === 'es' ? 'Únete a mi Comunidad' : 'Join my Mail Community'}</h2>
+                <h3>{lang === 'es' ? 'Únete y recibe cartas mensuales 🖤' : 'Sign up for monthly letters 🖤'}</h3>
             </div>
             <div className="subscribe__box">
                 <InputField
@@ -53,7 +54,7 @@ export default function Subscribe({ }: Props) {
                     type='email'
                 />
                 <Button
-                    label={lang === 'es' ? 'Subscríbete' : 'Subscribe'}
+                    label={lang === 'es' ? 'Únete' : 'Join'}
                     handleClick={onSubscribe}
                     disabled={!data.email || !data.fullname}
                     style={{ width: '100%' }}

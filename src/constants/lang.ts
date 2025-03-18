@@ -23,8 +23,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'TU Y TU BEBÉ',
-        'subscribe': 'SUBSCRÍBETE',
-        'subscribe2': 'Suscríbete',
+        'subscribe': 'ÚNETE',
+        'subscribe2': 'Únete',
         'who_am_i': 'QUIEN SOY',
         'hygge': 'HYGGE',
         'contact': 'CONTACTO',
@@ -172,8 +172,8 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
 
         'bespoken': 'BESPOKEN',
         'baby_and_you': 'BABY & YOU',
-        'subscribe': 'SUBSCRIBE',
-        'subscribe2': 'Subscribe',
+        'subscribe': 'JOIN',
+        'subscribe2': 'Join',
         'who_am_i': 'WHO AM I',
         'contact': 'CONTACT',
         'hygge': 'HYGGE',
