@@ -15,6 +15,7 @@ import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import EchoLogo from '../../assets/logos/eth.svg'
+import EchoLogoMobile from '../../assets/logos/eth-mobile.png'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 
@@ -291,7 +292,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 maxHeight: bespokenLogo ? '9vw' : '',
                                 margin: bespokenLogo ? 0 : ''
                             }}
-                            src={bespokenLogo || EchoLogo}
+                            src={bespokenLogo || EchoLogoMobile}
                             alt='An Echo of the Heart'
                             loading='lazy' />
                     </div>
