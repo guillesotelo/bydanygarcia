@@ -30,6 +30,7 @@ const App: React.FC = () => {
   const [isMobile, setIsMobile] = useState(isInstagram || window.screen.width <= 768)
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
+  const [isStoreSubdomain, setIsStoreSubdomain] = useState<boolean | null>(null)
   const location = useLocation()
 
   useEffect(() => {
@@ -46,6 +47,8 @@ const App: React.FC = () => {
       hitType: 'pageview',
       page: window.location.pathname
     })
+
+    setIsStoreSubdomain(window.location.hostname.startsWith('store.'))
   }, [location, window.location.pathname])
 
   return (
@@ -60,13 +63,24 @@ const App: React.FC = () => {
     >
       <RouteTracker />
       <Switch>
-        <Route exact path="/">
-          <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} />
-            <Home />
-            <Footer />
-          </div>
-        </Route>
+
+        {isStoreSubdomain ?
+          <Route path="/">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <Store />
+              <Footer />
+            </div>
+          </Route>
+          :
+          <Route exact path="/">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} />
+              <Home />
+              <Footer />
+            </div>
+          </Route>
+        }
 
         <Route path="/privacyPolicy">
           <div className='page__wrapper'>
