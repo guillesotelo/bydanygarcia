@@ -4,7 +4,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        height: 10vw;
+        height: 8rem;
         box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.097);
         position: fixed;
         top: 0;
@@ -341,7 +341,7 @@
 @media only screen and (max-width: 768px) {
     .header {
         &__container {
-            height: 20vw !important;
+            height: 5rem !important;
             text-align: center;
         }
 
