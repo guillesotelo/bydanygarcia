@@ -1,0 +1,15 @@
+{
+    "rewrites": [
+      {
+        "source": "/",
+        "has": [{ "type": "host", "value": "store.anechooftheheart.com" }],
+        "destination": "/store"
+      },
+      {
+        "source": "/:path*",
+        "has": [{ "type": "host", "value": "store.anechooftheheart.com" }],
+        "destination": "/store/:path*"
+      }
+    ]
+  }
+  
