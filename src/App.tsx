@@ -218,13 +218,13 @@ const App: React.FC = () => {
           </div>
         </Route>
 
-        <Route>
+        {/* <Route>
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} />
             <Home />
             <Footer />
           </div>
-        </Route>
+        </Route> */}
       </Switch>
     </AppProvider>
   );
