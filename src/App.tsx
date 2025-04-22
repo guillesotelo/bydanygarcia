@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import './scss/app.scss'
 import Header from './components/Header/Header';
@@ -18,7 +18,6 @@ import BespokenLogo from './assets/logos/bespoken_logo.png'
 import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
 import ReactGA from 'react-ga4';
-import { postType } from './types';
 import Notifications from './pages/Notifications/Notifications';
 import Store from './pages/Store/Store';
 import Product from './pages/Product/Product';
@@ -68,7 +67,7 @@ const App: React.FC = () => {
       <RouteTracker />
       <Switch>
 
-        {isStoreSubdomain ?
+        {isStoreSubdomain ? <>
           <Route path="/">
             <div className='page__wrapper'>
               <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
@@ -76,6 +75,28 @@ const App: React.FC = () => {
               <Footer />
             </div>
           </Route>
+          <Route path="/edit">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <EditStore />
+              <Footer />
+            </div>
+          </Route>
+          <Route path="/product">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <Product />
+              <Footer />
+            </div>
+          </Route>
+          <Route path="/product:id">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <Product />
+              <Footer />
+            </div>
+          </Route>
+        </>
           :
           <Route exact path="/">
             <div className='page__wrapper'>
@@ -173,7 +194,7 @@ const App: React.FC = () => {
           </div>
         </Route>
 
-        <Route exact path="/bespoken">
+        <Route path="/bespoken">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='HOME' />
@@ -224,37 +245,6 @@ const App: React.FC = () => {
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Bespoken page='OUR HANDCRAFTED WEDDING' />
-            <Footer />
-          </div>
-        </Route>
-
-        <Route exact path="/store">
-          <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-            <Store />
-            <Footer />
-          </div>
-        </Route>
-
-        <Route path="/edit-store">
-          <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-            <EditStore />
-            <Footer />
-          </div>
-        </Route>
-
-        <Route path="/product">
-          <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-            <Product />
-            <Footer />
-          </div>
-        </Route>
-        <Route path="/product:id">
-          <div className='page__wrapper'>
-            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-            <Product />
             <Footer />
           </div>
         </Route>
