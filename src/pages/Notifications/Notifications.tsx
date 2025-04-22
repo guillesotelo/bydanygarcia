@@ -13,6 +13,7 @@ import toast from 'react-hot-toast'
 import Modal from '../../components/Modal/Modal'
 import { subscribe } from '../../services/app'
 import { useHistory } from 'react-router-dom'
+import { goToMainDomain } from '../../helpers'
 
 export default function Notifications() {
     const [data, setData] = useState<templateType>({})
@@ -34,7 +35,7 @@ export default function Notifications() {
     const history = useHistory()
 
     useEffect(() => {
-        if (isLoggedIn !== null && !isLoggedIn) return history.push('/')
+        if (isLoggedIn !== null && !isLoggedIn) return goToMainDomain('/')
         getEmails()
         getTemplates()
     }, [isLoggedIn])

@@ -72,3 +72,9 @@ export const getDate = (dateString: Date | number | string | undefined) => {
         return date.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
     }
 }
+
+export const goToMainDomain = (path = '/') => {
+    const mainDomain = process.env.REACT_APP_DEVELOPMENT ? 'localhost:3000' : 'anechooftheheart.com'
+    window.location.href = `${window.location.protocol}//${mainDomain}${path}`;
+  };
+  

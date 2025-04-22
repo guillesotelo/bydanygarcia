@@ -33,6 +33,7 @@ import BespokenBook from '../../assets/images/bespoken-book.png'
 import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
 import { whatsappMessage } from '../../constants/whatsappMessage'
+import { goToMainDomain } from '../../helpers'
 
 type Props = {
     page?: string
@@ -200,7 +201,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="home__landing-image-wrapper" style={{ marginTop: isMobile ? '-1rem' : '-5rem' }}>
                     <img src={LandingBespoken} alt="Bespoken" className="home__landing-image" />
                 </div>
-                <div className="page__header"><p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].anechooftheheart}</p>
+                <div className="page__header"><p className="bespoken__product-goback" onClick={() => goToMainDomain('/')}>↩ {TEXT[lang].anechooftheheart}</p>
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                     {/* <h1 className="page__header-subtitle">{page === 'STORY' ? `Story of the brand's beginning` : ''}</h1> */}
                 </div>
@@ -289,7 +290,7 @@ export default function Bespoken({ page }: Props) {
 
                 <Button
                     label={lang === 'es' ? 'Ver productos' : 'View products'}
-                    handleClick={() => history.push(`/bespoken/products`)}
+                    handleClick={() => goToMainDomain(`/bespoken/products`)}
                     style={{ transform: 'scale(1.3)', margin: '1rem 0 4rem 0' }}
                     bgColor={APP_COLORS.GRASS}
                     textColor='white'
@@ -467,7 +468,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="page__header">
                     {products ?
                         <p className="bespoken__product-goback" onClick={() => setProducts('')}>↩ {TEXT[lang].categories_low}</p>
-                        : <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].anechooftheheart}</p>
+                        : <p className="bespoken__product-goback" onClick={() => goToMainDomain('/')}>↩ {TEXT[lang].anechooftheheart}</p>
                     }
                     <h1
                         className="page__header-title"
@@ -476,15 +477,15 @@ export default function Bespoken({ page }: Props) {
                     </h1>
                     {!products ?
                         <div className="bespoken__product-cards">
-                            <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=arrangements')}>
+                            <div className="bespoken__product-card" onClick={() => goToMainDomain('/bespoken/products?category=arrangements')}>
                                 <p className="bespoken__product-card-title">FLOWER<br />ARRANGEMENTS</p>
                                 <img src={FlowerArrangements} alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=adornments')}>
+                            <div className="bespoken__product-card" onClick={() => goToMainDomain('/bespoken/products?category=adornments')}>
                                 <p className="bespoken__product-card-title">FLOWER<br />ADORNMENTS</p>
                                 <img src={FlowerAdornments} alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
-                            <div className="bespoken__product-card" onClick={() => history.push('/bespoken/products?category=gifts')}>
+                            <div className="bespoken__product-card" onClick={() => goToMainDomain('/bespoken/products?category=gifts')}>
                                 <p className="bespoken__product-card-title">BESPOKEN<br />GIFTS</p>
                                 <img src={ProductGifts} alt="Bespoken" className="bespoken__product-card-img" />
                             </div>
@@ -534,7 +535,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="home__landing-image-wrapper" style={{ marginTop: isMobile ? '-1rem' : '-5rem' }}>
                     <img src={LandingWedding} alt="Bespoken" className="home__landing-image" />
                 </div>
-                <p className="bespoken__product-goback" onClick={() => history.push('/')}>↩ {TEXT[lang].anechooftheheart}</p>
+                <p className="bespoken__product-goback" onClick={() => goToMainDomain('/')}>↩ {TEXT[lang].anechooftheheart}</p>
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? parsePageTitle(page) : ''}</h1>
                 </div>
@@ -742,7 +743,7 @@ export default function Bespoken({ page }: Props) {
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                 </div>
-                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/story')}>
+                <div className="bespoken__section-card" onClick={() => goToMainDomain('/bespoken/story')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['story']}</h2>
                     {/* <h3 className="bespoken__section-description">
                         {lang === 'es' ?
@@ -751,7 +752,7 @@ export default function Bespoken({ page }: Props) {
                         }
                     </h3> */}
                 </div>
-                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/products')}>
+                <div className="bespoken__section-card" onClick={() => goToMainDomain('/bespoken/products')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['products']}</h2>
                     {/* <h3 className="bespoken__section-description">
                         {lang === 'es' ?
@@ -760,7 +761,7 @@ export default function Bespoken({ page }: Props) {
                         }
                     </h3> */}
                 </div>
-                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
+                <div className="bespoken__section-card" onClick={() => goToMainDomain('/bespoken/our_handcrafted_wedding')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['our_handcrafted_wedding']}</h2>
                     {/* <h3 className="bespoken__section-description">
                         {lang === 'es' ?
@@ -769,7 +770,7 @@ export default function Bespoken({ page }: Props) {
                         }
                     </h3> */}
                 </div>
-                {/* <div className="bespoken__section-card" onClick={() => history.push('/bespoken/values')}>
+                {/* <div className="bespoken__section-card" onClick={() => goToMainDomain('/bespoken/values')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['values']}</h2>
                     <h3 className="bespoken__section-description">
                         {lang === 'es' ?
