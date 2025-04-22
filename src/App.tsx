@@ -68,7 +68,7 @@ const App: React.FC = () => {
       <Switch>
 
         {isStoreSubdomain ? <>
-          <Route path="/">
+          <Route exact path="/">
             <div className='page__wrapper'>
               <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
               <Store />
