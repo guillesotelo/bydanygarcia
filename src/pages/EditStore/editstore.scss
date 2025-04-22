@@ -5,6 +5,8 @@
         flex-direction: column;
     }
 
+    &__title {}
+
     &__row {
         display: flex;
         flex-direction: row;
@@ -22,6 +24,7 @@
             flex-direction: row;
             justify-content: space-between;
             margin: 2rem 0 0;
+            gap: 1rem;
         }
 
         &-image {
@@ -29,6 +32,11 @@
             max-height: 100%;
             width: auto;
             margin-bottom: 2px;
+            transition: .2s;
+
+            &:hover {
+                height: 10rem;
+            }
         }
     }
 }

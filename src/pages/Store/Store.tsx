@@ -1,14 +1,34 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { AppContext } from '../../AppContext'
 import Button from '../../components/Button/Button'
 import { useHistory } from 'react-router-dom'
+import { getAllProducts } from '../../services/product'
+import { productType } from '../../types'
 
 type Props = {}
 
 export default function Store({ }: Props) {
+  const [products, setProducts] = useState<productType[]>([])
+  const [loading, setLoading] = useState(false)
   const { isLoggedIn } = useContext(AppContext)
   const history = useHistory()
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  const getProducts = async () => {
+    try {
+      setLoading(true)
+      const _products = await getAllProducts()
+      if (_products && Array.isArray(_products)) setProducts(_products)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.error(error)
+    }
+  }
 
   const goToEditStore = () => {
     history.push('/store/edit')
@@ -27,32 +47,10 @@ export default function Store({ }: Props) {
       />}
       <h1 className="store__title">Store</h1>
       <div className="store__list">
-
-        <ProductCard
-          product={{
-            _id: "1",
-            title: "Dry Flower Ring",
-            image: "https://i.pinimg.com/236x/b5/88/8e/b5888e0fbc3592af01a29fd5bdde7dd9.jpg",
-            price: 599
-          }}
-        />
-        <ProductCard
-          product={{
-            _id: "2",
-            title: "Seasonal Boutonniere",
-            image: "https://i.pinimg.com/736x/e8/d3/ba/e8d3ba4c73c015e229243ab6acf77b8d.jpg",
-            price: 299
-          }}
-        />
-        <ProductCard
-          product={{
-            _id: "3",
-            title: "Christmas Ring",
-            image: "https://i.pinimg.com/736x/f0/31/4e/f0314e39f4fe59931d5460df3376d319.jpg",
-            price: 699
-          }}
-        />
-
+        {loading ?
+          <p>Loading products...</p>
+          :
+          products.map((product, index) => <ProductCard product={product} index={index} />)}
       </div>
     </div>
   )

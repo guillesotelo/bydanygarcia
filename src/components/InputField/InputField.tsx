@@ -76,14 +76,14 @@ export default function InputField(props: Props) {
         }
     }
 
-    const uploadFile = async (name: string, e: any) => {
+    const uploadFile = async (e: any) => {
         try {
             const file = e.target.files[0]
             if (file) {
                 if (type === 'file') {
                     const compressOptions = {
                         maxSizeMB: 0.3,
-                        maxWidthOrHeight: 300,
+                        maxWidthOrHeight: 1000,
                         useWebWorker: true
                     }
 
@@ -119,7 +119,7 @@ export default function InputField(props: Props) {
                 className={className || `inputfield__default${darkMode ? '--dark' : ''}`}
                 placeholder={placeholder || ''}
                 accept={type === 'file' ? '.png, .jpg, .jpeg, .webp' : ''}
-                onChange={e => updateData ? type === 'file' ? uploadFile(name, e) : updateData(name, e) : null}
+                onChange={e => updateData ? type === 'file' ? uploadFile(e) : updateData(name, e) : null}
                 value={value || undefined}
                 disabled={disabled}
             />

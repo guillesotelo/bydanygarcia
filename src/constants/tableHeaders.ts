@@ -35,8 +35,8 @@ export const productHeaders = [
         value: 'active'
     },
     {
-        name: 'IN STOCK',
-        value: 'inStock'
+        name: 'STOCK',
+        value: 'stock'
     },
     {
         name: 'PRICE',

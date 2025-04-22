@@ -108,4 +108,7 @@ export type productType = {
     price?: number
     description?: string
     image?: string
+    active?: boolean
+    stock?: number
+    currency?: string
 }

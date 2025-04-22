@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom'
 type Props = {
     product?: productType
     style?: React.CSSProperties
+    index?: number
 }
 
-export default function ProductCard({ product, style }: Props) {
+export default function ProductCard({ product, style, index }: Props) {
     const history = useHistory()
     const {
         title,
@@ -22,7 +23,13 @@ export default function ProductCard({ product, style }: Props) {
     }
 
     return (
-        <div className="productcard__container" onClick={goToProductPage} style={style}>
+        <div
+            className="productcard__container"
+            onClick={goToProductPage}
+            style={{
+                ...style,
+                animationDelay: String(index ? index / 20 : 0) + 's'
+            }}>
             <div className="productcard__image-wrapper">
                 <img src={image} alt={title} className="productcard__image" />
             </div>
