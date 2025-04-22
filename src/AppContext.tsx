@@ -10,6 +10,7 @@ type AppContextType = {
     isLoggedIn: boolean | null
     setIsLoggedIn: (value: boolean | null) => void
     children: React.ReactNode
+    darkMode: boolean
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);
@@ -22,6 +23,7 @@ export const AppProvider: React.FC<AppContextType> = ({
     isLoggedIn,
     search,
     setSearch,
+    darkMode,
     children
 }) => (
     <AppContext.Provider value={{
@@ -32,6 +34,7 @@ export const AppProvider: React.FC<AppContextType> = ({
         isMobile,
         setIsLoggedIn,
         isLoggedIn,
+        darkMode,
         children
     }}>{children}</AppContext.Provider>
 );

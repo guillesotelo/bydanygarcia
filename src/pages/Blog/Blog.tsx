@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { getAllPosts } from '../../services'
+import { getAllPosts } from '../../services/post'
 import PostCard from '../../components/PostCard/PostCard'
 import { postType } from '../../types'
 import { AppContext } from '../../AppContext'

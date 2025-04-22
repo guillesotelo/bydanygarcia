@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Post from '../../components/Post/Post'
-import { getPostById, getPostBySlug } from '../../services/post'
+import { getPostBySlug } from '../../services/post'
 import { useHistory, useLocation } from 'react-router-dom'
 import { AppContext } from '../../AppContext'
 import { commentType, onChangeEventType, postType } from '../../types'
 import InputField from '../../components/InputField/InputField'
 import Comment from '../../components/Comment/Comment'
-import { createComment, getAllComments, getPostComments } from '../../services'
+import { createComment, getPostComments } from '../../services/comment'
 import Button from '../../components/Button/Button'
 import toast from 'react-hot-toast'
 import Instagram from '../../assets/icons/instagram.svg'
@@ -18,7 +18,7 @@ import SEO from '../../components/SEO/Seo'
 import WebSignature from '../../assets/illustrations/signature.png'
 import WebSignatureMobile from '../../assets/illustrations/signature-mobile.png'
 import { TEXT } from '../../constants/lang'
-import { subscribe } from '../../services'
+import { subscribe } from '../../services/app'
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {

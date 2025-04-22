@@ -6,7 +6,7 @@ import LikeFilled from '../../assets/icons/like-filled.svg'
 import Reply from '../../assets/icons/reply.svg'
 import { useContext, useState } from 'react'
 import { AppContext } from '../../AppContext'
-import { deleteComment, updateComment } from '../../services'
+import { deleteComment, updateComment } from '../../services/comment'
 import toast from 'react-hot-toast'
 import { useHistory } from 'react-router-dom'
 

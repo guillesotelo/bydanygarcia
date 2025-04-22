@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import MoonLoader from "react-spinners/MoonLoader"
 import { dataObj } from '../../types'
+import { AppContext } from '../../AppContext'
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { getDate } from '../../helpers';
 
 type Props = {
-    tableData: dataObj[]
-    setTableData?: (value: dataObj[]) => void
+    tableData: any[]
+    setTableData?: (value: any[]) => void
     tableHeaders: dataObj
     title?: string
     name?: string
@@ -41,6 +43,7 @@ export default function DataTable(props: Props) {
     const [startTime, setStartTime] = useState(new Date())
     const [loadingTime, setLoadingTime] = useState(0)
     const [dragging, setDragging] = useState(false)
+    const { darkMode } = useContext(AppContext)
 
     useEffect(() => {
         if (orderDataBy) orderBy(orderDataBy)
@@ -124,17 +127,17 @@ export default function DataTable(props: Props) {
     }
 
     const renderNoData = () => {
-        return <div className={`datatable__row`} style={{ height: '2vw', justifyContent: 'center', cursor: 'default' }}>
+        return <div className={`datatable__row${darkMode ? '--dark' : ''}`} style={{ height: '2vw', justifyContent: 'center', cursor: 'default' }}>
             {`No ${name || 'data'} to show.`}
         </div>
     }
 
     const renderHeaders = () => {
-        return <div className={`datatable__headers`}>
+        return <div className={`datatable__headers${darkMode ? '--dark' : ''}`}>
             {tableHeaders.map((header: dataObj, i: number) =>
                 <h4
                     key={i}
-                    className={`datatable__header`}
+                    className={`datatable__header${darkMode ? '--dark' : ''}`}
                     onClick={() => orderBy(header)}
                     style={{ width: `${100 / tableHeaders.length}%` }}>
                     {header.name} {Object.keys(ordered).includes(header.name) ? ordered[header.name] ? `▼` : `▲` : ''}
@@ -148,11 +151,11 @@ export default function DataTable(props: Props) {
             {tableData.map((row: dataObj, i: number) => i < maxItems &&
                 <div
                     key={i}
-                    className={selected === i ? `datatable__row-selected` : `datatable__row`}
+                    className={selected === i ? `datatable__row-selected${darkMode ? '--dark' : ''}` : `datatable__row${darkMode ? '--dark' : ''}`}
                     onClick={() => setSelected ? i === selected ? setSelected(-1) : setSelected(i) : {}}
                     style={{
-                        backgroundColor: selected === i ? '#d4e1f6' : i % 2 === 0 ? 'white'
-                            : selected === i ? '#656565' : i % 2 === 0 ? '#383838' : '',
+                        backgroundColor: !darkMode ? selected === i ? '#d4e1f6' : i % 2 === 0 ? 'white' : '#f5f5f5'
+                            : selected === i ? '#5e598b85' : i % 2 === 0 ? '#38383852' : '',
                         animationDelay: `${((i || 1) + (maxItems > 10 ? (max || 10) - maxItems : maxItems)) / 30}s`
                     }}>
                     {tableHeaders.map((header: dataObj, j: number) =>
@@ -163,10 +166,10 @@ export default function DataTable(props: Props) {
                                 width: `${100 / tableHeaders.length}%`,
                                 color: header.value === 'status' && typeof row[header.value] === 'string' ? 'orange' :
                                     typeof row[header.value] === 'boolean' && header.value != 'userAlert' ?
-                                        row[header.value] ? 'green' : 'red' : ''
+                                        row[header.value] ? darkMode ? '#00b000' : 'green' : 'red' : ''
                             }}>
                             {(header.value === 'createdAt' || header.value === 'updatedAt' || header.value === 'start' || header.value === 'end')
-                                && row[header.value] ? `${new Date(row[header.value]).toLocaleDateString('sv-SE')} ${new Date(row[header.value]).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}` :
+                                && row[header.value] ? `${getDate(row[header.value])}` :
                                 header.value === 'active' || header.value === 'isSuper' ? row[header.value] ? 'Yes' : 'No' :
                                     header.value === 'createdBy' ? row[header.value] ? `User: ${row[header.value]}` : 'App' :
                                         header.value === 'status' ? typeof row[header.value] === 'string' ? row[header.value] : row[header.value] ? 'UP' : 'DOWN' :
@@ -180,9 +183,9 @@ export default function DataTable(props: Props) {
             )}
             {
                 maxItems < tableData.length ?
-                    <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
+                    <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
                     : tableData.length && maxItems >= tableData.length && tableData.length > (max || 10) ?
-                        <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
+                        <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
                         : ''
             }
         </div >
@@ -202,11 +205,11 @@ export default function DataTable(props: Props) {
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}>
-                                            <div className={selected === i ? `datatable__row-selected` : `datatable__row`}
+                                            <div className={selected === i ? `datatable__row-selected${darkMode ? '--dark' : ''}` : `datatable__row${darkMode ? '--dark' : ''}`}
                                                 onClick={() => setSelected ? i === selected ? setSelected(-1) : setSelected(i) : {}}
                                                 style={{
-                                                    backgroundColor: selected === i ? '#d4e1f6' : i % 2 === 0 ? 'white'
-                                                        : selected === i ? '#656565' : i % 2 === 0 ? '#383838' : '',
+                                                    backgroundColor: !darkMode ? selected === i ? '#d4e1f6' : i % 2 === 0 ? 'white' : '#f5f5f5'
+                                                        : selected === i ? '#5e598b85' : i % 2 === 0 ? '#38383852' : '',
                                                     animationDelay: `${((i || 1) + (maxItems > 10 ? (max || 10) - maxItems : maxItems)) / 30}s`
                                                 }}>
                                                 {tableHeaders.map((header: dataObj, j: number) =>
@@ -217,10 +220,10 @@ export default function DataTable(props: Props) {
                                                             width: `${100 / tableHeaders.length}%`,
                                                             color: header.value === 'status' && typeof row[header.value] === 'string' ? 'orange' :
                                                                 typeof row[header.value] === 'boolean' && header.value != 'userAlert' ?
-                                                                    row[header.value] ? 'green' : 'red' : ''
+                                                                    row[header.value] ? darkMode ? '#00b000' : 'green' : 'red' : ''
                                                         }}>
                                                         {(header.value === 'createdAt' || header.value === 'updatedAt' || header.value === 'start' || header.value === 'end')
-                                                            && row[header.value] ? `${new Date(row[header.value]).toLocaleDateString('sv-SE')} ${new Date(row[header.value]).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}` :
+                                                            && row[header.value] ? `${getDate(row[header.value])}` :
                                                             header.value === 'active' || header.value === 'isSuper' ? row[header.value] ? 'Yes' : 'No' :
                                                                 header.value === 'createdBy' ? row[header.value] ? `User: ${row[header.value]}` : 'App' :
                                                                     header.value === 'status' ? row[header.value] ? 'UP' : 'DOWN' :
@@ -237,9 +240,9 @@ export default function DataTable(props: Props) {
                             )}
                             {!dragging ?
                                 maxItems < tableData.length ?
-                                    <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
+                                    <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(maxItems + 10)}>{`Show more ${name ? name : ''} ▼`}</button>
                                     : tableData.length && maxItems >= tableData.length && tableData.length > (max || 10) ?
-                                        <button className={`datatable__lazy-btn`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
+                                        <button className={`datatable__lazy-btn${darkMode ? '--dark' : ''}`} onClick={() => setMaxItems(max || 10)}>Show less ▲</button>
                                         : '' : ''
                             }
                         </div>
@@ -251,7 +254,7 @@ export default function DataTable(props: Props) {
     }
 
     return (
-        <div className={`datatable__container`} style={style}>
+        <div className={`datatable__container${darkMode ? '--dark' : ''}`} style={style}>
             <div className='datatable__titles'>
                 <h4 className='datatable__title'>{title || ''}</h4>
             </div>

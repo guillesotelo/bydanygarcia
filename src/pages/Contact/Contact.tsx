@@ -3,7 +3,7 @@ import InputField from '../../components/InputField/InputField'
 import Button from '../../components/Button/Button'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import { sendContactEmail } from '../../services'
+import { sendContactEmail } from '../../services/app'
 import { onChangeEventType } from '../../types'
 
 type Props = {}

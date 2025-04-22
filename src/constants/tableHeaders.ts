@@ -20,3 +20,26 @@ export const subscriptionHeaders = [
         value: 'capturedFrom'
     },
 ]
+
+export const productHeaders = [
+    {
+        name: 'UPDATED',
+        value: 'updatedAt'
+    },
+    {
+        name: 'TITLE',
+        value: 'title'
+    },
+    {
+        name: 'ACTIVE',
+        value: 'active'
+    },
+    {
+        name: 'IN STOCK',
+        value: 'inStock'
+    },
+    {
+        name: 'PRICE',
+        value: 'price'
+    },
+]

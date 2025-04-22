@@ -21,6 +21,8 @@ import ReactGA from 'react-ga4';
 import { postType } from './types';
 import Notifications from './pages/Notifications/Notifications';
 import Store from './pages/Store/Store';
+import Product from './pages/Product/Product';
+import EditStore from './pages/EditStore/EditStore';
 
 const App: React.FC = () => {
   const preferedLang = localStorage.getItem('preferedLang')
@@ -31,6 +33,7 @@ const App: React.FC = () => {
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const [isStoreSubdomain, setIsStoreSubdomain] = useState<boolean | null>(null)
+  const [darkMode, setDarkMode] = useState<boolean>(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -60,6 +63,7 @@ const App: React.FC = () => {
       isMobile={isMobile}
       isLoggedIn={isLoggedIn}
       setIsLoggedIn={setIsLoggedIn}
+      darkMode={darkMode}
     >
       <RouteTracker />
       <Switch>
@@ -169,6 +173,14 @@ const App: React.FC = () => {
           </div>
         </Route>
 
+        <Route path="/bespoken">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <Bespoken page='HOME' />
+            <Footer />
+          </div>
+        </Route>
+
         <Route path="/bespoken/home">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
@@ -216,10 +228,33 @@ const App: React.FC = () => {
           </div>
         </Route>
 
-        <Route path="/store">
+        <Route exact path="/store">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Store />
+            <Footer />
+          </div>
+        </Route>
+
+        <Route path="/store/edit">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <EditStore />
+            <Footer />
+          </div>
+        </Route>
+
+        <Route path="/store/product">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <Product />
+            <Footer />
+          </div>
+        </Route>
+        <Route path="/store/product:id">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <Product />
             <Footer />
           </div>
         </Route>

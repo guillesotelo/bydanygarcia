@@ -1,0 +1,23 @@
+.store {
+    &__container {
+        min-height: 120vh;
+        display: flex;
+        flex-direction: column;
+        padding: 4rem 0;
+        position: relative;
+    }
+
+    &__title {
+        text-align: center;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 2rem;
+        gap: 3rem;
+        height: 90%;
+    }
+}

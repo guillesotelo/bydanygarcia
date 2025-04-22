@@ -101,3 +101,11 @@ export type templateType = {
     createdAt?: Date
     updatedAt?: Date
 }
+
+export type productType = {
+    _id?: string
+    title?: string
+    price?: number
+    description?: string
+    image?: string
+}

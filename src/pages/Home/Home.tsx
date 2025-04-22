@@ -1,7 +1,7 @@
 import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PostCard from '../../components/PostCard/PostCard'
-import { getAllPosts } from '../../services'
+import { getAllPosts } from '../../services/post'
 import { AppContext } from '../../AppContext'
 import LandingDany from '../../assets/images/landing-1.jpg'
 import Button from '../../components/Button/Button'

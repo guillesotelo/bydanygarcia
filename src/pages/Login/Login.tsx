@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { loginUser, registerUser } from '../../services'
+import { loginUser, registerUser } from '../../services/user'
 import { toast } from 'react-hot-toast';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';

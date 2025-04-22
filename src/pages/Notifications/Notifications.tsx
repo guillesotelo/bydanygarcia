@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import DataTable from '../../components/DataTable/DataTable'
 import { subscriptionHeaders } from '../../constants/tableHeaders'
-import { createTemplate, getAllEmails, getAllTemplates, sendNotification, updateSubscription, updateTemplate } from '../../services'
+import { getAllEmails, sendNotification, updateSubscription } from '../../services/app'
+import { getAllTemplates, createTemplate, updateTemplate } from '../../services/emailTemplate'
 import { emailType, onChangeEventType, templateType } from '../../types'
 import Button from '../../components/Button/Button'
 import Switch from '../../components/Switch/Switch'
@@ -10,7 +11,7 @@ import InputField from '../../components/InputField/InputField'
 import { AppContext } from '../../AppContext'
 import toast from 'react-hot-toast'
 import Modal from '../../components/Modal/Modal'
-import { subscribe } from '../../services'
+import { subscribe } from '../../services/app'
 import { useHistory } from 'react-router-dom'
 
 export default function Notifications() {

@@ -1,0 +1,34 @@
+.editstore {
+    &__container {
+        margin: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+
+    &__modal {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+        &-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 2rem 0 0;
+        }
+
+        &-image {
+            height: 2.2rem;
+            max-height: 100%;
+            width: auto;
+            margin-bottom: 2px;
+        }
+    }
+}
