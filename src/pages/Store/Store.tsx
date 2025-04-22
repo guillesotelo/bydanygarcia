@@ -31,7 +31,7 @@ export default function Store({ }: Props) {
   }
 
   const goToEditStore = () => {
-    history.push('/store/edit')
+    history.push('/edit-store')
   }
 
   return (

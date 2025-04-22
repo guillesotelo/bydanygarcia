@@ -10,6 +10,7 @@ type Props = {
 
 export default function ProductCard({ product, style, index }: Props) {
     const history = useHistory()
+    
     const {
         title,
         image,
@@ -19,7 +20,7 @@ export default function ProductCard({ product, style, index }: Props) {
     } = product || {}
 
     const goToProductPage = () => {
-        history.push(`/store/product?id=${_id}`)
+        history.push(`/product?id=${_id}`)
     }
 
     return (

@@ -257,7 +257,7 @@ export default function EditStore({ }: Props) {
                 <Button
                     label='View store'
                     handleClick={() => {
-                       history.push('/store')
+                       history.push('/')
                     }}
                     style={{ margin: '1rem 1rem 2rem', filter: openModal ? 'blur(4px)' : '' }}
                     disabled={loading}

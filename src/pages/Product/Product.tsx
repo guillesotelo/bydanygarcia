@@ -48,7 +48,7 @@ export default function Product({ }: Props) {
                         <Button
                             label='Back to the store'
                             handleClick={() => {
-                                history.push('/store')
+                                history.push('/')
                             }}
                             style={{ left: '0', top: '0', position: 'absolute' }}
                             disabled={loading}

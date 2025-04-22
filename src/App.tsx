@@ -236,7 +236,7 @@ const App: React.FC = () => {
           </div>
         </Route>
 
-        <Route path="/store/edit">
+        <Route path="/edit-store">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <EditStore />
@@ -244,14 +244,14 @@ const App: React.FC = () => {
           </div>
         </Route>
 
-        <Route path="/store/product">
+        <Route path="/product">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Product />
             <Footer />
           </div>
         </Route>
-        <Route path="/store/product:id">
+        <Route path="/product:id">
           <div className='page__wrapper'>
             <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
             <Product />
