@@ -472,7 +472,7 @@ export default function Bespoken({ page }: Props) {
                     <h1
                         className="page__header-title"
                         style={{ cursor: 'pointer' }}>
-                        {products || 'Products'}
+                        {products || lang === 'es' ? 'Trabajos Previos' : 'Previous Work'}
                     </h1>
                     {!products ?
                         <div className="bespoken__product-cards">

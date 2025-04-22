@@ -161,6 +161,12 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
         localStorage.setItem('preferedLang', language)
     }
 
+    const goToStore = () => {
+        const a = document.createElement('a')
+        a.href = 'https://store.anechooftheheart.com'
+        a.click()
+    }
+
     const renderMobile = () => {
         return (
             <>
@@ -354,6 +360,11 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
+                            <div className="header__item-dropdown-row" onClick={goToStore}>
+                                <h4 className="header__item-dropdown-text">
+                                    STORE
+                                </h4>
+                            </div>
                             <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['story_of_brand']}

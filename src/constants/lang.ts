@@ -43,7 +43,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'search': 'Buscar',
         'story_of_brand': `HISTORIA DE LA MARCA`,
         'story': `HISTORIA`,
-        'products': `PRODUCTOS`,
+        'products': `TRABAJOS PREVIOS`,
         'anechooftheheart': `An Echo of the Heart`,
 
         //LOGIN
@@ -192,7 +192,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         'search': 'Search',
         'story_of_brand': `STORY OF THE BEGINNING`,
         'story': `STORY`,
-        'products': `PRODUCTS`,
+        'products': `PREVIOUS WORK`,
         'anechooftheheart': `An Echo of the Heart`,
 
         //LOGIN
