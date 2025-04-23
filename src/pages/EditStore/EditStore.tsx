@@ -169,7 +169,7 @@ export default function EditStore({ }: Props) {
                             label='Title'
                             name='title'
                             updateData={updateData}
-                            disabled={loading}
+                            disabled={loading || loadingImages}
                             value={product.title}
                         />
                         <div className="editstore__row">
@@ -177,7 +177,7 @@ export default function EditStore({ }: Props) {
                                 label='Price'
                                 name='price'
                                 updateData={updateData}
-                                disabled={loading}
+                                disabled={loading || loadingImages}
                                 value={product.price}
                             />
                             <Dropdown
@@ -214,8 +214,7 @@ export default function EditStore({ }: Props) {
                                     type='file'
                                     images={getImages(product.images)}
                                     setImages={images => updateData('images', { target: { value: JSON.stringify(images) } })}
-                                    updateData={updateData}
-                                    disabled={loading}
+                                    disabled={loading || loadingImages}
                                     multiple={true}
                                     setLoadingImages={setLoadingImages}
                                 />
@@ -223,7 +222,7 @@ export default function EditStore({ }: Props) {
                                     label='Image URL'
                                     name='image'
                                     updateData={updateData}
-                                    disabled={loading}
+                                    disabled={loading || loadingImages}
                                     value={getImages(product.images)[0] || ''}
                                 />
                             </div>}
@@ -245,7 +244,7 @@ export default function EditStore({ }: Props) {
                             type='textarea'
                             rows={6}
                             updateData={updateData}
-                            disabled={loading}
+                            disabled={loading || loadingImages}
                             value={product.description}
                         />
                         <div className="editstore__modal-buttons">
@@ -259,7 +258,7 @@ export default function EditStore({ }: Props) {
                             <Button
                                 label='Save changes'
                                 handleClick={isNew ? saveNewProduct : updateProductData}
-                                disabled={loading}
+                                disabled={loading || loadingImages}
                                 style={{ width: '100%' }}
                             />
                         </div>

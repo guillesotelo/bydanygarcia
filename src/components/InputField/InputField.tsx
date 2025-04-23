@@ -82,7 +82,7 @@ export default function InputField(props: Props) {
 
     const uploadFile = async (e: any) => {
         try {
-            if(setLoadingImages) setLoadingImages(true)
+            if (setLoadingImages) setLoadingImages(true)
             const files = e.target.files
             if (files && files.length) {
                 let imgArray = []
@@ -97,11 +97,11 @@ export default function InputField(props: Props) {
                     const base64 = await convertToBase64(compressedFile)
                     imgArray.push(String(base64))
                 }
-                if(setImages) setImages(imgArray)
+                if (setImages) setImages(imgArray)
             }
-            if(setLoadingImages) setLoadingImages(false)
+            if (setLoadingImages) setLoadingImages(false)
         } catch (err) {
-            if(setLoadingImages) setLoadingImages(false)
+            if (setLoadingImages) setLoadingImages(false)
             console.error(err)
         }
     }
@@ -128,7 +128,7 @@ export default function InputField(props: Props) {
                 className={className || `inputfield__default${darkMode ? '--dark' : ''}`}
                 placeholder={placeholder || ''}
                 accept={type === 'file' ? '.png, .jpg, .jpeg, .webp' : ''}
-                onChange={e => updateData ? type === 'file' ? uploadFile(e) : updateData(name, e) : null}
+                onChange={e => type === 'file' ? uploadFile(e) : updateData ? updateData(name, e) : null}
                 value={value || undefined}
                 disabled={disabled}
                 multiple={multiple}

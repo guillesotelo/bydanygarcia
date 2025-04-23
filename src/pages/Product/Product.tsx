@@ -43,33 +43,45 @@ export default function Product({ }: Props) {
         return imgs[0] || ''
     }
 
+    const getImages = (imgStr?: string) => {
+        return JSON.parse(imgStr || '[]')
+    }
+
     return (
         <div className="product__container">
             {loading ? <p>Loading product details...</p>
                 :
                 !product ? <p>An error occurred while getting the product information. Please <a href='https://store.anechooftheheart.com/'>go back to the store</a> and try again</p>
                     :
-                    <div className="product__row">
-                        <Button
-                            label='Back to the store'
-                            handleClick={() => {
-                                history.push('/store')
-                            }}
-                            style={{ left: '0', top: '0', position: 'absolute' }}
-                            disabled={loading}
-                        />
-                        <div className="product__image-wrapper">
-                            <img src={product ? getMainImage(product.images) : ''} alt={product?.title} className="product__image" />
-                        </div>
-                        <div className="product__information">
-                            <p className="product__title">{product?.title}</p>
-                            <p className="product__price">{product?.price} sek</p>
-                            <p className="product__description">{product?.description}</p>
+                    <div className="product__col">
+                        <div className="product__row">
                             <Button
-                                label='Buy'
-                                handleClick={buyProduct}
-                                style={{ width: '100%', marginTop: '2rem', fontSize: '1.3rem', padding: '.8rem' }}
+                                label='Back to the store'
+                                handleClick={() => {
+                                    history.push('/store')
+                                }}
+                                style={{ left: '0', top: '0', position: 'absolute' }}
+                                disabled={loading}
                             />
+                            <div className="product__image-wrapper">
+                                <img src={product ? getMainImage(product.images) : ''} alt={product?.title} className="product__image" />
+                            </div>
+                            <div className="product__information">
+                                <p className="product__title">{product?.title}</p>
+                                <p className="product__price">{product?.price} sek</p>
+                                <p className="product__description">{product?.description}</p>
+                                <Button
+                                    label='Buy'
+                                    handleClick={buyProduct}
+                                    style={{ width: '100%', marginTop: '2rem', fontSize: '1.3rem', padding: '.8rem' }}
+                                />
+                            </div>
+                        </div>
+                        <div className="product__galery">
+                            {getImages(product.images).map((image: string, i: number) =>
+                                i !== 0 && <div className='product__galery-image-wrapper'>
+                                    <img key={i} src={image} draggable={false} className='product__galery-image' />
+                                </div>)}
                         </div>
                     </div>
             }
