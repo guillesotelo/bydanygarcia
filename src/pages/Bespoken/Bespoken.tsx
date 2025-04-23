@@ -25,7 +25,7 @@ import PinterestSave from '../../assets/icons/pinterest-color.svg'
 import { getScrappedImages, scrapeUrl } from '../../services/app'
 import { TEXT } from '../../constants/lang'
 import LandingWedding from '../../assets/images/bespoken-wedding-landing.png'
-import LandingBespoken from '../../assets/images/bespoken-landing.jpg'
+import LandingBespoken from '../../assets/images/bespoken-landing-compressed.jpg'
 import FlowerAdornments from '../../assets/images/products-adornments.png'
 import FlowerArrangements from '../../assets/images/products-arrangements.png'
 import ProductGifts from '../../assets/images/products-gifts.png'
@@ -479,15 +479,15 @@ export default function Bespoken({ page }: Props) {
                         <div className="bespoken__product-cards">
                             <div className="bespoken__product-card" onClick={() => goToMainDomain('/bespoken/products?category=arrangements')}>
                                 <p className="bespoken__product-card-title">FLOWER<br />ARRANGEMENTS</p>
-                                <img src={FlowerArrangements} alt="Bespoken" className="bespoken__product-card-img" />
+                                <img src={FlowerArrangements} alt="Bespoken" className="bespoken__product-card-img" loading='lazy' draggable={false} />
                             </div>
                             <div className="bespoken__product-card" onClick={() => goToMainDomain('/bespoken/products?category=adornments')}>
                                 <p className="bespoken__product-card-title">FLOWER<br />ADORNMENTS</p>
-                                <img src={FlowerAdornments} alt="Bespoken" className="bespoken__product-card-img" />
+                                <img src={FlowerAdornments} alt="Bespoken" className="bespoken__product-card-img" loading='lazy' draggable={false} />
                             </div>
                             <div className="bespoken__product-card" onClick={() => goToMainDomain('/bespoken/products?category=gifts')}>
                                 <p className="bespoken__product-card-title">BESPOKEN<br />GIFTS</p>
-                                <img src={ProductGifts} alt="Bespoken" className="bespoken__product-card-img" />
+                                <img src={ProductGifts} alt="Bespoken" className="bespoken__product-card-img" loading='lazy' draggable={false} />
                             </div>
                         </div>
                         : ''}
