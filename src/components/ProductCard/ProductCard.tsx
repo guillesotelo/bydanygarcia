@@ -29,7 +29,7 @@ export default function ProductCard({ product, style, index }: Props) {
     }
 
     const getPrice = (price?: number) => {
-        product?.currency ?
+        return product?.currency ?
             product.currency === '$' ? `$${price}`
                 : `${price} ${product.currency}`
             : ''

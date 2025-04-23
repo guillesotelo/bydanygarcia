@@ -11,7 +11,7 @@ type Props = {}
 export default function Store({ }: Props) {
   const [products, setProducts] = useState<productType[]>([])
   const [loading, setLoading] = useState(false)
-  const { isLoggedIn } = useContext(AppContext)
+  const { isLoggedIn, isMobile } = useContext(AppContext)
   const history = useHistory()
 
   useEffect(() => {
@@ -41,8 +41,8 @@ export default function Store({ }: Props) {
         handleClick={goToEditStore}
         style={{
           position: 'absolute',
-          right: '2rem',
-          top: '2rem'
+          right: isMobile ? '.5rem' : '2rem',
+          top: isMobile ? '3.5rem' : '2rem'
         }}
       />}
       <h1 className="store__title">Store</h1>

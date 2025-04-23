@@ -48,7 +48,7 @@ export default function Product({ }: Props) {
     }
 
     const getPrice = (price?: number) => {
-        product?.currency ?
+       return product?.currency ?
             product.currency === '$' ? `$${price}`
                 : `${price} ${product.currency}`
             : ''
