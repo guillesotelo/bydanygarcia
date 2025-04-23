@@ -10,7 +10,7 @@ type Props = {
 
 export default function ProductCard({ product, style, index }: Props) {
     const history = useHistory()
-    
+
     const {
         title,
         images,
@@ -28,6 +28,13 @@ export default function ProductCard({ product, style, index }: Props) {
         return imgs[0] || ''
     }
 
+    const getPrice = (price?: number) => {
+        product?.currency ?
+            product.currency === '$' ? `$${price}`
+                : `${price} ${product.currency}`
+            : ''
+    }
+
     return (
         <div
             className="productcard__container"
@@ -40,7 +47,7 @@ export default function ProductCard({ product, style, index }: Props) {
                 <img src={getMainImage(images)} alt={title} className="productcard__image" />
             </div>
             <p className="productcard__title">{title}</p>
-            <p className="productcard__price">{price} sek</p>
+            <p className="productcard__price">{getPrice(price)}</p>
         </div>
     )
 }

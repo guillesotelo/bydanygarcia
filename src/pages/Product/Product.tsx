@@ -47,6 +47,13 @@ export default function Product({ }: Props) {
         return JSON.parse(imgStr || '[]')
     }
 
+    const getPrice = (price?: number) => {
+        product?.currency ?
+            product.currency === '$' ? `$${price}`
+                : `${price} ${product.currency}`
+            : ''
+    }
+
     return (
         <div className="product__container">
             {loading ? <p>Loading product details...</p>
@@ -68,7 +75,7 @@ export default function Product({ }: Props) {
                             </div>
                             <div className="product__information">
                                 <p className="product__title">{product?.title}</p>
-                                <p className="product__price">{product?.price} sek</p>
+                                <p className="product__price">{getPrice(product.price)}</p>
                                 <p className="product__description">{product?.description}</p>
                                 <Button
                                     label='Buy'
