@@ -13,14 +13,19 @@ export default function ProductCard({ product, style, index }: Props) {
     
     const {
         title,
-        image,
+        images,
         price,
         description,
         _id
     } = product || {}
 
     const goToProductPage = () => {
-        history.push(`/product?id=${_id}`)
+        history.push(`/store/product?id=${_id}`)
+    }
+
+    const getMainImage = (images?: string) => {
+        const imgs = JSON.parse(images || '[]')
+        return imgs[0] || ''
     }
 
     return (
@@ -32,7 +37,7 @@ export default function ProductCard({ product, style, index }: Props) {
                 animationDelay: String(index ? index / 20 : 0) + 's'
             }}>
             <div className="productcard__image-wrapper">
-                <img src={image} alt={title} className="productcard__image" />
+                <img src={getMainImage(images)} alt={title} className="productcard__image" />
             </div>
             <p className="productcard__title">{title}</p>
             <p className="productcard__price">{price} sek</p>

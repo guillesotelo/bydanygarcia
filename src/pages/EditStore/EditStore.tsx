@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../AppContext'
 import DataTable from '../../components/DataTable/DataTable'
 import { productHeaders } from '../../constants/tableHeaders'
 import { createProduct, deleteProduct, getAllProducts, updateProduct } from '../../services/product'
-import { dataObj, onChangeEventType, productType } from '../../types'
+import { dataObj, productType } from '../../types'
 import Modal from '../../components/Modal/Modal'
 import InputField from '../../components/InputField/InputField'
 import Button from '../../components/Button/Button'
@@ -11,6 +11,7 @@ import toast from 'react-hot-toast'
 import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { useHistory } from 'react-router-dom'
+import { RingLoader } from 'react-spinners'
 
 type Props = {}
 
@@ -22,6 +23,7 @@ export default function EditStore({ }: Props) {
     const [isNew, setIsNew] = useState(false)
     const [loading, setLoading] = useState(false)
     const [removeProduct, setRemoveProduct] = useState(false)
+    const [loadingImages, setLoadingImages] = useState(false)
     const { isLoggedIn } = useContext(AppContext)
     const history = useHistory()
 
@@ -122,6 +124,17 @@ export default function EditStore({ }: Props) {
         }
     }
 
+    const getImages = (imgStr?: string) => {
+        return JSON.parse(imgStr || '[]')
+    }
+
+    const reorderImages = (images: string | undefined, index: number) => {
+        const copyImages = [...getImages(images)]
+        const [item] = copyImages.splice(index, 1)
+        copyImages.unshift(item)
+        setProduct(prev => ({ ...prev, images: JSON.stringify(copyImages) }))
+    }
+
     return isLoggedIn ?
         <div className="editstore__container">
             <h1 className='editstore__title' style={{ filter: openModal ? 'blur(4px)' : '' }}>Edit Store</h1>
@@ -191,26 +204,41 @@ export default function EditStore({ }: Props) {
                                 setValue={value => updateData('active', { target: { value } })}
                             />
                         </div>
-                        <div className="editstore__row">
-                            <InputField
-                                label='Image upload'
-                                name='image'
-                                type='file'
-                                image={product.image}
-                                setImage={image => updateData('image', { target: { value: image } })}
-                                updateData={updateData}
-                                disabled={loading}
-                                placeholder='asd'
-                            />
-                            <InputField
-                                label='Image URL'
-                                name='image'
-                                updateData={updateData}
-                                disabled={loading}
-                                value={product.image}
-                            />
-                            {product.image ? <img src={product.image} alt={product.title} className="editstore__modal-image" /> : ''}
-                        </div>
+                        {loadingImages ? <div className="editstore__row" style={{ alignItems: 'center' }}>
+                            <RingLoader size={10} /><p> Uploading images...</p>
+                        </div> :
+                            <div className="editstore__row">
+                                <InputField
+                                    label='Image upload'
+                                    name='image'
+                                    type='file'
+                                    images={getImages(product.images)}
+                                    setImages={images => updateData('images', { target: { value: JSON.stringify(images) } })}
+                                    updateData={updateData}
+                                    disabled={loading}
+                                    multiple={true}
+                                    setLoadingImages={setLoadingImages}
+                                />
+                                <InputField
+                                    label='Image URL'
+                                    name='image'
+                                    updateData={updateData}
+                                    disabled={loading}
+                                    value={getImages(product.images)[0] || ''}
+                                />
+                            </div>}
+                        {getImages(product.images).length ?
+                            <div className="editstore__row" style={{ margin: '.5rem 0' }}>
+                                {getImages(product.images).map((image: string, i: number) =>
+                                    <img
+                                        key={i}
+                                        src={image}
+                                        alt={product.title}
+                                        style={{ borderColor: i === 0 ? '#38a3c5' : '' }}
+                                        onClick={() => reorderImages(product.images, i)}
+                                        className="editstore__modal-image" />
+                                )}
+                            </div> : ''}
                         <InputField
                             label='Description'
                             name='description'
@@ -257,7 +285,7 @@ export default function EditStore({ }: Props) {
                 <Button
                     label='View store'
                     handleClick={() => {
-                       history.push('/')
+                        history.push('/store')
                     }}
                     style={{ margin: '1rem 1rem 2rem', filter: openModal ? 'blur(4px)' : '' }}
                     disabled={loading}

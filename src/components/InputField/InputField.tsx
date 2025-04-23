@@ -17,8 +17,10 @@ type Props = {
     style?: React.CSSProperties
     disabled?: boolean
     onSubmit?: () => void
-    image?: string
-    setImage?: (value: string) => void
+    images?: string[]
+    setImages?: (value: string[]) => void
+    multiple?: boolean
+    setLoadingImages?: (value: boolean) => void
 }
 
 export default function InputField(props: Props) {
@@ -38,8 +40,10 @@ export default function InputField(props: Props) {
         style,
         disabled,
         onSubmit,
-        image,
-        setImage,
+        images,
+        setImages,
+        multiple,
+        setLoadingImages
     } = props
 
     useEffect(() => {
@@ -78,21 +82,26 @@ export default function InputField(props: Props) {
 
     const uploadFile = async (e: any) => {
         try {
-            const file = e.target.files[0]
-            if (file) {
-                if (type === 'file') {
+            if(setLoadingImages) setLoadingImages(true)
+            const files = e.target.files
+            if (files && files.length) {
+                let imgArray = []
+                for (let i = 0; i < files.length; i++) {
                     const compressOptions = {
-                        maxSizeMB: 0.3,
+                        maxSizeMB: 0.45,
                         maxWidthOrHeight: 1000,
                         useWebWorker: true
                     }
 
-                    const compressedFile = await imageCompression(file, compressOptions)
+                    const compressedFile = await imageCompression(files[i], compressOptions)
                     const base64 = await convertToBase64(compressedFile)
-                    if (setImage) setImage(String(base64))
+                    imgArray.push(String(base64))
                 }
+                if(setImages) setImages(imgArray)
             }
+            if(setLoadingImages) setLoadingImages(false)
         } catch (err) {
+            if(setLoadingImages) setLoadingImages(false)
             console.error(err)
         }
     }
@@ -122,6 +131,7 @@ export default function InputField(props: Props) {
                 onChange={e => updateData ? type === 'file' ? uploadFile(e) : updateData(name, e) : null}
                 value={value || undefined}
                 disabled={disabled}
+                multiple={multiple}
             />
         </div>
 }

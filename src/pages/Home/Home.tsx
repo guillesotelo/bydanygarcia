@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
 import { TEXT } from '../../constants/lang'
 import Player from '../../components/Player/Player'
-import { goToMainDomain } from '../../helpers'
+import { history } from '../../helpers'
 const Track1 = require('../../assets/audio/Jamie-Duffy_Solas.mp3')
 const Track2 = require('../../assets/audio/Je-Te-Laisserai_Des-Mots.mp3')
 
@@ -97,7 +97,7 @@ export default function Home() {
 
             <Button
                 label={lang === 'es' ? 'Conóceme' : 'Get to know me'}
-                handleClick={() => goToMainDomain(`/about`)}
+                handleClick={() => history.push(`/about`)}
                 bgColor={APP_COLORS.GRASS}
                 textColor='white'
                 style={{ transform: 'scale(1.2)' }}
@@ -114,7 +114,7 @@ export default function Home() {
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => goToMainDomain(`/blog?category=inspiration`)}
+                handleClick={() => history.push(`/blog?category=inspiration`)}
                 style={{ transform: 'scale(1.3)' }}
             />
 
@@ -130,7 +130,7 @@ export default function Home() {
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => goToMainDomain(`/blog?category=motherhood`)}
+                handleClick={() => history.push(`/blog?category=motherhood`)}
                 style={{ transform: 'scale(1.3)' }}
             />
 
@@ -146,7 +146,7 @@ export default function Home() {
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => goToMainDomain(`/blog?category=life_abroad`)}
+                handleClick={() => history.push(`/blog?category=life_abroad`)}
                 style={{ transform: 'scale(1.3)' }}
             />
         </div>

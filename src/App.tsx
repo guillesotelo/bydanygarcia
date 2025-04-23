@@ -67,45 +67,13 @@ const App: React.FC = () => {
       <RouteTracker />
       <Switch>
 
-        {isStoreSubdomain ? <>
-          <Route exact path="/">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <Store />
-              <Footer />
-            </div>
-          </Route>
-          <Route path="/edit">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <EditStore />
-              <Footer />
-            </div>
-          </Route>
-          <Route path="/product">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <Product />
-              <Footer />
-            </div>
-          </Route>
-          <Route path="/product:id">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <Product />
-              <Footer />
-            </div>
-          </Route>
-        </>
-          :
-          <Route exact path="/">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} />
-              <Home />
-              <Footer />
-            </div>
-          </Route>
-        }
+        <Route exact path="/">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} />
+            <Home />
+            <Footer />
+          </div>
+        </Route>
 
         <Route path="/privacyPolicy">
           <div className='page__wrapper'>
@@ -256,6 +224,35 @@ const App: React.FC = () => {
             <Footer />
           </div>
         </Route>
+
+        <Route exact path="/store">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <Store />
+              <Footer />
+            </div>
+          </Route>
+          <Route path="/store/edit">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <EditStore />
+              <Footer />
+            </div>
+          </Route>
+          <Route path="/store/product">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <Product />
+              <Footer />
+            </div>
+          </Route>
+          <Route path="/store/product:id">
+            <div className='page__wrapper'>
+              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+              <Product />
+              <Footer />
+            </div>
+          </Route>
 
         {/* <Route>
           <div className='page__wrapper'>

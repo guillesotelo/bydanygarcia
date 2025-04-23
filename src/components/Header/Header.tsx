@@ -19,7 +19,6 @@ import EchoLogo from '../../assets/logos/eth.svg'
 import EchoLogoMobile from '../../assets/logos/eth-mobile.png'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
-import { goToMainDomain } from '../../helpers'
 
 type Props = {
     search: string[]
@@ -120,7 +119,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
         if (prompt.trim()) {
             setSearchClicked(false)
             setSearch(prompt.split(' '))
-            goToMainDomain('/search')
+            history.push('/search')
             setPrompt('')
         }
     }
@@ -137,7 +136,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
             )
             setDeleteModal(false)
             localStorage.removeItem('posts')
-            setTimeout(() => goToMainDomain('/blog'), 1500)
+            setTimeout(() => history.push('/blog'), 1500)
         } catch (err) {
             console.error(err)
             setDeleteModal(false)
@@ -153,19 +152,13 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
             const posts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts') || '[]') : []
             localStorage.setItem('posts', posts.filter((post: postType) => post.published))
             setPostId('')
-            goToMainDomain('/')
+            history.push('/')
         }, 1500)
     }
 
     const changeLanguage = (language: string) => {
         setLang(language)
         localStorage.setItem('preferedLang', language)
-    }
-
-    const goToStore = () => {
-        const a = document.createElement('a')
-        a.href = 'https://store.anechooftheheart.com'
-        a.click()
     }
 
     const renderMobile = () => {
@@ -177,7 +170,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         <div className="header__menu-item" style={{ marginTop: isMobile ? '6vw' : '2vw' }}>
                             <h4 className="header__menu-item-text" onClick={() => {
                                 // setTimeout(() => setMenuToggle(false), 50)
-                                // goToMainDomain('/blog')
+                                // history.push('/blog')
                                 setBlogToggle(!blogToggle)
                             }}>{TEXT[lang]['blog']}</h4>
                         </div>
@@ -187,28 +180,28 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                     className="header__menu-subitem-text"
                                     onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
-                                        goToMainDomain('/blog?category=inspiration')
+                                        history.push('/blog?category=inspiration')
                                     }}>{TEXT[lang]['inspiration']}</h4>
                                 <h4
                                     className="header__menu-subitem-text"
                                     style={{ animationDelay: '.2s' }}
                                     onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
-                                        goToMainDomain('/blog?category=motherhood')
+                                        history.push('/blog?category=motherhood')
                                     }}>{TEXT[lang]['motherhood']}</h4>
                                 <h4
                                     className="header__menu-subitem-text"
                                     style={{ animationDelay: '.4s' }}
                                     onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
-                                        goToMainDomain('/blog?category=life_abroad')
+                                        history.push('/blog?category=life_abroad')
                                     }}>{TEXT[lang]['life_abroad']}</h4>
                                 <h4
                                     className="header__menu-subitem-text"
                                     style={{ animationDelay: '.5s' }}
                                     onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
-                                        goToMainDomain('/blog?category=\career_insights')
+                                        history.push('/blog?category=\career_insights')
                                     }}>{TEXT[lang]['career_insights']}</h4>
                             </div>
                             : ''}
@@ -217,19 +210,19 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 <div className="header__menu-item">
                                     <h4 className="header__menu-item-text" onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
-                                        goToMainDomain('/bespoken/home')
+                                        history.push('/bespoken/home')
                                     }}>{TEXT[lang]['bespoken']}</h4>
                                 </div>
                                 {/* <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 setTimeout(() => setMenuToggle(false), 50)
-                                goToMainDomain('/subscribe')
+                                history.push('/subscribe')
                             }}>{TEXT[lang]['subscribe']}</h4>
                         </div> */}
                                 <div className="header__menu-item">
                                     <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
-                                        goToMainDomain('/about')
+                                        history.push('/about')
                                     }}>{TEXT[lang]['about_greeting']}</h4>
                                 </div>
                                 <div className="header__menu-item header__language">
@@ -269,12 +262,12 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     <div className="header__admin-btns" style={{ margin: '0 4vw', gap: '3vw', border: 'none' }}>
                         <Button
                             label='Create'
-                            handleClick={() => goToMainDomain('/editor?new=true')}
+                            handleClick={() => history.push('/editor?new=true')}
                         />
                         {postId ?
                             <Button
                                 svg={EditIcon}
-                                handleClick={() => goToMainDomain(`/editor?id=${postId}`)}
+                                handleClick={() => history.push(`/editor?id=${postId}`)}
                             />
                             : ''}
                         {postId ?
@@ -290,8 +283,8 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         onClick={() => {
                             setSearch([])
                             setPrompt('')
-                            if (bespokenLogo) goToMainDomain('/bespoken/home')
-                            else goToMainDomain('/')
+                            if (bespokenLogo) history.push('/bespoken/home')
+                            else history.push('/')
                         }}>
                         {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
                         <img
@@ -325,33 +318,33 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/blog?category=inspiration')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['inspiration']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/blog?category=motherhood')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=motherhood')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['motherhood']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/blog?category=life_abroad')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=life_abroad')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['life_abroad']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/blog?category=\career_insights')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=\career_insights')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['career_insights']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/blog')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/blog')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['see_all']}
                                 </h4>
                             </div>
                             {/* <div className="header__item-dropdown-row">
-                                    <h4 className="header__item-dropdown-text" onClick={() => goToMainDomain('/subscribe')}>
+                                    <h4 className="header__item-dropdown-text" onClick={() => history.push('/subscribe')}>
                                         {TEXT[lang]['subscribe']}
                                     </h4>
                                 </div> */}
@@ -361,34 +354,34 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
                         <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
-                            <div className="header__item-dropdown-row" onClick={goToStore}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/store')}>
                                 <h4 className="header__item-dropdown-text">
                                     STORE
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/bespoken/story')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/story')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['story_of_brand']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/bespoken/products')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/products')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['products']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/bespoken/our_handcrafted_wedding')}>
+                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['our_handcrafted_wedding']}
                                 </h4>
                             </div>
-                            {/* <div className="header__item-dropdown-row" onClick={() => goToMainDomain('/bespoken/values')}>
+                            {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['values']}
                                     </h4>
                                 </div> */}
                         </div>
                     </div>
-                    <div className="header__item" onClick={() => goToMainDomain('/about')}>
+                    <div className="header__item" onClick={() => history.push('/about')}>
                         <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
                     </div>
                 </div>
@@ -398,8 +391,8 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         onClick={() => {
                             setSearch([])
                             setPrompt('')
-                            if (bespokenLogo) goToMainDomain('/bespoken/story')
-                            else goToMainDomain('/')
+                            if (bespokenLogo) history.push('/bespoken/story')
+                            else history.push('/')
                         }}>
                         {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
                         <img
@@ -426,13 +419,13 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         >
                             <Button
                                 label='Create'
-                                handleClick={() => goToMainDomain('/editor?new=true')}
+                                handleClick={() => history.push('/editor?new=true')}
                             />
                             {postId ?
                                 <>
                                     <Button
                                         svg={EditIcon}
-                                        handleClick={() => goToMainDomain(`/editor?id=${postId}`)}
+                                        handleClick={() => history.push(`/editor?id=${postId}`)}
                                     />
                                     <Button
                                         svg={DeleteIcon}
@@ -442,7 +435,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 : ''}
                             <Button
                                 svg={NotificationIcon}
-                                handleClick={() => goToMainDomain('/notifications')}
+                                handleClick={() => history.push('/notifications')}
                             />
                             <Button
                                 label='Logout'

@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { TEXT } from '../../constants/lang';
 import { AppContext } from '../../AppContext';
 import { onChangeEventType } from '../../types';
-import { goToMainDomain } from '../../helpers';
+import { history } from '../../helpers';
 
 type Props = {}
 
@@ -29,7 +29,7 @@ export default function Login({ }: Props) {
         if (logged) {
             toast.success(`Welcome, ${logged.username ? logged.username.split(' ')[0] : 'Dany'}!`)
             setIsLoggedIn(true)
-            setTimeout(() => goToMainDomain('/'), 1500)
+            setTimeout(() => history.push('/'), 1500)
         } else toast.error('Error logging in, try again later')
         setLoading(false)
         return toast.remove(loading)

@@ -14,7 +14,7 @@ import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { clearDB, getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
 import imageCompression from 'browser-image-compression';
-import { convertToBase64, createSlug, goToMainDomain } from '../../helpers'
+import { convertToBase64, createSlug } from '../../helpers'
 import Upload from '../../assets/icons/upload.svg'
 
 type Props = {}
@@ -55,7 +55,7 @@ export default function PostEditor({ }: Props) {
     const imageUrlRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(() => {
-        if (isLoggedIn !== null && !isLoggedIn) return goToMainDomain('/')
+        if (isLoggedIn !== null && !isLoggedIn) return history.push('/')
         activateRenderEffects()
     }, [isLoggedIn])
 
@@ -227,7 +227,7 @@ export default function PostEditor({ }: Props) {
                 if (updated && updated._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => goToMainDomain(`/post/${updated.slug}`), 1500)
+                    setTimeout(() => history.push(`/post/${updated.slug}`), 1500)
                 }
                 else {
                     toast.error(TEXT[lang]['error_saving'])
@@ -251,7 +251,7 @@ export default function PostEditor({ }: Props) {
                 if (saved && saved._id) {
                     localStorage.removeItem('posts')
                     toast.success(TEXT[lang]['saving_ok'])
-                    setTimeout(() => goToMainDomain(`/post/${saved.slug}`), 1500)
+                    setTimeout(() => history.push(`/post/${saved.slug}`), 1500)
                 } else {
                     toast.error(TEXT[lang]['error_saving'])
                     return toast.remove(loading)

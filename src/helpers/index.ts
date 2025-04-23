@@ -73,8 +73,9 @@ export const getDate = (dateString: Date | number | string | undefined) => {
     }
 }
 
-export const goToMainDomain = (path = '/') => {
-    const mainDomain = process.env.REACT_APP_DEVELOPMENT ? 'localhost:3000' : 'anechooftheheart.com'
-    window.location.href = `${window.location.protocol}//${mainDomain}${path}`;
-  };
-  
+export const history = (path = '/') => {
+    const prod = process.env.NODE_ENV === 'production'
+    const mainDomain = prod ? 'anechooftheheart.com' : 'localhost:3000'
+    const protocol = prod ? window.location.protocol : 'http:'
+    window.location.href = `${protocol}//${mainDomain}${path}`;
+};

@@ -19,7 +19,7 @@ import WebSignature from '../../assets/illustrations/signature.png'
 import WebSignatureMobile from '../../assets/illustrations/signature-mobile.png'
 import { TEXT } from '../../constants/lang'
 import { subscribe } from '../../services/app'
-import { goToMainDomain } from '../../helpers'
+import { history } from '../../helpers'
 const REACT_APP_PAGE = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_PAGE
 
 type Props = {
@@ -83,7 +83,7 @@ export default function PostViewer({ }: Props) {
         const logged = await subscribe(data)
         if (logged) {
             toast.success(TEXT[lang]['subscribe_ok'])
-            setTimeout(() => goToMainDomain('/'), 1500)
+            setTimeout(() => history.push('/'), 1500)
         } else toast.error(TEXT[lang]['subscribe_error'])
 
         return toast.remove(loading)
@@ -236,11 +236,11 @@ export default function PostViewer({ }: Props) {
         <div className='postviewer__container'>
             {renderSeo()}
             <div className="postviewer__routes">
-                <h4 className='postviewer__routes-link' onClick={() => goToMainDomain('/blog')}>{lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
+                <h4 className='postviewer__routes-link' onClick={() => history.push('/blog')}>{lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
                 {category ?
                     <>
                         {!isMobile ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}
-                        <h4 className='postviewer__routes-link' onClick={() => goToMainDomain(`/blog?category=${category.trim().replaceAll(' ', '_')}`)}>{isMobile ? '.' : ''}{category.toUpperCase()}</h4>
+                        <h4 className='postviewer__routes-link' onClick={() => history.push(`/blog?category=${category.trim().replaceAll(' ', '_')}`)}>{isMobile ? '.' : ''}{category.toUpperCase()}</h4>
                     </>
                     : ''}
                 {!isMobile ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}

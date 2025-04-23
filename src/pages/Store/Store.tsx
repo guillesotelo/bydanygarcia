@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { AppContext } from '../../AppContext'
 import Button from '../../components/Button/Button'
-import { useHistory } from 'react-router-dom'
 import { getAllProducts } from '../../services/product'
 import { productType } from '../../types'
+import { useHistory } from "react-router-dom";
 
 type Props = {}
 
@@ -31,7 +31,7 @@ export default function Store({ }: Props) {
   }
 
   const goToEditStore = () => {
-    history.push('/edit-store')
+    history.push('/store/edit')
   }
 
   return (

@@ -33,6 +33,8 @@
             width: auto;
             margin-bottom: 2px;
             transition: .2s;
+            border: 3px solid transparent;
+            cursor: pointer;
 
             &:hover {
                 height: 10rem;

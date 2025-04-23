@@ -7,7 +7,7 @@ import { subscribe } from '../../services/app'
 import { TEXT } from '../../constants/lang'
 import { AppContext } from '../../AppContext'
 import { onChangeEventType } from '../../types'
-import { goToMainDomain } from '../../helpers'
+import { history } from '../../helpers'
 
 type Props = {}
 
@@ -30,7 +30,7 @@ export default function Subscribe({ }: Props) {
         const logged = await subscribe(data)
         if (logged) {
             toast.success(TEXT[lang]['subscribe_ok'])
-            setTimeout(() => goToMainDomain('/'), 1500)
+            setTimeout(() => history.push('/'), 1500)
         } else toast.error(TEXT[lang]['subscribe_error'])
 
         return toast.remove(loading)

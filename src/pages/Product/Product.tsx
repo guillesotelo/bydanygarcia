@@ -38,6 +38,11 @@ export default function Product({ }: Props) {
         setTimeout(() => a.remove(), 1000)
     }
 
+    const getMainImage = (images?: string) => {
+        const imgs = JSON.parse(images || '[]')
+        return imgs[0] || ''
+    }
+
     return (
         <div className="product__container">
             {loading ? <p>Loading product details...</p>
@@ -48,13 +53,13 @@ export default function Product({ }: Props) {
                         <Button
                             label='Back to the store'
                             handleClick={() => {
-                                history.push('/')
+                                history.push('/store')
                             }}
                             style={{ left: '0', top: '0', position: 'absolute' }}
                             disabled={loading}
                         />
                         <div className="product__image-wrapper">
-                            <img src={product ? product.image : ''} alt={product?.title} className="product__image" />
+                            <img src={product ? getMainImage(product.images) : ''} alt={product?.title} className="product__image" />
                         </div>
                         <div className="product__information">
                             <p className="product__title">{product?.title}</p>
