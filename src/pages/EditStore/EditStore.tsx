@@ -218,13 +218,6 @@ export default function EditStore({ }: Props) {
                                     multiple={true}
                                     setLoadingImages={setLoadingImages}
                                 />
-                                <InputField
-                                    label='Image URL'
-                                    name='image'
-                                    updateData={updateData}
-                                    disabled={loading || loadingImages}
-                                    value={getImages(product.images)[0] || ''}
-                                />
                             </div>}
                         {getImages(product.images).length ?
                             <div className="editstore__row" style={{ margin: '.5rem 0' }}>
