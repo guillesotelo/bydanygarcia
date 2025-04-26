@@ -46,7 +46,7 @@ export default function ProductCard({ product, style, index }: Props) {
             <div className="productcard__image-wrapper">
                 <img src={getMainImage(images)} alt={title} className="productcard__image" />
             </div>
-            <p className="productcard__title">{title}</p>
+            <p className="productcard__title">{title?.split('-')[0]}</p>
             <p className="productcard__price">{getPrice(price)}</p>
         </div>
     )

@@ -2,8 +2,8 @@
     &__container {
         display: flex;
         flex-direction: column;
-        height: 25rem;
-        width: 20rem;
+        height: 20rem;
+        width: 15rem;
         align-items: center;
         gap: 1rem;
         cursor: pointer;
@@ -31,7 +31,7 @@
         transition: 1s;
 
         &-wrapper {
-            height: 18rem;
+            height: 15rem;
             width: 100%;
             overflow: hidden;
         }

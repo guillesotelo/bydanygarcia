@@ -48,7 +48,7 @@ export default function Product({ }: Props) {
     }
 
     const getPrice = (price?: number) => {
-       return product?.currency ?
+        return product?.currency ?
             product.currency === '$' ? `$${price}`
                 : `${price} ${product.currency}`
             : ''
@@ -61,15 +61,16 @@ export default function Product({ }: Props) {
                 !product ? <p>An error occurred while getting the product information. Please <a href='https://store.anechooftheheart.com/'>go back to the store</a> and try again</p>
                     :
                     <div className="product__col">
+                        <Button
+                            label='← Back to the store'
+                            handleClick={() => {
+                                history.push('/store')
+                            }}
+                            bgColor='transparent'
+                            style={{ left: '-3rem', top: '-3.25rem', position: 'absolute' }}
+                            disabled={loading}
+                        />
                         <div className="product__row">
-                            <Button
-                                label='Back to the store'
-                                handleClick={() => {
-                                    history.push('/store')
-                                }}
-                                style={{ left: '0', top: '0', position: 'absolute' }}
-                                disabled={loading}
-                            />
                             <div className="product__image-wrapper">
                                 <img src={product ? getMainImage(product.images) : ''} alt={product?.title} className="product__image" />
                             </div>
