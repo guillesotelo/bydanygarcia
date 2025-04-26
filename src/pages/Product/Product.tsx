@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getProductById } from '../../services/product'
 import { useHistory, useLocation } from 'react-router-dom'
 import { productType } from '../../types'
 import Button from '../../components/Button/Button'
 import { HashLoader } from 'react-spinners'
+import { AppContext } from '../../AppContext'
 
 type Props = {}
 
 export default function Product({ }: Props) {
     const [product, setProduct] = useState<null | productType>(null)
     const [loading, setLoading] = useState(false)
+    const { isMobile } = useContext(AppContext)
     const location = useLocation()
     const history = useHistory()
 
@@ -72,7 +74,11 @@ export default function Product({ }: Props) {
                                 history.push('/store')
                             }}
                             bgColor='transparent'
-                            style={{ left: '-3rem', top: '-3.25rem', position: 'absolute' }}
+                            style={{
+                                left: isMobile ? '-1rem' : '-3rem',
+                                top: isMobile ? '-1rem' : '-3.25rem',
+                                position: 'absolute'
+                            }}
                             disabled={loading}
                         />
                         <div className="product__row">

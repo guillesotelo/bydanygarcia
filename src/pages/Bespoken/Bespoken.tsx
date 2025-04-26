@@ -742,6 +742,9 @@ export default function Bespoken({ page }: Props) {
                 <div className="page__header">
                     <h1 className="page__header-title">{page ? TEXT[lang][page.toLowerCase()] || page : ''}</h1>
                 </div>
+                <div className="bespoken__section-card" onClick={() => history.push('/store')}>
+                    <h2 className="bespoken__section-title">{lang === 'es' ? 'TIENDA' : 'STORE'}</h2>
+                </div>
                 <div className="bespoken__section-card" onClick={() => history.push('/bespoken/story')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['story']}</h2>
                     {/* <h3 className="bespoken__section-description">

@@ -23,6 +23,7 @@
         object-fit: contain;
         object-position: 0 0;
         transition: 1s;
+        animation: fade-in 1s ease-in forwards;
 
         &-wrapper {
             height: 70vh;
@@ -76,6 +77,8 @@
 
         &__row {
             flex-direction: column;
+            width: 90vw;
+            margin: auto;
         }
 
         &__image {
@@ -101,11 +104,8 @@
             margin-top: 5rem;
 
             &-image {
+                max-width: 90vw;
                 &-wrapper {
-                    max-width: unset;
-                    max-height: unset;
-                    width: 100%;
-                    height: auto;
                 }
             }
         }
