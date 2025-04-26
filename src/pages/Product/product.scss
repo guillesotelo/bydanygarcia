@@ -24,12 +24,6 @@
         object-position: 0 0;
         transition: 1s;
         animation: fade-in 1s ease-in forwards;
-
-        &-wrapper {
-            height: 70vh;
-            overflow: hidden;
-            width: 45%;
-        }
     }
 
     &__information {
@@ -60,10 +54,9 @@
             max-width: 30rem;
             width: fit-content;
             height: fit-content;
-          
 
-            &-wrapper {
-            }
+
+            &-wrapper {}
         }
     }
 }
@@ -104,9 +97,8 @@
             margin-top: 5rem;
 
             &-image {
-                max-width: 90vw;
-                &-wrapper {
-                }
+                width: 90vw;
+                height: auto;
             }
         }
     }
