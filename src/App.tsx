@@ -28,7 +28,7 @@ const App: React.FC = () => {
   const localLang = preferedLang ? preferedLang : navigator.language.startsWith('es') ? 'es' : 'en'
   const isInstagram = (navigator.userAgent.indexOf('Instagram') > -1) ? true : false
   const [search, setSearch] = useState<string[]>([])
-  const [isMobile, setIsMobile] = useState(isInstagram || window.screen.width <= 768)
+  const [isMobile, setIsMobile] = useState(isInstagram || window.screen.width <= 640)
   const [lang, setLang] = useState<string>(localLang)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const [isStoreSubdomain, setIsStoreSubdomain] = useState<boolean | null>(null)
