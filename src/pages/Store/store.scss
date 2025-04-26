@@ -20,4 +20,11 @@
         gap: 3rem;
         height: 90%;
     }
+
+    &__loader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
 }

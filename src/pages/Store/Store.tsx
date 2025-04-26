@@ -5,53 +5,54 @@ import Button from '../../components/Button/Button'
 import { getAllProducts } from '../../services/product'
 import { productType } from '../../types'
 import { useHistory } from "react-router-dom";
+import { HashLoader } from 'react-spinners'
 
 type Props = {}
 
 export default function Store({ }: Props) {
-  const [products, setProducts] = useState<productType[]>([])
-  const [loading, setLoading] = useState(false)
-  const { isLoggedIn, isMobile } = useContext(AppContext)
-  const history = useHistory()
+    const [products, setProducts] = useState<productType[]>([])
+    const [loading, setLoading] = useState(false)
+    const { isLoggedIn, isMobile } = useContext(AppContext)
+    const history = useHistory()
 
-  useEffect(() => {
-    getProducts()
-  }, [])
+    useEffect(() => {
+        getProducts()
+    }, [])
 
-  const getProducts = async () => {
-    try {
-      setLoading(true)
-      const _products = await getAllProducts()
-      if (_products && Array.isArray(_products)) setProducts(_products)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      console.error(error)
+    const getProducts = async () => {
+        try {
+            setLoading(true)
+            const _products = await getAllProducts()
+            if (_products && Array.isArray(_products)) setProducts(_products)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            console.error(error)
+        }
     }
-  }
 
-  const goToEditStore = () => {
-    history.push('/store/edit')
-  }
+    const goToEditStore = () => {
+        history.push('/store/edit')
+    }
 
-  return (
-    <div className="store__container">
-      {isLoggedIn && <Button
-        label='Edit Store'
-        handleClick={goToEditStore}
-        style={{
-          position: 'absolute',
-          right: isMobile ? '.5rem' : '2rem',
-          top: isMobile ? '3.5rem' : '2rem'
-        }}
-      />}
-      <h1 className="store__title">Store</h1>
-      <div className="store__list">
-        {loading ?
-          <p>Loading products...</p>
-          :
-          products.map((product, index) => <ProductCard product={product} index={index} />)}
-      </div>
-    </div>
-  )
+    return (
+        <div className="store__container">
+            {isLoggedIn && <Button
+                label='Edit Store'
+                handleClick={goToEditStore}
+                style={{
+                    position: 'absolute',
+                    right: isMobile ? '.5rem' : '2rem',
+                    top: isMobile ? '3.5rem' : '2rem'
+                }}
+            />}
+            <h1 className="store__title">Store</h1>
+            <div className="store__list">
+                {loading ?
+                    <div className='store__loader'><HashLoader size={10} /><p>Loading products...</p></div>
+                    :
+                    products.map((product, index) => <ProductCard product={product} index={index} />)}
+            </div>
+        </div>
+    )
 }

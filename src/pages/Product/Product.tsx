@@ -3,6 +3,7 @@ import { getProductById } from '../../services/product'
 import { useHistory, useLocation } from 'react-router-dom'
 import { productType } from '../../types'
 import Button from '../../components/Button/Button'
+import { HashLoader } from 'react-spinners'
 
 type Props = {}
 
@@ -56,7 +57,7 @@ export default function Product({ }: Props) {
 
     return (
         <div className="product__container">
-            {loading ? <p>Loading product details...</p>
+            {loading ? <div className='store__loader'><HashLoader size={10}/><p>Loading product details...</p></div>
                 :
                 !product ? <p>An error occurred while getting the product information. Please <a href='https://store.anechooftheheart.com/'>go back to the store</a> and try again</p>
                     :
@@ -87,9 +88,9 @@ export default function Product({ }: Props) {
                         </div>
                         <div className="product__galery">
                             {getImages(product.images).map((image: string, i: number) =>
-                                i !== 0 && <div className='product__galery-image-wrapper'>
+                                i !== 0 && 
                                     <img key={i} src={image} draggable={false} className='product__galery-image' />
-                                </div>)}
+                            )}
                         </div>
                     </div>
             }

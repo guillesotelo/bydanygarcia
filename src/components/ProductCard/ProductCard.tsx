@@ -43,8 +43,10 @@ export default function ProductCard({ product, style, index }: Props) {
                 ...style,
                 animationDelay: String(index ? index / 20 : 0) + 's'
             }}>
-            <div className="productcard__image-wrapper">
-                <img src={getMainImage(images)} alt={title} className="productcard__image" />
+            <div className="productcard__image-frame">
+                <div className="productcard__image-wrapper">
+                    <img src={getMainImage(images)} alt={title} className="productcard__image" />
+                </div>
             </div>
             <p className="productcard__title">{title?.split('-')[0]}</p>
             <p className="productcard__price">{getPrice(price)}</p>
