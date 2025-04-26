@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { productType } from '../../types'
 import { useHistory } from 'react-router-dom'
 
@@ -9,6 +9,7 @@ type Props = {
 }
 
 export default function ProductCard({ product, style, index }: Props) {
+    const [mainImage, setMainImage] = useState('')
     const history = useHistory()
 
     const {
@@ -18,6 +19,10 @@ export default function ProductCard({ product, style, index }: Props) {
         description,
         _id
     } = product || {}
+
+    useEffect(() => {
+        setMainImage(getMainImage(images))
+    }, [images])
 
     const goToProductPage = () => {
         history.push(`/store/product?id=${_id}`)
@@ -45,7 +50,7 @@ export default function ProductCard({ product, style, index }: Props) {
             }}>
             <div className="productcard__image-frame">
                 <div className="productcard__image-wrapper">
-                    <img src={getMainImage(images)} alt={title} className="productcard__image" />
+                    <img src={mainImage} alt={title} className="productcard__image" />
                 </div>
             </div>
             <p className="productcard__title">{title?.split('-')[0]}</p>
