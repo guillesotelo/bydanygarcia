@@ -55,9 +55,13 @@ export default function Product({ }: Props) {
             : ''
     }
 
+    const parseText = (text?: string) => {
+        return text?.replaceAll('\n', '<br />') || ''
+    }
+
     return (
         <div className="product__container">
-            {loading ? <div className='store__loader'><HashLoader size={10}/><p>Loading product details...</p></div>
+            {loading ? <div className='store__loader'><HashLoader size={10} /><p>Loading product details...</p></div>
                 :
                 !product ? <p>An error occurred while getting the product information. Please <a href='https://store.anechooftheheart.com/'>go back to the store</a> and try again</p>
                     :
@@ -78,7 +82,7 @@ export default function Product({ }: Props) {
                             <div className="product__information">
                                 <p className="product__title">{product?.title}</p>
                                 <p className="product__price">{getPrice(product.price)}</p>
-                                <p className="product__description">{product?.description}</p>
+                                <div className="product__description" dangerouslySetInnerHTML={{ __html: parseText(product?.description) }} />
                                 <Button
                                     label='Buy'
                                     handleClick={buyProduct}
@@ -88,8 +92,8 @@ export default function Product({ }: Props) {
                         </div>
                         <div className="product__galery">
                             {getImages(product.images).map((image: string, i: number) =>
-                                i !== 0 && 
-                                    <img key={i} src={image} draggable={false} className='product__galery-image' />
+                                i !== 0 &&
+                                <img key={i} src={image} draggable={false} className='product__galery-image' />
                             )}
                         </div>
                     </div>
