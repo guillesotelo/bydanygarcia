@@ -4,11 +4,12 @@ import PostCard from '../../components/PostCard/PostCard'
 import { getAllPosts } from '../../services/post'
 import { AppContext } from '../../AppContext'
 import LandingDany from '../../assets/images/landing-1.jpg'
+import LandingFlowers from '../../assets/images/landing-3.jpg'
+import LandingSweden from '../../assets/images/landing-4.jpg'
 import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
 import { TEXT } from '../../constants/lang'
 import Player from '../../components/Player/Player'
-import { history } from '../../helpers'
 const Track1 = require('../../assets/audio/Jamie-Duffy_Solas.mp3')
 const Track2 = require('../../assets/audio/Je-Te-Laisserai_Des-Mots.mp3')
 
@@ -23,12 +24,10 @@ export default function Home() {
     useEffect(() => {
         const parallaxScroll = () => {
             const parallaxImages = document.querySelectorAll('.home__parallax-image') as any
-            parallaxImages.forEach((image: any) => {
+            parallaxImages.forEach((image: any, index: number) => {
                 const speed = parseFloat(image.dataset.speed) || 0.4
-                const offset = window.scrollY - image.parentElement.offsetTop
-                if (offset >= 0 && offset <= image.parentElement.offsetHeight) {
-                    image.style.transform = `translateY(${offset * speed}px)`
-                }
+                const offset = window.scrollY - image.parentElement.offsetTop - (index * index * 1000)
+                image.style.transform = `translateY(${offset * speed}px)`
             })
         }
 
@@ -100,11 +99,20 @@ export default function Home() {
                 handleClick={() => history.push(`/about`)}
                 bgColor={APP_COLORS.GRASS}
                 textColor='white'
-                style={{ transform: 'scale(1.2)' }}
+                style={{ transform: 'scale(1.2)', marginBottom: '4rem' }}
             />
 
-            <p className="home__landing-caption">
-                “No man ever steps in the same river twice, for it's not the same river and he's not the same man.”  Heraclitus            </p>
+            <div className="home__landing-image-wrapper">
+                <div className="home__parallax-container">
+                    <img src={LandingFlowers} alt="Dany Garcia" className="home__landing-image home__parallax-image" />
+                </div>
+                <div className="home__landing-image-overlap">
+                    <p className="home__landing-caption" style={{ color: '#fff', fontSize: isMobile ? '' : '2rem', fontWeight: 'bold', margin: 'auto' }}>
+                        “No man ever steps in the same river twice, for it's not the same river and he's not the same man.”  Heraclitus
+                    </p>
+                </div>
+            </div>
+
             <h2 className="home__landing-title">{TEXT[lang]['inspiration']}</h2>
             <h3 className="home__landing-subtitle">{TEXT[lang]['inspiration_cap']}</h3>
             {loading ? <span className="loader"></span>
@@ -115,12 +123,20 @@ export default function Home() {
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}
                 handleClick={() => history.push(`/blog?category=inspiration`)}
-                style={{ transform: 'scale(1.3)' }}
+                style={{ transform: 'scale(1.3)', marginBottom: '4rem' }}
             />
 
-            <p className="home__landing-caption">
-                "En este mundo finito quiero encontrar mi equilibrio infinito espiritual contigo."
-            </p>
+            <div className="home__landing-image-wrapper">
+                <div className="home__parallax-container">
+                    <img src={LandingSweden} alt="Dany Garcia" className="home__landing-image home__parallax-image" />
+                </div>
+                <div className="home__landing-image-overlap">
+                    <p className="home__landing-caption" style={{ color: '#fff', fontSize: isMobile ? '' : '2rem', fontWeight: 'bold', margin: 'auto' }}>
+                        "En este mundo finito quiero encontrar mi equilibrio infinito espiritual contigo."
+                    </p>
+                </div>
+            </div>
+
             <h2 className="home__landing-title">MOTHERHOOD</h2>
             <h3 className="home__landing-subtitle">A Rollercoaster of Love and Learning</h3>
             {loading ? <span className="loader"></span>

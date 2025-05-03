@@ -44,7 +44,8 @@ export default function About({ }: Props) {
         <div className="about__image-div">
           <img src={Hello} alt="" className="about__image" />
         </div>
-        <h1 className="about__title">About Dany García | Writer & Founder of Bespoken | Travel, Motherhood & Inspired Living</h1>
+        <h1 className="about__title">About Dany García | Writer & Founder of Bespoken 
+        <br/>Travel, Motherhood & Inspired Living</h1>
         <p className='about__text' style={{ margin: 0 }}>
           <p style={{ marginTop: 0 }}>I'm Dany García! Welcome to this online space where I love to write, tell stories and share of some of my work.</p>
           <p>I was born in Colombia, raised for a few years in the US, have lived a decade of life in Argentina with a few trips in the middle, and now live way up north in Scandinavia. I am momma to little Benja, wife to Guille and owner of our little Jack Russell, Indie.</p>

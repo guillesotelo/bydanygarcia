@@ -389,11 +389,6 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     <div className="header__item" onClick={() => history.push('/about')}>
                         <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
                     </div>
-
-                    {window.location.pathname !== '/' &&
-                        <div className="header__item" onClick={() => history.push('/')}>
-                            <h4 className="header__item-text">HOME</h4>
-                        </div>}
                 </div>
 
                 {!searchClicked || !isLoggedIn ?
@@ -478,6 +473,10 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 </div>
                             </div>
                         </div> */}
+                        {window.location.pathname !== '/' &&
+                            <div className="header__item" onClick={() => history.push('/')} style={{ marginRight: '2rem' }}>
+                                <h4 className="header__item-text">HOME</h4>
+                            </div>}
                         <img className="header__search-svg" src={Search} onClick={triggerSearch} />
                         {searchClicked || !isMobile ?
                             <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
