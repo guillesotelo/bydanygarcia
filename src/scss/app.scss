@@ -18,4 +18,9 @@
 
 .close-animation {
     animation: close-animation .2s ease-in forwards !important;
-  }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fade-in .5s ease-in forwards;
+}

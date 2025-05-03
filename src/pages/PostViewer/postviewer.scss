@@ -30,6 +30,8 @@
             align-items: center;
             justify-content: center;
             gap: .5rem;
+            width: 30rem;
+            margin: auto;
         }
     }
 
@@ -197,6 +199,13 @@
                     filter: invert(51%) sepia(3%) saturate(2931%) hue-rotate(314deg) brightness(103%) contrast(99%);
                     transform: translateY(-10%);
                 }
+            }
+        }
+
+        &__subscribe {
+            &-row {
+                flex-direction: column;
+                width: 80vw;
             }
         }
 

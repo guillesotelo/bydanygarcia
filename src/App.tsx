@@ -29,7 +29,7 @@ const App: React.FC = () => {
   const isInstagram = (navigator.userAgent.indexOf('Instagram') > -1) ? true : false
   const [search, setSearch] = useState<string[]>([])
   const [isMobile, setIsMobile] = useState(isInstagram || window.screen.width <= 640)
-  const [lang, setLang] = useState<string>(localLang)
+  const [lang, setLang] = useState<string>('en')
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const [isStoreSubdomain, setIsStoreSubdomain] = useState<boolean | null>(null)
   const [darkMode, setDarkMode] = useState<boolean>(false)
@@ -68,7 +68,7 @@ const App: React.FC = () => {
       <Switch>
 
         <Route exact path="/">
-          <div className='page__wrapper'>
+          <div className='page__wrapper' style={{ paddingTop: 0 }}>
             <Header search={search} setSearch={setSearch} />
             <Home />
             <Footer />
@@ -226,33 +226,33 @@ const App: React.FC = () => {
         </Route>
 
         <Route exact path="/store">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <Store />
-              <Footer />
-            </div>
-          </Route>
-          <Route path="/store/edit">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <EditStore />
-              <Footer />
-            </div>
-          </Route>
-          <Route path="/store/product">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <Product />
-              <Footer />
-            </div>
-          </Route>
-          <Route path="/store/product:id">
-            <div className='page__wrapper'>
-              <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
-              <Product />
-              <Footer />
-            </div>
-          </Route>
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <Store />
+            <Footer />
+          </div>
+        </Route>
+        <Route path="/store/edit">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <EditStore />
+            <Footer />
+          </div>
+        </Route>
+        <Route path="/store/product">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <Product />
+            <Footer />
+          </div>
+        </Route>
+        <Route path="/store/product:id">
+          <div className='page__wrapper'>
+            <Header search={search} setSearch={setSearch} bespokenLogo={BespokenLogo} />
+            <Product />
+            <Footer />
+          </div>
+        </Route>
 
         {/* <Route>
           <div className='page__wrapper'>

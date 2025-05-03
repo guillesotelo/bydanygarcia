@@ -21,8 +21,24 @@ export default function Home() {
     const history = useHistory()
 
     useEffect(() => {
+        const parallaxScroll = () => {
+            const parallaxImages = document.querySelectorAll('.home__parallax-image') as any
+            parallaxImages.forEach((image: any) => {
+                const speed = parseFloat(image.dataset.speed) || 0.4
+                const offset = window.scrollY - image.parentElement.offsetTop
+                if (offset >= 0 && offset <= image.parentElement.offsetHeight) {
+                    image.style.transform = `translateY(${offset * speed}px)`
+                }
+            })
+        }
+
+        window.addEventListener('scroll', parallaxScroll)
+        return () => window.removeEventListener('scroll', parallaxScroll)
+    }, [])
+
+    useEffect(() => {
         getPosts()
-        if (isLoggedIn) setTimeout(() => setShowPlayer(true), 2000)
+        // if (isLoggedIn) setTimeout(() => setShowPlayer(true), 2000)
     }, [isLoggedIn])
 
     useEffect(() => {
@@ -65,38 +81,22 @@ export default function Home() {
     return <div className="home__container">
         <div className="home__landing">
             <div className="home__landing-image-wrapper">
-                <img src={LandingDany} alt="Dany Garcia" className="home__landing-image" />
+                <div className="home__landing-image-overlap">
+                    <h4 className="header__logo-text">An Echo of the Heart</h4>
+                    {/* <p className="home__landing-title" style={{ fontSize: '2rem', margin: '15vh auto 0 auto', color: '#fff', background: '#000', width: 'fit-content', padding: '0 .5rem' }}>One heart's story, resonating with many.</p> */}
+                </div>
+                <div className="home__parallax-container">
+                    <img src={LandingDany} alt="Dany Garcia" className="home__landing-image home__parallax-image" />
+                </div>
             </div>
+            <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
             <p className="home__landing-text">
-                {lang === 'es' ?
-                    <>
-                        <p>
-                            Hace algunos años, mientras ralentizaba y tranquilizaba mi vida un poco, una chispa interna y espiritual brillaba como nunca antes lo había hecho. Comencé a conectar con las palabras de otras personas maravillosas, mientras me tomaba también el tiempo para escuchar mis propios pensamientos. Fue un avance profundo en mi vida, y la escritura se convirtió en una forma de expresar lo que estaba sucediendo. Al compartir algunas de mis escrituras con otros, vi cómo un puente de comunicación me conectaba con sus experiencias también.
-                        </p>
-                        <p>
-                            Nunca pensé que encontraría tanto disfrute, creatividad, cambio, sanación y crecimiento.
-                        </p>
-                        <p>
-                            Mi intención con este blog es tener un proyecto secundario <strong>en evolución</strong>, un espacio en línea donde pueda escribir y compartir libremente lo que deseo y donde las personas puedan venir a leer si así lo desean. Como madre y persona, a veces no hay mucho tiempo, o puede que no me sienta con ánimo de crear contenido, pero vuelvo a los mismos pensamientos de dar pequeños pasos, ir un día a la vez, olvidando las expectativas, la aprobación y simplemente disfrutar de mi tiempo haciéndolo.
-                        </p>
-                    </>
-                    :
-                    <>
-                        <p>
-                            Some years ago, as I slowed and quieted my life down, an inward and spiritual search of myself sparkled as it had never done before. I started connecting with the words of other wonderful people and mentors, while taking the time to listen to my own thoughts and feelings. It was a deep breakthrough in my life, and writing became a way to express what was happening. As I shared some of my writings with others, I saw how a bridge of communication connected me with their experiences, too.
-                        </p>
-                        <p>
-                            I never thought I would find so much enjoyment, creativity, change, healing and growth.
-                        </p>
-                        <p>
-                            My intention with this blog is to have an <strong>evolving side project</strong>, an online space where I can freely write and share what I want to and where people can come and read if they would like. As a mom and person, sometimes there is not much time, or I may not feel in the mood for creating content, but I come back to the same thoughts of taking little steps, going one day at a time, forgetting about the expectations, the approval and just, simply, enjoy my time doing it.
-                        </p>
-                    </>
-                }
+                <p>Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
+                <p>Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
             </p>
 
             <Button
-                label={lang === 'es' ? 'Conóceme' : 'Get to know me'}
+                label={lang === 'es' ? 'Conóceme' : 'Read My Story'}
                 handleClick={() => history.push(`/about`)}
                 bgColor={APP_COLORS.GRASS}
                 textColor='white'
@@ -142,7 +142,7 @@ export default function Home() {
             {loading ? <span className="loader"></span>
                 :
                 <div className="blog__list">
-                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i}  post={post} /> : null)}
+                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
                 </div>}
             <Button
                 label={lang === 'es' ? 'Ver todo' : 'View all'}

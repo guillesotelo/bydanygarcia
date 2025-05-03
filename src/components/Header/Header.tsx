@@ -167,7 +167,14 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                 <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)} >
                     <img className="header__menu-svg" src={Menu} />
                     <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
-                        <div className="header__menu-item" style={{ marginTop: isMobile ? '6vw' : '2vw' }}>
+                        {window.location.pathname !== '/' &&
+                            <div className="header__menu-item">
+                                <h4 className="header__menu-item-text" onClick={() => {
+                                    setTimeout(() => setMenuToggle(false), 50)
+                                    history.push('/')
+                                }}>HOME</h4>
+                            </div>}
+                        <div className="header__menu-item">
                             <h4 className="header__menu-item-text" onClick={() => {
                                 // setTimeout(() => setMenuToggle(false), 50)
                                 // history.push('/blog')
@@ -204,8 +211,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                         history.push('/blog?category=\career_insights')
                                     }}>{TEXT[lang]['career_insights']}</h4>
                             </div>
-                            : ''}
-                        {!blogToggle ?
+                            :
                             <>
                                 <div className="header__menu-item">
                                     <h4 className="header__menu-item-text" onClick={() => {
@@ -213,19 +219,13 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                         history.push('/bespoken/home')
                                     }}>{TEXT[lang]['bespoken']}</h4>
                                 </div>
-                                {/* <div className="header__menu-item">
-                            <h4 className="header__menu-item-text" onClick={() => {
-                                setTimeout(() => setMenuToggle(false), 50)
-                                history.push('/subscribe')
-                            }}>{TEXT[lang]['subscribe']}</h4>
-                        </div> */}
                                 <div className="header__menu-item">
                                     <h4 className="header__menu-item-text" style={{ paddingBottom: '8vw' }} onClick={() => {
                                         setTimeout(() => setMenuToggle(false), 50)
                                         history.push('/about')
                                     }}>{TEXT[lang]['about_greeting']}</h4>
                                 </div>
-                                <div className="header__menu-item header__language">
+                                {/* <div className="header__menu-item header__language">
                                     <div className="header__menu-item-text" onClick={() => {
                                         changeLanguage(lang === 'en' ? 'es' : 'en')
                                         setTimeout(() => setMenuToggle(false), 1000)
@@ -234,7 +234,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                             <img src={UsaFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
                                             : <img src={SpainFlag} alt="" className="header__item-dropdown-img header__item-dropdown-text" />
                                         }</div>
-                                </div>
+                                </div> */}
                                 {isLoggedIn ?
                                     <div className="header__menu-item" >
                                         <h4 className="header__menu-item-text" onClick={() => {
@@ -243,16 +243,17 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                         }}>Logout</h4>
                                     </div>
                                     : ''}
-                            </> : ''}
+                            </>
+                        }
                         <div className="header__menu-item" style={{
                             // position: 'relative'
                         }}>
                             <h4 className="header__menu-item-text" style={{
                                 position: 'fixed',
                                 bottom: '20%',
-                                marginBottom: '4vw',
-                                color: 'gray',
-                                fontSize: isMobile ? '3vw' : '.7vw'
+                                marginBottom: '2.5rem',
+                                color: '#fff',
+                                fontSize: isMobile ? '.9rem' : '.75rem'
                             }}
                                 onClick={() => window.open('https://github.com/guillesotelo/bydanygarcia', '_blank', 'noreferrer')}>{APP_VERSION}</h4>
                         </div>
@@ -287,15 +288,19 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             else history.push('/')
                         }}>
                         {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
-                        <img
-                            className="header__logo-image"
-                            style={{
-                                maxHeight: bespokenLogo ? '9vw' : '',
-                                margin: bespokenLogo ? 0 : ''
-                            }}
-                            src={bespokenLogo || EchoLogoMobile}
-                            alt='An Echo of the Heart'
-                            loading='lazy' />
+                        {bespokenLogo ?
+                            <img
+                                className="header__logo-image"
+                                style={{
+                                    maxHeight: '3rem',
+                                    margin: 0
+                                }}
+                                src={bespokenLogo}
+                                alt='Bespoken'
+                                loading='lazy' />
+                            :
+                            ''
+                        }
                     </div>
                     : ''}
                 <div className="header__search" >
@@ -313,11 +318,11 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     const renderDesktop = () => {
         return (
             <>
-                <div className="header__items" style={{ height: bigHeader ? '5rem' : '2rem' }}>
+                <div className="header__items">
                     <div className="header__item">
                         <h4 className="header__item-text no-pointer">{TEXT[lang]['blog']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
+                        <div className="header__item-dropdown" style={{ background: bigHeader ? '#00000099' : '#00000092' }}>
                             <div className="header__item-dropdown-row" onClick={() => history.push('/blog?category=inspiration')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['inspiration']}
@@ -353,7 +358,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     <div className="header__item">
                         <h4 className="header__item-text">{TEXT[lang]['bespoken']}</h4>
                         <img className="header__item-svg" src={ChevronDown} />
-                        <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
+                        <div className="header__item-dropdown" style={{ background: bigHeader ? '#00000099' : '#00000092' }}>
                             <div className="header__item-dropdown-row" onClick={() => history.push('/store')}>
                                 <h4 className="header__item-dropdown-text">
                                     STORE
@@ -384,6 +389,11 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                     <div className="header__item" onClick={() => history.push('/about')}>
                         <h4 className="header__item-text">{TEXT[lang]['about_greeting']}</h4>
                     </div>
+
+                    {window.location.pathname !== '/' &&
+                        <div className="header__item" onClick={() => history.push('/')}>
+                            <h4 className="header__item-text">HOME</h4>
+                        </div>}
                 </div>
 
                 {!searchClicked || !isLoggedIn ?
@@ -394,42 +404,45 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             if (bespokenLogo) history.push('/bespoken/story')
                             else history.push('/')
                         }}>
-                        {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
-                        <img
-                            className="header__logo-image"
-                            style={{
-                                height: bigHeader ? bespokenLogo ? '3vw' : '5vw' : bespokenLogo ? '1.8vw' : '2.5vw',
-                                margin: bespokenLogo ? 0 : bigHeader ? '.5vw 3vw 1vw 3vw' : '3vw .5vw'
-                            }}
-                            src={bespokenLogo || EchoLogo}
-                            alt='An Echo of the Heart'
-                            loading='lazy' />
+                        {bespokenLogo ?
+                            <img
+                                className="header__logo-image"
+                                style={{
+                                    height: '2.5rem',
+                                    margin: 0
+                                }}
+                                src={bespokenLogo}
+                                alt='Bespoken'
+                                loading='lazy' />
+                            :
+                            ''
+                            // <h4 className="header__logo-text">An Echo of the Heart</h4>
+                        }
                     </div>
                     : ''}
 
                 <div className='header__admin-panel'>
                     {isLoggedIn ?
-                        <div className="header__admin-btns"
-                            style={{
-                                borderRight: bigHeader ? '' : '1px solid #aaaaaa',
-                                borderLeft: bigHeader ? '' : '1px solid #aaaaaa',
-                                borderBottom: bigHeader ? '' : 'none',
-                                borderTop: bigHeader ? '' : 'none'
-                            }}
-                        >
+                        <div className="header__admin-btns">
                             <Button
                                 label='Create'
                                 handleClick={() => history.push('/editor?new=true')}
+                                bgColor='transparent'
+                                textColor='#fff'
                             />
                             {postId ?
                                 <>
                                     <Button
                                         svg={EditIcon}
                                         handleClick={() => history.push(`/editor?id=${postId}`)}
+                                        bgColor='transparent'
+                                        textColor='#fff'
                                     />
                                     <Button
                                         svg={DeleteIcon}
                                         handleClick={() => setDeleteModal(true)}
+                                        bgColor='transparent'
+                                        textColor='#fff'
                                     />
                                 </>
                                 : ''}
@@ -441,12 +454,13 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                 label='Logout'
                                 handleClick={logOut}
                                 bgColor='transparent'
+                                textColor='#fff'
                             />
                         </div>
                         : ''}
 
                     <div className="header__search" >
-                        <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
+                        {/* <div className="header__item header__language" style={{ justifySelf: 'flex-end' }}>
                             <h4 className="header__item-text">{lang.toUpperCase()}</h4>
                             <img className="header__item-svg" src={ChevronDown} />
                             <div className="header__item-dropdown" style={{ marginTop: bigHeader ? '5rem' : '3rem' }}>
@@ -463,7 +477,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                     </h4>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <img className="header__search-svg" src={Search} onClick={triggerSearch} />
                         {searchClicked || !isMobile ?
                             <input type="text" className="header__search-input" placeholder={TEXT[lang]['search']} onChange={handleSearch} onKeyDown={e => {
@@ -476,7 +490,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     }
 
     return (
-        <div className='header__container' style={{ height: bigHeader ? '8rem' : '4rem' }}>
+        <div className='header__container' style={{ background: bigHeader ? '#00000099' : '#00000092' }}>
             {deleteModal ?
                 <div className='header__delete-modal'>
                     <h4 className="header__delete-modal-text">Are you sure you want to delete this post?</h4>

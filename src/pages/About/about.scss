@@ -1,7 +1,8 @@
 .about {
     &__container {
-        margin: 5vw 4vw 30vw 4vw;
+        margin: 5vw auto 30vw auto;
         min-height: 60vh;
+        width: 60vw;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -19,10 +20,17 @@
         gap: 4rem;
     }
 
+    &__title {
+        font-family: 'Lora', serif;
+        font-size: 1.5rem;
+    }
+
     &__text {
-        width: 45vw;
-        font-size: 1vw;
+        // width: 65%;
+        font-size: 1rem;
         text-align: justify;
+        font-family: 'Lora', serif;
+        // margin: 0;
     }
 
     &__image {
@@ -32,13 +40,9 @@
         transition: .4s;
 
         &-div {
-            height: 35vw;
-            width: 35vw;
-            border-radius: 1rem;
-            overflow: hidden;
-            right: 0;
-            top: 0;
             box-shadow: 5px 5px 20px rgb(162, 162, 162);
+            margin: 2rem 0;
+            display: flex;
         }
 
         &:hover {
@@ -50,11 +54,11 @@
 @media only screen and (max-width: 640px) {
     .about {
         &__container {
-            margin: 0 4vw;
             min-height: 80vh;
-            padding: 16vw 4vw 70vh 4vw;
+            width: 90%;
             display: flex;
             flex-direction: column;
+            padding-bottom: 15rem;
         }
 
         &__text {
@@ -64,22 +68,22 @@
         }
 
         &__image {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            
-            &-div {
-                margin-bottom: 5vw;
-                height: 80vw;
-                width: 80vw;
-                border-radius: 50%;
-                overflow: hidden;
-                align-self: center;
-                position: relative;
-                right: 0;
-                top: 0;
-                box-shadow: 5px 5px 20px rgb(162, 162, 162);
-            }
+            // height: 100%;
+            // width: 100%;
+            // object-fit: cover;
+
+            // &-div {
+            //     margin-bottom: 5vw;
+            //     height: 80vw;
+            //     width: 80vw;
+            //     border-radius: 50%;
+            //     overflow: hidden;
+            //     align-self: center;
+            //     position: relative;
+            //     right: 0;
+            //     top: 0;
+            //     box-shadow: 5px 5px 20px rgb(162, 162, 162);
+            // }
 
             &:hover {
                 filter: none;

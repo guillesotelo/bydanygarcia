@@ -246,7 +246,7 @@ export default function PostViewer({ }: Props) {
                 {!isMobile ? <h4 className='postviewer__routes-link' >&nbsp;-&nbsp;</h4> : ''}
                 <h4 className='postviewer__routes-link'>{isMobile ? '..' : ''}{lang === 'es' && post.spaTitle ? post.spaTitle.toUpperCase() : post.title?.toUpperCase()}</h4>
             </div>
-            {loading ? <span className="loader" style={{ marginTop: '10rem' }}></span>
+            {loading ? <span className="loader" style={{ margin: '10rem auto 60vh' }}></span>
                 :
                 <Post
                     headers={{ ...post, sideImages, sideImgStyles }}
@@ -256,7 +256,7 @@ export default function PostViewer({ }: Props) {
                 />
             }
 
-            {post.video ?
+            {post.video?.trim() ?
                 <div style={{ textAlign: 'center', margin: '0 0 6rem 0' }}>
                     <iframe src={parseYTLink(post.video)} width={isMobile ? '90%' : "700"} height={isMobile ? 'auto' : "400"} frameBorder={0} allowFullScreen />
                 </div>
@@ -290,7 +290,7 @@ export default function PostViewer({ }: Props) {
                         label={lang === 'es' ? 'Únete' : 'Join'}
                         handleClick={onSubscribe}
                         disabled={!subscribeData.email || !subscribeData.fullname}
-                    // style={{ width: '100%' }}
+                        style={{ width: isMobile ? '100%' : '' }}
                     />
                 </div>
             </div>
