@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import Menu from '../../assets/icons/menu-icon.svg'
 import ChevronDown from '../../assets/icons/chevron-down.svg'
 import Search from '../../assets/icons/search-icon.svg'
-import SpainFlag from '../../assets/icons/spain-flag.png'
-import UsaFlag from '../../assets/icons/usa-flag.png'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '../Button/Button'
 import DeleteIcon from '../../assets/icons/delete.svg'
@@ -15,8 +13,6 @@ import { toast } from 'react-hot-toast'
 import { APP_VERSION } from '../../constants/app'
 import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
-import EchoLogo from '../../assets/logos/eth.svg'
-import EchoLogoMobile from '../../assets/logos/eth-mobile.png'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 
@@ -292,7 +288,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             <img
                                 className="header__logo-image"
                                 style={{
-                                    maxHeight: '3rem',
+                                    maxHeight: '2rem',
                                     margin: 0
                                 }}
                                 src={bespokenLogo}
@@ -403,7 +399,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             <img
                                 className="header__logo-image"
                                 style={{
-                                    height: '2.5rem',
+                                    height: '2rem',
                                     margin: 0
                                 }}
                                 src={bespokenLogo}

@@ -36,6 +36,8 @@ export default function Store({ }: Props) {
         history.push('/store/edit')
     }
 
+    const getFilteredProducts = () => products.filter(p => !category ? true : p.category?.includes(category))
+
     return (
         <div className="store__container">
             {isLoggedIn && <Button
@@ -77,7 +79,9 @@ export default function Store({ }: Props) {
                 {loading ?
                     <div className='store__loader'><HashLoader size={15} /><p>Loading products...</p></div>
                     :
-                    products.filter(p => !category ? true : p.category?.includes(category)).map((product, index) => <ProductCard product={product} index={index} />)}
+                    getFilteredProducts().length ? getFilteredProducts().map((product, index) =>
+                        <ProductCard product={product} index={index} />)
+                        : <p>{category} coming soon...</p>}
             </div>
         </div>
     )

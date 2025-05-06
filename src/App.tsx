@@ -14,7 +14,7 @@ import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
 import Subscribe from './pages/Subscribe/Subscribe';
 import Bespoken from './pages/Bespoken/Bespoken';
-import BespokenLogo from './assets/logos/bespoken_logo.png'
+import BespokenLogo from './assets/logos/bespoken-white.png'
 import { AppProvider } from './AppContext';
 import RouteTracker from './components/RouteTracker/RouteTracker';
 import ReactGA from 'react-ga4';

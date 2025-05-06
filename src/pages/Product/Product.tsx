@@ -63,7 +63,7 @@ export default function Product({ }: Props) {
 
     return (
         <div className="product__container">
-            {loading ? <div className='store__loader'><HashLoader size={10} /><p>Loading product details...</p></div>
+            {loading ? <div className='store__loader'><HashLoader size={15} /><p>Loading product details...</p></div>
                 :
                 !product ? <p>An error occurred while getting the product information. Please <a href='https://store.anechooftheheart.com/'>go back to the store</a> and try again</p>
                     :

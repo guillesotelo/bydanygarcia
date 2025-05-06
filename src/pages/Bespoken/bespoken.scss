@@ -1,6 +1,6 @@
 .bespoken {
     &__container {
-        padding: 5rem 4rem 30rem 4rem;
+        padding: 0 4rem 30rem 4rem;
         min-height: 60vh;
         display: flex;
         flex-direction: column;
@@ -58,9 +58,8 @@
 
     &__section {
         &-card {
-            background-color: #FFF9F5;
             width: 80%;
-            height: 12vh;
+            height: 10vh;
             border-radius: 1rem;
             padding: .4rem;
             margin: 2rem auto 0 auto;
@@ -71,7 +70,8 @@
             text-align: center;
             gap: .5rem;
             // border: 1px solid #d3d3d370;
-            box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.085);
+            background: #82828236;
+            box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.085);
             cursor: pointer;
         }
 
@@ -239,7 +239,7 @@
         &-goback {
             position: absolute;
             left: 1.5%;
-            top: 8rem;
+            top: 4rem;
             font-size: 1.2rem;
             cursor: pointer;
             transition: .3s;
@@ -254,7 +254,7 @@
 @media only screen and (max-width: 640px) {
     .bespoken {
         &__container {
-            padding: 3rem 0 30rem 0;
+            padding: 0 0 30rem 0;
             min-height: 80vh;
         }
 
