@@ -11,7 +11,6 @@ type Props = {}
 
 export default function Store({ }: Props) {
     const [products, setProducts] = useState<productType[]>([])
-    const [copyProducts, setCopyProducts] = useState<productType[]>([])
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(false)
     const { isLoggedIn, isMobile } = useContext(AppContext)
@@ -52,21 +51,21 @@ export default function Store({ }: Props) {
             <h1 className="store__title">Store</h1>
             <div className="store__categories">
                 <p
-                    onClick={() => setCategory('handmade-crowns')}
+                    onClick={() => setCategory('Handmade Crowns')}
                     style={{
-                        textDecoration: category === 'handmade-crowns' ? 'underline' : ''
+                        textDecoration: category === 'Handmade Crowns' ? 'underline' : ''
                     }}
                     className="store__category">Handmade Crowns</p>
                 <p
-                    onClick={() => setCategory('gifts')}
+                    onClick={() => setCategory('Gifts')}
                     style={{
-                        textDecoration: category === 'gifts' ? 'underline' : ''
+                        textDecoration: category === 'Gifts' ? 'underline' : ''
                     }}
                     className="store__category">Gifts</p>
                 <p
-                    onClick={() => setCategory('jewelry')}
+                    onClick={() => setCategory('Jewelry')}
                     style={{
-                        textDecoration: category === 'jewelry' ? 'underline' : ''
+                        textDecoration: category === 'Jewelry' ? 'underline' : ''
                     }}
                     className="store__category">Jewelry</p>
                 {category && <p

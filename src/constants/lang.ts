@@ -116,7 +116,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //PRIVACY POLICY
         'privacy_policies': `<h1 className="privacy__title">Política de privacidad</h1>
         <h2 className="policy__subtitle">Introducción</h2>
-        <p className="policy__text">En By Daniela Garcia, nos tomamos la privacidad en serio. Esta política de privacidad explica cómo recopilamos, usamos y protegemos tu información personal cuando visitas nuestro sitio de blog (el "Sitio").</p>
+        <p className="policy__text">En An Echo of The Heart, nos tomamos la privacidad en serio. Esta política de privacidad explica cómo recopilamos, usamos y protegemos tu información personal cuando visitas nuestro sitio de blog (el "Sitio").</p>
     
         <h2 className="policy__subtitle">¿Qué información personal recopilamos?</h2>
         <p className="policy__text">Cuando visitas el Sitio, recopilamos automáticamente cierta información sobre tu dispositivo, incluida información sobre tu navegador web, dirección IP, zona horaria y algunas de las cookies que se instalan en tu dispositivo. Además, mientras navegas por el Sitio, recopilamos información sobre las páginas web o productos individuales que ves, qué sitios web o términos de búsqueda te llevaron al Sitio, e información sobre cómo interactúas con el Sitio.</p>
@@ -257,7 +257,7 @@ export const TEXT: { [key: string]: { [key: string]: string } } = {
         //PRIVACY POLICY
         'privacy_policies': ` <h1 className="privacy__title">Privacy Policy</h1>
         <h2 className="policy__subtitle">Introduction</h2>
-        <p className="policy__text">At By Daniela Garcia, we take privacy seriously. This privacy policy explains how we collect, use, and protect your personal information when you visit our blog site (the “Site”).</p>
+        <p className="policy__text">At An Echo of The Heart, we take privacy seriously. This privacy policy explains how we collect, use, and protect your personal information when you visit our blog site (the “Site”).</p>
 
         <h2 className="policy__subtitle">What personal information do we collect?</h2>
         <p className="policy__text">When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site.</p>

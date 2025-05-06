@@ -54,6 +54,13 @@ h1 {
   font-weight: normal !important;
 }
 
+a {
+  color: #5D8C8C !important;
+}
+
+a:hover {
+  color: #75aeae !important;
+}
 
 @media only screen and (max-width: 640px) {
 
