@@ -40,6 +40,10 @@ export default function ProductCard({ product, style, index }: Props) {
             : ''
     }
 
+    const getTitle = (str?: string) => {
+        return str ? str.split('–')[0].split('-')[0] || '' : ''
+    }
+
     return (
         <div
             className="productcard__container"
@@ -53,7 +57,7 @@ export default function ProductCard({ product, style, index }: Props) {
                     <img src={mainImage} alt={title} className="productcard__image" />
                 </div>
             </div>
-            <p className="productcard__title">{title?.split('-')[0]}</p>
+            <p className="productcard__title">{getTitle(title)}</p>
             <p className="productcard__price">{getPrice(price)}</p>
         </div>
     )

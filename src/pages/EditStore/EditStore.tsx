@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { useHistory } from 'react-router-dom'
-import { RingLoader } from 'react-spinners'
+import { HashLoader, RingLoader } from 'react-spinners'
 
 type Props = {}
 
@@ -24,7 +24,7 @@ export default function EditStore({ }: Props) {
     const [loading, setLoading] = useState(false)
     const [removeProduct, setRemoveProduct] = useState(false)
     const [loadingImages, setLoadingImages] = useState(false)
-    const { isLoggedIn } = useContext(AppContext)
+    const { isLoggedIn, isMobile } = useContext(AppContext)
     const history = useHistory()
 
     useEffect(() => {
@@ -163,15 +163,27 @@ export default function EditStore({ }: Props) {
                 <Modal
                     title={isNew ? 'Create Product' : 'Edit Product'}
                     subtitle={isNew ? '' : product.title}
+                    style={{ width: isMobile ? '90vw' : '40vw' }}
                     onClose={cancel}>
                     <div className="editstore__modal">
-                        <InputField
-                            label='Title'
-                            name='title'
-                            updateData={updateData}
-                            disabled={loading || loadingImages}
-                            value={product.title}
-                        />
+                        <div className="editstore__row">
+                            <InputField
+                                label='Title'
+                                name='title'
+                                updateData={updateData}
+                                disabled={loading || loadingImages}
+                                value={product.title}
+                            />
+                            <Dropdown
+                                label='Categories'
+                                options={['Handmade Crowns', 'Gifts', 'Jewelry']}
+                                selected={JSON.parse(product.category || '[]')}
+                                value={JSON.parse(product.category || '[]')}
+                                setSelected={value => updateData('category', { target: { value: JSON.stringify(value) } })}
+                                multiselect
+                                style={{ width: '14rem' }}
+                            />
+                        </div>
                         <div className="editstore__row">
                             <InputField
                                 label='Price'
@@ -220,7 +232,7 @@ export default function EditStore({ }: Props) {
                                 />
                             </div>}
                         {getImages(product.images).length ?
-                            <div className="editstore__row" style={{ margin: '.5rem 0' }}>
+                            <div className="editstore__row" style={{ margin: '.5rem 0', overflowX: 'scroll' }}>
                                 {getImages(product.images).map((image: string, i: number) =>
                                     <img
                                         key={i}
@@ -293,5 +305,7 @@ export default function EditStore({ }: Props) {
                 setSelected={setSelectedProduct}
                 style={{ width: '70vw', filter: openModal ? 'blur(4px)' : '' }} />
         </div>
-        : <p style={{ position: 'absolute', top: '30%', right: '46%' }}>{isLoggedIn === null ? 'Loading Store...' : 'Permission denied.'}</p>
+        : <div className="editstore__container" style={{ alignItems: 'center' }}>
+            <div className='store__loader'><HashLoader size={15} /><p>{isLoggedIn === null ? 'Loading Store...' : 'Permission denied.'}</p></div>
+        </div>
 }

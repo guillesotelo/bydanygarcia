@@ -188,7 +188,7 @@
         border-top: none;
         margin-top: 2.3rem;
         width: calc(100% - 2px);
-        z-index: 2;
+        z-index: 9999;
         max-height: 20rem;
         overflow-y: auto;
         transition: .3s;
@@ -204,7 +204,7 @@
             border-top: none;
             margin-top: 2.3rem;
             width: calc(100% - 2px);
-            z-index: 2;
+            z-index: 9999;
             max-height: 20rem;
             overflow-y: auto;
             transition: .3s;
@@ -331,7 +331,7 @@
             margin-top: 2.3rem;
             width: inherit;
             // padding: 0 .5rem;
-            z-index: 2;
+            z-index: 9999;
             max-height: 20rem;
             overflow-y: auto;
             transition: .3s;

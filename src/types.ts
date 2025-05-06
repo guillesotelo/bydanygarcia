@@ -111,4 +111,5 @@ export type productType = {
     active?: boolean
     stock?: number
     currency?: string
+    category?: string
 }

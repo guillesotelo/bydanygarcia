@@ -14,6 +14,16 @@
         margin-top: 2vw;
     }
 
+    &__section {
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 4rem 0;
+    }
+
     &__parallax {
         &-image {
             background-size: cover;
@@ -48,12 +58,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            // object-position: 50% 0;
             animation: fade-in 1s ease-in forwards;
 
             &-wrapper {
                 width: 100vw;
                 height: auto;
-                margin-bottom: 3rem;
                 position: relative;
             }
 

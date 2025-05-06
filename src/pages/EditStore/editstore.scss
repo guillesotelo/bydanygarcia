@@ -28,17 +28,18 @@
         }
 
         &-image {
-            height: 2.2rem;
+            height: 6rem;
             max-height: 100%;
             width: auto;
             margin-bottom: 2px;
-            transition: .2s;
+            transition: .1s;
             border: 3px solid transparent;
             cursor: pointer;
 
             &:hover {
-                height: 10rem;
-            }
+                // height: 10rem;
+            border: 3px solid blue !important;
+        }
         }
     }
 }

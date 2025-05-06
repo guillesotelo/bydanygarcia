@@ -1,4 +1,4 @@
-import { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import PostCard from '../../components/PostCard/PostCard'
 import { getAllPosts } from '../../services/post'
@@ -8,8 +8,10 @@ import LandingFlowers from '../../assets/images/landing-3.jpg'
 import LandingSweden from '../../assets/images/landing-4.jpg'
 import Button from '../../components/Button/Button'
 import { APP_COLORS } from '../../constants/app'
-import { TEXT } from '../../constants/lang'
 import Player from '../../components/Player/Player'
+import ProductCard from '../../components/ProductCard/ProductCard'
+import { getAllProducts } from '../../services/product'
+import { productType } from '../../types'
 const Track1 = require('../../assets/audio/Jamie-Duffy_Solas.mp3')
 const Track2 = require('../../assets/audio/Je-Te-Laisserai_Des-Mots.mp3')
 
@@ -18,6 +20,7 @@ export default function Home() {
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false)
+    const [products, setProducts] = useState<productType[]>([])
     const { lang, isMobile, isLoggedIn } = useContext(AppContext)
     const history = useHistory()
 
@@ -25,20 +28,22 @@ export default function Home() {
         const parallaxScroll = () => {
             const parallaxImages = document.querySelectorAll('.home__parallax-image') as any
             parallaxImages.forEach((image: any, index: number) => {
-                const speed = parseFloat(image.dataset.speed) || 0.4
-                const offset = window.scrollY - image.parentElement.offsetTop - (index * index * 1000)
+                const speed = parseFloat(image.dataset.speed) || 0.3
+                const offset = window.scrollY - image.parentElement.offsetTop - (index * window.innerHeight * 1.8)
                 image.style.transform = `translateY(${offset * speed}px)`
             })
         }
+
+        getPosts()
+        getProducts()
 
         window.addEventListener('scroll', parallaxScroll)
         return () => window.removeEventListener('scroll', parallaxScroll)
     }, [])
 
-    useEffect(() => {
-        getPosts()
-        // if (isLoggedIn) setTimeout(() => setShowPlayer(true), 2000)
-    }, [isLoggedIn])
+    // useEffect(() => {
+    // if (isLoggedIn) setTimeout(() => setShowPlayer(true), 2000)
+    // }, [isLoggedIn])
 
     useEffect(() => {
         if (allPosts.length && !showUp) {
@@ -52,6 +57,18 @@ export default function Home() {
             setShowUp(true)
         }
     }, [allPosts])
+
+    const getProducts = async () => {
+        try {
+            setLoading(true)
+            const _products = await getAllProducts()
+            if (_products && Array.isArray(_products)) setProducts(_products)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            console.error(error)
+        }
+    }
 
     const getPosts = async () => {
         setLoading(true)
@@ -88,19 +105,21 @@ export default function Home() {
                     <img src={LandingDany} alt="Dany Garcia" className="home__landing-image home__parallax-image" />
                 </div>
             </div>
-            <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
-            <p className="home__landing-text">
-                <p>Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
-                <p>Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
-            </p>
+            <div className="home__section">
+                <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
+                <p className="home__landing-text">
+                    <p>Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
+                    <p>Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
+                </p>
 
-            <Button
-                label={lang === 'es' ? 'Conóceme' : 'Read My Story'}
-                handleClick={() => history.push(`/about`)}
-                bgColor={APP_COLORS.GRASS}
-                textColor='white'
-                style={{ transform: 'scale(1.2)', marginBottom: '4rem' }}
-            />
+                <Button
+                    label={lang === 'es' ? 'Conóceme' : 'Read My Story'}
+                    handleClick={() => history.push(`/about`)}
+                    bgColor={APP_COLORS.GRASS}
+                    textColor='white'
+                    style={{ transform: 'scale(1.2)' }}
+                />
+            </div>
 
             <div className="home__landing-image-wrapper">
                 <div className="home__parallax-container">
@@ -113,18 +132,18 @@ export default function Home() {
                 </div>
             </div>
 
-            <h2 className="home__landing-title">{TEXT[lang]['inspiration']}</h2>
-            <h3 className="home__landing-subtitle">{TEXT[lang]['inspiration_cap']}</h3>
-            {loading ? <span className="loader"></span>
-                :
+            <div className="home__section" style={{ height: 'fit-content' }}>
+                <h2 className="home__landing-title">Inspiration</h2>
+                <h3 className="home__landing-subtitle">Inspiring stories about personal growth, inner strength, and living with intention and awareness</h3>
                 <div className="blog__list">
                     {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
-                </div>}
-            <Button
-                label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => history.push(`/blog?category=inspiration`)}
-                style={{ transform: 'scale(1.3)', marginBottom: '4rem' }}
-            />
+                </div>
+                <Button
+                    label={lang === 'es' ? 'Ver todo' : 'View all'}
+                    handleClick={() => history.push(`/blog?category=inspiration`)}
+                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                />
+            </div>
 
             <div className="home__landing-image-wrapper">
                 <div className="home__parallax-container">
@@ -137,64 +156,49 @@ export default function Home() {
                 </div>
             </div>
 
-            <h2 className="home__landing-title">MOTHERHOOD</h2>
-            <h3 className="home__landing-subtitle">A Rollercoaster of Love and Learning</h3>
-            {loading ? <span className="loader"></span>
-                :
+            <div className="home__section" style={{ height: 'fit-content' }}>
+                <h2 className="home__landing-title">Bespoken by Dany</h2>
+                <h3 className="home__landing-subtitle">Floral designs & handcrafted gifts</h3>
+                <div className="blog__list">
+                    {products.map((product, i) => i < 4 ? <ProductCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} product={product} /> : null)}
+                </div>
+                <Button
+                    label='View store'
+                    handleClick={() => history.push(`/store`)}
+                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                />
+            </div>
+
+            <div className="home__section" style={{ height: 'fit-content' }}>
+                <h2 className="home__landing-title">Motherhood</h2>
+                <h3 className="home__landing-subtitle">Honest reflections on the growth, learning, and everyday moments of motherhood</h3>
                 <div className="blog__list">
                     {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
-                </div>}
-            <Button
-                label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => history.push(`/blog?category=motherhood`)}
-                style={{ transform: 'scale(1.3)' }}
-            />
+                </div>
+                <Button
+                    label={lang === 'es' ? 'Ver todo' : 'View all'}
+                    handleClick={() => history.push(`/blog?category=motherhood`)}
+                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                />
+            </div>
 
             <p className="home__landing-caption">
                 "I love an easy-going morning at home with soft music, a little sun, and <i>mates</i>.<br />Just a perfect scenario to get my notebook and write."
             </p>
-            <h2 className="home__landing-title">LIFE ABROAD</h2>
-            <h3 className="home__landing-subtitle">Journey Through Life and Travel</h3>
-            {loading ? <span className="loader"></span>
-                :
+
+            <div className="home__section" style={{ height: 'fit-content' }}>
+                <h2 className="home__landing-title">Life Abroad</h2>
+                <h3 className="home__landing-subtitle">Insightful stories of self-discovery, cultural adaptation, and expat life in foreign countries</h3>
                 <div className="blog__list">
                     {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
-                </div>}
-            <Button
-                label={lang === 'es' ? 'Ver todo' : 'View all'}
-                handleClick={() => history.push(`/blog?category=life_abroad`)}
-                style={{ transform: 'scale(1.3)' }}
-            />
-        </div>
-        {/* <div className="page__header">
-            <h4 className="page__header-title">{TEXT[lang]['categories']}</h4>
-        </div>
-        {loading ? <span className="loader"></span>
-            :
-            <div className="home__postlist">
-                <CategoryCard
-                    images={journeyWithin}
-                    title='Inspiration'
-                    count={journeyWithin.length + ' posts'}
-                    category='inspiration'
-                // subtitle='Sharing moments of deep awareness '
-                />
-                <CategoryCard
-                    images={embracingMotherhood}
-                    title='Embracing Motherhood'
-                    count={embracingMotherhood.length + ' posts'}
-                    category='motherhood'
-                // subtitle='A Rollercoaster of Love and Learning'
-                />
-                <CategoryCard
-                    images={roamingSoul}
-                    title='Roaming Soul'
-                    count={roamingSoul.length + ' posts'}
-                    category='roaming_soul'
-                // subtitle='Journeying Through Life and Travel'
+                </div>
+                <Button
+                    label={lang === 'es' ? 'Ver todo' : 'View all'}
+                    handleClick={() => history.push(`/blog?category=life_abroad`)}
+                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
                 />
             </div>
-        } */}
+        </div>
         {showPlayer ? <Player filePath={[Track1, Track2]} setShowPlayer={setShowPlayer} /> : ''}
     </div>
 }

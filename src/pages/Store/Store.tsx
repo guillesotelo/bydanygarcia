@@ -11,6 +11,8 @@ type Props = {}
 
 export default function Store({ }: Props) {
     const [products, setProducts] = useState<productType[]>([])
+    const [copyProducts, setCopyProducts] = useState<productType[]>([])
+    const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(false)
     const { isLoggedIn, isMobile } = useContext(AppContext)
     const history = useHistory()
@@ -43,15 +45,40 @@ export default function Store({ }: Props) {
                 style={{
                     position: 'absolute',
                     right: isMobile ? '.5rem' : '2rem',
-                    top: isMobile ? '3.5rem' : '2rem'
+                    top: isMobile ? '3.5rem' : '2rem',
+                    zIndex: 1
                 }}
             />}
             <h1 className="store__title">Store</h1>
+            <div className="store__categories">
+                <p
+                    onClick={() => setCategory('handmade-crowns')}
+                    style={{
+                        textDecoration: category === 'handmade-crowns' ? 'underline' : ''
+                    }}
+                    className="store__category">Handmade Crowns</p>
+                <p
+                    onClick={() => setCategory('gifts')}
+                    style={{
+                        textDecoration: category === 'gifts' ? 'underline' : ''
+                    }}
+                    className="store__category">Gifts</p>
+                <p
+                    onClick={() => setCategory('jewelry')}
+                    style={{
+                        textDecoration: category === 'jewelry' ? 'underline' : ''
+                    }}
+                    className="store__category">Jewelry</p>
+                {category && <p
+                    onClick={() => setCategory('')}
+                    style={{ animationDelay: '0s' }}
+                    className="store__category">All</p>}
+            </div>
             <div className="store__list">
                 {loading ?
-                    <div className='store__loader'><HashLoader size={10} /><p>Loading products...</p></div>
+                    <div className='store__loader'><HashLoader size={15} /><p>Loading products...</p></div>
                     :
-                    products.map((product, index) => <ProductCard product={product} index={index} />)}
+                    products.filter(p => !category ? true : p.category?.includes(category)).map((product, index) => <ProductCard product={product} index={index} />)}
             </div>
         </div>
     )
