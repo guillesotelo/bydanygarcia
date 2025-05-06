@@ -29,7 +29,7 @@ export default function Home() {
             const parallaxImages = document.querySelectorAll('.home__parallax-image') as any
             parallaxImages.forEach((image: any, index: number) => {
                 const speed = parseFloat(image.dataset.speed) || 0.3
-                const offset = window.scrollY - image.parentElement.offsetTop - (index * window.innerHeight * 1.8)
+                const offset = window.scrollY - image.parentElement.offsetTop - (index * (isMobile ? index * 1000 : window.innerHeight * 1.8))
                 image.style.transform = `translateY(${offset * speed}px)`
             })
         }

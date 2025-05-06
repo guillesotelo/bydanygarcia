@@ -36,9 +36,10 @@
         &-wrapper {
             height: 15rem;
             width: 100%;
+            min-width: 17rem;
             overflow: hidden;
         }
-        
+
         &-frame {
             padding: .5rem;
             box-shadow: 2px 2px 5px lightgray;

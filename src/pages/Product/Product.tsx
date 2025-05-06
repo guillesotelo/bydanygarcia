@@ -92,7 +92,7 @@ export default function Product({ }: Props) {
                                 <Button
                                     label='Buy'
                                     handleClick={buyProduct}
-                                    style={{ width: '100%', marginTop: '2rem', fontSize: '1.3rem', padding: '.8rem' }}
+                                    style={{ width: '100%', marginTop: '3rem', fontSize: '1.3rem', padding: '.8rem' }}
                                 />
                             </div>
                         </div>
