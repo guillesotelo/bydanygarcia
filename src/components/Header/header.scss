@@ -372,14 +372,15 @@
 
             &-sidebar {
                 &--hidden {
-                    margin-top: 4.75rem;
+                    margin-top: 4.85rem;
                     transform: translateX(-150%);
                     // box-shadow: 7px 11px 16px -3px #9999995e;
                     background-color: #00000099;
+                    width: 70vw;
                 }
 
                 &--toggled {
-                    margin-top: 4.75rem;
+                    margin-top: 4.85rem;
                     width: 70vw;
                     transform: translateX(0%);
                     // box-shadow: 7px 11px 16px -3px #9999995e;
