@@ -42,7 +42,9 @@
             font-size: 1.8rem;
             margin: 0 0 2rem;
             text-align: center;
-            animation: fade-in 1s forwards;
+            opacity: 0;
+            animation: fade-in-down 1s forwards;
+            animation-delay: 1.5s;
         }
 
         &-text {
@@ -50,7 +52,7 @@
             text-align: center;
             margin: 0;
             animation: fade-in 1s forwards;
-            animation-delay: 1s;
+            animation-delay: 2s;
             opacity: 0;
         }
     }
@@ -105,5 +107,33 @@
         flex-direction: row;
         align-items: center;
         gap: 1rem;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .store {
+        &__row {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            max-height: fit-content;
+            overflow: hidden;
+        }
+
+        &__col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__categories {
+            flex-wrap: wrap;
+        }
+
+        &__category {
+            margin: .5rem;
+            padding-right: 1rem;
+            font-size: 1rem;
+        }
     }
 }

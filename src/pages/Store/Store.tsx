@@ -48,8 +48,8 @@ export default function Store({ }: Props) {
                     handleClick={goToEditStore}
                     style={{
                         position: 'absolute',
-                        right: isMobile ? '.5rem' : '2rem',
-                        top: isMobile ? '3.5rem' : '2rem',
+                        right: isMobile ? '1rem' : '2rem',
+                        top: isMobile ? '1rem' : '2rem',
                         zIndex: 1
                     }}
                 />}
