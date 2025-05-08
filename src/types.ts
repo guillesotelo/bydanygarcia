@@ -112,4 +112,5 @@ export type productType = {
     stock?: number
     currency?: string
     category?: string
+    order?: number
 }

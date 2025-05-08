@@ -10,7 +10,7 @@
     &__row {
         display: flex;
         flex-direction: row;
-        align-items: flex-end;
+        align-items: flex-start;
         gap: 1rem;
     }
 
@@ -38,8 +38,18 @@
 
             &:hover {
                 // height: 10rem;
-            border: 3px solid blue !important;
+                border: 3px solid blue !important;
+            }
         }
-        }
+    }
+
+    &__tooltip {
+        margin: .5rem 0 1rem 0;
+        width: fit-content;
+        animation: shake-up-down 1.5s ease-in-out infinite;
+        padding: .5rem;
+        border: 1px solid gray;
+        border-radius: .5rem;
+        user-select: none;
     }
 }

@@ -55,11 +55,11 @@ h1 {
 }
 
 a {
-  color: #5D8C8C !important;
+  color: #5D8C8C;
 }
 
 a:hover {
-  color: #75aeae !important;
+  color: #75aeae;
 }
 
 @media only screen and (max-width: 640px) {

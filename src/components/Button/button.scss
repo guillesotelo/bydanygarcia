@@ -9,7 +9,7 @@
         border-radius: .5rem;
         cursor: pointer;
         font-weight: normal;
-        transition: .3s;
+        transition: .2s;
         border: none;
         border: 1px solid transparent;
         color: black;
@@ -27,5 +27,15 @@
 
     &__svg {
         height: 1.5rem;
+        cursor: pointer;
+        transition: .2s;
+        border: 1px solid transparent;
+        border-radius: .5rem;
+        background-color: white !important;
+        padding: .2rem;
+
+        &:hover {
+            border: 1px solid rgb(41, 41, 41) !important;
+        }
     }
 }

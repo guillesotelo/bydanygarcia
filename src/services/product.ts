@@ -55,11 +55,19 @@ const deleteProduct = async (data: productType) => {
     } catch (err) { console.log(err) }
 }
 
+const updateProductOrder = async (products: productType[]) => {
+    try {
+        const updated = await axios.post(`${API_URL}/api/product/updateOrder`, { products }, getConfig())
+        return updated.data
+    } catch (err) { console.log(err) }
+}
+
 export {
     getAllProducts,
     createProduct,
     getProductById,
     getProductBySlug,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    updateProductOrder
 }

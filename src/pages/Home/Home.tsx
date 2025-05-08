@@ -11,12 +11,18 @@ import { APP_COLORS } from '../../constants/app'
 import Player from '../../components/Player/Player'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { getAllProducts } from '../../services/product'
-import { productType } from '../../types'
+import { onChangeEventType, productType } from '../../types'
+import { sortArray } from '../../helpers'
+import InputField from '../../components/InputField/InputField'
+import toast from 'react-hot-toast'
+import { TEXT } from '../../constants/lang'
+import { subscribe } from '../../services/app'
 const Track1 = require('../../assets/audio/Jamie-Duffy_Solas.mp3')
 const Track2 = require('../../assets/audio/Je-Te-Laisserai_Des-Mots.mp3')
 
 export default function Home() {
     const [showUp, setShowUp] = useState(false)
+    const [subscribeData, setSubscribeData] = useState({ email: '', fullname: '' })
     const [allPosts, setAllPosts] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
     const [showPlayer, setShowPlayer] = useState(false)
@@ -62,7 +68,7 @@ export default function Home() {
         try {
             setLoading(true)
             const _products = await getAllProducts()
-            if (_products && Array.isArray(_products)) setProducts(_products)
+            if (_products && Array.isArray(_products)) setProducts(sortArray(_products, 'order'))
             setLoading(false)
         } catch (error) {
             setLoading(false)
@@ -94,6 +100,31 @@ export default function Home() {
         return allPosts.filter(post => (post.category && post.category.toLowerCase().includes(filter.toLowerCase())))
     }
 
+
+    const updateSubscribeData = (key: string, e: onChangeEventType) => {
+        const value = e.target.value
+        setSubscribeData({ ...subscribeData, [key]: value })
+    }
+
+    const onSubscribe = async () => {
+        try {
+            const loading = toast.loading(TEXT[lang]['subscribing'])
+            if (!subscribeData.fullname.includes(' ') || !subscribeData.email.includes('@') || !subscribeData.email.includes('.')) {
+                toast.error(lang === 'es' ? 'Checkea los campos' : 'Check the fields')
+                return toast.remove(loading)
+            }
+            const logged = await subscribe(subscribeData)
+            if (logged) {
+                toast.success(TEXT[lang]['subscribe_ok'])
+                setTimeout(() => history.push('/'), 1500)
+            } else toast.error(TEXT[lang]['subscribe_error'])
+
+            return toast.remove(loading)
+        } catch (error) {
+            toast.error(TEXT[lang]['subscribe_error'])
+        }
+    }
+
     return <div className="home__container">
         <div className="home__landing">
             <div className="home__landing-image-wrapper">
@@ -105,20 +136,22 @@ export default function Home() {
                     <img src={LandingDany} alt="Dany Garcia" className="home__landing-image home__parallax-image" />
                 </div>
             </div>
-            <div className="home__section">
-                <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
-                <p className="home__landing-text">
-                    <p>Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
-                    <p>Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
-                </p>
+            <div className="home__section-wrapper">
+                <div className="home__section">
+                    <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
+                    <p className="home__landing-text">
+                        <p>Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
+                        <p>Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
+                    </p>
 
-                <Button
-                    label={lang === 'es' ? 'Conóceme' : 'Read My Story'}
-                    handleClick={() => history.push(`/about`)}
-                    bgColor={APP_COLORS.GRASS}
-                    textColor='white'
-                    style={{ transform: 'scale(1.2)' }}
-                />
+                    <Button
+                        label={lang === 'es' ? 'Conóceme' : 'Read My Story'}
+                        handleClick={() => history.push(`/about`)}
+                        bgColor={APP_COLORS.GRASS}
+                        textColor='white'
+                        style={{ transform: 'scale(1.2)' }}
+                    />
+                </div>
             </div>
 
             <div className="home__landing-image-wrapper">
@@ -132,17 +165,19 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="home__section" style={{ height: 'fit-content' }}>
-                <h2 className="home__landing-title">Inspiration</h2>
-                <h3 className="home__landing-subtitle">Inspiring stories about personal growth, inner strength, and living with intention and awareness</h3>
-                <div className="blog__list">
-                    {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+            <div className="home__section-wrapper">
+                <div className="home__section" style={{ height: 'fit-content' }}>
+                    <h2 className="home__landing-title">Inspiration</h2>
+                    <h3 className="home__landing-subtitle">Inspiring stories about personal growth, inner strength, and living with intention and awareness</h3>
+                    <div className="blog__list">
+                        {filterPosts('inspiration').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+                    </div>
+                    <Button
+                        label={lang === 'es' ? 'Ver todo' : 'View all'}
+                        handleClick={() => history.push(`/blog?category=inspiration`)}
+                        style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                    />
                 </div>
-                <Button
-                    label={lang === 'es' ? 'Ver todo' : 'View all'}
-                    handleClick={() => history.push(`/blog?category=inspiration`)}
-                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
-                />
             </div>
 
             <div className="home__landing-image-wrapper">
@@ -156,47 +191,79 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="home__section" style={{ height: 'fit-content' }}>
-                <h2 className="home__landing-title">Bespoken by Dany</h2>
-                <h3 className="home__landing-subtitle">Floral designs & handcrafted gifts</h3>
-                <div className="blog__list">
-                    {products.map((product, i) => i < 4 ? <ProductCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} product={product} /> : null)}
+            {/* <div className="home__section-wrapper">
+                <div className="home__section" style={{ height: 'fit-content' }}>
+                    <h2 className="home__landing-title">Bespoken by Dany</h2>
+                    <h3 className="home__landing-subtitle">Floral designs & handcrafted gifts</h3>
+                    <div className="blog__list">
+                        {products.map((product, i) => i < 4 ? <ProductCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} product={product} /> : null)}
+                    </div>
+                    <Button
+                        label='View store'
+                        handleClick={() => history.push(`/store`)}
+                        style={{ transform: 'scale(1.3)', margin: '4rem 0' }}
+                    />
                 </div>
-                <Button
-                    label='View store'
-                    handleClick={() => history.push(`/store`)}
-                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
-                />
-            </div>
+            </div> */}
 
-            <div className="home__section" style={{ height: 'fit-content' }}>
-                <h2 className="home__landing-title">Motherhood</h2>
-                <h3 className="home__landing-subtitle">Honest reflections on the growth, learning, and everyday moments of motherhood</h3>
-                <div className="blog__list">
-                    {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+            <div className="home__section-wrapper">
+                <div className="home__section" style={{ height: 'fit-content' }}>
+                    <h2 className="home__landing-title">Motherhood</h2>
+                    <h3 className="home__landing-subtitle">Honest reflections on the growth, learning, and everyday moments of motherhood</h3>
+                    <div className="blog__list">
+                        {filterPosts('motherhood').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+                    </div>
+                    <Button
+                        label={lang === 'es' ? 'Ver todo' : 'View all'}
+                        handleClick={() => history.push(`/blog?category=motherhood`)}
+                        style={{ transform: 'scale(1.3)', margin: '0 0 6rem' }}
+                    />
                 </div>
-                <Button
-                    label={lang === 'es' ? 'Ver todo' : 'View all'}
-                    handleClick={() => history.push(`/blog?category=motherhood`)}
-                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
-                />
             </div>
 
             <p className="home__landing-caption">
                 "I love an easy-going morning at home with soft music, a little sun, and <i>mates</i>.<br />Just a perfect scenario to get my notebook and write."
             </p>
 
-            <div className="home__section" style={{ height: 'fit-content' }}>
-                <h2 className="home__landing-title">Life Abroad</h2>
-                <h3 className="home__landing-subtitle">Insightful stories of self-discovery, cultural adaptation, and expat life in foreign countries</h3>
-                <div className="blog__list">
-                    {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+            <div className="home__section-wrapper">
+                <div className="home__section" style={{ height: 'fit-content' }}>
+                    <h2 className="home__landing-title">Life Abroad</h2>
+                    <h3 className="home__landing-subtitle">Insightful stories of self-discovery, cultural adaptation, and expat life in foreign countries</h3>
+                    <div className="blog__list">
+                        {filterPosts('life abroad').map((post, i) => i < 4 ? <PostCard style={{ width: isMobile ? '70%' : '20vw' }} index={i} key={i} post={post} /> : null)}
+                    </div>
+                    <Button
+                        label={lang === 'es' ? 'Ver todo' : 'View all'}
+                        handleClick={() => history.push(`/blog?category=life_abroad`)}
+                        style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                    />
                 </div>
-                <Button
-                    label={lang === 'es' ? 'Ver todo' : 'View all'}
-                    handleClick={() => history.push(`/blog?category=life_abroad`)}
-                    style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
-                />
+            </div>
+
+            <div className="home__section-wrapper">
+                <div className="home__section" style={{ height: 'fit-content' }}>
+                    <h2 style={{ fontFamily: '"Madelyn", sans-serif', fontSize: '5rem', margin: '2rem 0 0 0' }}>{lang === 'es' ? 'Únete a mi Comunidad' : 'Join my Mail Community'}</h2>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: 'normal' }}>{lang === 'es' ? 'Únete y recibe cartas mensuales 🖤' : 'Sign up for monthly letters 🖤'}</h3>
+                    <div className="postviewer__subscribe-row">
+                        <InputField
+                            name='fullname'
+                            updateData={updateSubscribeData}
+                            placeholder='Your full name'
+                        />
+                        <InputField
+                            name='email'
+                            updateData={updateSubscribeData}
+                            placeholder='Your email'
+                            type='email'
+                        />
+                        <Button
+                            label={lang === 'es' ? 'Únete' : 'Join'}
+                            handleClick={onSubscribe}
+                            disabled={!subscribeData.email || !subscribeData.fullname}
+                            style={{ width: isMobile ? '100%' : '' }}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
         {showPlayer ? <Player filePath={[Track1, Track2]} setShowPlayer={setShowPlayer} /> : ''}

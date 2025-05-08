@@ -16,6 +16,7 @@ import { clearDB, getAllRecordsFromDB, saveItemToDB } from '../../indexedDB'
 import imageCompression from 'browser-image-compression';
 import { convertToBase64, createSlug } from '../../helpers'
 import Upload from '../../assets/icons/upload.svg'
+import Tooltip from '../../components/Tooltip/Tooltip'
 
 type Props = {}
 const voidData = {
@@ -204,7 +205,7 @@ export default function PostEditor({ }: Props) {
             const sideImgs = JSON.stringify(sideImages)
             const sideStyles = JSON.stringify(sideImgStyles)
 
-            if(!data.title && !data.spaTitle) {
+            if (!data.title && !data.spaTitle) {
                 toast.remove(loading)
                 return toast.error('Please enter a title')
             }
@@ -422,10 +423,14 @@ export default function PostEditor({ }: Props) {
                                 disabled={Boolean(data.imageUrlTitle)}
                             />
                             {data.imageUrl ? <img src={data.imageUrl} alt='Image URL' className='editor__image-url' /> : ''}
-                            <Button
-                                svg={Upload}
-                                handleClick={openFilePicker}
-                            />
+                            <Tooltip tooltip='Upload image'>
+                                <Button
+                                    svg={Upload}
+                                    handleClick={openFilePicker}
+                                    bgColor='transparent'
+                                    textColor='#fff'
+                                />
+                            </Tooltip>
                             <input ref={imageUrlRef} type='file' accept='image/*' onChange={uploadImage} style={{ display: 'none' }} />
                         </div>
                         <InputField

@@ -7,4 +7,5 @@ export const APP_COLORS = {
     SOIL: '#D9C6BA',
     GRASS: '#5D8C8C',
     LIGHTBLUE: '#BAD9D9',
+    BLUEGREEN: "#5d8c8c",
 }

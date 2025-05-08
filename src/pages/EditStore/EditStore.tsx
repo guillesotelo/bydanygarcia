@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../AppContext'
 import DataTable from '../../components/DataTable/DataTable'
 import { productHeaders } from '../../constants/tableHeaders'
-import { createProduct, deleteProduct, getAllProducts, updateProduct } from '../../services/product'
+import { createProduct, deleteProduct, getAllProducts, updateProduct, updateProductOrder } from '../../services/product'
 import { dataObj, productType } from '../../types'
 import Modal from '../../components/Modal/Modal'
 import InputField from '../../components/InputField/InputField'
@@ -12,6 +12,7 @@ import Switch from '../../components/Switch/Switch'
 import Dropdown from '../../components/Dropdown/Dropdown'
 import { useHistory } from 'react-router-dom'
 import { HashLoader, RingLoader } from 'react-spinners'
+import Tooltip from '../../components/Tooltip/Tooltip'
 
 type Props = {}
 
@@ -24,6 +25,7 @@ export default function EditStore({ }: Props) {
     const [loading, setLoading] = useState(false)
     const [removeProduct, setRemoveProduct] = useState(false)
     const [loadingImages, setLoadingImages] = useState(false)
+    const [changeOrder, setChangeOrder] = useState(false)
     const { isLoggedIn, isMobile } = useContext(AppContext)
     const history = useHistory()
 
@@ -90,6 +92,23 @@ export default function EditStore({ }: Props) {
         } catch (error) {
             setLoading(false)
             toast.error('Error saving product. Please try again.')
+            console.error(error)
+        }
+    }
+
+    const saveTableDataOrder = async (items: productType[]) => {
+        try {
+            setLoading(true)
+            const updatedProducts = await updateProductOrder(items.map((item, i) => { return { ...item, order: i } }))
+            if (updatedProducts && updatedProducts.length) {
+                setProducts(updatedProducts)
+                toast.success('Order updated successfully')
+            }
+            else toast.error('Error updating order')
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            toast.error('Error updating order')
             console.error(error)
         }
     }
@@ -278,23 +297,33 @@ export default function EditStore({ }: Props) {
                 </Modal>}
             <div className="editstore__row">
                 <Button
+                    label='View store'
+                    handleClick={() => {
+                        history.push('/store')
+                    }}
+                    disabled={loading}
+                    style={{ margin: '1rem 0 2rem', filter: openModal ? 'blur(4px)' : '' }}
+                />
+                <Button
                     label='+ &nbsp;Create new product'
                     handleClick={() => {
                         setIsNew(true)
                         setOpenModal(true)
                     }}
-                    style={{ margin: '1rem 0 2rem', filter: openModal ? 'blur(4px)' : '' }}
-                    disabled={loading}
-                />
-                <Button
-                    label='View store'
-                    handleClick={() => {
-                        history.push('/store')
-                    }}
                     style={{ margin: '1rem 1rem 2rem', filter: openModal ? 'blur(4px)' : '' }}
                     disabled={loading}
                 />
+                <Tooltip tooltip='Change product order with D&D'>
+                    <Switch
+                        label='Change order'
+                        on='Yes'
+                        off='No'
+                        value={changeOrder}
+                        setValue={() => setChangeOrder(v => !v)}
+                    />
+                </Tooltip>
             </div>
+            {changeOrder && <p className='editstore__tooltip'>👇 Drag & Drop products to set the order in Store & Home</p>}
             <DataTable
                 title='Products'
                 name='products'
@@ -303,7 +332,10 @@ export default function EditStore({ }: Props) {
                 tableHeaders={productHeaders}
                 selected={selectedProduct}
                 setSelected={setSelectedProduct}
-                style={{ width: '70vw', filter: openModal ? 'blur(4px)' : '' }} />
+                style={{ width: '70vw', filter: openModal ? 'blur(4px)' : '' }}
+                draggable={changeOrder}
+                saveTableDataOrder={saveTableDataOrder}
+                loading={loading} />
         </div>
         : <div className="editstore__container" style={{ alignItems: 'center' }}>
             <div className='store__loader'><HashLoader size={15} /><p>{isLoggedIn === null ? 'Loading Store...' : 'Permission denied.'}</p></div>

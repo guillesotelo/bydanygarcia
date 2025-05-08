@@ -15,13 +15,16 @@
     }
 
     &__section {
-        min-height: 50vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        padding: 4rem 0;
+        margin: 4rem 0;
+        
+        &-wrapper {
+            min-height: 50vh;
+        }
     }
 
     &__parallax {

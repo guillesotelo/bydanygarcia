@@ -15,6 +15,7 @@ import { AppContext } from '../../AppContext'
 import { TEXT } from '../../constants/lang'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
+import Tooltip from '../Tooltip/Tooltip'
 
 type Props = {
     search: string[]
@@ -415,32 +416,42 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                 <div className='header__admin-panel'>
                     {isLoggedIn ?
                         <div className="header__admin-btns">
-                            <Button
-                                label='Create'
-                                handleClick={() => history.push('/editor?new=true')}
-                                bgColor='transparent'
-                                textColor='#fff'
-                            />
+                            <Tooltip tooltip='Create a new post'>
+                                <Button
+                                    label='Create'
+                                    handleClick={() => history.push('/editor?new=true')}
+                                    bgColor='transparent'
+                                    textColor='#fff'
+                                />
+                            </Tooltip>
                             {postId ?
                                 <>
-                                    <Button
-                                        svg={EditIcon}
-                                        handleClick={() => history.push(`/editor?id=${postId}`)}
-                                        bgColor='transparent'
-                                        textColor='#fff'
-                                    />
-                                    <Button
-                                        svg={DeleteIcon}
-                                        handleClick={() => setDeleteModal(true)}
-                                        bgColor='transparent'
-                                        textColor='#fff'
-                                    />
+                                    <Tooltip tooltip='Edit this post'>
+                                        <Button
+                                            svg={EditIcon}
+                                            handleClick={() => history.push(`/editor?id=${postId}`)}
+                                            bgColor='transparent'
+                                            textColor='#fff'
+                                        />
+                                    </Tooltip>
+                                    <Tooltip tooltip='Delete this post'>
+                                        <Button
+                                            svg={DeleteIcon}
+                                            handleClick={() => setDeleteModal(true)}
+                                            bgColor='transparent'
+                                            textColor='#fff'
+                                        />
+                                    </Tooltip>
                                 </>
                                 : ''}
-                            <Button
-                                svg={NotificationIcon}
-                                handleClick={() => history.push('/notifications')}
-                            />
+                            <Tooltip tooltip='Newsletter'>
+                                <Button
+                                    svg={NotificationIcon}
+                                    handleClick={() => history.push('/notifications')}
+                                    bgColor='transparent'
+                                    textColor='#fff'
+                                />
+                            </Tooltip>
                             <Button
                                 label='Logout'
                                 handleClick={logOut}

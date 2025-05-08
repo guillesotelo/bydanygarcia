@@ -42,4 +42,8 @@ export const productHeaders = [
         name: 'PRICE',
         value: 'price'
     },
+    {
+        name: 'ORDER',
+        value: 'order'
+    },
 ]

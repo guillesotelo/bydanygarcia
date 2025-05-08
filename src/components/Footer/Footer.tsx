@@ -27,7 +27,10 @@ export default function Footer({ }: Props) {
                 <img className="footer__social-svg" draggable={false} onClick={() => window.open('https://www.youtube.com/@bydanygarcia5800', '_blank', 'noreferrer')} src={Youtube} />
             </div>
             <div className="footer__info">
-                <h4 className="footer__copyright no-pointer">{isMobile ? '© 2025' : 'An Echo of the Heart © 2025'}</h4>
+                <h4 className="footer__signature"><i>With love, Dany</i></h4>
+            </div>
+            <div className="footer__info">
+                <h4 className="footer__copyright no-pointer">© 2025</h4>
             </div>
         </div>
     )

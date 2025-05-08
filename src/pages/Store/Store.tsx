@@ -6,6 +6,8 @@ import { getAllProducts } from '../../services/product'
 import { productType } from '../../types'
 import { useHistory } from "react-router-dom";
 import { HashLoader } from 'react-spinners'
+import { sortArray } from '../../helpers'
+import BespokenContact from '../../assets/images/bespoken-contact.jpg'
 
 type Props = {}
 
@@ -40,17 +42,27 @@ export default function Store({ }: Props) {
 
     return (
         <div className="store__container">
-            {isLoggedIn && <Button
-                label='Edit Store'
-                handleClick={goToEditStore}
-                style={{
-                    position: 'absolute',
-                    right: isMobile ? '.5rem' : '2rem',
-                    top: isMobile ? '3.5rem' : '2rem',
-                    zIndex: 1
-                }}
-            />}
+            {isLoggedIn &&
+                <Button
+                    label='Edit Store'
+                    handleClick={goToEditStore}
+                    style={{
+                        position: 'absolute',
+                        right: isMobile ? '.5rem' : '2rem',
+                        top: isMobile ? '3.5rem' : '2rem',
+                        zIndex: 1
+                    }}
+                />}
             <h1 className="store__title">Store</h1>
+
+            <div className="store__row">
+                <img src={BespokenContact} alt="Bespoken store background" className="store__bg-image" style={{ maxWidth: isMobile ? '90vw' : '25vw' }} />
+                <div className="store__col" style={{ maxWidth: isMobile ? '90vw' : '25vw' }} >
+                    <p className='store__welcome-title'>Welcome to my store</p>
+                    <p className='store__welcome-text'>I specialize in creating boho-inspired, flower designs, made with care and creativity. Alongside my original pieces, I source for unique, artisan-made jewelry that flows naturally with the aesthetic — earthy, free-spirited, and full of meaning.</p>
+                </div>
+            </div>
+
             <div className="store__categories">
                 <p
                     onClick={() => setCategory('Handmade Crowns')}
@@ -79,7 +91,7 @@ export default function Store({ }: Props) {
                 {loading ?
                     <div className='store__loader'><HashLoader size={15} /><p>Loading products...</p></div>
                     :
-                    getFilteredProducts().length ? getFilteredProducts().map((product, index) =>
+                    getFilteredProducts().length ? sortArray(getFilteredProducts(), 'order').map((product, index) =>
                         <ProductCard product={product} index={index} />)
                         : <p>{category} coming soon...</p>}
             </div>

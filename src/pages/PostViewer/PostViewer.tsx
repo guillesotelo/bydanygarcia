@@ -80,7 +80,7 @@ export default function PostViewer({ }: Props) {
             toast.error(lang === 'es' ? 'Checkea los campos' : 'Check the fields')
             return toast.remove(loading)
         }
-        const logged = await subscribe(data)
+        const logged = await subscribe(subscribeData)
         if (logged) {
             toast.success(TEXT[lang]['subscribe_ok'])
             setTimeout(() => history.push('/'), 1500)
