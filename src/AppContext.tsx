@@ -1,5 +1,4 @@
 import React, { createContext } from 'react'
-import { postType } from './types'
 
 type AppContextType = {
     lang: string
