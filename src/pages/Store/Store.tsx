@@ -59,7 +59,12 @@ export default function Store({ }: Props) {
                 <img src={BespokenContact} alt="Bespoken store background" className="store__bg-image" style={{ maxWidth: isMobile ? '90vw' : '25vw' }} />
                 <div className="store__col" style={{ maxWidth: isMobile ? '90vw' : '25vw' }} >
                     <p className='store__welcome-title'>Welcome to my store</p>
-                    <p className='store__welcome-text'>I specialize in creating boho-inspired, flower designs, made with care and creativity. Alongside my original pieces, I source for unique, artisan-made jewelry that flows naturally with the aesthetic — earthy, free-spirited, and full of meaning.</p>
+                    <p className='store__welcome-text'>
+                        I specialize in boho-inspired floral designs, created with care, creativity, and a love for natural beauty. In addition to my original floral pieces, I source unique, artisan-made bohemian jewelry that flows seamlessly with the aesthetic—earthy and free-spirited.
+                        <br />
+                        <br />
+                        Thanks for being here — I hope you find something that speaks to your heart.
+                    </p>
                 </div>
             </div>
 
