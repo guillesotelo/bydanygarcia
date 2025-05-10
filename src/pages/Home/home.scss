@@ -21,7 +21,7 @@
         align-items: center;
         width: 100%;
         margin: 4rem 0;
-        
+
         &-wrapper {
             min-height: 50vh;
         }
@@ -122,15 +122,14 @@
 
         &-title {
             margin: 0;
-            font-family: "Playfair Display", serif;
+            font-family: 'Madelyn', sans-serif;
+            font-size: 4rem;
         }
-
+        
         &-subtitle {
             margin: 0;
-            color: #a5a5a5;
-            font-size: 1.5rem;
-            font-style: italic;
             font-weight: normal;
+            color: #938787;
         }
     }
 

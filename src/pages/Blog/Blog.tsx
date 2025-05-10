@@ -70,7 +70,7 @@ export default function Blog({ }: Props) {
         return parsedDate < twoHoursAgo
     }
 
-    const parseCategory = (cat: string) => TEXT[lang][cat]
+    const parseCategory = (cat: string) => TEXT[lang][cat].split('').map((c, i, a) => i === 0 || (a[i - 1] && a[i - 1] === ' ') ? c.toUpperCase() : c.toLowerCase())
 
     return (
         <div className='blog__container'>

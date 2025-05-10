@@ -371,11 +371,11 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                                     {TEXT[lang]['products']}
                                 </h4>
                             </div>
-                            <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
+                            {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
                                 <h4 className="header__item-dropdown-text">
                                     {TEXT[lang]['our_handcrafted_wedding']}
                                 </h4>
-                            </div>
+                            </div> */}
                             {/* <div className="header__item-dropdown-row" onClick={() => history.push('/bespoken/values')}>
                                     <h4 className="header__item-dropdown-text">
                                         {TEXT[lang]['values']}

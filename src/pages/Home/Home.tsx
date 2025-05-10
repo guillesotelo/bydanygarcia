@@ -243,7 +243,7 @@ export default function Home() {
             <div className="home__section-wrapper">
                 <div className="home__section" style={{ height: 'fit-content' }}>
                     <h2 style={{ fontFamily: '"Madelyn", sans-serif', fontSize: '3rem', margin: '2rem 0 0 0' }}>Stay connected</h2>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 'normal' }}>Receive occasional reflections, updates from Bespoken, and gentle inspiration in your inbox</h3>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 'normal' }}>Receive occasional reflections, updates from Bespoken, and gentle inspiration in your inbox.</h3>
                     <div className="postviewer__subscribe-row">
                         <InputField
                             name='fullname'

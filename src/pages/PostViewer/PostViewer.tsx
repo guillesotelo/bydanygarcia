@@ -248,94 +248,96 @@ export default function PostViewer({ }: Props) {
             </div>
             {loading ? <span className="loader" style={{ margin: '10rem auto 60vh' }}></span>
                 :
-                <Post
-                    headers={{ ...post, sideImages, sideImgStyles }}
-                    content={html}
-                    spaContent={spaHtml}
-                    linkLang={linkLang}
-                />
-            }
-
-            {post.video?.trim() ?
-                <div style={{ textAlign: 'center', margin: '0 0 6rem 0' }}>
-                    <iframe src={parseYTLink(post.video)} width={isMobile ? '90%' : "700"} height={isMobile ? 'auto' : "400"} frameBorder={0} allowFullScreen />
-                </div>
-                : ''}
-            <div className="postviewer__row">
-                <div className="postviewer__share-section">
-                    <h2 className="postviewer__share-text">{lang === 'es' ? 'Comparte este post' : 'Share this post'}</h2>
-                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('instagram')} src={Instagram} />
-                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('facebook')} src={Facebook} />
-                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('x')} src={X} />
-                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('linkedin')} src={Linkedin} />
-                    <img className="postviewer__share-icon" onClick={() => shareToPlatform('whatsapp')} src={Whatsapp} />
-                </div>
-            </div>
-            <div className="postviewer__subscribe">
-                <h2 style={{ fontFamily: '"Madelyn", sans-serif' }}>{lang === 'es' ? 'Únete a mi Comunidad' : 'Join my Mail Community'}</h2>
-                <h3>{lang === 'es' ? 'Únete y recibe cartas mensuales 🖤' : 'Sign up for monthly letters 🖤'}</h3>
-                <div className="postviewer__subscribe-row">
-                    <InputField
-                        name='fullname'
-                        updateData={updateSubscribeData}
-                        placeholder={TEXT[lang]['full_name']}
+                <>
+                    <Post
+                        headers={{ ...post, sideImages, sideImgStyles }}
+                        content={html}
+                        spaContent={spaHtml}
+                        linkLang={linkLang}
                     />
-                    <InputField
-                        name='email'
-                        updateData={updateSubscribeData}
-                        placeholder={TEXT[lang]['your_email']}
-                        type='email'
-                    />
-                    <Button
-                        label={lang === 'es' ? 'Únete' : 'Join'}
-                        handleClick={onSubscribe}
-                        disabled={!subscribeData.email || !subscribeData.fullname}
-                        style={{ width: isMobile ? '100%' : '' }}
-                    />
-                </div>
-            </div>
-            <div className="postviewer__comments-section">
-                {/* <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2> */}
-                <div className="postviewer__comments-list" style={{ width: isMobile ? '90vw' : '30vw' }}>
-                    {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={submitComment} setReply={setSubmitComment} />)}
-                </div>
-                {!submitComment ?
-                    <div className="postviewer__comments-post">
-                        <h2 className="postviewer__comments-post-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
-                        <div className="postviewer__comments-reply" style={{ width: isMobile ? '90vw' : '30vw' }}>
+                    {post.video?.trim() ?
+                        <div style={{ textAlign: 'center', margin: '0 0 6rem 0' }}>
+                            <iframe src={parseYTLink(post.video)} width={isMobile ? '90%' : "700"} height={isMobile ? 'auto' : "400"} frameBorder={0} allowFullScreen />
+                        </div>
+                        : ''}
+                    <div className="postviewer__row">
+                        <div className="postviewer__share-section">
+                            <h2 className="postviewer__share-text">{lang === 'es' ? 'Comparte este post' : 'Share this post'}</h2>
+                            <img className="postviewer__share-icon" onClick={() => shareToPlatform('instagram')} src={Instagram} />
+                            <img className="postviewer__share-icon" onClick={() => shareToPlatform('facebook')} src={Facebook} />
+                            <img className="postviewer__share-icon" onClick={() => shareToPlatform('x')} src={X} />
+                            <img className="postviewer__share-icon" onClick={() => shareToPlatform('linkedin')} src={Linkedin} />
+                            <img className="postviewer__share-icon" onClick={() => shareToPlatform('whatsapp')} src={Whatsapp} />
+                        </div>
+                    </div>
+                    <div className="postviewer__subscribe">
+                        <h2 style={{ fontFamily: '"Madelyn", sans-serif' }}>{lang === 'es' ? 'Únete a mi Comunidad' : 'Join my Mail Community'}</h2>
+                        <h3>{lang === 'es' ? 'Únete y recibe cartas mensuales 🖤' : 'Sign up for monthly letters 🖤'}</h3>
+                        <div className="postviewer__subscribe-row">
                             <InputField
                                 name='fullname'
-                                value={isLoggedIn ? 'Dany' : data.fullname}
-                                updateData={updateData}
-                                placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
-                                disabled={isLoggedIn || false}
+                                updateData={updateSubscribeData}
+                                placeholder={TEXT[lang]['full_name']}
                             />
-                            {isLoggedIn ? '' :
-                                <InputField
-                                    name='email'
-                                    value={data.email}
-                                    updateData={updateData}
-                                    placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
-                                />}
                             <InputField
-                                name='comment'
-                                value={data.comment}
-                                updateData={updateData}
-                                placeholder={lang === 'es' ? 'Tu comentario' : 'Your comment'}
-                                type='textarea'
-                                rows={8}
+                                name='email'
+                                updateData={updateSubscribeData}
+                                placeholder={TEXT[lang]['your_email']}
+                                type='email'
                             />
                             <Button
-                                label={lang === 'es' ? 'Enviar' : 'Post Comment'}
-                                handleClick={postComment}
-                                style={{ width: '100%' }}
-                                disabled={!data.comment || (!isLoggedIn && !data.fullname)}
+                                label={lang === 'es' ? 'Únete' : 'Join'}
+                                handleClick={onSubscribe}
+                                disabled={!subscribeData.email || !subscribeData.fullname}
+                                style={{ width: isMobile ? '100%' : '' }}
                             />
                         </div>
                     </div>
-                    : ''}
-            </div>
-            <img src={isMobile ? WebSignatureMobile : WebSignature} alt="Signature" draggable={false} className="postviewer__signature" />
+                    <div className="postviewer__comments-section">
+                        {/* <h2 className="postviewer__comments-title">{lang === 'es' ? 'Comentarios' : 'Comments'}</h2> */}
+                        <div className="postviewer__comments-list" style={{ width: isMobile ? '90vw' : '30vw' }}>
+                            {postComments.map((comment, i) => <Comment key={i} comment={comment} reply={submitComment} setReply={setSubmitComment} />)}
+                        </div>
+                        {!submitComment ?
+                            <div className="postviewer__comments-post">
+                                <h2 className="postviewer__comments-post-title">{lang === 'es' ? 'Deja tu comentario' : 'Leave a comment'}</h2>
+                                <div className="postviewer__comments-reply" style={{ width: isMobile ? '90vw' : '30vw' }}>
+                                    <InputField
+                                        name='fullname'
+                                        value={isLoggedIn ? 'Dany' : data.fullname}
+                                        updateData={updateData}
+                                        placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
+                                        disabled={isLoggedIn || false}
+                                    />
+                                    {isLoggedIn ? '' :
+                                        <InputField
+                                            name='email'
+                                            value={data.email}
+                                            updateData={updateData}
+                                            placeholder={lang === 'es' ? 'Tu email' : 'Your email'}
+                                        />}
+                                    <InputField
+                                        name='comment'
+                                        value={data.comment}
+                                        updateData={updateData}
+                                        placeholder={lang === 'es' ? 'Tu comentario' : 'Your comment'}
+                                        type='textarea'
+                                        rows={8}
+                                    />
+                                    <Button
+                                        label={lang === 'es' ? 'Enviar' : 'Post Comment'}
+                                        handleClick={postComment}
+                                        style={{ width: '100%' }}
+                                        disabled={!data.comment || (!isLoggedIn && !data.fullname)}
+                                    />
+                                </div>
+                            </div>
+                            : ''}
+                    </div>
+                    <img src={isMobile ? WebSignatureMobile : WebSignature} alt="Signature" draggable={false} className="postviewer__signature" />
+                </>
+            }
+
 
         </div>
     )

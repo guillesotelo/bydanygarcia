@@ -759,15 +759,15 @@ export default function Bespoken({ page }: Props) {
                         }
                     </h3> */}
                 </div>
-                <div className="bespoken__section-card" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
-                    <h2 className="bespoken__section-title">{TEXT[lang]['our_handcrafted_wedding']}</h2>
+                {/* <div className="bespoken__section-card" onClick={() => history.push('/bespoken/our_handcrafted_wedding')}>
+                    <h2 className="bespoken__section-title">{TEXT[lang]['our_handcrafted_wedding']}</h2> */}
                     {/* <h3 className="bespoken__section-description">
                         {lang === 'es' ?
                             'Nuestra forma de celebrar el compromiso' :
                             `Our way of celebrating commitment`
                         }
                     </h3> */}
-                </div>
+                {/* </div> */}
                 {/* <div className="bespoken__section-card" onClick={() => history.push('/bespoken/values')}>
                     <h2 className="bespoken__section-title">{TEXT[lang]['values']}</h2>
                     <h3 className="bespoken__section-description">
