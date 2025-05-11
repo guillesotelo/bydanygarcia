@@ -42,10 +42,6 @@ export default function Contact({ }: Props) {
                 <div className="contact__info">
                     <h1>{TEXT[lang]['contact_me']}</h1>
                     <h3>{TEXT[lang]['have_a_question']}</h3>
-                    <br /> <br /> <br /> <br />
-                    <p>
-                    {TEXT[lang]['submit_policy']}
-                    </p>
                 </div>
                 <div className="contact__box">
                     <InputField

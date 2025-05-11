@@ -20,10 +20,12 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        margin: 4rem 0;
+        margin: auto;
+        gap: 1rem;
 
         &-wrapper {
             min-height: 50vh;
+            display: flex;
         }
     }
 
@@ -106,7 +108,11 @@
             align-self: center;
             text-align: center;
             animation: fade-in-card 1s ease-in forwards;
-            margin-top: 6rem;
+            margin-top: 2rem 0;
+
+            &-container {
+               
+            }
         }
 
         &>button {
@@ -121,7 +127,7 @@
         }
 
         &-title {
-            margin: 0;
+            margin: 2rem 0 0 0;
             font-family: 'Madelyn', sans-serif;
             font-size: 4rem;
         }
@@ -144,6 +150,10 @@
         &__postlist {
             gap: 6vw;
             margin-top: 5vw;
+        }
+
+        &__section {
+            margin: 2rem 0;
         }
 
         &__landing {

@@ -83,7 +83,7 @@ export default function Blog({ }: Props) {
                 style={{ position: 'absolute', right: '1rem', transform: 'scale(0.9)' }}
             /> : ''}
             <div className="page__header">
-                <h4 className="page__header-title-blog">{category ? parseCategory(category) : lang === 'es' ? 'BITÁCORA ABIERTA' : 'OPEN JOURNAL'}</h4>
+                <h4 className="page__header-title-blog">{category ? parseCategory(category) : 'Open Journal'}</h4>
                 {category ? <h4 className="page__header-subtitle-blog">{TEXT[lang][`${category}_cap`]}</h4> : ''}
                 <p className="blog__caption">
                     {!category ?

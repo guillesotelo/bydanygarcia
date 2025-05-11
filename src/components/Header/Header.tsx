@@ -16,6 +16,7 @@ import { TEXT } from '../../constants/lang'
 import { onChangeEventType, postType } from '../../types'
 import { getPostBySlug } from '../../services/post'
 import Tooltip from '../Tooltip/Tooltip'
+import Hamburger from 'hamburger-react'
 
 type Props = {
     search: string[]
@@ -161,8 +162,11 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
     const renderMobile = () => {
         return (
             <>
-                <div className='header__menu' onClick={() => setMenuToggle(!menuToggle)} >
-                    <img className="header__menu-svg" src={Menu} />
+                <div className='header__menu' >
+                    {/* <img className="header__menu-svg" src={Menu} /> */}
+                    <div className='header__menu-hamburger' onClick={() => setMenuToggle(!menuToggle)}>
+                        <Hamburger animateOnMount size={25} toggled={menuToggle} toggle={setMenuToggle} color='#dcdcdc' easing="ease-in" rounded label="Show menu" />
+                    </div>
                     <div className={`header__menu-sidebar${menuToggle ? '--toggled' : '--hidden'}`}>
                         {window.location.pathname !== '/' &&
                             <div className="header__menu-item">
@@ -247,8 +251,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                         }}>
                             <h4 className="header__menu-item-text" style={{
                                 position: 'fixed',
-                                bottom: '20%',
-                                marginBottom: '2.5rem',
+                                bottom: '15%',
                                 color: '#fff',
                                 fontSize: isMobile ? '.9rem' : '.75rem'
                             }}
@@ -276,7 +279,7 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             : ''}
                     </div>
                     : ''}
-                {!searchClicked && !isLoggedIn ?
+                {!searchClicked && !isLoggedIn && bespokenLogo ?
                     <div className="header__logo"
                         onClick={() => {
                             setSearch([])
@@ -285,19 +288,15 @@ export default function Header({ search, setSearch, bespokenLogo }: Props) {
                             else history.push('/')
                         }}>
                         {/* <h4 className="header__logo-text">An Echo of the Heart</h4> */}
-                        {bespokenLogo ?
-                            <img
-                                className="header__logo-image"
-                                style={{
-                                    maxHeight: '2rem',
-                                    margin: 0
-                                }}
-                                src={bespokenLogo}
-                                alt='Bespoken'
-                                loading='lazy' />
-                            :
-                            ''
-                        }
+                        <img
+                            className="header__logo-image"
+                            style={{
+                                maxHeight: '2rem',
+                                margin: 0
+                            }}
+                            src={bespokenLogo}
+                            alt='Bespoken'
+                            loading='lazy' />
                     </div>
                     : ''}
                 <div className="header__search" >

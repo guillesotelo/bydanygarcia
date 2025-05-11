@@ -29,6 +29,10 @@
             transition: .3s;
         }
 
+        &-hamburger {
+            margin: 0 1rem;
+        }
+
         &-sidebar {
             &--hidden {
                 margin-top: 4vw;

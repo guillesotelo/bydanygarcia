@@ -138,18 +138,18 @@ export default function Home() {
             </div>
             <div className="home__section-wrapper">
                 <div className="home__section">
-                    <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
-                    <p className="home__landing-text">
-                        <p>Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
-                        <p>Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
-                    </p>
+                    <p className="home__landing-title" style={{ fontSize: '1.5rem', margin: '.5rem', fontFamily: 'Lora' }}>A blog by Daniela García | Travel, Motherhood, Inspired Living & Bespoken Flower Design</p>
+                    <div className="home__landing-text-container">
+                        <p className="home__landing-text">Welcome—I'm Dany García. I created An Echo of the Heart as a gentle space for storytelling, motherhood, travel reflections, and personal growth. I also run Bespoken, where I design with floweres.</p>
+                        <p className="home__landing-text">Here, I share what moves me—writing from a place of authenticity, hoping my words may echo something in you, too.</p>
+                    </div>
 
                     <Button
                         label={lang === 'es' ? 'Conóceme' : 'Read My Story'}
                         handleClick={() => history.push(`/about`)}
                         bgColor={APP_COLORS.GRASS}
                         textColor='white'
-                        style={{ transform: 'scale(1.2)' }}
+                        style={{ marginTop: '2rem' }}
                     />
                 </div>
             </div>
@@ -175,7 +175,7 @@ export default function Home() {
                     <Button
                         label={lang === 'es' ? 'Ver todo' : 'View all'}
                         handleClick={() => history.push(`/blog?category=inspiration`)}
-                        style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                        style={{ margin: '0 0 4rem' }}
                     />
                 </div>
             </div>
@@ -216,7 +216,7 @@ export default function Home() {
                     <Button
                         label={lang === 'es' ? 'Ver todo' : 'View all'}
                         handleClick={() => history.push(`/blog?category=motherhood`)}
-                        style={{ transform: 'scale(1.3)', margin: '0 0 6rem' }}
+                        style={{ margin: '0 0 6rem' }}
                     />
                 </div>
             </div>
@@ -235,7 +235,7 @@ export default function Home() {
                     <Button
                         label={lang === 'es' ? 'Ver todo' : 'View all'}
                         handleClick={() => history.push(`/blog?category=life_abroad`)}
-                        style={{ transform: 'scale(1.3)', margin: '0 0 4rem' }}
+                        style={{ margin: '0 0 4rem' }}
                     />
                 </div>
             </div>
