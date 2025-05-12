@@ -15,7 +15,7 @@ export default function Blog({ }: Props) {
     const [loading, setLoading] = useState(false)
     const [showPublished, setShowPublished] = useState(false)
     const [category, setCategory] = useState('')
-    const { isLoggedIn, lang } = useContext(AppContext)
+    const { isLoggedIn, lang, isMobile } = useContext(AppContext)
 
     useEffect(() => {
         const cat = new URLSearchParams(document.location.search).get('category')
@@ -80,7 +80,7 @@ export default function Blog({ }: Props) {
                 off='No'
                 value={showPublished}
                 setValue={setShowPublished}
-                style={{ position: 'absolute', right: '1rem', transform: 'scale(0.9)' }}
+                style={{ position: 'absolute', right: isMobile ? 0 : '1rem', top: isMobile ? '5rem' : '', transform: 'scale(0.9)' }}
             /> : ''}
             <div className="page__header">
                 <h4 className="page__header-title-blog">{category ? parseCategory(category) : 'Open Journal'}</h4>
